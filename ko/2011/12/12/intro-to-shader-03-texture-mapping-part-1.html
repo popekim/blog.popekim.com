@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 03. 텍스처매핑 Part 1 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/12/12/intro-to-shader-03-texture-mapping-part-1.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 03. 텍스처매핑 Part 1</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-12-12
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2011/12/07/intro-to-shader-02-red-shader-part-2.html">이전편 보기</a></p>
+
+<p><strong>이 장에서 새로 배우는 HLSL</strong></p>
+
+<ul>
+  <li>sampler2D - 텍스처에서 텍셀을 구해올 때 사용하는 샘플러 데이터형</li>
+  <li>tex2D() - 텍스처 샘플링에 사용하는 HLSL 함수</li>
+  <li>스위즐(swizzle) - 벡터 성분의 순서를 마음대로 뒤섞을 수 있는 방법</li>
+</ul>
+
+<p>저번 장에서 배운 내용 어떠셨나요? 너무 쉬었다고요? 실제 게임에서 별 쓸모가 없어 보인다고요? 네, 사실 그렇습니다. 저번 장의 주 목적은 실습을 통해 HLSL의 기초 문법을 배우는 것이었습니다. 보통 프로그래밍 책에서 헬로월드(hello world) 예제를 처음에 드는 것과 마찬가지 이치죠. 그럼 이번 장에서는 그보다 조금 더 쓸모가 있는 내용을 배워볼까요? 물체를 단색으로 출력하는 대신에 표면에 텍스처(texture)(3D 그래픽에서는 이미지를 사용하여 표면의 색감 및 질감(texture)을 표현합니다. 여기서 사용하는 이미지들을 텍스처라고 부릅니다.) 를 입혀보는 게 어떨까요? 이걸 보통 텍스처매핑(texture mapping)이라고 부른다는 것쯤은 다 아시죠?</p>
+
+<h2 id="텍스처매핑과-uv-좌표">텍스처매핑과 UV 좌표</h2>
+
+<p>3D 물체를 이루는 구성요소는 삼각형이라고 이전에 말씀드렸습니다. 정점 3개로 삼각형을 만들 수 있다는 것도요. 그렇다면 삼각형 위에 이미지를 입히려면 어떻게 해야 할까요? '이 삼각형의 왼쪽 꼭짓점에 저 이미지의 오른쪽 귀퉁이 픽셀을 출력할 것'과 같은 지시를 내릴 수 있어야겠죠? (이렇게 다른 두 점을 서로 대응시키는 것을 영어로 매핑(mapping)이라고 합니다.)삼각형은 이미 정점 3개로 이루어져 있으니 각 정점을 텍스처 위에 있는 한 픽셀에 대응시켜 주면 되겠군요. 그럼 텍스처 위에서 한 픽셀을 어떻게 가리킬까요? 텍스처란 결국 이미지 파일이니까 'x = 30, y = 101에 있는 픽셀'이라는 식으로 정의하면 될까요? 만약 이렇게 정의를 해버리면 나중에 이미지 파일의 크기를 2배로 늘리면 이것을 다시 x = 60, y = 202로 바꿔야겠네요. 별로 바람직하지 않죠?</p>
+
+<p>저번 장에서 배운 내용을 떠올려보니 색상을 표현할 때도 비슷한 이야길 했던 것 같군요. 그 때, 채널의 비트 수에 상관없이 통일적으로 색상을 표현하려면 어떻게 해야 한다고 했죠? 모든 값을 백분율(0~1)로 표현한다고 했죠? 여기서도 똑같은 방법을 사용합니다.  x = 0이 텍스처의 제일 왼쪽 열을, x = 1은 제일 오른쪽 열을 나타낸다고 하면 되겠죠? 마찬가지로 y = 0은 텍스처의 제일 처음 행을, y = 1은 마지막 행을 나타냅니다. 참고로 텍스처매핑을 사용할 때는 XY대신에 UV를 사용하는 게 보통입니다. 특별한 이유는 없고 그냥 위치를 표현할 때 흔히 xy를 사용하니 그와 혼돈을 피하기 위해서 입니다. 이것을 그림으로 표현하면 다음과 같습니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/19.jpg" alt="" /> <br />
+<strong>그림 3.1. 텍스처의 UV 좌표</strong></p>
+
+<p>이제 다양한 UV 좌표를 대입하면 어떻게 결과가 달라지는지는 몇 가지 예를 들어보도록 하죠. 역시 그림으로 보면 이해가 쉽겠죠?</p>
+
+<p><img src="/ko/assets/img/2011/12/20.jpg" alt="" /> <br />
+<strong>그림 3.2 다양한 텍스처매핑의 예</strong></p>
+
+<ul>
+  <li>(a) 아직 텍스처를 입히지 않은 두 삼각형입니다. 정점 v0, v1, v2와 v0, v2, v3가 각각 삼각형을 하나씩 이루고 있군요.</li>
+  <li>(b) UV 좌표의 범위가 (0,0) ~ (1,1)입니다. 텍스처를 전부 다 보여줍니다.</li>
+  <li>(c) UV 좌표의 범위가 (0,0) ~ (0.5, 1)입니다. 따라서 텍스처의 왼쪽 절반만을 모여줍니다. 0.5가 백분율로는 50%니까 딱 중간인 거 맞죠?</li>
+  <li>(d) UV 좌표의 범위가 (0,0) ~ (0.5, 0.5) 이군요. 따라서 이미지의 왼쪽 절반과 위쪽 절반만을 보여줍니다.</li>
+  <li>(e) UV 좌표의 범위가 (0,0) ~ (1,2)니까 텍스처를 위아래로 두 번 반복을 해줘야겠네요. (UV 좌표가 0~1 범위 밖에 있을 때 이것을 처리하는 방법에는 여러 가지가 있습니다. 위에서 든 예는 랩(wrap, 반복) 모드를 사용할 때만 올바릅니다. 이 외에도 미러(mirror, 거울)라던가 클램프(clamp, 비반복) 모드도 있습니다.)</li>
+  <li>(f) UV 좌표의 범위가 (0,0) ~ (2,2)니까 텍스처를 위아래로 두 번, 그리고 좌우로 두 번 반복해줍니다. (역시 마찬가지로 랩모드에서만 올바른 예입니다.)</li>
+</ul>
+
+<p>이 외에도 UV 좌표의 범위를 (1,0) ~ (0,1)로 하면 텍스처의 좌우를 뒤집는 등의 효과도 줄 수 있습니다. 이 정도면 어떻게 UV 좌표를 지정해야 원하는 결과를 얻을 수 있는 지 대충 아시겠죠? 이 정도면 실제로 텍스처매핑 셰이더를 작성할 준비가 된 것 같군요.</p>
+
+<h2 id="기초설정">기초설정</h2>
+
+<ol>
+  <li>'제2장: 진짜 쉬운 빨강셰이더'에서 했던 것과 마찬가지로 렌더몽키 안에서 새로운 DirectX 이펙트를 만든 뒤, 정점셰이더와 픽셀셰이더 코드를 삭제합니다.</li>
+  <li>이제 셰이더의 이름을 TextureMapping으로 바꿉니다.</li>
+  <li>정점의 위치를 변환할 때 사용할 gWorldMatrix, gViewMatrix, gProjectionMatrix를 추가하는 것도 잊지 맙시다. 변수 시맨틱을 이용해서 실제 데이터를 전달해 주는 방법도 기억하시죠?</li>
+  <li>이제 텍스처로 사용할 이미지를 추가할 차례입니다. TextureMapping 셰이더에 오른쪽 마우스 버튼을 누른 뒤, Add Texture &gt; Add 2D Texture &gt; 렌더몽키 설치폴더\examples\media\textures\earth.jpg 파일을 선택합니다. Earth라는 이름의 텍스처가 추가되었을 겁니다.</li>
+  <li>이 텍스처의 이름을 DiffuseMap으로 변경합니다.</li>
+  <li>이제 Pass 0위에 마우스 오른쪽 버튼을 누른 뒤, Add Texture Object &gt; DiffuseMap을 선택합니다. Texture0 이란 이름의 텍스처 개체가 추가되었죠?</li>
+  <li>이제 Texture0의 이름을 DiffuseSampler로 바꿉니다.</li>
+  <li>이 모든 설정을 마치셨다면 Workspace 패널이 다음 그림처럼 보일 겁니다.</li>
+</ol>
+
+<p><img src="/ko/assets/img/2011/12/22.jpg" alt="" /> <br />
+<strong>그림 3.3. 기초설정을 마친 렌더몽키 프로젝트</strong></p>
+
+<h2 id="정점셰이더">정점셰이더</h2>
+
+<p>일단 전체 소스코드부터 보여드린 뒤, 한 줄씩 차근차근 설명해드리겠습니다.</p>
+
+<pre><code class="language-hlsl">struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+    float2 mTexCoord : TEXCOORD0;
+};
+
+struct VS_OUTPUT
+{
+    float4 mPosition : POSITION;
+    float2 mTexCoord : TEXCOORD0;
+};
+
+float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+VS_OUTPUT vs_main(VS_INPUT Input)
+{
+    VS_OUTPUT Output;
+
+    Output.mPosition = mul(Input.mPosition, gWorldMatrix);
+    Output.mPosition = mul(Output.mPosition, gViewMatrix);
+    Output.mPosition = mul(Output.mPosition, gProjectionMatrix);
+
+    Output.mTexCoord = Input.mTexCoord;
+    return Output;
+}
+</code></pre>
+
+<p>정점셰이더를 살펴보기 전에 텍스처매핑을 하려면 어떤 데이터가 새로 필요한지 생각해봅시다. 일단 당연히 텍스처로 사용할 이미지 하나가 필요하겠죠? 그렇다면 텍스처를 입히는 작업을 어디에서 해야 할까요? 정점셰이더일까요? 아니면 픽셀셰이더일까요? 각 셰이더가 실행되는 시점을 생각해보면 이에 대한 대답을 쉽게 구할 수 있습니다. 정점셰이더는 각 정점마다 실행이 된다고 말씀드렸었죠? 근데 텍스처는 어디에 입히죠? 정점에 입히는 게 아니라 표면을 구성하는 모든 픽셀에 입혀야 하죠? 따라서 정점셰이더에서 하기엔 뭔가 부족할 듯 싶군요. 정점셰이더와는 달리 픽셀셰이더는 각 픽셀마다 호출이 되니까 당연히 픽셀셰이더에서 텍스처매핑을 해야겠군요. 자, 그럼 이미지는 텍스처로 사용할 테니 정점셰이더에서 선언해줄 필요가 없네요.</p>
+
+<p>그럼 이 외에 다른 정보가 필요할까요? 바로 위에서 말씀드렸었는데 말이죠. 그렇습니다. UV 좌표가 필요하지요. UV 좌표를 어디에 지정했었죠? 각 정점마다였죠? 따라서 UV 좌표는 전역변수가 아니라 정점데이터의 일부로 전달됩니다. 자~ 그럼 이 점을 염두에 두고 정점셰이더의 입출력 데이터를 살펴보도록 합시다.</p>
+
+<h3 id="정점셰이더-입력데이터">정점셰이더 입력데이터</h3>
+
+<p>'제2장: 진짜 쉬운 빨강셰이더'에서 사용했던 입력데이터의 구조체를 일단 가져와보도록 하지요.</p>
+
+<pre><code class="language-hlsl">struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>자, 이제 여기에 UV 좌표를 추가해야겠죠? UV 좌표는 u하고 v로 나뉘니까 데이터형은 float2가 되겠네요. 그렇다면 어떤 시맨틱을 사용해야 할까요? 위치정보가 POSITION이라는 시맨틱을 가졌듯이 UV 좌표도 자신만의 시맨틱을 가지겠죠? TEXCOORD(텍스처좌표(texture coordinate)의 줄임말입니다.)란 시맨틱이 바로 그것입니다. UV 좌표 데이터를 삽입한 뒤의 정점셰이더 입력데이터는 아래와 같습니다.</p>
+
+<pre><code class="language-hlsl">struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+    float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<p>TEXCOORD뒤에 0을 붙인 이유는 HLSL에서 지원하는 TEXCOORD 수가 여럿이기 때문입니다. 셰이더에서 여러 개의 텍스처를 동시에 사용할 때, 둘 이상의 UV 좌표를 사용할 경우가 있는데 그럴 때에는 TEXCOORD0, TEXCOORD1등으로 시맨틱을 사용하시면 됩니다.</p>
+
+<h3 id="정점셰이더-출력데이터">정점셰이더 출력데이터</h3>
+
+<p>우선 '제2장: 진짜 쉬운 빨강셰이더'에서 사용했던 정점셰이더 출력데이터를 가져와 봅시다.</p>
+
+<pre><code class="language-hlsl">struct VS_OUTPUT
+{
+    float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>여기에 다른 정보를 추가해야 할까요? '제2장: 진짜 쉬운 빨강셰이더'에서 설명해 드리지 않았던 내용 중 하나가 정점셰이더는 위치정보 외에도 다른 정보들을 반환할 수 있다는 것입니다. 정점셰이더가 위치정보를 반환하는 이유는 래스터라이저가 픽셀들을 찾아낼 수 있도록 하기 위해서였습니다. 하지만, 위치 이외의 다른 정보를 반환하는 이유는 래스터라이저를 위해서가 아닙니다. 이는 오히려 픽셀셰이더를 위해서입니다. 텍스처매핑에 필요한 UV 좌표가 그 좋은 예입니다.</p>
+
+<p>픽셀셰이더는 정점 버퍼 데이터에 직접적으로 접근을 못 합니다. 따라서, 픽셀셰이더에서 사용해야 할 정점데이터가 있다면(예, UV 좌표), 그 데이터는 정점셰이더를 거쳐 픽셀셰이더에 전달돼야 합니다. 좀 쓸데없는 제약 같다고요? 다음의 그림을 보시면 왜 이런 제약이 붙어 있는지를 알 수 있으실 것입니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/23.jpg" alt="" /> <br />
+<strong>그림 3.4. 과연 저 픽셀의 UV 좌표 값은 무엇일까?</strong></p>
+
+<p>UV 좌표가 정의된 장소는 각 정점입니다. 하지만 위 그림에서 볼 수 있듯이 픽셀의 UV 좌표는 정점의 UV 좌표와도 다른 것이 대부분입니다. (픽셀의 위치가 정점과 일치하는 경우에는 UV 좌표가 같습니다.) 따라서 이 픽셀의 올바른 UV 값을 구하는 방법은 현재 위치에서 세 정점까지의 거리를 구한 뒤 그 거리의 비율에 따라 세 UV 값을 혼합하는 것이겠지요. 하지만 이런 혼합을 직접해줄 필요는 없습니다. 정점셰이더에서 출력한 위치 정보를 래스터라이저가 알아서 처리해줬듯이 정점 이외의 기타 정보는 보간기(interpolator)라는 장치가 알아서 혼합해줍니다. 그럼 '제1장: 셰이더란 무엇이죠?'에서 보여드렸던 GPU 파이프라인에 보간기를 추가해보죠. 그림 3.5가 되겠습니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/24.jpg" alt="" /> <br />
+<strong>그림 3.5. 보간기까지 추가했지만 여전히 너무 간략한 3D 파이프라인</strong></p>
+
+<p>참고로 보간기가 보간(보간(interpolate)이란 단어가 잘 이해 안 되시는 분들은 그냥 위에서 설명해 드렸다시피  '인접한 세 정점까지의 거리에 비례하여 값을 혼합하는 것'이라고 이해하세요.)을 하는 것은 UV 좌표만이 아닙니다. 정점셰이더가 반환하는 어떤 값이든 보간기는 보간을 해서 픽셀셰이더에 전달해줍니다.</p>
+
+<p>자, 그럼 이제 정점셰이더에서 UV 좌표값도 반환해야 한다는 사실, 이해하시겠죠? 추가합시다.</p>
+
+<pre><code class="language-hlsl">struct VS_OUTPUT
+{
+    float4 mPosition : POSITION;
+    float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<h3 id="전역변수">전역변수</h3>
+
+<p>'제2장: 진짜 쉬운 빨강셰이더'에서 사용했던 것 이외에 별도로 필요한 전역변수는 없습니다. 따라서 별다른 설명 없이 코드만 보여 드리겠습니다.</p>
+
+<pre><code class="language-hlsl">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+</code></pre>
+
+<h3 id="정점셰이더-함수">정점셰이더 함수</h3>
+
+<p>누누이 말씀드리지만 정점셰이더의 가장 중요한 임무는 정점의 위치를 투영공간으로 변환시키는 것입니다. 이 코드는 '제2장: 진짜 쉬운 빨강셰이더'의 셰이더에서 사용했던 것과 똑같습니다.</p>
+
+<pre><code class="language-hlsl">VS_OUTPUT vs_main( VS_INPUT Input )
+{
+    VS_OUTPUT Output;
+    Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+    Output.mPosition = mul( Output.mPosition, gViewMatrix );
+    Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+</code></pre>
+
+<p>이제 UV 좌표를 전달해 줄 차례군요. Output 구조체에 UV 좌표를 대입하기 전에 공간변환을 적용해야 할까요? 그렇지 않습니다. UV 좌표는 여태까지 다뤘던 3차원 공간에 존재하는 게 아니라 삼각형의 표면상에 존재하기 때문입니다. 따라서 아무 변환 없이 UV 좌표를 전달해 줍니다.</p>
+
+<pre><code class="language-hlsl">    Output.mTexCoord = Input.mTexCoord;
+</code></pre>
+
+<p>더는 처리할 데이터가 떠오르지 않는군요. 이제 Output을 반환하면서 이 함수를 마무리 짓겠습니다.</p>
+
+<pre><code class="language-hlsl">    return Output;
+}
+</code></pre>
+
+<p><a href="/ko/2011/12/19/intro-to-shader-03-texture-mapping-part-2.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

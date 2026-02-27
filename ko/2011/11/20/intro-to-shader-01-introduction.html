@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 00. 들어가며 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/11/20/intro-to-shader-01-introduction.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 00. 들어가며</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-11-20
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>(원래 출판을 목적으로 썼던 책인데 출판사 사정으로 책 출판이 어려워져 인터넷에 그대로 공개합니다.)</p>
+
+<h1 id="들어가며">들어가며</h1>
+
+<p>안녕하세요. 캐나다 렐릭 엔터테인먼트에서 시니어 그래픽 프로그래머로 일하고 있는 포프입니다. 이 셰이더 입문 책은 제가 2007년 1월부터 2009년 12월까지 3년간 캐나다의 The Art Institute of Vancouver 대학에서 셰이더 프로그래밍 강의를 하면서 축적한 자료와 지식을 글로 옮겨 놓은 것입니다.</p>
+
+<h2 id="책을-쓰게-된-배경">책을 쓰게 된 배경</h2>
+
+<p>2007년에 제가 강의를 시작할 때, 수업시간에 사용할 교과서를 찾으려고 참 많은 노력을 했습니다. 하지만 시중에 나와있는 책들 중, 셰이더 입문과목에 적합한 놈이 없더군요. (몇 년이 지난 지금에도 마찬가지인 것 같습니다.) 시중에 나와있는 셰이더 책들은 대부분 이미 셰이더 코드를 짤 줄 아는 중고급 프로그래머를 위한 것이었습니다. 따라서 셰이더에 입문하는 학생들이 보면 뭔 소린지 몰라서 그냥 포기할 게 뻔했죠. 그나마 셰이더 입문 내용이 DirectX 책에 담겨있는 경우가 있었지만 그 중에서도 마땅한 책이 없다고 생각했던 이유가</p>
+<ul>
+  <li>셰이더는 구색 맞추기 식으로 넣어놓아서 너무 수박 겉 핥기 식이다.</li>
+  <li>학계에 계신 분들이 쓴 책은 너무 이론이나 문법에만 치우쳐져 있다.</li>
+  <li>실무에 그다지 쓸모가 없는 내용들을 너무 많이 담고 있다.</li>
+  <li>지면수만 많아 책값이 너무 비싸다.</li>
+</ul>
+
+<p>등 이었습니다. 그래서 결국엔 교과서 없이 강의를 시작했죠. 이론이나 수학에 치우치기 보다는 실무에 곧바로 쓸 수 있거나 실무에서 쓸 수 있는 기법의 기초가 되는 내용들만을 가르치는데 주력했습니다. 강의를 하면서 좋았던 점은 저는 그리 어렵지 않다고 생각해왔는데 학생들이 이해하지 못하는 부분들을 알아낼 수 있다는 거였죠. 그래서 그걸 다시 쉽게 이해시킬 수 있도록 강의자료를 다듬고 다듬은 결과가 바로 이 책입니다. 강의를 하는 3년 내내 게임프로그래밍 학과 학생들이 이 과목을 AI 대학의 가장 훌륭한 수업으로 꼽을 정도였으니 (좀 부끄럽지만) 이 책을 자신있게 권해드릴 수 있을 것 같습니다. 그리고 제 과목에서 만든 데모 프로그램을 포트폴리오로 삼아서 Ubisoft 및 EA같은 세계 유수의 회사에 취직한 학생들도 몇 됩니다. 가슴 뿌듯한 일이죠. ^^</p>
+
+<p>현재는 게임개발에 좀 더 집중해 보려고 대학강의를 중단한 상황이지만 이 내용을 그냥 썩혀두기엔 아깝다고 생각되어 책을 내기로 결정을 했습니다. 이 책이 셰이더를 배우시려는 분들에게 도움이 될 수 있었으면 좋겠습니다.</p>
+
+<h2 id="이-책의-기본원칙">이 책의 기본원칙</h2>
+
+<p>강의에서도 그랬듯이 이 책을 쓸 때 다음의 원칙을 기초로 삼았습니다.</p>
+
+<ul>
+  <li><strong>실습 위주:</strong> 물론 셰이더를 짤 때 수학이나 이론을 전혀 무시할 수는 없습니다. 하지만, 이론을 먼저 배우고 그걸 코드로 옮기는 것보단 일단 코드를 좀 짜본 뒤에 뭔가 막히면 이론을 찾아보는 것이 훨씬 훌륭한 학습방법입니다. 이렇게 문제를 해결하기 위해 찾아본 이론은 기억에 오래 남습니다. 따라서 이 책은 실습위주로 구성되어있습니다. 책의 내용을 한 줄씩 따라 하면서 코드를 짜다 보면 어느덧 배경 이론까지 적당히 이해하시게 될 겁니다.</li>
+  <li><strong>쉬운 설명:</strong> 제 수업에 청강을 하러 오는 게임아트 학과 학생들도 꽤 있었습니다. 따라서 아티스트들도 이해할 수 있도록 쉽게 설명을 하는 것이 제 목표 중 하나였습니다. 그러려면 무언가를 설명할 때, 수학공식을 보여주기 보다는 실제 생활에서 일어나는 현상을 예로 드는 것이 낫더군요. 이 책을 쓸 때도 마찬가지 원칙을 따랐습니다. 책을 읽으시다 보면 100% 이론적으로 옳지 않은 설명들도 가끔 보실 겁니다. 이것은 말 그대로 설명을 쉽게 하기 위해 제가 이론들을 적당히 무시하였거나 아니면 저 조차 이론을 100% 제대로 이해하지 못하는 경우입니다. 게임 그래픽은 어차피 눈에 보이는 결과가 맞으면 그게 정답인 분야이므로 이론적으로 약간 틀려도 결과만 맞으면 전 크게 신경 쓰지 않습니다.</li>
+  <li><strong>입문자만을 위한 책:</strong> 이 책은 순수하게 입문자를 위한 책입니다. 이미 고급기법을 다루는 훌륭한 책이 많이 나와있는 상황에서 굳이 그 책들과 경쟁할 필요를 못 느끼고, 중복되는 내용을 다루면서 지면수를 늘리고 싶지도 않기 때문입니다. 이 책을 보신 후에 셰이더에 재미가 붙으신 분들이 다른 고급기법들을 즐겁게 찾아 보실 수 있다면 전 행복합니다. 그리고 정말 괜찮은 새 기법을 찾으시면 저에게 살짝 귀뜸이라도 해주시면 더 좋겠지요. ^^</li>
+  <li><strong>순서대로 배우는 내용:</strong>강의를 할 때 좋았던 점은 쉬운 내용부터 어려운 내용까지 순서대로 가르칠 수 있었다는 것입니다. 이 책도 그런 식으로 진행이 됩니다. 처음 장부터 시작해서 천천히 지식을 축적해간다고 할까요? 따라서 뒷장으로 가면 갈 수록 기본적인 내용은 다시 설명을 하지 않습니다. 예를 들면, 법선매핑을 배우기 전에 이미 조명기법들을 배워보므로 법선매핑에서는 조명기법에 대해 다시 설명하지 않는거죠. 따라서 이 책을 읽으실 때는 대학강의를 들으시듯이 처음부터 순서대로 읽으셔야 합니다. 이 책이 다른 셰이더 책들처럼 여러 논문을 한군데 모아놓은 게 아니니 그 정도는 이해해주시면 좋겠습니다. 그리고 지면수도 그리 많지 않으니 무리한 요구는 아닐 거라고 믿습니다.</li>
+</ul>
+
+<h2 id="이-책에서-다루는-내용">이 책에서 다루는 내용</h2>
+
+<p>이 책에서 다루는 내용은 정점셰이더와 픽셀셰이더를 이용한 셰이더 기법들입니다. 이 책은 크게 세 부분으로 나뉘어져 있습니다.</p>
+
+<ul>
+  <li><strong>제1부:</strong> 셰이더의 정의를 알아 본 뒤, 모든 셰이더 기법의 기초가 되는 색상, 텍스처 매핑, 조명 셰이더를 만들어 봅니다.</li>
+  <li><strong>제2부:</strong> 1부에서 배운 내용에 살을 붙여 게임에서 널리 사용하는 스페큘러매핑, 법선매핑, 그림자 매핑 등의 기법들을 구현합니다.</li>
+  <li><strong>제3부:</strong>요즘 게임에서 점점 중요해져 가는 2D 이미지 처리 기법을 배워봅니다.</li>
+</ul>
+
+<p>이 책에서 DirectX 10과 11에서 새로 추가된 지오메트리(geometry), 헐(hull), 연산(compute) 셰이더들을 다루지 않는 이유는 초급자에겐 좀 어려운 내용일 뿐만 아니라 아직 실무에서 널리 이용되지 않기 때문입니다. 따라서 실용적인 내용을 알려드리기가 좀 어렵죠. DirectX 10이 처음 소개될 때만 해도 홍보자료에서는 엄청 대단한 것처럼 광고를 해댔지만 실제 실무에서 제대로 이용한 경우가 없으니까요. 일단 이 책에서 기초를 다잡으시면 몇 년 뒤에  이 내용을 배우셔도 크게 문제가 없을 겁니다.</p>
+
+<h2 id="대상독자">대상독자</h2>
+
+<p><strong>프로그래머</strong>
+제가 가르쳤던 학생들은 게임 프로그래밍 학과 2학년 학생들이었습니다. 제 과목을 듣기 전에 C++, 3D 수학, DirectX 등을 이미 마친 학생들이었지요. 게임개발자 분들이 셰이더 프로그래밍에 입문하는 과정도 이와 다르지 않다고 생각합니다. 최소한 DirectX는 마치신 뒤에 셰이더를 살펴보시는 게 보통이니까요. 이 책의 대상독자도 마찬가지로 하겠습니다. 이 책을 보시려면 최소한 C++과 DirectX 정도는 공부하셨어야 합니다. 3D 수학까지 아시면 더 도움이 되겠습니다.</p>
+
+<p><strong>테크니컬 아티스트</strong>
+요즘 들어 프로그래머와 아티스트 사이를 조율해주는 테크니컬 아티스트 분들의 입지가 높아지고 있습니다. 그리고 이제 테크니컬 아티스트들이 셰이더 프로토타입을 만드는 경우도 허다합니다. 강의를 하는 도중에 일반 아티스트(청강생)들도 어느 정도 이해를 했던 내용들이니 테크니컬 아티스트 정도 되시면 아무 문제가 없으시겠지요? 테크니컬 아티스트들은 굳이 DirectX를 직접 다루지 않아도 되니 별다른 준비사항 없이 이 책을 보셔도 될 것 같습니다. (보시다 이해가 안 되는 수학 같은 게 있으시면 정석 책을 열어보시거나 인터넷 검색을 좀 하셔야 할지도 모르지만요. ^^) 각 장의 마지막에 DirectX 프레임워크를 다루는 부분이 있는데 그 부분만 건너 뛰시면 됩니다.</p>
+
+<h2 id="감사의-말씀">감사의 말씀</h2>
+
+<p>이 책이 나오기까지 많은 분들이 도움을 주셨습니다. 이 자리를 빌어 감사의 뜻을 표현하는 것이 최소한의 도리라고 생각합니다.</p>
+
+<p>우선 이 책을 쓸 수 있는 계기를 마련해주신 <a href="https://x.com/HoiPoiPaul">조진현</a>님께 감사의 말씀을 드리고 싶습니다.</p>
+
+<p>강의실에서 학생들과 직접 얼굴을 맞대면서 가르친 내용을 책으로 옮기는 건 사실 쉬운 일이 아니었습니다. 강의실 환경과는 달리 책은 일방적인 의사소통 수단이어서 과연 제가 말하고자 하는 바가 독자분들께 잘 전달이 될런지 매우 걱정이 되더군요. 이 때, 이 책의 내용과 샘플코드들을 꼼꼼히 테스트 해주신 개발자 분이 두 분 계십니다. 두 분 다 제 대상독자층에 속한 분이셨죠. 한 분은 이미 게임개발업계에 꽤 계셨지만 셰이더 프로그래밍은 안 하셨던 분이고, 다른 분은 일반 프로그래머 일을 시작한 지 얼마 안 되시는 분입니다. 이 분들이 책을 처음부터 끝까지 꼼꼼히 읽어주시고, 코드를 한 줄 씩 직접 테스트해 주신 덕에 잘못된 내용을 최소한으로 줄일 수 있었습니다. 또한 이 분들이 보내주신 피드백에 따라 부족한 내용을 보완한 덕에 더욱 튼실한 책을 만들 수 있었죠. 유스하이텍의 <a href="https://x.com/zinzza">이경배</a>님과 네오플의 <a href="https://x.com/denoil">송진영</a>님, 정말 많은 도움이 되었어요. 고맙습니다.</p>
+
+<p>마지막으로 이 책의 준비 단계부터 블로그와 트위터를 통해 많은 관심을 가져주시고 응원해주신 전직/현직/미래 게임개발자 분들과 일반인(?) 분들께 감사의 말씀을 드리고 싶습니다. 강다니엘, 고경석, 김동환, 김성완, 김영민, 김정현, 김혁, 김호용, 박경희, 박수경, 손기호, 신성일, 안진우, 유영운, 이경민, 이상대, 최재규 님, 책 나왔어요~~~</p>
+
+<p>2011년 3월 캐나다 밴쿠버에서
+포프 올림</p>
+
+<p><a href="/ko/2011/11/29/intro-to-shader-01-what-is-shader-part-1.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

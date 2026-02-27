@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Five Defensive Utility Functions I Made | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/10/11/defensive-assertion-utils.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Five Defensive Utility Functions I Made</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Oct 11, 2025
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/csharp/">csharp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/assertion/">assertion</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/debugging/">debugging</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/software-engineering/">software engineering</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <h2 id="-introduction">🎯 Introduction</h2>
+
+<p>The built-in <code>Debug.Assert()</code> in C# just wasn't enough. I wanted a unified system to handle <strong>assumption violations, internal bugs, and critical runtime issues that require immediate attention</strong> in a consistent way.</p>
+
+<p>So, I created the following five utility functions:</p>
+
+<pre><code class="language-csharp">global using static POCU.Core.Assertion.Check;
+</code></pre>
+
+<p>By declaring them globally and writing them in <strong>ALL CAPS</strong>, they stand out clearly inside logic code. Even at a glance, you can tell: <em>"This is defensive code."</em></p>
+
+<h2 id="-common-rule">🧱 Common Rule</h2>
+
+<p>The <strong>first parameter of every function must be a <code>bool</code> expression.</strong></p>
+
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User should not be null");
+</code></pre>
+
+<ul>
+  <li>If the expression is <code>true</code> → nothing happens.</li>
+  <li>If <code>false</code> → the corresponding function triggers <strong>logging, alerts, or exceptions</strong> depending on its level.</li>
+</ul>
+
+<p>In other words, you don't have to keep writing <code>if (!condition) { ... }</code>. A single expression clearly declares, <em>"If this breaks, something is wrong."</em></p>
+
+<h2 id="-function-summary">📊 Function Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Purpose</th>
+      <th>Behavior</th>
+      <th>Ops Team Response</th>
+      <th>Exception</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VERIFY</strong></td>
+      <td>Observe "this should never happen" assumptions</td>
+      <td>Logs only, continues execution</td>
+      <td>Check later</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>DBG_CHECK</strong></td>
+      <td>Debug-only assertion</td>
+      <td>Stops in Debug builds only</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK912</strong></td>
+      <td>Detect internal issue (non-urgent)</td>
+      <td>Alerts + metrics tracking</td>
+      <td>Review/fix within 1–2 days</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911</strong></td>
+      <td>Requires immediate attention</td>
+      <td>Alerts + metrics tracking</td>
+      <td>Immediate fix</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911_THROW</strong></td>
+      <td>Transaction protection</td>
+      <td>Alerts + metrics tracking + throws exception</td>
+      <td>Immediate fix</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>🔔 All CHECK functions send notifications to our company messenger, and their occurrences are automatically <strong>tracked and visualized on dashboards.</strong></p>
+</blockquote>
+
+<h2 id="-verify--long-term-assumption-monitor">🧩 VERIFY — Long-term Assumption Monitor</h2>
+
+<p><code>VERIFY</code> is more than a simple log statement. It's a <strong>sensor for assumptions</strong> — things you believe "should never happen," monitored over time.</p>
+
+<pre><code class="language-csharp">VERIFY(order.TotalPrice &gt;= 0, "Order total should never be negative");
+</code></pre>
+
+<ul>
+  <li>You believe this condition will never fail.</li>
+  <li>But maybe, someday, once in two years, it might.</li>
+  <li>When it does, a log arrives — and you realize your assumption was wrong.</li>
+  <li>If it never triggers for years, you can safely remove that line.</li>
+</ul>
+
+<p>This is <strong>runtime validation for assumptions that can't be tested easily</strong>. It's perfect for monitoring rare edge cases or unexpected system behavior in production.</p>
+
+<h3 id="-one-more-trick">💡 One More Trick</h3>
+
+<p>Sometimes you encounter old code that <em>should never happen anymore</em>, but you're not 100% sure it's safe to delete. In that case, do this:</p>
+
+<pre><code class="language-csharp">// TODO(delete): delete after 2028-12-31
+VERIFY(someOldFlag == false, "Old flag still being used?");
+</code></pre>
+
+<ul>
+  <li>Add a <code>VERIFY</code>.</li>
+  <li>Watch it in production for a year.</li>
+  <li>If it never triggers, safely delete the code.</li>
+</ul>
+
+<p>This pattern works like a <strong>"live test" in production</strong>. It's like having thousands of live users running an <strong>automatic test system for free. Amazing, right? 😎</strong> It also makes long-term code cleanup much easier to manage.</p>
+
+<h2 id="-dbg_check--debug-only-strong-assertion">🧪 DBG_CHECK — Debug-only Strong Assertion</h2>
+
+<pre><code class="language-csharp">DBG_CHECK(buffer.Length == expectedSize, "Unexpected buffer size");
+</code></pre>
+
+<ul>
+  <li>Executes <strong>only in Debug builds</strong>.</li>
+  <li>Completely removed in Release builds, with zero runtime overhead.</li>
+  <li>Enforces conditions that "must never fail during development."</li>
+</ul>
+
+<blockquote>
+  <p>✅ Use <code>DBG_CHECK</code> for conditions that must break during testing.<br />
+✅ Use <code>VERIFY</code> for conditions you want to observe in production.</p>
+</blockquote>
+
+<h2 id="-check912--internal-issue-non-urgent">🔍 CHECK912 — Internal Issue (Non-Urgent)</h2>
+
+<pre><code class="language-csharp">CHECK912(userCache.Count &gt; 0, "User cache is unexpectedly empty");
+</code></pre>
+
+<ul>
+  <li>Indicates a likely internal bug, but <strong>no immediate user impact.</strong></li>
+  <li>Sends alerts and updates metrics.</li>
+  <li>Ops team handles it within a day or two.</li>
+</ul>
+
+<p>Examples:</p>
+<ul>
+  <li>Cache desynchronization</li>
+  <li>Retried network failure that succeeded later</li>
+  <li>Minor data anomalies</li>
+</ul>
+
+<h2 id="-check911--critical-requires-immediate-action">🚨 CHECK911 — Critical, Requires Immediate Action</h2>
+
+<pre><code class="language-csharp">CHECK911(paymentResponse.IsValid, "Payment gateway returned invalid data");
+</code></pre>
+
+<ul>
+  <li>Used for <strong>critical situations</strong> like data loss, security issues, or direct customer impact.</li>
+  <li><strong>Sends instant alerts</strong> and updates metrics/dashboards.</li>
+  <li>May also trigger operational hooks (e.g., safe mode switch).</li>
+  <li>Does <strong>not</strong> throw exceptions, so background workers or pipelines can keep running while the ops team investigates.</li>
+</ul>
+
+<h2 id="-check911_throw--transaction-protection">💣 CHECK911_THROW — Transaction Protection</h2>
+
+<pre><code class="language-csharp">CHECK911_THROW(invoice != null, "Invoice must exist before commit");
+</code></pre>
+
+<ul>
+  <li>Behaves exactly like <code>CHECK911</code>, but also <strong>throws an exception</strong> to abort the current transaction.</li>
+  <li>Prevents corrupted state from propagating to databases or external systems.</li>
+  <li>Typically used at transaction boundaries, commit points, or right after external API calls.</li>
+</ul>
+
+<p>Examples:</p>
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User not found");
+CHECK911_THROW(balance &gt;= 0, "Negative balance detected");
+</code></pre>
+
+<blockquote>
+  <p>Use it right before committing, or immediately after a risky side effect — it stops the error from spreading further.</p>
+</blockquote>
+
+<h2 id="️-internal-mechanism-overview">⚙️ Internal Mechanism Overview</h2>
+
+<p>All functions share the same underlying structure:</p>
+
+<ol>
+  <li>Evaluate the <code>bool</code> expression.</li>
+  <li>If <code>false</code>, call a shared logger.</li>
+  <li>The logger does the following:
+    <ul>
+      <li>Write logs (file, console, Sentry, etc.)</li>
+      <li>Send messenger notifications</li>
+      <li>Update metrics for dashboards</li>
+    </ul>
+  </li>
+  <li><code>*_THROW</code> variants also perform <code>throw</code> at the end.</li>
+</ol>
+
+<p>In short, all of them use the same alerting infrastructure — they just differ in severity and whether they stop execution.</p>
+
+<h2 id="-conclusion">🧩 Conclusion</h2>
+
+<p>All five functions serve one purpose:<br />
+<strong>"Separate logic from defense, and respond appropriately depending on when and how a problem occurs."</strong></p>
+
+<ul>
+  <li><code>VERIFY</code>: Long-term assumption monitor</li>
+  <li><code>DBG_CHECK</code>: Debug-only strong assertion</li>
+  <li><code>CHECK912</code>: Internal issue detection (non-urgent)</li>
+  <li><code>CHECK911</code>: Critical issue (immediate attention)</li>
+  <li><code>CHECK911_THROW</code>: Critical + transaction abort</li>
+</ul>
+
+<p>And in practice, all you need in your logic code is one line:</p>
+
+<pre><code class="language-csharp">CHECK911_THROW(totalPrice &gt;= 0, "Negative total price detected");
+</code></pre>
+
+<p>That's it. Anyone reading it immediately knows: this isn't regular logic — <strong>it's a safety line.</strong></p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2025/08/26/clean-assert-wrapper.html">Clean Assert Wrappers</a></li>
+                        
+                        <li><a href="/en/2025/10/17/two-db-commit-side-effects.html">How to Minimize Side Effects When Writing to Two Databases at the Same Time</a></li>
+                        
+                        <li><a href="/en/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">In an Era of Frequent Facebook Graph API Deprecations, This Is How You Manage ASP.NET Core Login</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

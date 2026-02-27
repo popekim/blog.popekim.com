@@ -1,0 +1,1056 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.popekim.com/en/feed/dev.xml" rel="self" type="application/atom+xml" /><link href="https://blog.popekim.com/en/" rel="alternate" type="text/html" /><updated>2026-02-27T00:30:58+00:00</updated><id>https://blog.popekim.com/en/feed/dev.xml</id><title type="html">PPMC | Dev</title><subtitle>Pope Kim&apos;s Blog</subtitle><author><name>Pope Kim</name></author><entry><title type="html">How We Maintain a Monorepo, and Why DLL Boundaries Matter More</title><link href="https://blog.popekim.com/en/2026/02/18/monorepo-architecture.html" rel="alternate" type="text/html" title="How We Maintain a Monorepo, and Why DLL Boundaries Matter More" /><published>2026-02-18T00:00:00+00:00</published><updated>2026-02-18T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/02/18/monorepo-architecture</id><content type="html" xml:base="https://blog.popekim.com/en/2026/02/18/monorepo-architecture.html"><![CDATA[<p>The company I run fundamentally adopts a <strong>Monorepo</strong> approach. Our folder structure is therefore not designed to "make the code look neat," but rather based on <strong>how we manage dependencies and reuse code properly</strong>.</p>
+
+<p>Many people debate whether to organize by feature or by domain. I approach this from a slightly different perspective.</p>
+
+<!--more-->
+
+<p>The core is not folders, but <strong>project (.csproj) boundaries</strong> — in other words, <strong>DLL-level separation</strong>.</p>
+
+<h2 id="level-0---product-level-separation">Level 0 - Product-Level Separation</h2>
+
+<p>First, we clearly define: "Which product does this code belong to?"</p>
+
+<ul>
+  <li><strong>Academy</strong>: Code related to POCU Academy</li>
+  <li><strong>ProctoredExamService</strong>: Online exam proctoring service</li>
+  <li><strong>Engine</strong>: Code shared across multiple products (effectively internal middleware)</li>
+</ul>
+
+<p>At this level, product boundaries are already clear. If code ownership becomes ambiguous, the overall structure starts to destabilize.</p>
+
+<h2 id="level-1---project-csproj-level">Level 1 - Project (.csproj) Level</h2>
+
+<p>This is the most important layer.</p>
+
+<p>Each product contains multiple <code>.csproj</code> files.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li><code>Academy.Services</code></li>
+  <li><code>Academy.Buildfarm</code></li>
+  <li><code>Shop</code> (the web app users directly interact with)</li>
+</ul>
+
+<p>Level 1 is not just a folder. It represents a <strong>DLL boundary</strong>.</p>
+
+<h3 id="the-real-reason-i-split-at-level-1">The Real Reason I Split at Level 1</h3>
+
+<p>Is it feature separation? Domain separation? No.</p>
+
+<p>It is for <strong>proper dependency management and access control of shared code</strong>.</p>
+
+<h2 id="operational-approach">Operational Approach</h2>
+
+<h3 id="1-app-specific-code">1) App-Specific Code</h3>
+
+<p>Code used only by a specific app remains inside that project. The internal folder structure is freely organized based on team agreement.</p>
+
+<p>In practice, folder structure affects development efficiency by perhaps 10%.</p>
+
+<p>Most navigation happens through:</p>
+
+<ul>
+  <li>Go to Definition</li>
+  <li>Search All References</li>
+  <li>Global Search (Ctrl + Shift + F)</li>
+  <li>Tracing through build errors</li>
+</ul>
+
+<p>This is far more efficient than manually navigating folders.</p>
+
+<h3 id="2-shared-code">2) Shared Code</h3>
+
+<p>When code is required by two or more apps, we move it into a shared library such as <code>Academy.Libs</code>.</p>
+
+<p>Namespaces are automatically determined by folder structure.</p>
+
+<p>For example:</p>
+
+<pre><code>Academy.Libs/Services/Order/OrderService.cs
+-&gt; namespace Academy.Services.Order
+</code></pre>
+
+<p>If we later extract this folder into a dedicated <code>Academy.Services.csproj</code>, the namespace remains unchanged.</p>
+
+<p>We simply reconnect project references and everything works.</p>
+
+<p>This is critical. We must be able to insert code quickly and extract it into a standalone module when needed.</p>
+
+<h3 id="3-further-separation-when-necessary">3) Further Separation When Necessary</h3>
+
+<p>As shared code grows, we separate it into dedicated libraries.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li><code>Academy.Entities</code>: ORM entities + query extensions</li>
+  <li><code>Academy.Services</code>: Shared service logic</li>
+</ul>
+
+<p>Here, <strong>access control strategy</strong> becomes crucial.</p>
+
+<h2 id="access-control-and-collaboration-rules">Access Control and Collaboration Rules</h2>
+
+<p>Many classes inside <code>Academy.Entities</code> and <code>Academy.Services</code> are marked as <code>internal</code>.</p>
+
+<p>We selectively grant access via <code>InternalsVisibleTo</code> only when necessary.</p>
+
+<p>Why?</p>
+
+<ul>
+  <li>ORM entities</li>
+  <li>Core service logic</li>
+  <li>Performance-critical components</li>
+</ul>
+
+<p>Allowing unrestricted modification by junior developers significantly increases the risk of production issues.</p>
+
+<h3 id="actual-collaboration-rules">Actual Collaboration Rules</h3>
+
+<ul>
+  <li><strong>Shop Project</strong>
+    <ul>
+      <li>Anyone can modify</li>
+      <li>Merge to main without mandatory review</li>
+    </ul>
+  </li>
+  <li><strong>Academy.Services / Academy.Entities</strong>
+    <ul>
+      <li>Only senior developers may modify</li>
+      <li>Juniors require senior review before merging</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If folder structure contributes 10% to efficiency, structured access control contributes far more.</p>
+
+<p>This is what truly ensures productivity and stability.</p>
+
+<h2 id="separation-for-nuget-size-optimization">Separation for NuGet Size Optimization</h2>
+
+<p>Sometimes we split libraries purely for deployment reasons.</p>
+
+<p>For example, placing the <code>clang</code> toolset inside <code>Academy.Libs</code> would increase every application's deployment size by hundreds of megabytes.</p>
+
+<p>So we separate it into its own DLL.</p>
+
+<p>Again, this is not about feature or domain separation — it is about deployment strategy and dependency control.</p>
+
+<h2 id="level-2---internal-project-folders">Level 2 - Internal Project Folders</h2>
+
+<p>This layer is flexible.</p>
+
+<p>Typical folders:</p>
+
+<ul>
+  <li>Services</li>
+  <li>Models</li>
+  <li>Entities</li>
+  <li>TransferData</li>
+</ul>
+
+<p>My usual convention:</p>
+
+<ul>
+  <li>DTOs → <code>TransferData</code></li>
+  <li>ViewModels → <code>Models</code></li>
+  <li>Database entities → <code>Entities</code></li>
+</ul>
+
+<p>This structure changes frequently:</p>
+
+<ul>
+  <li>When features expand</li>
+  <li>When concepts are redefined</li>
+  <li>When I make mistakes</li>
+</ul>
+
+<p>Modern C# IDEs automatically update namespaces and references, so moving files is low risk.</p>
+
+<p>Move files, compile, verify. Simple.</p>
+
+<h2 id="how-we-actually-navigate-the-codebase">How We Actually Navigate the Codebase</h2>
+
+<p>In reality:</p>
+
+<ul>
+  <li>90% of navigation happens via IDE features</li>
+  <li>10% through manual folder traversal</li>
+</ul>
+
+<p>My philosophy is this:</p>
+
+<blockquote>
+  <p>Folder structure is merely a management tool.<br />
+What truly matters is project-level dependency management and access control.</p>
+</blockquote>
+
+<h2 id="summary">Summary</h2>
+
+<ol>
+  <li>Level 0 and 1 must be rigorously structured</li>
+  <li>Level 1 is about DLL boundaries, not feature/domain labels</li>
+  <li>Level 2 can remain flexible</li>
+  <li>IDE navigation + compilation drive maintainability</li>
+  <li>Eliminating duplication and enforcing access control ensures long-term stability</li>
+</ol>
+
+<p>In one sentence:</p>
+
+<blockquote>
+  <p>Insert quickly, extract cleanly when needed — and enforce strong access control on top.</p>
+</blockquote>
+
+<p>This is how the company I run manages its monorepo architecture.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="git" /><category term="best-practice" /><category term="simplicity" /><summary type="html"><![CDATA[The company I run fundamentally adopts a Monorepo approach. Our folder structure is therefore not designed to "make the code look neat," but rather based on how we manage dependencies and reuse code properly. Many people debate whether to organize by feature or by domain. I approach this from a slightly different perspective.]]></summary></entry><entry><title type="html">Stripe, KRW Local Payments, and the Never-Ending DCC Problem</title><link href="https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc.html" rel="alternate" type="text/html" title="Stripe, KRW Local Payments, and the Never-Ending DCC Problem" /><published>2025-11-02T00:00:00+00:00</published><updated>2025-11-02T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc</id><content type="html" xml:base="https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc.html"><![CDATA[<p>Every time you pay on an overseas website, you've probably seen that little popup asking if you'd like to pay in KRW or USD. That's DCC — Dynamic Currency Conversion. It sounds convenient, but in reality it almost always costs you more. The merchant or payment processor uses its own exchange rate and adds a markup on top. So, in most cases, it's much cheaper to just pay in the local currency (USD, EUR, etc.). Paying in KRW on a foreign site basically means paying extra for nothing.</p>
+
+<p>Stripe once planned to enter the Korean market — they even started hiring — but eventually went quiet. Maybe it's because of Korea's complex financial regulations or the already-saturated PG market, but things have moved slower than expected. Still, starting in late 2024, Stripe's documentation finally began mentioning support for Korean local payments. According to their docs, Checkout and Elements now support Korean credit and debit cards, as well as popular local wallets like Naver Pay, Kakao Pay, Samsung Pay, and Payco. Sounds like good news, right? But once you actually try it, it's clear that “it's not as simple as it sounds.” Many of those options require your Stripe account to be registered under a Korean entity or a U.S.-based legal entity. So technically it's “available,” but in practice, not fully open yet.</p>
+
+<p>From <a href="https://pocu.academy/en">POCU Academy</a>'s perspective, it's kind of a funny situation. We currently sell courses in two ways: the <a href="https://pocu.academy/en/Courses">regular semester (full courses) are sold directly through our own website</a> operated by a Canadian corporation, and the <a href="https://pocu-en.teachable.com/l/products">on-demand video lectures are sold through the U.S. platform Teachable</a>. Both use Stripe for payments. And both still have DCC attached. At first, I hoped that since Stripe started supporting Korean payments, maybe DCC would finally disappear — but nope, it's still there. For <a href="https://pocu.academy/en">POCU Academy</a>, which runs under a Canadian entity, that's understandable. But for a U.S.-based company like Teachable, it was surprising. When I looked more closely at the receipt, I found that Teachable's Stripe account is registered under a Netherlands entity. So it's using an EU-based Stripe setup, meaning it doesn't yet utilize the U.S. Stripe infrastructure that supports Korean local payments. I think Teachable's parent company might actually be based in the Netherlands? If that's true, it probably simplifies handling payments across EU countries, even if it complicates things for Korea.</p>
+
+<p>Stripe usually rolls out new features in this order: U.S. → Europe → Canada. So maybe Teachable will get the DCC-free benefit first, and then POCU Academy will follow. The reason European and Canadian entities don't yet have access is that each country's banking and card networks have to be interconnected. For instance, when a Korean customer pays in KRW, Stripe has to accept that payment through a Korean acquiring bank, then later settle it in the merchant's home currency (say, CAD). The bank that processes the payment and the one that handles settlement may be in completely different countries. Because of this, foreign exchange regulations and anti-money-laundering laws prevent Stripe from directly converting and remitting funds — it must route them through local partner banks. To fully open local payments in Korea, Stripe can't just flip a switch; it has to partner with Korean banks and card networks while ensuring its overseas settlement rails align. And since the Korean won isn't a fully free-floating international currency, those connections take extra time and red tape. In short, for Stripe to truly make “local currency in, foreign currency out” seamless, both domestic and international banking infrastructures have to work together.</p>
+
+<p>We've known about the DCC issue for a long time, so we've already priced our KRW courses lower than their USD or CAD equivalents to offset it. Still, it's a little awkward when the price you see on-screen and the final charged amount don't perfectly match. To make things more confusing, whether DCC is applied depends on the card issuer — some cards add it, others don't. Since it varies by card network and policy, customers can't really predict what will happen until they see the charge.</p>
+
+<p>So for now, it's a waiting game. We've waited this long, so waiting a little more isn't a big deal.</p>
+
+<p>There's even an ironic twist. Some people have managed to beat DCC losses by stacking overseas-payment point-back promotions — for example, when Naver Pay offered cash-back on international transactions. In a few cases, the rewards outweighed the DCC markup, turning what should've been a loss into a profit. It's not a structural fix, just a lucky promotion timing, but still amusing. Koreans are good at finding these little loopholes.</p>
+
+<p>To sum up, Stripe has officially started supporting Korean local payments, and on paper everything's ready. But to actually feel it in practice, Stripe still needs to complete its settlement infrastructure with Korean partner banks. Without local banks backing the KRW side, the flow from a KRW payment to an overseas settlement currency can't be fully automated. Once Stripe secures enough local partners and streamlines cross-border settlements, that's when true DCC-free local payments will finally become reality.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="stripe" /><category term="payment" /><category term="pocu" /><category term="fintech" /><category term="dev" /><category term="korea" /><summary type="html"><![CDATA[Every time you pay on an overseas website, you've probably seen that little popup asking if you'd like to pay in KRW or USD. That's DCC — Dynamic Currency Conversion. It sounds convenient, but in reality it almost always costs you more. The merchant or payment processor uses its own exchange rate and adds a markup on top. So, in most cases, it's much cheaper to just pay in the local currency (USD, EUR, etc.). Paying in KRW on a foreign site basically means paying extra for nothing.]]></summary></entry><entry><title type="html">AWS Went Down? Multi-Cloud Isn&apos;t the Answer</title><link href="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html" rel="alternate" type="text/html" title="AWS Went Down? Multi-Cloud Isn&apos;t the Answer" /><published>2025-10-23T00:00:00+00:00</published><updated>2025-10-23T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud</id><content type="html" xml:base="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html"><![CDATA[<p>Over the past few days, many people have lost their illusion of "safety."</p>
+
+<p>On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage.</p>
+
+<p>Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs).<br />
+Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.</p>
+
+<!--more-->
+
+<p>The very next day, a service our company uses on Azure started slowing down, flooding our office with alerts. (For reference: whenever we have a server outage, a disco ball spins and we have an impromptu dance party. Red, blue, dance-dance~) Come to think of it, there was also a large-scale Azure Front Door issue earlier this month (October 9), which even affected the management portal. Microsoft's own status page said they mitigated it by rerouting traffic and purging caches.<br />
+Clearly, this isn't just a "single-vendor" problem.</p>
+
+<p>And of course, today's news articles, blogs, and think-pieces are full of the same claim:</p>
+
+<p><strong>"Multi-cloud is safer."</strong></p>
+
+<p>It sounds convincing—but in reality, multi-vendor setups can't fix fundamental control-plane (CP) issues or upstream dependencies like global DNS, identity systems, or routing. Even Wall Street touts multi-cloud as the answer, yet that doesn't change the fact that <strong>AWS itself was shaking across the board on that very same day.</strong></p>
+
+<p>My point is simple: <strong>"Cloud means safer" is a myth.</strong><br />
+Let's break it down again—something I've said countless times on my YouTube lives.</p>
+
+<h2 id="1-multiply-the-slas-and-youll-see-reality">1) Multiply the SLAs and you'll see reality</h2>
+
+<p>Let's say you run one web server and one database.<br />
+(That's the bare minimum architecture, right?)</p>
+
+<ul>
+  <li>SLA 99.9% × 99.9% = 99.8001%<br />
+→ <strong>About 17.5 hours of downtime per year</strong> (0.1999% × 8760h)</li>
+  <li>SLA 99.9% × 99.9% × 99.9% = 99.7003%<br />
+→ <strong>About 26.3 hours of downtime per year</strong></li>
+</ul>
+
+<p>"Serverless means I'm fine," you say?</p>
+
+<p><strong>Serverless still has servers.</strong><br />
+The name is just marketing. In the end, it all depends on the reliability of physical and virtual resources, control planes, and rollout mechanisms. Unless you believe in "chicken-free chicken," you can't escape the <strong>multiplication of failure probabilities.</strong></p>
+
+<h2 id="2-the-real-risk-isnt-hardware--its-software-changes">2) The real risk isn't hardware — it's software changes</h2>
+
+<p>Cloud providers love to talk about high availability stories like<br />
+"Even if one AZ goes down, we'll stay up." That's about <strong>hardware and facilities.</strong></p>
+
+<p>But the truth is, <strong>most major outages start from software or control-plane changes.</strong> If a release goes wrong, healthy hardware can receive <strong>bad configuration at scale</strong>, and multiple regions or services can collapse at once. The latest AWS incident? It started with <strong>a shared dependency</strong> between data paths and DNS resolution—classic domino effect.</p>
+
+<h2 id="3-the-vendor-doesnt-deploy-on-my-timeline">3) "The vendor doesn't deploy on my timeline"</h2>
+
+<p>The fundamental risk of the cloud is the <strong>loss of change control.</strong></p>
+
+<p>Vendors push rolling updates <strong>on their schedule</strong>, and you have almost no authority to verify release quality. If your relatively simple service breaks because of a cloud update, it means something broke at the <strong>baseline feature level</strong>—<strong>(which means the vendor didn't test it well enough).</strong>  And guess who pays for it? Your service.</p>
+
+<h2 id="4-the-forgotten-advantages-of-on-prem--colocation">4) The forgotten advantages of on-prem / colocation</h2>
+
+<ul>
+  <li><strong>You control when to update.</strong><br />
+No surprise 3 AM deployments behind your back.</li>
+  <li>If something breaks mid-deploy, <strong>you can roll back or hot-fix immediately.</strong></li>
+  <li><strong>A human (with skills) is right there</strong> to respond in real time.</li>
+</ul>
+
+<p>It's like performing surgery <strong>without blood reserves ready.</strong> No matter how great the hospital (cloud) infrastructure is, if your team has no control over the contingency plan, you're in danger.</p>
+
+<h2 id="5-multi-cloud-is-the-answer--that-sounded-cool-back-when-we-were-newbies">5) "Multi-cloud is the answer"? — That sounded cool back when we were newbies.</h2>
+
+<p>Multi-cloud overlooks two big realities:</p>
+
+<ol>
+  <li><strong>Data Gravity</strong><br />
+Keeping transactional data consistently replicated and fail-over-ready across clouds is a nightmare of latency, consistency, and locking strategies.</li>
+  <li><strong>Shared dependencies</strong><br />
+Global DNS, identity, SaaS CI/CD, logging, alerts, CDNs, version control—different vendors, yes, but <strong>shared upper-layer dependencies</strong> mean they can all fall together.</li>
+</ol>
+
+<p>Sure, for certain workloads—read-only caches, content delivery, or non-critical back-office tasks— multi-vendor setups can reduce risk.<br />
+But for <strong>core transactional paths</strong>, multi-cloud often <strong>increases complexity, cost, and the blast radius</strong> of outages.</p>
+
+<h3 id="so-how-can-we-be-safer">So how can we be "safer"?</h3>
+
+<p>This isn't a "ditch the cloud" rant. Cloud is fantastic for <strong>initial launches and experiments.</strong> But once your product hits a stable phase, consider the following:</p>
+
+<ol>
+  <li><strong>Escape single-region, minimize single control plane</strong><br />
+Even within the same vendor, use <strong>region/account separation</strong> to reduce blast radius. Split control and data planes (e.g., separate management/audit accounts).</li>
+  <li><strong>The courage to use "boring" tech</strong><br />
+Simplify core systems with proven components instead of shiny new managed ones. Migrate in controlled, incremental phases.</li>
+  <li><strong>Strict change management</strong><br />
+Canary releases, circuit breakers, feature flags, graceful degradation—non-negotiable. Align your own release calendar with vendor change windows and avoid peak-time changes.</li>
+  <li><strong>Off-cloud backstops</strong><br />
+Provide read-only static or cached fail-safes (e.g., critical notice pages, cached order history) accessible through alternate paths.</li>
+  <li><strong>Real-world game days</strong><br />
+Your team should physically rehearse failure scenarios—DNS down, identity down, storage down, message broker down—<br />
+and internalize the runbook, RTO, and RPO.</li>
+  <li><strong>Mature-phase strategy: Hybrid / On-prem relocation</strong><br />
+Bring <strong>core transactional and stateful tiers</strong> on-prem or to colocation. Keep <strong>edge, burst, and analytics</strong> in the cloud.<br />
+The cloud should become <strong>a tool you use when needed</strong>, not the place you live in.</li>
+</ol>
+
+<h2 id="in-summary-assuming-people-never-make-mistakes-is-the-real-danger">In summary: assuming "people never make mistakes" is the real danger</h2>
+
+<p>The cloud is a great tool. I still happily use it for <strong>early-stage products.</strong></p>
+
+<p>But once a service stabilizes, we should <strong>reduce cloud dependency</strong> and take back control of our core systems. That's what creates <strong>real safety.</strong></p>
+
+<p>It's not <strong>"Cloud = Safe."</strong><br />
+It's <strong>"Controlled change + Verifiable design = Safe."</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="cloud" /><category term="defensive-programming" /><category term="server" /><category term="dev" /><category term="rants" /><summary type="html"><![CDATA[Over the past few days, many people have lost their illusion of "safety." On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage. Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs). Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.]]></summary></entry><entry><title type="html">Rust Is a Great Language — But It&apos;s Not a Religion</title><link href="https://blog.popekim.com/en/2025/10/22/rust-is-not-a-religion.html" rel="alternate" type="text/html" title="Rust Is a Great Language — But It&apos;s Not a Religion" /><published>2025-10-22T00:00:00+00:00</published><updated>2025-10-22T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/10/22/rust-is-not-a-religion</id><content type="html" xml:base="https://blog.popekim.com/en/2025/10/22/rust-is-not-a-religion.html"><![CDATA[<p>Ten years ago, when no one cared, I was already saying it: <strong>"Rust is a great language."</strong></p>
+
+<p>Back then, I had no data to back it up. It was just my gut feeling and experience. Rust was designed in a way that naturally prevents programmers from making common mistakes.</p>
+
+<!--more-->
+
+<p>And now, the data proves it. Microsoft, Google, and Android have all confirmed that over half of security vulnerabilities come from memory safety issues. But with Rust, such mistakes are <strong>impossible by design.</strong> In real-world Rust code, those vulnerabilities have dramatically decreased.</p>
+
+<h2 id="the-fatigue-of-the-rust-religion">The Fatigue of the Rust Religion</h2>
+
+<p>But honestly, I'm getting tired of the way people talk about Rust these days. You hear things like, "Rust will kill every other language," or "C++ is dead."</p>
+
+<p>That's not a technical discussion — that's <strong>religion.</strong> There's no logic, no data. It's just people with little skill trying to sound relevant by jumping on the "innovation" bandwagon. And ironically, this kind of hype actually hurts Rust's progress.</p>
+
+<h2 id="why-c-is-still-alive">Why C++ Is Still Alive</h2>
+
+<p>People often say Rust will replace C++. So let me ask — why isn't C++ dead yet?</p>
+
+<ol>
+  <li>
+    <p><strong>There's simply too much legacy code.</strong> Game engines, operating systems, native libraries, embedded systems — decades of C++ code power the world. Rewriting all of that in Rust overnight is impossible.</p>
+  </li>
+  <li>
+    <p><strong>The tools and ecosystem are incredibly strong.</strong> Just look at Visual Studio. Back in the day, even Sony and Nintendo had their own IDEs. But as codebases grew and development efficiency became critical, both ended up supporting Visual Studio. The result? The entire industry moved under the C++ ecosystem. Instead of dying, C++ actually became stronger.</p>
+  </li>
+  <li>
+    <p><strong>The learning curve and talent pool.</strong> Rust enforces strict safety guarantees, but that also means fewer developers can handle it well. Meanwhile, C++ still has a massive developer base and a deeply established presence in both academia and industry. It's not something Rust can replace overnight.</p>
+  </li>
+  <li>
+    <p><strong>Other languages can adopt Rust's innovations.</strong> Memory safety, concurrency models — those can (and will) be borrowed. The "unique innovation" that once defined Rust won't stay exclusive forever.</p>
+  </li>
+</ol>
+
+<h2 id="safety-alone-wont-make-you-a-better-developer">Safety Alone Won't Make You a Better Developer</h2>
+
+<p>Lastly, there's a limit to developers who have only used "safe" languages. If you've never wrestled with a wild language like C and felt its pain firsthand, you might still write weird, unsafe logic even inside a safe language like Rust.</p>
+
+<p>This isn't new. We saw the same thing years ago with Java and C# — managed languages that made developers comfortable, but not necessarily competent.</p>
+
+<h2 id="history-repeats-itself">History Repeats Itself</h2>
+
+<p>Remember when Java once declared, "C++ is over! Java will rule the world"?</p>
+
+<p>And what happened? C++ is still alive and well, while Java is now worried about losing its market share. Rust could fall into the same trap if it's not careful. Rust is a great language, but <strong>turning it into a religion will destroy it.</strong></p>
+
+<h2 id="conclusion-a-language-is-just-a-tool">Conclusion: A Language Is Just a Tool</h2>
+
+<p>When evaluating a language, you must separate objectivity from subjectivity. Objectivity is about whether the language <strong>actually reduces human error</strong> — and whether that's <strong>proven by data.</strong> By that measure, Rust is an excellent language.</p>
+
+<p>But saying "I like using it" is purely subjective. And once you start presenting that as objective truth, technology disappears and religion takes its place.</p>
+
+<p><strong>Programming languages are not religions.</strong> They are tools. And tools should always be used according to data and reality.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="rust" /><category term="cpp" /><category term="dev" /><category term="rants" /><summary type="html"><![CDATA[Ten years ago, when no one cared, I was already saying it: "Rust is a great language." Back then, I had no data to back it up. It was just my gut feeling and experience. Rust was designed in a way that naturally prevents programmers from making common mistakes.]]></summary></entry><entry><title type="html">How to Minimize Side Effects When Writing to Two Databases at the Same Time</title><link href="https://blog.popekim.com/en/2025/10/17/two-db-commit-side-effects.html" rel="alternate" type="text/html" title="How to Minimize Side Effects When Writing to Two Databases at the Same Time" /><published>2025-10-17T00:00:00+00:00</published><updated>2025-10-17T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/10/17/two-db-commit-side-effects</id><content type="html" xml:base="https://blog.popekim.com/en/2025/10/17/two-db-commit-side-effects.html"><![CDATA[<p>Normally, data is stored in a single database.<br />
+However, sometimes you may need to write to <strong>two physically separate DB servers</strong> at the same time.</p>
+
+<h2 id="the-naive-approach-everyone-starts-with">The naive approach everyone starts with</h2>
+
+<p>The examples in this post are written in C# using EF Core.</p>
+
+<pre><code class="language-csharp">await mDbContext0.SaveChangesAsync();
+await mDbContext1.SaveChangesAsync();
+</code></pre>
+
+<p>Most people simply write this way.<br />
+But this <em>will definitely</em> break one day.</p>
+
+<p>Right after the first commit completes,</p>
+<ul>
+  <li>The second DB's <code>SaveChangesAsync()</code> might fail due to a validation error or constraint violation,</li>
+  <li>The network could go down, or</li>
+  <li>A power failure could occur.</li>
+</ul>
+
+<p>In the end, only the first DB is updated, and the second one fails.<br />
+In other words, you get <strong>a partially committed state</strong>, resulting in <strong>data inconsistency</strong>.</p>
+
+<h2 id="how-i-solved-it-today">How I solved it today</h2>
+
+<p>⚠️ This approach is not perfect.</p>
+
+<pre><code class="language-csharp">private async Task crossCommitBestEffortAsync()
+{
+    await using (IDbContextTransaction tx0 = await mDbContext0.Database.BeginTransactionAsync())
+    await using (IDbContextTransaction tx1 = await mDbContext1.Database.BeginTransactionAsync())
+    {
+        // best-effort attempt to make two independent DB commits look atomic
+        // still unsafe if:
+        //   1) tx0.CommitAsync() succeeds, and
+        //   2) power failure happens before tx1.CommitAsync()
+        try
+        {
+            await mDbContext0.SaveChangesAsync();
+            await mDbContext1.SaveChangesAsync();
+
+            await tx0.CommitAsync();
+            await tx1.CommitAsync();
+        }
+        catch
+        {
+            await tx0.RollbackAsync();
+            await tx1.RollbackAsync();
+            throw;
+        }
+    }
+}
+</code></pre>
+
+<p>This code opens <strong>a separate transaction for each DB</strong><br />
+and only commits if both <code>SaveChangesAsync()</code> calls succeed.</p>
+
+<h2 id="whats-different-from-before">What's different from before?</h2>
+
+<p>In the naive version (<code>SaveChangesAsync()</code> twice),<br />
+if the first commit succeeds and the second throws an exception,<br />
+<strong>there's no way to revert the already committed data.</strong></p>
+
+<p>In contrast, this code:</p>
+<ul>
+  <li>Rolls back <strong>both transactions</strong> if either <code>SaveChangesAsync()</code> or <code>CommitAsync()</code> fails.</li>
+  <li>Ensures that under <strong>normal execution flow</strong>, both DBs either commit or roll back together.</li>
+</ul>
+
+<p>This is a <strong>“best effort”</strong> approach —<br />
+as long as the OS and process stay alive, both DBs will end in the same state.</p>
+
+<h2 id="why-its-still-not-perfect">Why it's still not perfect</h2>
+
+<p>The real problem is <strong>physical failure</strong>.<br />
+In other words, the code handles logic-level consistency, but not system-level reliability.</p>
+
+<p>For example, the following sequence will break things 👇</p>
+<ol>
+  <li><code>tx0.CommitAsync()</code> succeeds</li>
+  <li>A power outage or process crash occurs</li>
+  <li><code>tx1.CommitAsync()</code> never gets called</li>
+</ol>
+
+<p>Now, DB0 has committed while DB1 has not.<br />
+The two databases are out of sync.</p>
+
+<p>There's no way to prevent this in code,<br />
+because the two DBs live on <strong>independent physical servers.</strong></p>
+
+<h2 id="not-suitable-for-mission-critical-systems">Not suitable for mission-critical systems</h2>
+
+<p>Although the time gap between commits is small,<br />
+“small” doesn't mean <strong>simultaneous</strong>.</p>
+
+<blockquote>
+  <p>If a power failure happens 0.001 seconds after the first commit, the data becomes inconsistent.</p>
+</blockquote>
+
+<p>Therefore, this approach should <strong>never</strong> be used in mission-critical transactions<br />
+such as payments, settlements, or order processing.</p>
+
+<h2 id="why-i-still-used-it">Why I still used it</h2>
+
+<p>This pattern was used in an <strong>internal developer tool</strong>,<br />
+not in a public-facing service.</p>
+
+<p>The chance of failure was extremely low,<br />
+and even if it did happen, the <strong>developer</strong> was actively using the tool<br />
+and could immediately detect and correct the issue.</p>
+
+<p>In short, it was acceptable in this <strong>low-risk environment</strong>.</p>
+
+<h2 id="the-proper-way-use-a-message-queue">The proper way: use a message queue</h2>
+
+<p>To handle this safely, you should use a <strong>Message Queue (MQ)</strong>.</p>
+
+<p>However, the naive approach — committing to the DB first and then pushing a message — is still unsafe.<br />
+If the system crashes or loses power right after the DB commit, the message never gets queued,<br />
+and you lose the chance to reprocess it.</p>
+
+<p>A more reliable approach is to <strong>push every update request to the queue first</strong>,<br />
+and then let the <strong>consumer</strong> update DB0 and DB1 in sequence.</p>
+
+<p>This way, the producer only performs one action — sending a message —<br />
+and even if a failure occurs, the pending message can always be <strong>reprocessed</strong> later.</p>
+
+<p>You'll still need mechanisms like <strong>deduplication</strong> and <strong>pre-validation</strong>,<br />
+but at least you won't end up with inconsistent data.</p>
+
+<p>If the consumer can't update the second DB<br />
+because of a validation error or business rule violation,<br />
+then a <strong>compensating transaction</strong> must be applied to the first DB<br />
+to roll back the previous change.</p>
+
+<p>So even with a queue-based design, it's not fully automatic —<br />
+you still need explicit rollback logic to keep the system consistent.</p>
+
+<p>Keep in mind that adopting an MQ means<br />
+<strong>adding another program to run and another data store to maintain.</strong><br />
+It introduces an extra operational layer,<br />
+and debugging becomes harder since you can't simply inspect it with SQL.</p>
+
+<p>In short, reliability increases, but so does complexity.<br />
+If your system is small or failures can be handled manually,<br />
+you may not need an MQ.<br />
+But if <strong>stability is your top priority</strong>, this is the right direction to go.</p>
+
+<p>When starting out, I recommend using a <strong>Rebus + SQL</strong> combo<br />
+instead of a complex distributed MQ system —<br />
+it's easy to configure and supports transactional consistency cleanly.</p>
+
+<h2 id="note-msdtc-works-only-on-premises">Note: MSDTC works only on-premises</h2>
+
+<p>If you're running Windows servers on-premises,<br />
+you can use <strong>MSDTC (Microsoft Distributed Transaction Coordinator)</strong><br />
+to coordinate fully atomic distributed transactions across multiple databases.</p>
+
+<pre><code class="language-csharp">using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+{
+    await mDbContext0.SaveChangesAsync();
+    await mDbContext1.SaveChangesAsync();
+    scope.Complete();
+}
+</code></pre>
+
+<p>This guarantees atomic commits.<br />
+However, <strong>Azure SQL Database does not support MSDTC.</strong></p>
+
+<p>So in cloud environments, you're limited to either<br />
+<strong>best-effort commits</strong> or <strong>queue-based compensating transactions.</strong></p>
+
+<h2 id="conclusion">Conclusion</h2>
+<ol>
+  <li>Calling <code>SaveChangesAsync()</code> twice will eventually cause trouble.</li>
+  <li><code>crossCommitBestEffortAsync()</code> keeps things consistent in normal scenarios,<br />
+but it's still vulnerable to physical failures like power loss.</li>
+  <li>It's not suitable for mission-critical systems.</li>
+  <li>For safety, you need a <strong>queue-based design.</strong></li>
+  <li><strong>MSDTC works only on-premises.</strong></li>
+</ol>
+
+<p>In the end, “two commits” will betray you, but <strong>a queue will save your system.</strong> 😏</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="csharp" /><category term="database" /><category term="defensive-programming" /><category term="ef-core" /><category term="transaction" /><category term="distributed-transaction" /><category term="dev" /><category term="dev-diary" /><summary type="html"><![CDATA[Normally, data is stored in a single database. However, sometimes you may need to write to two physically separate DB servers at the same time.]]></summary></entry><entry><title type="html">Five Defensive Utility Functions I Made</title><link href="https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils.html" rel="alternate" type="text/html" title="Five Defensive Utility Functions I Made" /><published>2025-10-11T00:00:00+00:00</published><updated>2025-10-11T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils</id><content type="html" xml:base="https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils.html"><![CDATA[<h2 id="-introduction">🎯 Introduction</h2>
+
+<p>The built-in <code>Debug.Assert()</code> in C# just wasn't enough. I wanted a unified system to handle <strong>assumption violations, internal bugs, and critical runtime issues that require immediate attention</strong> in a consistent way.</p>
+
+<p>So, I created the following five utility functions:</p>
+
+<pre><code class="language-csharp">global using static POCU.Core.Assertion.Check;
+</code></pre>
+
+<p>By declaring them globally and writing them in <strong>ALL CAPS</strong>, they stand out clearly inside logic code. Even at a glance, you can tell: <em>"This is defensive code."</em></p>
+
+<h2 id="-common-rule">🧱 Common Rule</h2>
+
+<p>The <strong>first parameter of every function must be a <code>bool</code> expression.</strong></p>
+
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User should not be null");
+</code></pre>
+
+<ul>
+  <li>If the expression is <code>true</code> → nothing happens.</li>
+  <li>If <code>false</code> → the corresponding function triggers <strong>logging, alerts, or exceptions</strong> depending on its level.</li>
+</ul>
+
+<p>In other words, you don't have to keep writing <code>if (!condition) { ... }</code>. A single expression clearly declares, <em>"If this breaks, something is wrong."</em></p>
+
+<h2 id="-function-summary">📊 Function Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Purpose</th>
+      <th>Behavior</th>
+      <th>Ops Team Response</th>
+      <th>Exception</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VERIFY</strong></td>
+      <td>Observe "this should never happen" assumptions</td>
+      <td>Logs only, continues execution</td>
+      <td>Check later</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>DBG_CHECK</strong></td>
+      <td>Debug-only assertion</td>
+      <td>Stops in Debug builds only</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK912</strong></td>
+      <td>Detect internal issue (non-urgent)</td>
+      <td>Alerts + metrics tracking</td>
+      <td>Review/fix within 1–2 days</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911</strong></td>
+      <td>Requires immediate attention</td>
+      <td>Alerts + metrics tracking</td>
+      <td>Immediate fix</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911_THROW</strong></td>
+      <td>Transaction protection</td>
+      <td>Alerts + metrics tracking + throws exception</td>
+      <td>Immediate fix</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>🔔 All CHECK functions send notifications to our company messenger, and their occurrences are automatically <strong>tracked and visualized on dashboards.</strong></p>
+</blockquote>
+
+<h2 id="-verify--long-term-assumption-monitor">🧩 VERIFY — Long-term Assumption Monitor</h2>
+
+<p><code>VERIFY</code> is more than a simple log statement. It's a <strong>sensor for assumptions</strong> — things you believe "should never happen," monitored over time.</p>
+
+<pre><code class="language-csharp">VERIFY(order.TotalPrice &gt;= 0, "Order total should never be negative");
+</code></pre>
+
+<ul>
+  <li>You believe this condition will never fail.</li>
+  <li>But maybe, someday, once in two years, it might.</li>
+  <li>When it does, a log arrives — and you realize your assumption was wrong.</li>
+  <li>If it never triggers for years, you can safely remove that line.</li>
+</ul>
+
+<p>This is <strong>runtime validation for assumptions that can't be tested easily</strong>. It's perfect for monitoring rare edge cases or unexpected system behavior in production.</p>
+
+<h3 id="-one-more-trick">💡 One More Trick</h3>
+
+<p>Sometimes you encounter old code that <em>should never happen anymore</em>, but you're not 100% sure it's safe to delete. In that case, do this:</p>
+
+<pre><code class="language-csharp">// TODO(delete): delete after 2028-12-31
+VERIFY(someOldFlag == false, "Old flag still being used?");
+</code></pre>
+
+<ul>
+  <li>Add a <code>VERIFY</code>.</li>
+  <li>Watch it in production for a year.</li>
+  <li>If it never triggers, safely delete the code.</li>
+</ul>
+
+<p>This pattern works like a <strong>"live test" in production</strong>. It's like having thousands of live users running an <strong>automatic test system for free. Amazing, right? 😎</strong> It also makes long-term code cleanup much easier to manage.</p>
+
+<h2 id="-dbg_check--debug-only-strong-assertion">🧪 DBG_CHECK — Debug-only Strong Assertion</h2>
+
+<pre><code class="language-csharp">DBG_CHECK(buffer.Length == expectedSize, "Unexpected buffer size");
+</code></pre>
+
+<ul>
+  <li>Executes <strong>only in Debug builds</strong>.</li>
+  <li>Completely removed in Release builds, with zero runtime overhead.</li>
+  <li>Enforces conditions that "must never fail during development."</li>
+</ul>
+
+<blockquote>
+  <p>✅ Use <code>DBG_CHECK</code> for conditions that must break during testing.<br />
+✅ Use <code>VERIFY</code> for conditions you want to observe in production.</p>
+</blockquote>
+
+<h2 id="-check912--internal-issue-non-urgent">🔍 CHECK912 — Internal Issue (Non-Urgent)</h2>
+
+<pre><code class="language-csharp">CHECK912(userCache.Count &gt; 0, "User cache is unexpectedly empty");
+</code></pre>
+
+<ul>
+  <li>Indicates a likely internal bug, but <strong>no immediate user impact.</strong></li>
+  <li>Sends alerts and updates metrics.</li>
+  <li>Ops team handles it within a day or two.</li>
+</ul>
+
+<p>Examples:</p>
+<ul>
+  <li>Cache desynchronization</li>
+  <li>Retried network failure that succeeded later</li>
+  <li>Minor data anomalies</li>
+</ul>
+
+<h2 id="-check911--critical-requires-immediate-action">🚨 CHECK911 — Critical, Requires Immediate Action</h2>
+
+<pre><code class="language-csharp">CHECK911(paymentResponse.IsValid, "Payment gateway returned invalid data");
+</code></pre>
+
+<ul>
+  <li>Used for <strong>critical situations</strong> like data loss, security issues, or direct customer impact.</li>
+  <li><strong>Sends instant alerts</strong> and updates metrics/dashboards.</li>
+  <li>May also trigger operational hooks (e.g., safe mode switch).</li>
+  <li>Does <strong>not</strong> throw exceptions, so background workers or pipelines can keep running while the ops team investigates.</li>
+</ul>
+
+<h2 id="-check911_throw--transaction-protection">💣 CHECK911_THROW — Transaction Protection</h2>
+
+<pre><code class="language-csharp">CHECK911_THROW(invoice != null, "Invoice must exist before commit");
+</code></pre>
+
+<ul>
+  <li>Behaves exactly like <code>CHECK911</code>, but also <strong>throws an exception</strong> to abort the current transaction.</li>
+  <li>Prevents corrupted state from propagating to databases or external systems.</li>
+  <li>Typically used at transaction boundaries, commit points, or right after external API calls.</li>
+</ul>
+
+<p>Examples:</p>
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User not found");
+CHECK911_THROW(balance &gt;= 0, "Negative balance detected");
+</code></pre>
+
+<blockquote>
+  <p>Use it right before committing, or immediately after a risky side effect — it stops the error from spreading further.</p>
+</blockquote>
+
+<h2 id="️-internal-mechanism-overview">⚙️ Internal Mechanism Overview</h2>
+
+<p>All functions share the same underlying structure:</p>
+
+<ol>
+  <li>Evaluate the <code>bool</code> expression.</li>
+  <li>If <code>false</code>, call a shared logger.</li>
+  <li>The logger does the following:
+    <ul>
+      <li>Write logs (file, console, Sentry, etc.)</li>
+      <li>Send messenger notifications</li>
+      <li>Update metrics for dashboards</li>
+    </ul>
+  </li>
+  <li><code>*_THROW</code> variants also perform <code>throw</code> at the end.</li>
+</ol>
+
+<p>In short, all of them use the same alerting infrastructure — they just differ in severity and whether they stop execution.</p>
+
+<h2 id="-conclusion">🧩 Conclusion</h2>
+
+<p>All five functions serve one purpose:<br />
+<strong>"Separate logic from defense, and respond appropriately depending on when and how a problem occurs."</strong></p>
+
+<ul>
+  <li><code>VERIFY</code>: Long-term assumption monitor</li>
+  <li><code>DBG_CHECK</code>: Debug-only strong assertion</li>
+  <li><code>CHECK912</code>: Internal issue detection (non-urgent)</li>
+  <li><code>CHECK911</code>: Critical issue (immediate attention)</li>
+  <li><code>CHECK911_THROW</code>: Critical + transaction abort</li>
+</ul>
+
+<p>And in practice, all you need in your logic code is one line:</p>
+
+<pre><code class="language-csharp">CHECK911_THROW(totalPrice &gt;= 0, "Negative total price detected");
+</code></pre>
+
+<p>That's it. Anyone reading it immediately knows: this isn't regular logic — <strong>it's a safety line.</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="csharp" /><category term="assertion" /><category term="debugging" /><category term="software-engineering" /><category term="defensive-programming" /><summary type="html"><![CDATA[🎯 Introduction]]></summary></entry><entry><title type="html">In an Era of Frequent Facebook Graph API Deprecations, This Is How You Manage ASP.NET Core Login</title><link href="https://blog.popekim.com/en/2025/08/31/aspnet-core-facebook-login-graph-api-management.html" rel="alternate" type="text/html" title="In an Era of Frequent Facebook Graph API Deprecations, This Is How You Manage ASP.NET Core Login" /><published>2025-08-31T00:00:00+00:00</published><updated>2025-08-31T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/08/31/aspnet-core-facebook-login-graph-api-management</id><content type="html" xml:base="https://blog.popekim.com/en/2025/08/31/aspnet-core-facebook-login-graph-api-management.html"><![CDATA[<p>Adding Facebook login to ASP.NET Core is supposed to be really simple. Just install the <code>Microsoft.AspNetCore.Authentication.Facebook</code> NuGet package, call <code>services.AddFacebook()</code>, set the AppId and Secret, and you're done. The login screen appears, and tokens come back as expected.</p>
+
+<p>But if you trust this setup blindly, one day your service may suddenly stop working. I actually got burned by this a few years ago. The reason was simple: <strong>the default Facebook Graph API version hardcoded in the NuGet package was too old</strong>. At the time it was still using v11, and once Facebook officially ended support for that version, login broke immediately.</p>
+
+<h2 id="why-do-i-care-so-much">Why do I care so much?</h2>
+
+<p>At POCU Academy, we <strong>rely solely on social logins</strong>. We never store passwords or unnecessary personal data like social security numbers. Storing passwords is much riskier than many people think. Even if you encrypt and protect them well, leaks always remain a possibility. Most security incident headlines you see follow the same pattern: "our service DB was hacked → user passwords leaked."</p>
+
+<p>Instead, we delegate <strong>all authentication to external providers like Facebook, Google, or Naver</strong>, and only consume the authenticated result. For us, it's basically just a signed certificate saying "this person really is who they claim to be."</p>
+
+<p>Concretely, after a successful Facebook login, we typically receive values like:</p>
+
+<ul>
+  <li><strong>Provider key</strong>: a unique key Facebook issues per user</li>
+  <li><strong>Access token</strong>: the token used to access the Facebook Graph API</li>
+  <li>(optional) <strong>Email, name</strong>, or other basic profile info</li>
+</ul>
+
+<p>That's all we need to confirm the identity. From our perspective it's far safer. We never touch "sensitive user passwords," and the responsibility lies with the external provider.</p>
+
+<h2 id="wait-how-does-oauth-work-again">Wait, how does OAuth work again?</h2>
+
+<p>Facebook login is powered by the <strong>OAuth 2.0 protocol</strong>. It can be complicated, but simplified it looks like this:</p>
+
+<ol>
+  <li>The user clicks "Login with Facebook."</li>
+  <li>Our service redirects the user to the Facebook login page.</li>
+  <li>The user enters their Facebook credentials and approves access.</li>
+  <li>Facebook redirects back to our service with an <strong>Authorization Code</strong>.</li>
+  <li>Our service exchanges that code with Facebook for an <strong>Access Token</strong>.</li>
+  <li>With that token, we call the <code>/me</code> API to fetch the user profile.</li>
+</ol>
+
+<p>The key point is that our service <strong>never needs to know the user's password directly</strong>. Facebook handles all authentication, and we only trust the "token" they issue.</p>
+
+<h2 id="the-nuget-package-problem">The NuGet package problem</h2>
+
+<p>Here's the catch: the Facebook Graph API version used in this process is not always the latest. The <code>Microsoft.AspNetCore.Authentication.Facebook</code> package hardcodes its internal endpoints. For example, it used to default to v11, and once that version hit EOL, services broke overnight.</p>
+
+<p>So I just override the endpoints directly:</p>
+
+<pre><code class="language-csharp">services.AddAuthentication()
+    .AddFacebook(facebookOptions =&gt;
+    {
+        facebookOptions.AuthorizationEndpoint = Constants.AUTHORIZATION_ENDPOINT;
+        facebookOptions.UserInformationEndpoint = Constants.USER_INFORMATION_ENDPOINT;
+        facebookOptions.TokenEndpoint = Constants.TOKEN_ENDPOINT;
+
+        facebookOptions.AppId = config["Authentication:Facebook:AppId"];
+        facebookOptions.AppSecret = config["Authentication:Facebook:AppSecret"];
+        facebookOptions.AccessDeniedPath = accountAccessDeniedPath;
+        facebookOptions.Events.OnRemoteFailure = handleOnRemoteFailureAsync;
+    });
+</code></pre>
+
+<p>And the constants:</p>
+
+<pre><code class="language-csharp">public static class Constants
+{
+    public const string AUTHORIZATION_ENDPOINT = "https://www.facebook.com/v17.0/dialog/oauth";
+
+    public const string USER_INFORMATION_ENDPOINT = "https://graph.facebook.com/v17.0/me";
+
+    public const string TOKEN_ENDPOINT = "https://graph.facebook.com/v17.0/oauth/access_token";
+}
+</code></pre>
+
+<h2 id="why-not-remove-this-override">Why not remove this override?</h2>
+
+<p>Honestly, I'd love to remove these constants someday. If the NuGet package reliably updated to the latest API versions, I wouldn't need to maintain them myself. But reality is different… <strong>even now, with v17 nearing its deprecation date, the official NuGet release hasn't been updated</strong>. The preview branch already contains the fix, but the stable release still lags behind.</p>
+
+<p>So I don't trust it. At this point, maintaining my own overrides is less stressful. Luckily, Facebook emails developers before an API version reaches EOL. When that happens, I just bump the version string in my constants and run some quick tests. It's basically "manual version management," but it keeps me from waking up to a broken login system.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Facebook retires old versions too frequently, and Microsoft's NuGet package doesn't always keep pace. Developers get caught in between. That's why I keep overriding the endpoints and managing versions myself.</p>
+
+<p><strong>Lesson: ASP.NET Core Facebook login? Don't trust the defaults. Manage the version yourself.</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="best-practice" /><category term="web" /><category term="csharp" /><category term="defensive-programming" /><summary type="html"><![CDATA[Adding Facebook login to ASP.NET Core is supposed to be really simple. Just install the Microsoft.AspNetCore.Authentication.Facebook NuGet package, call services.AddFacebook(), set the AppId and Secret, and you're done. The login screen appears, and tokens come back as expected.]]></summary></entry><entry><title type="html">Git, Still Using autocrlf in 2025? That&apos;s Frustrating</title><link href="https://blog.popekim.com/en/2025/08/28/stop-using-autocrlf.html" rel="alternate" type="text/html" title="Git, Still Using autocrlf in 2025? That&apos;s Frustrating" /><published>2025-08-28T00:00:00+00:00</published><updated>2025-08-28T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/08/28/stop-using-autocrlf</id><content type="html" xml:base="https://blog.popekim.com/en/2025/08/28/stop-using-autocrlf.html"><![CDATA[<p>Sometimes I still see company repositories relying on <code>core.autocrlf</code>. Honestly, using this in 2025 feels frustrating.</p>
+
+<p>Line ending issues used to be a real headache. Windows used CRLF, Linux and macOS used LF. When developers on different operating systems touched the same code, even minor changes caused massive diffs, and scripts would fail with <code>^M</code> errors. Git's answer was <code>autocrlf</code>, which tried to "fix line endings automatically in your local Git config." At first it looked convenient, but over time it created more confusion than it solved. With each developer using different settings, one person worked with CRLF, another with LF, and the same repository behaved differently across machines. The so‑called "line ending war" never really ended.</p>
+
+<h2 id="git-was-always-awkward-in-companies">Git Was Always Awkward in Companies</h2>
+
+<p>Git was originally built for open source collaboration. In an environment like the Linux kernel, with thousands of contributors sending patches, it excelled. But companies are different. A company defines a standard platform and tooling, and dozens of developers are expected to work under a single rule set. In that context, Git's philosophy—"individual freedom, distributed choice"—often feels awkward. Line endings are a perfect example: where a team rule is needed, Git pushed the responsibility to individual developers.</p>
+
+<p>Yes, things have improved. Windows support is much better now, IDE integration is smooth. Still, when you use Git in a company, there remain these annoying pain points. Line endings are one of them.</p>
+
+<h2 id="these-days-crlf-or-lf-doesnt-matter-much">These Days, CRLF or LF Doesn't Matter Much</h2>
+
+<p>Let's be honest. Visual Studio, VS Code, IntelliJ, Rider, Xcode, even Notepad all handle both CRLF and LF just fine. Regardless of how a file is saved, modern IDEs can open and re‑save without issues. For most code files, whether they use CRLF or LF barely matters anymore. The desperate need to "force everything to one style" is mostly gone.</p>
+
+<p>So why do we still talk about line endings? Because <strong>some files really do need a specific line ending.</strong></p>
+
+<h2 id="some-files-must-be-enforced">Some Files Must Be Enforced</h2>
+
+<p>Windows batch files (.bat, .cmd), PowerShell scripts (.ps1), and Visual Studio solution/project files (.sln, .csproj, .vcxproj) can break or misbehave without CRLF. On the other hand, shell scripts (.sh) and Dockerfiles fail if they're not LF.</p>
+
+<p>That's where <code>.gitattributes</code> comes in. By committing this file into the repository, Git enforces line ending rules consistently, regardless of personal settings. In other words, <strong>a team's agreement is encoded in the codebase itself.</strong></p>
+
+<h2 id="example-windowscentric-teams">Example: Windows‑Centric Teams</h2>
+
+<p>If your company is Windows‑centric, your <code>.gitattributes</code> might look like this:</p>
+
+<pre><code class="language-bash"># Default to CRLF
+* text=auto eol=crlf
+
+# Files executed in Linux/Unix environments must be LF
+*.sh       text eol=lf
+Dockerfile text eol=lf
+
+# Windows‑specific files must use CRLF
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+*.ps1     text eol=crlf
+*.sln     text eol=crlf
+*.vcxproj text eol=crlf
+*.csproj  text eol=crlf
+
+# Never convert binaries
+*.png -text
+*.jpg -text
+*.gif -text
+*.pdf -text
+*.zip -text
+</code></pre>
+
+<p>This way only the necessary files have enforced line endings, and everything else can be left to the IDE. There's no need for overkill like "normalize all text to LF."</p>
+
+<h2 id="why-autocrlf-should-be-off">Why autocrlf Should Be Off</h2>
+
+<p>There's simply no reason to keep <code>autocrlf</code> enabled. It rewrites files locally, and that's often the root of the problem. With <code>.gitattributes</code> in place, Git prioritizes the repository rules anyway, so local settings are useless or even harmful.</p>
+
+<p>For teams, the most stable setup is <code>core.autocrlf=false</code>. Let the repository handle line endings, and let Git keep files "as is." If you're worried about accidental changes, enable <code>core.safecrlf=true</code> to block unsafe conversions.</p>
+
+<pre><code class="language-bash">git config --global core.autocrlf false
+git config --global core.safecrlf true
+</code></pre>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Line ending issues are no longer something IDEs fail to solve. IDEs already support both CRLF and LF seamlessly. What matters is that some files still require a specific line ending, and the only reliable way to enforce this is through <code>.gitattributes</code>, not personal Git configs.</p>
+
+<p>So turn off <code>autocrlf</code>. Forget the obsession with "normalize everything to LF." Modern IDEs handle both. The only thing that matters is this: <strong>if a file requires a specific line ending, enforce it explicitly with <code>.gitattributes</code>.</strong></p>
+
+<p>Do this, and the line ending wars finally end. No more pointless diffs, no more blame pollution, no more frustration.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="git" /><summary type="html"><![CDATA[Sometimes I still see company repositories relying on core.autocrlf. Honestly, using this in 2025 feels frustrating.]]></summary></entry><entry><title type="html">Clean Assert Wrappers</title><link href="https://blog.popekim.com/en/2025/08/26/clean-assert-wrapper.html" rel="alternate" type="text/html" title="Clean Assert Wrappers" /><published>2025-08-26T00:00:00+00:00</published><updated>2025-08-26T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/08/26/clean-assert-wrapper</id><content type="html" xml:base="https://blog.popekim.com/en/2025/08/26/clean-assert-wrapper.html"><![CDATA[<p>When working in C#, you often use debugging APIs like <code>Debug.Assert()</code> or <code>Debug.Fail()</code>. But if you call them directly across the whole project, it quickly becomes inconvenient. That's why many developers create a <strong>wrapper function</strong> and use it globally.</p>
+
+<p>For example:</p>
+
+<pre><code class="language-csharp">DBG_CHECK(x != null, "x is null!");
+</code></pre>
+
+<h2 id="why-bother-with-a-wrapper">Why bother with a wrapper?</h2>
+
+<ul>
+  <li>If you import <code>DBG_CHECK()</code> globally via <code>using static</code>, <strong>typing becomes easier.</strong></li>
+  <li>Since the name is in ALL CAPS, it stands out in the code. → It's immediately obvious that this is a <strong>debug-only utility, not business logic</strong>, so you can skim past it easily.</li>
+  <li>You can also sneak in extra enforcement logic inside the wrapper.</li>
+</ul>
+
+<p>In other words, wrapping repeated <code>Debug.Assert()</code> calls makes them <strong>cleaner, easier to use, and more visible.</strong></p>
+
+<hr />
+
+<h2 id="why-use-conditionaldebug">Why use <code>[Conditional("DEBUG")]</code></h2>
+
+<p>This wrapper should, of course, only run in <strong>DEBUG mode</strong>. In C#, attaching the <code>[Conditional("DEBUG")]</code> attribute tells the compiler to <strong>remove the call entirely in release builds.</strong></p>
+
+<pre><code class="language-csharp">[Conditional("DEBUG")]
+public static void DBG_CHECK(bool condition, string? message = null)
+{
+    if (!condition)
+    {
+        Debug.Fail(message);
+    }
+}
+</code></pre>
+
+<ul>
+  <li>In release builds, not even IL code remains.</li>
+  <li>You no longer need to wrap everything in <code>#if DEBUG ... #endif</code>.</li>
+  <li>From a performance and security perspective, you must never leave asserts in release builds.</li>
+</ul>
+
+<hr />
+
+<h2 id="the-annoying-part-stack-trace">The annoying part: stack trace</h2>
+
+<p>The problem is that when <code>Debug.Assert()</code> hits inside the wrapper, <strong>the top of the stack is always your <code>DBG_CHECK()</code> wrapper function.</strong></p>
+
+<p>For example:</p>
+
+<pre><code class="language-csharp">void Foo()
+{
+    Bar(null);
+}
+
+void Bar(object? arg)
+{
+    DBG_CHECK(arg != null, "arg is null");
+}
+</code></pre>
+
+<p>If <code>arg</code> is <code>null</code>, the stack looks like this:</p>
+
+<pre><code>DBG_CHECK()
+Bar()
+Foo()
+</code></pre>
+
+<p>What you <em>really</em> care about is <code>Bar()</code>, but the debugger always stops inside <code>DBG_CHECK()</code>. So you have to "Step Out" every time to get to the actual caller. Pretty annoying.</p>
+
+<h2 id="the-fix-debuggerhidden">The fix: <code>[DebuggerHidden]</code></h2>
+
+<p>This is where <code>[DebuggerHidden]</code> comes to the rescue.</p>
+
+<pre><code class="language-csharp">[Conditional("DEBUG")]
+[DebuggerHidden]
+public static void DBG_CHECK(bool condition, string? message = null)
+{
+    if (!condition)
+    {
+        Debug.Fail(message);
+    }
+}
+</code></pre>
+
+<ul>
+  <li><code>DebuggerHidden</code> tells the debugger to <strong>hide this function's frame.</strong></li>
+  <li>If a break happens inside it, the debugger jumps <strong>directly to the caller.</strong></li>
+  <li>Works flawlessly in Visual Studio</li>
+</ul>
+
+<hr />
+
+<h2 id="example-in-action">Example in action</h2>
+
+<p>In the <code>Bar()</code> example above, when <code>DBG_CHECK()</code> fails, the debugger now shows:</p>
+
+<pre><code>Bar()
+Foo()
+</code></pre>
+
+<p>The <code>DBG_CHECK()</code> frame is gone, so you can start debugging <strong>exactly at the caller site.</strong></p>
+
+<hr />
+
+<h2 id="extra-details">Extra details</h2>
+
+<ul>
+  <li><code>DebuggerHidden</code> is supported from .NET Framework 2.0 onward, including .NET Core and .NET 5–9.</li>
+  <li>Verified in Visual Studio 2019 and 2022. (JetBrains Rider shows similar behavior but may vary slightly.)</li>
+  <li>Caveat: you cannot set breakpoints inside a method marked <code>[DebuggerHidden]</code>.<br />
+But since this is just an assert wrapper, that's not a problem.</li>
+</ul>
+
+<hr />
+
+<h2 id="wrap-up">Wrap-up</h2>
+
+<ul>
+  <li>Wrapping <code>Debug.Assert()</code> with something like <code>DBG_CHECK()</code> makes it <strong>easier to type, more visible, and cleaner.</strong></li>
+  <li><code>[Conditional("DEBUG")]</code> ensures it never appears in release builds.</li>
+  <li>The downside is that the wrapper clutters the call stack, but adding <code>[DebuggerHidden]</code> fixes that by shifting focus to the caller.</li>
+  <li>In Visual Studio, the experience is clean and seamless.</li>
+</ul>
+
+<p>👉 Bottom line: <strong>When writing assert wrappers, the <code>Conditional("DEBUG") + DebuggerHidden</code> combo is basically a must-have.</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="csharp" /><category term="debugging" /><summary type="html"><![CDATA[When working in C#, you often use debugging APIs like Debug.Assert() or Debug.Fail(). But if you call them directly across the whole project, it quickly becomes inconvenient. That's why many developers create a wrapper function and use it globally.]]></summary></entry><entry><title type="html">The End of Windows 10 Support and the Unfair Fate of an Intel i7</title><link href="https://blog.popekim.com/en/2025/08/25/7700k-windows11-upgrade.html" rel="alternate" type="text/html" title="The End of Windows 10 Support and the Unfair Fate of an Intel i7" /><published>2025-08-25T00:00:00+00:00</published><updated>2025-08-25T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/08/25/7700k-windows11-upgrade</id><content type="html" xml:base="https://blog.popekim.com/en/2025/08/25/7700k-windows11-upgrade.html"><![CDATA[<p>Windows 10 support is coming to an end. Sure, you can pay for extended support for a few more years, but that's just life support. It's already decided that the plug will be pulled eventually, and Microsoft isn't going to change its mind.</p>
+
+<p>I run about seven desktop PCs at home, and all the others are Intel i7 8th gen or later, so they've already been upgraded to Windows 11. The only problem child is the Intel i7-7700K. For some reason, it's the only one that Microsoft officially refuses to support on Windows 11.</p>
+
+<p>I've got TPM 2.0 installed, Secure Boot enabled, and all the requirements checked off, but Microsoft still blocks the install. What makes it even more frustrating is that just a few months after I bought the 7700K, I picked up an Intel i7-8700K—and that one upgrades to Windows 11 just fine. A single generation apart, and yet one is allowed in and the other is locked out. There's no real performance gap to justify it either; it's just Microsoft drawing a line in the sand. Supporting more CPUs would blow up their test matrix and increase maintenance costs, so they simply decided not to bother.</p>
+
+<p>The truth is, hardware isn't advancing at the pace it used to. The Intel i7-7700K is a 4-core, 8-thread chip, and in more than eight years of use, I almost never felt it was lacking. At a base clock of 4.2GHz and boost up to 4.5GHz, with DDR4 memory fully populated, it ran games and dev environments without breaking a sweat. I figured it had at least another five years of life left, maybe even until the end of Windows 11's lifecycle. But thanks to Microsoft's arbitrary cutoff, a perfectly good CPU has been turned into "obsolete" overnight.</p>
+
+<p>So I made a decision. Jumping to DDR5 and a whole new platform would cost too much, and since I've already maxed out my DDR4 slots, there was no real reason to. Instead, I chose to swap only the CPU and motherboard. I picked up a used Intel i7-8700—not the 8700K. The choice was deliberate: while the K series allows overclocking, in the second-hand market that's a liability. You never know how hard the previous owner pushed the voltages or how they managed thermals, so the chip's lifespan could already be shortened. For stability, the plain 8700 just made more sense.</p>
+
+<p>For the motherboard, I grabbed another high-end board from the same line I was already using, since the onboard audio quality had been excellent. I ordered the CPU from Lithuania and the board from China via eBay. Waiting for shipping was a bit nerve-wracking, but everything arrived in good condition, and the system booted up without issues.</p>
+
+<p>When the dust settled, it ended up being kind of funny. I now have two nearly identical systems: one with an Intel i7-8700K and the other with an Intel i7-8700. Same generation, same chipset—just one has the "K" and the other doesn't. My original plan was to stretch the life of the 7700K, but thanks to Microsoft's policy, I've ended up with two machines from the same generation instead.</p>
+
+<p>For context, that Intel i7-8700K system is used mainly for machine learning. It's paired with an NVIDIA GeForce RTX 4060 Ti 16GB, which was the best bang-for-buck card last year. With 16GB of VRAM, it handles large models comfortably, and the power efficiency is solid too. This year, the crown has passed to the NVIDIA GeForce RTX 5060 16GB, but I don't really need to upgrade right away. I'll probably wait a few more years and jump straight to something like the NVIDIA GeForce RTX 9060 16GB, hopefully at a similar price point. With GPUs, it usually pays off to skip a generation or two anyway.</p>
+
+<p>The Windows 11 upgrade itself was successful. The system runs fine overall. But honestly, I still don't like it. Even something as basic as File Explorer feels noticeably slower compared to Windows 10, and that affects real-world performance. It eats up more system resources in places it shouldn't, and I keep asking myself, "Is this really an upgrade?"</p>
+
+<p>Still, there's no choice. Once Windows 10 support ends, there'll be no more security updates, and it won't be safe to keep using it. So like it or not, moving to Windows 11 is the only option. Part of me still feels disappointed, but in the end, I'll just have to accept it and adapt.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="ai" /><category term="rants" /><category term="graphics" /><category term="hardware" /><summary type="html"><![CDATA[Windows 10 support is coming to an end. Sure, you can pay for extended support for a few more years, but that's just life support. It's already decided that the plug will be pulled eventually, and Microsoft isn't going to change its mind.]]></summary></entry></feed>

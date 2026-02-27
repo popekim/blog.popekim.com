@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>컴파일 경고하나당 3 대씩 맞습니다 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2012/03/16/gonna-beat-you-three-times-for-each-compiler-warning.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">컴파일 경고하나당 3 대씩 맞습니다</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2012-03-16
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/cpp/">C++</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev-diary/">개발일지</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>컴파일 경고(warning) 얼마나 신경쓰세요? 현재 작업중인 코드베이스를 컴파일하면 경고가 몇개나 나오나요? 하나라도 있다면 반드시 다 고치세요. 구차한 변명따윈 필요없습니다. 하나도 안나오게 다 고치세요. 왜인지는 얼마전에 있던 제 경험담을 통해 아주 <del>짧게</del> 주저리주저리 설명드립니다.</p>
+
+<h2 id="며칠-전에-발견한-컴파일-경고-하나">며칠 전에 발견한 컴파일 경고 하나</h2>
+<p>현재 마무리를 도와주고 있는 콘솔게임을 PS3용으로 컴파일하다(즉 g++을 사용하면) 운좋게(왜 운좋은건지는 나중에 설명) 다음과 같은 컴파일 경고를 봤습니다.</p>
+
+<pre><code>1&gt;..\..\src\monster.cpp(2814): warning : unused variable 'temp'
+</code></pre>
+
+<p>보통 때 같으면 무시하겠는데(왜 무시하는지도 나중에 설명.. 원래는 절대 무시하면 안됨) 그날 따라 무슨 신내림을 받았던지…</p>
+
+<p><em>'응? 이놈이 뭐지? 궁금한 걸?'</em></p>
+
+<p>이란 생각이 더블클릭을 해서 소스코드를 봤지요.</p>
+
+<pre><code class="language-cpp">bool swapped = false;
+if( dist1 &gt; dist2 )
+{
+    swapped = true;
+    float temp = dist1;
+    dist1 = dist2;
+    dist2 = dist1;
+}
+</code></pre>
+
+<p>어라… 버그가 보이는군요. 무슨 버그일까요…. 잠시 여백을 두어 생각하실 기회를 드리겠습니다… 한 눈 팔지 말고 코드 분석하세요…</p>
+
+<p><img src="/ko/assets/img/2012/03/13.jpg" alt="" /></p>
+
+<p>한 눈 팔지 말랬잖아요.. 이 이미지를 보시면 이미 한눈 파신 겁니다. (그래도 출처는 http://curiousanimals.net)</p>
+
+<p>자, 문제점을 찾으셨나요? 찾으셨을 거라 믿습니다… 아니시라면…. <strong><em>당신은 프로그래머가 아니야~ 버럭!</em></strong></p>
+
+<h2 id="그래도-또-설명하는-친절한-포프씨--_-">그래도 또 설명하는 친절한 포프씨 -_-</h2>
+<p>위 코드가 하려는 일은 두 거리(dist1, dist2) 중에 dist2가 언제나 dist1보다 크도록 변수값을 교환해주는 거군요. 매우 간단하죠. 근데… 뭔가 이상하죠? temp 변수가 안 쓰였다니… 프로그래머가 아니신 분들을 위해 친절하게 예를 들어 한 단계씩 보여드리죠..</p>
+<h3 id="1-일단-대충-변수값을-제맘대로-대입">1. 일단 대충 변수값을 제맘대로 대입</h3>
+<p>다음과 같이 변수값을 정해서 이게 왜 버그인제 예를 보여드리겠습니다.</p>
+
+<ul>
+  <li>dist1 = 20</li>
+  <li>dist2 = 10</li>
+</ul>
+
+<h3 id="2-float-temp--dist1">2. <code>float temp = dist1;</code></h3>
+<p>이 라인을 실행하면 변수값이 다음과 같이 됩니다. 별문제는 없죠 아직.</p>
+
+<ul>
+  <li>temp = 20</li>
+  <li>dist1 = 20</li>
+  <li>dist2 = 10</li>
+</ul>
+
+<h3 id="3-dist1--dist2">3. <code>dist1 = dist2;</code></h3>
+<p>이 놈 이후엔 변수값이 이리 됩니다. 역시 괜찮습니다.</p>
+
+<ul>
+  <li>temp = 20</li>
+  <li>dist1 = 10</li>
+  <li>dist2 = 10</li>
+</ul>
+
+<h3 id="4-dist2--dist1">4. dist2 = dist1;</h3>
+<p>이게 마지막 라인이군요. 드디어 버그가 보이는군요. 이걸 실행하면 최종 변수값이 이 따위가(?) 됩니다.</p>
+
+<ul>
+  <li>temp = 20</li>
+  <li>dist1 = 10</li>
+  <li>dist2 = 10</li>
+</ul>
+
+<p>temp에 저장해눴던 값을 dist2에 대입하는 대신 dist1을 대입함으로 해서… 버그가 생긴거지요…  그럼, 이 버그로 인해서 생기는 문제는 뭐였을까요?</p>
+
+<p><strong>전.모.릅.니.다.</strong>
+<img src="/ko/assets/img/2012/03/15.jpg" alt="dog i dunno" /></p>
+
+<p><strong><em>정말 몰라요….</em></strong>(출처: http://knowyourmeme.com)</p>
+
+<p>대충 코드를 훑어봤는데… 파일 이름은 monster.cpp이고 함수이름은 updateTail() 이었습니다. 사실 정확히 어떤 버그가 생기는지는 제대로 살펴보지 않았습니다. 그냥 대충 생각해보니 몬스터들이 팔을 휘두르거나 그럴 때 자취를 보여주기 위해 띄를 하나 그려 주거든요? 가끔, 그 띄가 뒤로 역류해서 겹쳐보이는 경우가 있었습니다. 그게 바로 이 버그 때문일지도 모릅니다. 하지만… 귀찮아서 더 자세히 보진 않았습니다. 그냥</p>
+
+<p><em>이 버그 발견했으니 고쳐주세요.'</em></p>
+
+<p>라고 이메일만 보냈습니다.</p>
+
+<h3 id="버그는-어느-프로그래머나-만든다">버그는 어느 프로그래머나 만든다.</h3>
+<p>뭐 이정도 버그야 어느 프로그래머도 만들 수 있는 버그입니다. 그 부분에 대해선 프로그래머를 탓하지 않겠습니다. 저같은 <del>꽃미남</del> 프로그래머도 만드는 버그입니다.</p>
+
+<p>뭐, 위의 예는 약간의 비주얼적인 하자…. 별 큰 문제는 아니었죠… 근데… 이게 뭔가 더 중요한 코드였다면 엄청난 하자가 될수도 있죠. 특히나 이처럼 특정조건에서만 생기는 문제였다면 디버깅도 쉽지 않습니다.</p>
+
+<h3 id="하지만-버그를-안-만들기-위한-노력은-해야할-거-아닌가">하지만 버그를 안 만들기 위한 노력은 해야할 거 아닌가?</h3>
+<p>따라서 제가 탓하고 싶은 건 컴파일 경고가 떡하니</p>
+
+<p><strong><em>"너 뭔가 잘못하고 있을지도 몰라. temp변수가 안쓰였잖아"</em></strong></p>
+
+<p>라고 말해주는데 그걸 무시한 만행(?)입니다.</p>
+
+<p><strong>컴파일러 경고를 고치는 것만으로도 상당히 많은 수의 버그를 미리 잡아낼 수 있습니다.</strong></p>
+
+<p>이 코드가 들어가있는 게임… 수백만장 팔립니다… 개발비도 수백만불 됩니다. 이런 프로젝트에서 가장 쉽게 코드품질을 보장할 수 있는 법을 무시하는 프로그래머의 자세 좋지 못하죠. -_-</p>
+
+<p>보통 이따위로 깔끔하지 못하게 프로그래머하시는 분들… 전 타박해 드립니다… 하지만, 이번에는 그러지 못하는 이유가 있었습니다. 그것은….</p>
+
+<h3 id="너도-범인이다">너도 범인이다.</h3>
+<p>사실 문제는 이 코드를 작성한 프로그래머에게만 있는 건 아니었습니다. 이 회사의 모든 프로그래머 또는 제대로 된 정책을 만들지 않은 리드급 프로그래머에게도 문제가 있었습니다.</p>
+
+<p>왜냐면….. 이 코드베이스를 컴파일하면 컴파일 경고가 1019개 나오기 때문입니다. -_- 1019개나 되는 경고속에 파묻힌 경고 하나를 찾으라고 하는게 어불성설이지요…..</p>
+
+<p><img src="/ko/assets/img/2012/03/17.png" alt="" /></p>
+
+<p><strong>자네…나보고 어쩌라는 겐가….?</strong></p>
+
+<p>보통 때 같으면 전 이런 경고 다 고쳐버리고,</p>
+
+<p><strong><em>"앞으로 경고 나오면 경고 하나당 저에게 3대씩 맞습니다."</em></strong></p>
+
+<p>라고 통보를 해드립니다. 하지만 그럴 수 없었던 이유가 이미 너무 늦었다는거죠.  -_-…. 게임 마무리 단계에서는 아무리 사소한 거라도 안건드립니다. (이건 전에 '<a href="/ko/2011/12/16/shipping-mindset.html">게임 출시전 개발자가 갖춰야할 마음가짐</a>'이란 글에서 말씀 드렸었습니다.) 딱히 발견된 버그가 있지 않는한 절대 안고칩니다. 코드를 바꿀 때마다 새로운 버그가 나올 위험이 있거든요. 그래서…. 안고칩니다…. 무조건 안고칩니다.</p>
+
+<p>게임 출시하고 나서 고치죠. 근데 이 프로젝트 이후에 제가 이 팀을 도와줄 일이 없을거 같으니….</p>
+
+<p>아마 평생 안고칠지도…. -_-</p>
+
+<h3 id="컴파일-경고를-방지하는-무대뽀실용적인-방법">컴파일 경고를 방지하는 <del>무대뽀</del>실용적인 방법</h3>
+<p>자, 그럼 저희처럼 너무 늦기전에 이런 일이 발생하는 것을 방지합시다. 당장 오늘부터라도 시작합시다.</p>
+
+<h4 id="컴파일러-경고를-오류로-처리한다">컴파일러 경고를 오류로 처리한다.</h4>
+<p>가장 실용적인 방법은 컴파일러 경고가 나는 경우 이걸 아에 오류(error)로 처리해서 실행파일 조차 안만들어지게 하는겁니다. 아주 <del>무대뽀</del> 실용적이지요. 간단히 Visual Studio에서 컴파일 옵션만 켜주면 됩니다.</p>
+
+<p><img src="/ko/assets/img/2012/03/18.png" alt="" />
+<strong>아주 실용적(?)인 방법</strong></p>
+
+<p>이러면 경고가 날 때마다 아예 실행파일이 안만들어지니 테스트를 못하지요! 그래서 프로그래머는 반드시 이 경고를 고쳐야만 합니다. 그래야 제대로 도는지 테스트라도 하니…. 근데 문제는…. 임시적으로 뭐 테스트하고 지우기 위해 대충 코드짜놨는데 경고가 나면…… 짜증나지요… 프로그래머들의 반란(?)을 부추기는 계기가 됩니다…. -_-</p>
+
+<p><strong>그래서 이 옵션은 release 빌드용으로만 켜주는게 좋습니다.</strong> debug 빌드에서는 프로그래머가 뭔짓을 해도 냅두는게 장수의 비결입니다. 문제는 프로그래머가 debug 빌드에서만 테스트하고 경고있는 코드를 그대로 check-in 했을 때인데요.</p>
+
+<p>뭐, 이럴 때는 자동빌드머쉰(automatic build machine)이 release 빌드에 실패한뒤 그 프로그래머에</p>
+
+<p><strong><em>"당장 경고를 고치지 않으면 구워먹겠다!"</em></strong></p>
+
+<p>라는 협박 이메일을 보낼 거라고 믿습니다. 자동빌드머쉰이 없다면 만드세요. 이것도 없이 어떻게 게임 개발하지…? -_-;;;</p>
+
+<h4 id="정말-말도-안되는-경고는-꺼준다">정말 말도 안되는 경고는 꺼준다</h4>
+<p>가끔 정말 말도 안되는 경고도 있습니다. 별 의미가 없는 경고도 있고요. 이런 건 꺼주시면 됩니다. 단, 자기 맘대로 끄지 마시고 다른 프로그래머들과 상의한 뒤 동의를 얻어 꺼주세요. 자기 맘대로 끄는 것을 허용하면 경고 고치기 싫어서 그냥 꺼버리는 몰상식한 프로그래머들 꼭 나옵니다. 이런 분들 발견하시면 퇴사처리 해버리셔도 됩니다. -_-</p>
+
+<p>끄는 법에는 2가지가 있습니다. 프로젝트 전체로 꺼주는 법도 있고, 각 파일별로 (또는 그보다 작은 단위로) 꺼주는 법도 있습니다. 원하는 대로 골라서 쓰시면 됩니다.</p>
+
+<p><strong>프로젝트 전체에서 경고 꺼주기</strong>
+아래처럼 프로젝트 속성에서 꺼주면 됩니다. 아래 예는 프로젝트 전체에서 경고 #4507을 다 꺼주는 겁니다.</p>
+
+<p><img src="/ko/assets/img/2012/03/19.png" alt="" /></p>
+
+<p><strong>파일별로 꺼주기</strong>
+그냥 아래처럼 <code>#pragma warning()</code>을 써주시면 그 뒤부터는 경고가 안나옵니다.</p>
+
+<pre><code class="language-cpp">#pragma warning( disable : 4507 )
+</code></pre>
+
+<p>이걸 나중에 다시 켜줄려면</p>
+
+<pre><code class="language-cpp">#pragma warning( default: 4507 )
+</code></pre>
+
+<p>을 해주면 됩니다.</p>
+
+<h3 id="대충-정리">대충 정리</h3>
+<p>뭐… 결국 할 말은…. '경고를 반드시 고쳐주세요.'였으나 역시나 너무나 주저리주저리 써서 대충 정리.</p>
+
+<ul>
+  <li>컴파일 경고만 살펴봐도 정말 명백한 버그들을 고칠 수 있다.</li>
+  <li>릴리즈 빌드에서는 컴파일 경고를 컴파일 오류로 처리해서 프로그래머들이 언제나 경고없는 소스코드를 유지할 수 있게 돕는다.</li>
+  <li>필요없는 경고는 프로젝트 속성에서 전역적으로 꺼주거나 파일별로 <code>#pragma warning()</code>을 이용해서 꺼준다.</li>
+</ul>
+
+<p>p.s. 앞으로도 대충 어이없는 경험을 바탕으로 '제발 이러지 맙시다.'라는 글을 종종 올리겠습니다. 은근 좋아하는 분들이 많으신듯….. -_-</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/21/repeating-3week-pattern.html">반복되는 '3주 패턴': 마지막 과목을 내가 직접 끝내며 깨달은 것</a></li>
+                        
+                        <li><a href="/ko/2025/10/17/two-db-commit-side-effects.html">두 개의 DB에 동시에 쓰면서 사이드 이펙트를 최소화하는 방법</a></li>
+                        
+                        <li><a href="/ko/2013/05/16/why-am-i-still-an-employee.html">난 왜 아직도 직장인인가...?</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

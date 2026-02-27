@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>특화된 H/W의 장단점. Xbox360의 EDRAM과 PS3의 ZCULL 메모리 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/12/08/xbox360-edram-ps3-zcull.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">특화된 H/W의 장단점. Xbox360의 EDRAM과 PS3의 ZCULL 메모리</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-12-08
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>콘솔게임 개발의 장점은 한 하드웨어에 특화된 최적화를 할 수 있다는 겁니다. 마이크로소프트나 소니 둘 다 자기네 하드웨어가 더 뛰어나다는 걸 보여주기 위해 조금씩 다른 기능들을 추가하곤 하는데요. 아무래도 그래픽스 프로그래머인 저는 그래픽 관련 쪽의 하드웨어를 주로 다루게 됩니다. 여기서 간단히 설명 드릴 건 Xbox 360의 EDRAM과 PS3의 ZCull 메모리에 대해… 요즘 Darksiders 2게임 최적화 해주다보니 나름 요놈들을 주물러 줄 일이 있어서……</p>
+
+<h2 id="xbox-360의-edram">Xbox 360의 EDRAM</h2>
+
+<p>일단 Xbox 360의 EDRAM은 렌더타겟 위에 픽셀을 뿌려주는 속도를 빠르게 하기 위한 놈입니다. 보통 렌더타겟 설정하고 메쉬들을 그리면 최종 결과가 렌더타겟하고 연계된 텍스처의 메모리로 들어가잖아요? 근데 bandwidth가 충분치 않아서 여기서 bottleneck이 걸리는 경우가 많습니다. Xbox 360는 이 문제를 해결하려고 EDRAM이란 것을 렌더링 파이프라인 젤 마지막에 설치해서 텍스처 메모리가 아닌 이 하드웨어 메모리에 모든 픽셀들을 그립니다. 즉 렌더타겟 아무리 설정하고 픽셀을 수만개를 그려봐야 최종 텍스처의 메모리에는 아무것도 안들어갑니다. 모든 건 고스란이 EDRAM안에 있죠. 이러면 아무래도 EDRAM 하드웨어 상에서 블렌딩이며 overdraw며 다 처리해서 확실히 빠릅니다. 이렇게 그릴거 다 그린 뒤에 이 EDRAM 안에 있는 최종결과를 텍스처로 옮겨갈 때 쓰는 명령어가 Resolve()입니다.  XNA 개발해보신 분들은 3.0버전인가부터 Resolve()를 직접 호출해줘야 하죠? 바로 Xbox 360하고 PC에서 공통으로 실행되는 API를 제공하기 위해서 그런 겁니다.</p>
+
+<p>근데 문제는 Xbox 360에서는 언제나 EDRAM을 이용해야만 한다는 거죠. 물론 EDRAM을 사용해서 성능상 손해될 것은 없습니다. EDRAM을 사용하지 않는 것보다 성능이 나오지 않는 경우는 없으니까요. 정말 문제는 EDRAM의 크기가 10MB라는 건데요. 총 합이 10MB 를 넘는 렌더타겟들을 한 번에 사용하려면 그대로 뻗습니다……이게 바로 스페이스마린 Xbox 360의 해상도가 진정한 720P가 아닌 이유입니다. 진정한 720P는 1280 X 720 픽셀을 지원해야 하는데 이럴경우 저희 조명패스가 10MB 제한을 넘었거든요.</p>
+
+<p>조명패스에서 사용하는 렌더타겟:</p>
+
+<ul>
+  <li>렌더타겟</li>
+  <li>포맷: A16R16G16B16</li>
+  <li>바이트 / 픽셀: 8바이트</li>
+  <li>깊이/스텐실 버퍼</li>
+  <li>D24S8</li>
+  <li>바이트 / 픽셀: 4바이트</li>
+</ul>
+
+<p>이걸 1280 X 720으로 메모리 사용량을 계산하면</p>
+<ul>
+  <li>렌더타겟: 1280 X 720 X 8 = 7,372,800 바이트</li>
+  <li>깊이/스텐실 버퍼: 1280 X 720 X 4 = 3,686,400 바이트</li>
+  <li>총합: 11,059,200 바이트 = 10.54 MB <em>(버럭! 0.54메가가 넘다니!)</em></li>
+</ul>
+
+<p>물론 이런 문제를 해결하기 위해 <a href="http://msdn.microsoft.com/en-us/library/bb464139.aspx">Predicated Tiling</a>이라는 방법을 사용할 수 있습니다. 하지만 이건 성능 상의 문제도 있고 PS3나 PC 등의 다른 플랫폼도 동시에 지원하는 게임에서 한쪽 플랫폼에만 특화된 코드를 개발하는 일에 인력을 투입하는 것도 좀 돈낭비란 생각이 들어서…. 그냥 저희 멋대로 좌우 40픽셀씩만 잘라냈습니다. 그래서 스페이스마린 Xbox 360 버전의 해상도는 1200 X 720입니다…. -_-….. 이렇게 해서 다시 메모리 사용량을 계산하면 10MB가 조금 안됩니다.</p>
+
+<ul>
+  <li>렌더타겟: 1200 X 720 X 8 = 6,912,000바이트</li>
+  <li>깊이/스텐실 버퍼: 1200 X 720 X 4 = 3,456,000 바이트</li>
+  <li>총합: 10,368,000 바이트 = 9.89 MB</li>
+</ul>
+
+<p>하지만 최종 TV에 등장하는 해상도는 여전히 1280 x 720입니다. 내부적으로 모든 렌더링을 1200 X 720으로 한 뒤 마지막 단계에서 그냥 1280 x 720으로 업샘플(upsample) 해줍니다… Xbox 360 하드웨어 자체에서 업샘플링을 지원해 주는걸로 기억합니다…품질도 괜찮은 편이고요.</p>
+
+<h2 id="ps3의-zcull-메모리">PS3의 ZCULL 메모리</h2>
+<p>PS3에는 EDRAM같은 건 없습니다. 따라서 Xbox 360에 비해 렌더타겟에 픽셀들을 뿌려주는게 확실히 느립니다. 그 대신 PS3에는 Xbox 360에는 없는 ZCull이라는게 있는데요. ZCull은 계층적 깊이버퍼(Hierarchical Depth Buffer)와 하는 일이 비슷합니다. 보통 깊이 테스트를 통한 픽셀 rejection은 픽셀셰이더가 실행된 뒤에 하거든요. 그래서 깊이 테스트에 실패하던 말던 픽셀셰이더를 돌리느라 GPU 사이클을 낭비하곤 하지요.  '깊이테스트에 실패할거면 차라리 픽셀셰이더조차 돌리지 말자'라는 개념으로 ATI가 추가한게 Hi-Z(계층적깊이)구요. 아마 이게 특허가 걸려있어서 NVidia에서는 그대신 ZCull을 추가하지 않았나 싶습니다. 참고로 Xbox 360에 들어가는 GPU가 ATI, PS3에 들어가는 GPU가 NVidia입니다.</p>
+
+<p>사실 ZCull과 EDRAM은 하는 짓 자체가 전혀 틀린데 그래도 공통점 하나가 있습니다. ZCull도 하드웨어 자체에 붙어있는 메모리가 있죠. 물론 당연 그에 따라 제약도 있을거고…. 물론 EDRAM처럼 렌더타겟의 비트수만큼의 MB를 잡아먹진 않습니다. 그대신 자체적으로 깊이만 판단하면 되니까 그냥 어느정도 해상도까지만 지원해주죠. 이 어느정도 해상도라는게 대략 2048 x 1536입니다. 이정도면 사실 왠만해선 충분한 해상도지만 Cascade Shadow Map 기법에서 cascade를 렌더타겟 하나에 뭉쳐놓으려고 할 때 문제가 생기곤 하죠. 각 cascade가 1024 x 1024고 총 4개의 cascade를 사용한다면 렌더타겟의 크기가 2048 x 2048이 될테니까요.</p>
+
+<p>물론 ZCull이 지원하는 해상도를 넘는 렌더타겟을 사용해도 최종결과는 동일합니다. 즉 뻗지 않습니다…. -_-….. Xbox 360의 EDRAM과는 달리 다 제대로 돌고 결과도 제대론데 문제는 성능이 개떡이 된다는 거죠. PS3의 픽셀셰이더 속도가 Xbox 360에 비해 느린 것이 보통이라 이 ZCull이 제대로 작동되냐 마냐에 따라 프레임수가 확 차이가 납니다. 소니측에서도 성능향상 방법 1번으로 꼽는게 'ZCull 잘 주물러주기'입니다. 물론 단지 해상도뿐만이 아니라 다른 조건들이 맞아야만 ZCull이 활성화되서 좀 더 다루기 까다로운 것도 있지만….. 역시 PS3는 참 까탈스럽습니다.. ㅎ</p>
+
+<p>어쨌든 이 해상도 꾸겨 맞출려고, 한 때는 cascade의 크기를 768 x 768로 제한했었고… (이러면 카스케이드 4개를 렌더타겟 하나에 뭉쳐도 1536 x 1536이니까요.) 나중에는 차라리 Deferred Shadow라는 기법을 이용해서 이 제한을 피해갔습니다. (물론 디퍼드 샤도우를 사용한 이유는 인접 카스케이드 맵의 혼합을 통한 그림자 품질개선이 주 목적이었습니다.)</p>
+
+<h2 id="대충-제-생각소망">대충 제 생각/소망</h2>
+<p>ZCull이나 EDRAM이나 모두 훌륭한 아이디어임에는 분명합니다. 이거 없었으면 저희 게임에서 이 정도로 성능뽑아줄 수도 없었고요.</p>
+
+<p>다만 EDRAM이 ZCull처럼 해상도에 대해 좀 너그러웠으면 하는 바램이 있습니다. 해상도 지원안되는거면 그냥 성능을 줄여도 좋으니 화면에는 보이는 결과는 옳게? 저희처럼 수백만 달라 들어가는 게임이 아니라면 그 정도 성능이 필요할리가 없거든요. (아님 EDRAM사이즈를 엄청 크게 줘서 콘솔 제조원가를 올린뒤, 그걸 게이머들이 내게 하거나?…. 뭔가 이 옵션은…. 안될거 같죠?  -_- )</p>
+
+<p>그리고 PS3쪽에 바라는 건 ZCull의 까탈을 좀 줄여주거나…. 까탈을 부리고 싶으면 제대로 알려주기라도 하라는… 소니에서 제공하는 프로파일러에서 캡춰하지 않는한 ZCull이 도는지 아닌지 알수가 없어요… 잘 돌던게 다른 프로그래머 실수로 갑자기 고장나도 몇 달 지나서야 발견하고…. (아님 이 해상도 제한을 높이고 콘솔기기를 비싼 값에 팔던가…..? 역시 돈이 문제입니다… -_-  )</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2025/08/25/7700k-windows11-upgrade.html">윈도우 10 지원 종료와 Intel i7의 억울한 운명</a></li>
+                        
+                        <li><a href="/ko/2023/03/07/shader-compilation.html">셰이더 컴파일이란?</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

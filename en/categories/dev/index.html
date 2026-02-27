@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Dev | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/categories/dev/index.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item active">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-0"><ul class="post-list list-unstyled"><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2026/02/18/monorepo-architecture.html">
+                        <section>
+                            <h3>
+                                How We Maintain a Monorepo, and Why DLL Boundaries Matter More
+                            </h3>
+                            <p>The company I run fundamentally adopts a Monorepo approach. Our folder structure is therefore not designed to "make the code look neat," but rather based on how we manage dependencies and reuse code properly.
+
+Many people debate whether to organize by feature or by domain. I approach this from a slightly different perspective.
+
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Feb 18, 2026
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/git/">git</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/best-practice/">best practice</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/simplicity/">simplicity</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/11/02/stripe-krw-local-payment-dcc.html">
+                        <section>
+                            <h3>
+                                Stripe, KRW Local Payments, and the Never-Ending DCC Problem
+                            </h3>
+                            <p>Every time you pay on an overseas website, you've probably seen that little popup asking if you'd like to pay in KRW or USD. That's DCC — Dynamic Currency Conversion. It sounds convenient, but in reality it almost always costs you more. The merchant or payment processor uses its own exchange rate and adds a markup on top. So, in most cases, it's much cheaper to just pay in the local currency (USD, EUR, etc.). Paying in KRW on a foreign site basically means paying extra for nothing.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Nov 2, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/stripe/">stripe</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/payment/">payment</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/pocu/">pocu</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/fintech/">fintech</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/korea/">korea</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/10/23/aws-outage-multi-cloud.html">
+                        <section>
+                            <h3>
+                                AWS Went Down? Multi-Cloud Isn&#39;t the Answer
+                            </h3>
+                            <p>Over the past few days, many people have lost their illusion of "safety."
+
+On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage.
+
+Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs).
+Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.
+
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Oct 23, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cloud/">cloud</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/server/">server</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rants/">rants</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/10/22/rust-is-not-a-religion.html">
+                        <section>
+                            <h3>
+                                Rust Is a Great Language — But It&#39;s Not a Religion
+                            </h3>
+                            <p>Ten years ago, when no one cared, I was already saying it: "Rust is a great language."
+
+Back then, I had no data to back it up. It was just my gut feeling and experience. Rust was designed in a way that naturally prevents programmers from making common mistakes.
+
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Oct 22, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rust/">rust</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cpp/">cpp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rants/">rants</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/10/17/two-db-commit-side-effects.html">
+                        <section>
+                            <h3>
+                                How to Minimize Side Effects When Writing to Two Databases at the Same Time
+                            </h3>
+                            <p>Normally, data is stored in a single database.
+However, sometimes you may need to write to two physically separate DB servers at the same time.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Oct 17, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/csharp/">csharp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/database/">database</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ef-core/">ef core</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/transaction/">transaction</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/distributed-transaction/">distributed transaction</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev-diary/">dev diary</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/10/11/defensive-assertion-utils.html">
+                        <section>
+                            <h3>
+                                Five Defensive Utility Functions I Made
+                            </h3>
+                            <p>🎯 Introduction
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Oct 11, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/csharp/">csharp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/assertion/">assertion</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/debugging/">debugging</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/software-engineering/">software engineering</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">
+                        <section>
+                            <h3>
+                                In an Era of Frequent Facebook Graph API Deprecations, This Is How You Manage ASP.NET Core Login
+                            </h3>
+                            <p>Adding Facebook login to ASP.NET Core is supposed to be really simple. Just install the Microsoft.AspNetCore.Authentication.Facebook NuGet package, call services.AddFacebook(), set the AppId and Secret, and you're done. The login screen appears, and tokens come back as expected.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Aug 31, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/best-practice/">best practice</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/web/">web</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/csharp/">csharp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/08/28/stop-using-autocrlf.html">
+                        <section>
+                            <h3>
+                                Git, Still Using autocrlf in 2025? That&#39;s Frustrating
+                            </h3>
+                            <p>Sometimes I still see company repositories relying on core.autocrlf. Honestly, using this in 2025 feels frustrating.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Aug 28, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/git/">git</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/08/26/clean-assert-wrapper.html">
+                        <section>
+                            <h3>
+                                Clean Assert Wrappers
+                            </h3>
+                            <p>When working in C#, you often use debugging APIs like Debug.Assert() or Debug.Fail(). But if you call them directly across the whole project, it quickly becomes inconvenient. That's why many developers create a wrapper function and use it globally.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Aug 26, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/csharp/">csharp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/debugging/">debugging</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/en/2025/08/25/7700k-windows11-upgrade.html">
+                        <section>
+                            <h3>
+                                The End of Windows 10 Support and the Unfair Fate of an Intel i7
+                            </h3>
+                            <p>Windows 10 support is coming to an end. Sure, you can pay for extended support for a few more years, but that's just life support. It's already decided that the plug will be pulled eventually, and Microsoft isn't going to change its mind.
+</p><footer class=""><img width="40" src="/en/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">Pope Kim</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    Aug 25, 2025
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ai/">ai</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rants/">rants</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/hardware/">hardware</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li>
+        
+<nav class="py-2">
+    <ul class="pagination justify-content-center">
+        <li
+            class="page-item disabled">
+            <a class="page-link"
+                href="/en">Prev</a>
+        </li><li class="page-item disabled"><a class="page-link"
+                href="/en/">1</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/en/categories/dev/page/2/">2</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/en/categories/dev/page/3/">3</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/en/categories/dev/page/4/">4</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/en/categories/dev/page/5/">5</a>
+        </li><li class="page-item"><a class="page-link" href="/en/categories/dev/page/6">...</a></li><li class="page-item">
+            <a class="page-link"
+                href="/en/categories/dev/page/2/">Next</a>
+        </li>
+    </ul>
+</nav>
+        
+    </ul></div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 1 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2012/01/16/intro-to-shader-05-diffuse-specular-shader-part-1.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 1</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2012-01-16
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2012/01/09/intro-to-shader-04-lighting-part-3.html">이전편 보기</a></p>
+
+<p>실 세계에서 물체들이 다른 색을 갖는 이유는 물체마다 흡수/반사하는 빛의 스펙트럼(spectrum)이 다르기 때문입니다. 예를 들면 검정색 표면은 모든 스펙트럼을 흡수해서 검정색이고, 하얀색 표면은 모든 스펙트럼을 반사해서 하얀색입니다. 빨간색 표면 같은 경우는 빨강색의 스펙트럼을 반사하고 그 외의 스펙트럼을 흡수하니 빨간색으로 보이는 것이죠.</p>
+
+<p>그렇다면 표면이 빛을 흡수하는 성질을 셰이더에서 어떻게 표현할까요? 표면 전체가 한가지 색으로 칠해져 있다면 그냥 간단히 전역변수를 사용하면 되겠죠? 하지만 대부분의 경우, 물체의 표면은 다소 복잡한 패턴을 가지고 있습니다. 따라서 각 픽셀마다 색상을 정해줘야겠지요. 그럼 표면에서 반사할 색을 이미지로 그린 뒤, 픽셀셰이더에서 이 텍스처를 읽어와 조명계산의 결과에 곱하면 되겠죠?</p>
+
+<p>그런데 '제4장: 기초적인 조명셰이더'에서 빛을 계산할 때, 난 반사광(diffuse light)와 정 반사광(specular light)을 따로 구했었죠? 그렇다면 난 반사광과 정 반사광을 합친 결과에 이 텍스처를 곱해야 할까요? 아니면 따로 해야 할까요? 전에도 말씀드렸듯이 인간이 물체를 지각할 수 있는 이유는 대부분 난 반사광 덕분입니다. (정 반사광은 타이트한 하이라이트를 추가해줄 뿐이지요.) 따라서 위 텍스처를 난 반사광의 결과에만 적용하는 것으로 충분합니다. 이렇게 난 반사광에 적용하는 텍스처를 디퓨즈맵(diffuse map)이라 부릅니다.</p>
+
+<p>그렇다면 정 반사광은 어떻게 할까요? 물론 디퓨즈맵을 정 반사광에 그대로 사용할 수도 있습니다만 다음과 같은 두 가지 이유 때문에 정 반사광용으로 스페큘러맵(specular map)을 따로 만드는 경우가 허다합니다. 첫째, 난 반사광이 반사하는 빛과 정 반사광이 반사하는 빛의 스펙트럼이 다른 경우가 있습니다. 둘째, 각 픽셀이 반사하는 정 반사광의 정도를 조절하는 용도로 스페큘러맵을 사용할 수도 있습니다. 예를 들어, 사람의 얼굴에 정 반사광을 때린다고 생각해 보죠. '제4장: 기초적인 조명셰이더'에서 봤던 것처럼 얼굴의 전체에서 고르게 정 반사광이 보일까요? 거울을 보시면 알겠지만 이마나 코가 더 반짝거리죠? 그리고 이마나 코에서도 정 반사광이 좀 듬성듬성 보일 겁니다. (이건 모공이나 털 때문에 피부가 매끄럽지 않기 때문입니다.) 스페큘러맵을 잘 칠하면 이런 효과를 낼 수 있습니다. 따라서 이 장에서는 디퓨즈맵과 스페큘러맵을 따로 사용하도록 하겠습니다.</p>
+
+<p>이 외에도 물체의 색에 영향을 미치는 다른 요소가 있습니다. 바로 조명의 색입니다. 흰색 물체에 빨간색 빛을 비추면 물체가 불그스름하게 되죠? 조명의 색은 전역변수로 쉽게 지정할 수 있습니다.</p>
+
+<p>여태까지 말씀 드린 것을 보기 쉽게 설명하면 다음과 같습니다.</p>
+
+<pre><code>난 반사광 = 빛의 색상 X 난 반사광의 양 X 디퓨즈맵의 값  
+정 반사광 = 빛의 색상 X 난 반사광의 양 X 스페큘러맵의 값
+</code></pre>
+
+<p>그러면 위 내용들을 염두에 두고 디퓨즈/스페큘러매핑 셰이더를 작성해 볼까요?</p>
+
+<h2 id="기초설정">기초설정</h2>
+
+<p>일단 저번 장에서 사용했던 렌더몽키 프로젝트의 사본을 만들어 새로운 폴더에 저장합니다. 혹시 렌더몽키 프로젝트를 저장해 놓지 않으신 분들은 부록 CD에서 samples\04_lighting\lighting.rfx 파일을 복사해 오시면 됩니다.</p>
+
+<p>이 파일을 렌더몽키에서 연 다음, 셰이더의 이름을 SpecularMapping으로 바꾸겠습니다. 이름까지 바꾸셨다면 이제 디퓨즈맵과 스페큘러맵으로 사용할 이미지들을 추가해야겠군요. 셰이더 이름에 마우스 오른쪽 버튼을 누르면 나오는 팝업메뉴에서 Add Texture &gt; Add 2D Texture &gt; Fieldstone.tga파일을 선택합니다. 그러면 Fieldstone이라는 이름의 텍스처가 보이시죠? 이 이름을 DiffuseMap으로 바꾸도록 합시다.</p>
+
+<p>이제 Pass 0에 마우스 오른쪽 버튼을 눌러 Add Texture Object &gt; DiffuseMap을 선택합니다. Texture0이라는 텍스처 개체가 생겼을 것입니다. 이 이름을 DiffuseSampler로 변경합니다.</p>
+
+<p>이제 스페큘러맵을 추가해야 하는데 아무리 렌더몽키 폴더를 뒤져봐도 마땅한 놈이 안 보이는군요. 그래서 제 손으로 직접 스페큘러맵을 만들어서 부록 CD에 넣어놨습니다. 일단 이 스페큘러맵이 어떻게 생겼는지 한번 볼까요? 디퓨즈맵과 같이 비교해서 보면 좋겠군요</p>
+
+<p><img src="/ko/assets/img/2012/01/29.jpg" alt="그림 5.1. 디퓨즈맵(왼쪽)과 스페큘러맵(오른쪽)" /><br />
+<strong>그림 5.1. 디퓨즈맵(왼쪽)과 스페큘러맵(오른쪽)</strong></p>
+
+<p>스페큘러맵에서 돌판 사이의 틈새를 검정색으로 칠해 놓은 거 보이시죠? 따라서 이 틈새는 전혀 정 반사광을 반사하지 않을 겁니다. (하지만 난 반사광은 여전히 존재하지요.) 여기서 한가지 기억하실 점은 텍스처가 언제나 색상정보를 가지지는 않는다는 것입니다. 스페큘러맵이 그 좋은 예죠. 스페큘러맵에 저장된 정보는 최종이미지의 색상 값이라기 보다는 각 픽셀이 반사하는 정 반사광의 양입니다. 이와 마찬가지로 픽셀 수준에서 제어하고 싶은 변수가 있다면 이렇게 텍스처를 사용하는 것이 보통입니다. 후에 법선매핑을 다룰 때, 이렇게 텍스처를 이용하는 예를 보실 수 있을 것입니다.</p>
+
+<blockquote>
+  <p><strong>팁: 픽셀수준에서 제어하고 싶은 변수가 있다면 텍스처를 이용합니다.</strong></p>
+</blockquote>
+
+<p>자, 그럼 부록CD에서 Samples\05_DiffuseSpecularMapping\Fieldstone_SM을 찾아서 렌더몽키 프로젝트에 추가합니다. 추가하는 방법은 간단히 파일을 끌어다 이펙트 이름 위에 놓아주면 됩니다. 텍스처 이름은 SpecularMap으로, 텍스처 개체의 이름은 SpecularSampler로 하겠습니다.</p>
+
+<p>다음은 빛의 색을 추가하도록 하지요. 셰이더 이름에 오른쪽 버튼을 누른 뒤에 Add Variable &gt; Float &gt; Float3를 선택합니다. 변수명을 gLightColor로 하지요. 이제 이 변수를 더블클릭하면 값을 대입할 수 있습니다. 약간 푸르스름한 빛을 사용한다는 의미로 (0.7, 0.7, 1.0)을 대입하겠습니다.</p>
+
+<p>마지막으로 Stream Mapping을 설정할 차례입니다. '제4장: 기초적인 조명셰이더'와는 달리 여기서는 텍스처를 사용하니 정점데이터에서 UV 좌표를 읽어와야 합니다. Stream Mapping에 더블클릭을 해서 TEXCOORD0을 추가합니다. 당연히 데이터형은 float2입니다.</p>
+
+<p>여기까지 설정을 마치셨다면 렌더몽키 작업공간이 아래와 같을 겁니다.</p>
+
+<p><img src="/ko/assets/img/2012/01/10.jpg" alt="그림 5.2. 기초설정을 마친 렌더몽키 프로젝트" /><br />
+<strong>그림 5.2. 기초설정을 마친 렌더몽키 프로젝트</strong></p>
+
+<h2 id="정점셰이더">정점셰이더</h2>
+
+<p>이제 정점셰이더를 보도록 하지요. 우선 전체 소스코드부터 보여드린 뒤, 새로 추가된 코드만 설명 드리겠습니다.</p>
+
+<pre><code class="language-hlsl">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+float4 gWorldCameraPosition;
+
+struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+    float3 mNormal: NORMAL;
+    float2 mUV: TEXCOORD0;
+};
+
+struct VS_OUTPUT
+{
+    float4 mPosition : POSITION;
+    float2 mUV: TEXCOORD0;
+    float3 mDiffuse : TEXCOORD1;
+    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+};
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+    VS_OUTPUT Output;
+
+    Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+    float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+    lightDir = normalize(lightDir);
+    
+    float3 viewDir = normalize(Output.mPosition.xyz - gWorldCameraPosition.xyz);
+    Output.mViewDir = viewDir;
+    
+    Output.mPosition = mul( Output.mPosition, gViewMatrix );
+    Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+    
+    float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+    worldNormal = normalize(worldNormal);
+
+    Output.mDiffuse = dot(-lightDir, worldNormal);
+    Output.mReflection = reflect(lightDir, worldNormal);
+
+    Output.mUV = Input.mUV;
+    
+    return Output;
+}
+</code></pre>
+
+<p>새로 추가해야 할 전역변수가 있던가요? 새로 추가된 변수는 빛의 색상하고 2개의 텍스처 샘플러인데 텍스처 샘플러야 당연히 픽셀셰이더에서 사용하는 거니까 여기선 선언하지 않아도 되겠네요. 빛의 색상도 픽셀셰이더에서 그냥 곱하면 되겠는걸요?</p>
+
+<p>그렇다면 정점셰이더 입출력 구조체는 어떨까요? 새로 추가해야 할 게 하나 생겼죠? 픽셀셰이더에서 텍스처매핑을 하려면 UV 좌표가 필요하니까요. 정점버퍼에서 UV 좌표를 가져와서 픽셀셰이더에 전달해 줘야겠네요. 다음의 코드를 정점셰이더의 입력구조체와 출력구조체 양쪽에 모두 추가합시다.</p>
+
+<pre><code class="language-hlsl">    float2 mUV: TEXCOORD0;
+</code></pre>
+
+<p>정점셰이더 함수에 추가해야 할 코드도 딱 한 줄 뿐입니다. UV좌표를 전달해주는 것이죠.</p>
+
+<pre><code class="language-hlsl">    Output.mUV = Input.mUV;
+</code></pre>
+
+<p>정말 간단했죠? 이게 전부랍니다.</p>
+
+<p><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

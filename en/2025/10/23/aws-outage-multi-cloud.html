@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>AWS Went Down? Multi-Cloud Isn't the Answer | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/10/23/aws-outage-multi-cloud.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">AWS Went Down? Multi-Cloud Isn't the Answer</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Oct 23, 2025
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cloud/">cloud</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/defensive-programming/">defensive programming</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/server/">server</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rants/">rants</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>Over the past few days, many people have lost their illusion of "safety."</p>
+
+<p>On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage.</p>
+
+<p>Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs).<br />
+Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.</p>
+
+<!--more-->
+
+<p>The very next day, a service our company uses on Azure started slowing down, flooding our office with alerts. (For reference: whenever we have a server outage, a disco ball spins and we have an impromptu dance party. Red, blue, dance-dance~) Come to think of it, there was also a large-scale Azure Front Door issue earlier this month (October 9), which even affected the management portal. Microsoft's own status page said they mitigated it by rerouting traffic and purging caches.<br />
+Clearly, this isn't just a "single-vendor" problem.</p>
+
+<p>And of course, today's news articles, blogs, and think-pieces are full of the same claim:</p>
+
+<p><strong>"Multi-cloud is safer."</strong></p>
+
+<p>It sounds convincing—but in reality, multi-vendor setups can't fix fundamental control-plane (CP) issues or upstream dependencies like global DNS, identity systems, or routing. Even Wall Street touts multi-cloud as the answer, yet that doesn't change the fact that <strong>AWS itself was shaking across the board on that very same day.</strong></p>
+
+<p>My point is simple: <strong>"Cloud means safer" is a myth.</strong><br />
+Let's break it down again—something I've said countless times on my YouTube lives.</p>
+
+<h2 id="1-multiply-the-slas-and-youll-see-reality">1) Multiply the SLAs and you'll see reality</h2>
+
+<p>Let's say you run one web server and one database.<br />
+(That's the bare minimum architecture, right?)</p>
+
+<ul>
+  <li>SLA 99.9% × 99.9% = 99.8001%<br />
+→ <strong>About 17.5 hours of downtime per year</strong> (0.1999% × 8760h)</li>
+  <li>SLA 99.9% × 99.9% × 99.9% = 99.7003%<br />
+→ <strong>About 26.3 hours of downtime per year</strong></li>
+</ul>
+
+<p>"Serverless means I'm fine," you say?</p>
+
+<p><strong>Serverless still has servers.</strong><br />
+The name is just marketing. In the end, it all depends on the reliability of physical and virtual resources, control planes, and rollout mechanisms. Unless you believe in "chicken-free chicken," you can't escape the <strong>multiplication of failure probabilities.</strong></p>
+
+<h2 id="2-the-real-risk-isnt-hardware--its-software-changes">2) The real risk isn't hardware — it's software changes</h2>
+
+<p>Cloud providers love to talk about high availability stories like<br />
+"Even if one AZ goes down, we'll stay up." That's about <strong>hardware and facilities.</strong></p>
+
+<p>But the truth is, <strong>most major outages start from software or control-plane changes.</strong> If a release goes wrong, healthy hardware can receive <strong>bad configuration at scale</strong>, and multiple regions or services can collapse at once. The latest AWS incident? It started with <strong>a shared dependency</strong> between data paths and DNS resolution—classic domino effect.</p>
+
+<h2 id="3-the-vendor-doesnt-deploy-on-my-timeline">3) "The vendor doesn't deploy on my timeline"</h2>
+
+<p>The fundamental risk of the cloud is the <strong>loss of change control.</strong></p>
+
+<p>Vendors push rolling updates <strong>on their schedule</strong>, and you have almost no authority to verify release quality. If your relatively simple service breaks because of a cloud update, it means something broke at the <strong>baseline feature level</strong>—<strong>(which means the vendor didn't test it well enough).</strong>  And guess who pays for it? Your service.</p>
+
+<h2 id="4-the-forgotten-advantages-of-on-prem--colocation">4) The forgotten advantages of on-prem / colocation</h2>
+
+<ul>
+  <li><strong>You control when to update.</strong><br />
+No surprise 3 AM deployments behind your back.</li>
+  <li>If something breaks mid-deploy, <strong>you can roll back or hot-fix immediately.</strong></li>
+  <li><strong>A human (with skills) is right there</strong> to respond in real time.</li>
+</ul>
+
+<p>It's like performing surgery <strong>without blood reserves ready.</strong> No matter how great the hospital (cloud) infrastructure is, if your team has no control over the contingency plan, you're in danger.</p>
+
+<h2 id="5-multi-cloud-is-the-answer--that-sounded-cool-back-when-we-were-newbies">5) "Multi-cloud is the answer"? — That sounded cool back when we were newbies.</h2>
+
+<p>Multi-cloud overlooks two big realities:</p>
+
+<ol>
+  <li><strong>Data Gravity</strong><br />
+Keeping transactional data consistently replicated and fail-over-ready across clouds is a nightmare of latency, consistency, and locking strategies.</li>
+  <li><strong>Shared dependencies</strong><br />
+Global DNS, identity, SaaS CI/CD, logging, alerts, CDNs, version control—different vendors, yes, but <strong>shared upper-layer dependencies</strong> mean they can all fall together.</li>
+</ol>
+
+<p>Sure, for certain workloads—read-only caches, content delivery, or non-critical back-office tasks— multi-vendor setups can reduce risk.<br />
+But for <strong>core transactional paths</strong>, multi-cloud often <strong>increases complexity, cost, and the blast radius</strong> of outages.</p>
+
+<h3 id="so-how-can-we-be-safer">So how can we be "safer"?</h3>
+
+<p>This isn't a "ditch the cloud" rant. Cloud is fantastic for <strong>initial launches and experiments.</strong> But once your product hits a stable phase, consider the following:</p>
+
+<ol>
+  <li><strong>Escape single-region, minimize single control plane</strong><br />
+Even within the same vendor, use <strong>region/account separation</strong> to reduce blast radius. Split control and data planes (e.g., separate management/audit accounts).</li>
+  <li><strong>The courage to use "boring" tech</strong><br />
+Simplify core systems with proven components instead of shiny new managed ones. Migrate in controlled, incremental phases.</li>
+  <li><strong>Strict change management</strong><br />
+Canary releases, circuit breakers, feature flags, graceful degradation—non-negotiable. Align your own release calendar with vendor change windows and avoid peak-time changes.</li>
+  <li><strong>Off-cloud backstops</strong><br />
+Provide read-only static or cached fail-safes (e.g., critical notice pages, cached order history) accessible through alternate paths.</li>
+  <li><strong>Real-world game days</strong><br />
+Your team should physically rehearse failure scenarios—DNS down, identity down, storage down, message broker down—<br />
+and internalize the runbook, RTO, and RPO.</li>
+  <li><strong>Mature-phase strategy: Hybrid / On-prem relocation</strong><br />
+Bring <strong>core transactional and stateful tiers</strong> on-prem or to colocation. Keep <strong>edge, burst, and analytics</strong> in the cloud.<br />
+The cloud should become <strong>a tool you use when needed</strong>, not the place you live in.</li>
+</ol>
+
+<h2 id="in-summary-assuming-people-never-make-mistakes-is-the-real-danger">In summary: assuming "people never make mistakes" is the real danger</h2>
+
+<p>The cloud is a great tool. I still happily use it for <strong>early-stage products.</strong></p>
+
+<p>But once a service stabilizes, we should <strong>reduce cloud dependency</strong> and take back control of our core systems. That's what creates <strong>real safety.</strong></p>
+
+<p>It's not <strong>"Cloud = Safe."</strong><br />
+It's <strong>"Controlled change + Verifiable design = Safe."</strong></p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2025/10/17/two-db-commit-side-effects.html">How to Minimize Side Effects When Writing to Two Databases at the Same Time</a></li>
+                        
+                        <li><a href="/en/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">In an Era of Frequent Facebook Graph API Deprecations, This Is How You Manage ASP.NET Core Login</a></li>
+                        
+                        <li><a href="/en/2025/08/17/tempdata-helper.html">Used Only Once... Yet Still Worth Making a Function</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

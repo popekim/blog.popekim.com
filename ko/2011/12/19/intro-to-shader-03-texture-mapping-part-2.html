@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 03. 텍스처매핑 Part 2 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/12/19/intro-to-shader-03-texture-mapping-part-2.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 03. 텍스처매핑 Part 2</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-12-19
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2011/12/12/intro-to-shader-03-texture-mapping-part-1.html">이전편 보기</a></p>
+
+<h2 id="픽셀셰이더">픽셀셰이더</h2>
+
+<p>정점셰이더에서와 마찬가지로 전체 소스코드부터 보여드립니다.</p>
+
+<pre><code class="language-hlsl">sampler2D DiffuseSampler;
+
+struct PS_INPUT
+{
+    float2 mTexCoord : TEXCOORD0;
+};
+
+float4 ps_main( PS_INPUT Input ) : COLOR
+{
+    float4 albedo = tex2D(DiffuseSampler, Input.mTexCoord);
+    return albedo.rgba;
+}
+</code></pre>
+
+<h3 id="픽셀셰이더-입력데이터-및-전역변수">픽셀셰이더 입력데이터 및 전역변수</h3>
+
+<p>이제 픽셀셰이더를 살펴보기로 하죠. 픽셀셰이더에서 할 일은 텍스처 이미지에서 텍셀(texel) <em>(그림(picture)의 최소구성단위가 픽셀(pixel)인 것처럼 텍스처(texture)의 최소구성단위가 텍셀(texel)입니다.)</em> 을 구해와 그 색을 화면에 출력하는 것이겠군요. 그렇다면 텍스처로 사용할 이미지와 현재 픽셀의 UV 좌표가 필요하겠죠? 텍스처 이미지는 픽셀마다 변하는 값이 아니므로 전역변수로, UV 좌표는 정점셰이더로부터 보간기를 거쳐 들어온 입력데이터가 되겠네요. 우선 픽셀셰이더 입력데이터의 구조체부터 만들겠습니다.</p>
+
+<pre><code class="language-hlsl">struct PS_INPUT
+{
+    float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<p>어라? 별 다른 게 없네요? <code>VS_OUTPUT</code> 구조체를 가져와 <code>mPosition</code>을 지워버린 것 뿐이군요. 사실 픽셀셰이더의 입력데이터는 정점셰이더의 출력데이터와 일치할 수밖에 없습니다. 어차피 정점셰이더에서 반환한 값을 가져오는 거니까요.</p>
+
+<p>다음은 텍스처를 선언할 차례군요. 앞서 렌더몽키 프로젝트를 설정할 때 <code>DiffuseSampler</code> 라는 이름의 텍스처 개체를 만들었던 거 기억하시죠? 바로 이 개체가 텍셀을 구할 때 사용하는 <strong>텍스처 샘플러</strong>입니다. 따라서 HLSL 코드에서 사용하는 텍스처 샘플러의 이름도 <code>DiffuseSampler</code>여야 합니다.</p>
+
+<pre><code class="language-hlsl">sampler2D DiffuseSampler;
+</code></pre>
+
+<p><code>sampler2D</code>는 HLSL에서 지원하는 데이터형 중에 하나로 2D 텍스처에서 텍셀 하나를 구해오는데 사용합니다. 이 외에도 <code>sampler1D</code>, <code>sampler3D</code>, <code>samplerCUBE</code> 등의 샘플러가 있습니다.</p>
+
+<p>이제 픽셀셰이더 함수를 작성해보죠.</p>
+
+<h3 id="픽셀셰이더-함수">픽셀셰이더 함수</h3>
+
+<p>우선 헤더부터 보겠습니다.</p>
+
+<pre><code class="language-hlsl">float4 ps_main( PS_INPUT Input ) : COLOR
+{
+</code></pre>
+
+<p>이전과 달라진 점이라면 <code>PS_INPUT</code>형의 <code>Input</code> 매개변수를 받는다는 것뿐이군요. 보간기가 계산해준 UV 좌표 값을 받아오기 위해서입니다. 자, 이제 UV 값과 텍스처 샘플러가 있으니 텍셀 값을 구하는 일만 남았군요. <code>tex2D</code>라는 HLSL 내장함수를 사용하시면 매우 쉽게 이런 일을 할 수 있습니다. <code>tex2D</code>는 첫 번째 매개변수로 텍스처 샘플러를, 두 번째 매개변수로 UV 좌표를 받습니다.</p>
+
+<pre><code class="language-hlsl">    float4 albedo = tex2D(DiffuseSampler, Input.mTexCoord);
+</code></pre>
+
+<p>위 코드는 <code>DiffuseSampler</code>에서 <code>Input.mTexCoord</code> 좌표에 있는 텍셀을 읽어옵니다. 그 값은 <code>albedo</code>라는 변수에 저장되겠네요. 이제 이 값을 가지고 무슨 일을 해야 할까요? 으음…. 텍스처를 그대로 보여주는 게 목적이니까 그냥 반환하면 되겠네요.</p>
+
+<pre><code class="language-hlsl">    return albedo.rgba;
+}
+</code></pre>
+
+<p>이제 F5키를 눌러 정점셰이더와 픽셀셰이더를 각각 컴파일 한 뒤, 미리 보기 창을 보면…… 엉망이군요?!. 왜일까요? 그것은 정점 버퍼에서 올바른 <strong>UV 좌표 값</strong>을 불러오도록 설정을 하지 않았기 때문입니다. <em>Workspace</em> 패널 아래에서 <strong>Stream Mapping</strong>을 찾아 마우스를 더블클릭하세요. <code>POSITION</code>이라는 항목만 있는 거 보이시죠? 이제 <strong>Add</strong> 버튼을 눌러 새 항목을 추가한 뒤 <strong>Usage</strong>를 <code>TEXCOORD</code>로 바꿉니다. <strong>Index</strong>가 0이고 <strong>Data Type</strong>이 <code>FLOAT2</code>로 되어있는지도 확인하세요. <strong>Attribute Name</strong>은 굳이 손 안대셔도 됩니다. 이제 <strong>OK</strong> 버튼을 누르면 다음 그림과 같이 제대로 된 지구본을 보실 수 있을 것입니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/26.jpg" alt="그림 3.6. 그럴듯해 보이는 지구본" /></p>
+
+<p><strong>그림 3.6. 그럴듯해 보이는 지구본</strong></p>
+
+<p>근데 <code>albedo</code>란 변수를 반환할 때 <code>return albedo;</code>라고 하지 않고 <code>return albedo.rgba;</code>라고 한 것 보이시죠? 사실 <code>return albedo;</code>라고 해도 전혀 상관은 없지만 뭔가 새로운 것을 보여 드리기 위해 일부러 저렇게 썼습니다.</p>
+
+<p>HLSL에서는 벡터형 변수 뒤에 <code>xyzw</code>나 <code>rgba</code> 등의 <strong>접미사</strong>를 붙이는 방법을 사용하여 벡터의 성분들에 매우 쉽게 접근할 수 있습니다. 예를 들어, <code>float4</code>를 4개의 요소를 가진 float 배열(즉, <code>float[4]</code>)라고 본다면 <code>x</code>나 <code>r</code>은 첫 번째 요소를, <code>y</code>나 <code>g</code>는 두 번째 요소를, <code>z</code>나 <code>b</code>는 세 번째 요소를, <code>w</code>나 <code>a</code>는 네 번째 요소를 가리킵니다. 예를 들어서 위의 <code>albedo</code>에서 rgb값만을 가져오고 싶다면</p>
+
+<pre><code class="language-hlsl">    float3 rgb = albedo.rgb;
+</code></pre>
+
+<p>라고 하시면 됩니다. 하지만 이에 그치지 않습니다. 이들 접미사의 순서를 마음대로 뒤섞어 새로운 벡터를 만들 수도 있습니다. 예를 들어 <code>r, g, b</code> 채널의 순서를 뒤바꾸고 싶다면</p>
+
+<pre><code class="language-hlsl">    float4 newAlbedo = albedo.bgra;
+</code></pre>
+
+<p>이라고 하시면 됩니다. 심지어는 다음과 같이 <code>r</code> 채널만 세 번 반복할 수도 있습니다.</p>
+
+<pre><code class="language-hlsl">    float4 newAlbedo = albedo.rrra;
+</code></pre>
+
+<p>매우 멋지지 않나요? 이렇게 <code>rgba</code>나 <code>xyzw</code>를 이용해서 마음대로 순서를 바꿔가면서 벡터의 성분에 접근하는 것을 <strong>스위즐(swizzle)</strong>이라고 합니다.</p>
+
+<p>자, 그러면 연습도 할 겸 스위즐을 이용해서 방금 만들었던 지구본의 빨강채널과 파랑채널을 뒤바꿔보는 것은 어떨까요? 누워서 떡 먹기죠? ^_^</p>
+
+<h2 id="선택사항-directx-프레임워크">선택사항: DirectX 프레임워크</h2>
+
+<p>이제 C++로 작성한 DirectX 프레임워크에서 셰이더를 사용하시고자 하는 분들을 위한 선택적인 절입니다.</p>
+
+<p>우선 <strong>'제2장: 진짜 쉬운 빨강셰이더'</strong>에서 사용했었던 프레임워크의 사본을 만들어 새로운 폴더에 저장합니다. 그 다음, 렌더몽키에서 사용했던 셰이더와 3D 모델을 DirectX 프레임워크에서 사용할 수 있도록 파일로 저장합니다. <code>Sphere.x</code>와 <code>TextureMapping.fx</code>라는 파일이름을 사용하도록 하겠습니다. 이제 렌더몽키에서 사용했던 <code>earth.jpg</code>라는 텍스처 파일도 복사해옵니다. 이 파일은 렌더몽키의 설치디렉터리를 보시면 <code>\Examples\Media\Textures</code> 폴더 안에 있습니다.</p>
+
+<p>우선 전역변수들을 살펴봅시다. <strong>'제2장: 진짜 쉬운 빨강셰이더'</strong> 사용했던 셰이더 변수의 이름이 <code>gpColorShader</code>였었군요. 이것을 <code>gpTextureMappingShader</code>로 바꿉시다.</p>
+
+<pre><code class="language-cpp">// 셰이더
+LPD3DXEFFECT           gpTextureMappingShader = NULL;
+</code></pre>
+
+<p>지구 텍스처를 메모리에 저장할 때 사용할 텍스처 포인터도 하나 선언합니다.</p>
+
+<pre><code class="language-cpp">// 텍스처
+LPDIRECT3DTEXTURE9     gpEarthDM               = NULL;
+</code></pre>
+
+<p>이제 <code>CleanUp()</code> 함수로 가서 여기서 선언했던 D3D자원들을 해제하는 코드도 추가해야겠군요. 이래야 훌륭한 프로그래머이신 거 아시죠? <code>gpColourShader</code>의 이름을 변경하는 것도 잊지 맙시다.</p>
+
+<pre><code class="language-cpp">    // 셰이더를 release 한다.
+    if ( gpTextureMappingShader )
+    {
+        gpTextureMappingShader-&gt;Release();
+        gpTextureMappingShader = NULL;
+    }
+
+    // 텍스처를 release 한다.
+    if ( gpEarthDM )
+    {
+        gpEarthDM-&gt;Release();
+        gpEarthDM = NULL;
+    }
+</code></pre>
+
+<p>이제 텍스처와 셰이더를 로딩해 보겠습니다. 당연히 <code>LoadAssets()</code> 함수에서 로딩을 해야죠.</p>
+
+<p>일단 셰이더 변수의 이름과 셰이더 파일의 이름을 각각 <code>gpTextureMappingShader</code>와 <code>TextureMapping.fx</code>로 변경합니다.</p>
+
+<pre><code class="language-cpp">    // 셰이더 로딩
+    gpTextureMappingShader = LoadShader("TextureMapping.fx");
+    if ( !gpTextureMappingShader )
+    {
+        return false;
+    }
+</code></pre>
+
+<p>그리고 이전에 만들어 두었던 <code>LoadTexture()</code> 함수를 이용해서 <code>earth.jpg</code> 파일을 로딩합니다.</p>
+
+<pre><code class="language-cpp">    // 텍스처 로딩
+    gpEarthDM = LoadTexture("Earth.jpg");
+    if ( !gpEarthDM )
+    {
+        return false;
+    }
+</code></pre>
+
+<p>이제 렌더링을 담당하는 <code>RenderScene()</code> 함수를 살펴보도록 하죠. 일단 <code>gpColorShader</code> 변수명이 쓰이는 곳이 많네요. 이것을 모두 찾아 <code>gpTextureMappingShader</code>로 변경합시다.</p>
+
+<p>텍스처매핑 셰이더에서 새로 추가한 전역변수가 하나 있었죠? 바로 텍스처 샘플러입니다. 그런데 D3D 프레임워크에서 셰이더에 텍스처를 대입해줄 때, 곧바로 <strong>샘플러</strong>에 대입해주는 게 아니라 <strong>텍스처 변수</strong>에 대입해줘야 합니다. 렌더몽키에서 <code>DiffuseSampler</code>말고 <code>DiffuseMap</code>이라고 불리던 텍스처가 있었죠? 이게 바로 <strong>텍스처 변수</strong>입니다. 그럼 <code>DiffuseMap</code>이란 이름의 셰이더변수에 텍스처를 대입해주면 될 것 같죠? 사실 그래야 정상인데 렌더몽키가 자기 멋대로 텍스처 변수의 이름을 바꾸더군요. -_-;; <code>TextureMapping.fx</code> 파일을 메모장에서 열어보시면 아실 겁니다. 코드를 쭉 보다 보면 <code>sampler2D DiffuseSampler</code> 바로 위에 <code>texture</code> 데이터형으로 선언된 변수가 하나 보일 겁니다? 자기 맘대로 <code>_Tex</code> 접미사를 붙여놨군요. 나쁜 원숭이 같으니라고…</p>
+
+<pre><code class="language-hlsl">texture DiffuseMap_Tex
+</code></pre>
+
+<p>뭐 불평해봐야 뭐 달라질게 있겠습니까? 그냥 이 변수명을 사용해서 텍스처를 대입해주도록 합시다. 셰이더에 텍스처를 대입할 때는 <code>SetTexture()</code>함수를 사용합니다. 이 함수는 <code>SetMatrix</code>함수와 마찬가지로 <strong>셰이더 내부의 변수명</strong>을 첫 번째 매개변수로 받습니다.</p>
+
+<pre><code class="language-cpp">    gpTextureMappingShader-&gt;SetTexture("DiffuseMap_Tex", gpEarthDM);
+</code></pre>
+
+<p>자, 이제 프로그램을 컴파일 한 뒤 실행시켜 보세요. 렌더몽키에서 봤던 것과 동일한 결과를 보실 수 있죠? 근데, 이 지구가 천천히 회전하면 더 괜찮겠는걸요? 그럼 지구를 빙그르르 돌리는 코드를 추가해보죠.</p>
+
+<p>일단, 현재 회전 값을 기억할 전역변수를 하나 추가합니다.</p>
+
+<pre><code class="language-cpp">// 회전값
+float     gRotationY  = 0.0f;
+</code></pre>
+
+<p>물체의 회전과 위치 등의 정보는 월드행렬의 일부가 됩니다. 따라서 <code>RenderScene()</code>함수로 다시 돌아와 월드행렬을 만드는 코드를 이렇게 바꾸겠습니다.</p>
+
+<pre><code class="language-cpp">    // 프레임마다 0.4도씩 회전을 시킨다.
+    gRotationY += 0.4f * PI / 180.0f;
+    if ( gRotationY &gt; 2 * PI )
+    {
+        gRotationY -= 2 * PI;
+    }
+
+    // 월드행렬을 만든다.
+    D3DXMATRIXA16 matWorld;
+    D3DXMatrixRotationY(&amp;matWorld, gRotationY);
+</code></pre>
+
+<p>이 코드가 하는 일은 프레임마다 회전 각도를 0.02도씩 추가하고, 현재 회전 각도에 따라 회전행렬을 만들어서 그것을 월드행렬로 사용합니다. 현재 사용하시는 컴퓨터의 사양에 따라 이 회전 값이 너무 빠르거나 느릴 수도 있습니다. 본인의 컴퓨터에 맞게 적절히 값을 조정하세요. <em>(실제 게임에서는 지난 프레임 이후 경과한 시간에 따라 회전량을 계산하는 게 옳은 방법입니다. 여기서 보여 드리는 코드는 셰이더 데모를 위한 것이므로 그냥 이 정도로 놔두겠습니다.)</em></p>
+
+<p>자, 이제 다시 코드를 실행해보면 자전을 하는 지구의 모습을 볼 수가 있죠?</p>
+
+<h2 id="정리">정리</h2>
+
+<p>다음은 이 장에서 배운 내용을 짧게 요약해 놓은 것입니다.</p>
+
+<ul>
+  <li>텍스처매핑을 하려면 UV 좌표가 필요하다.</li>
+  <li>UV 좌표는 각 정점 상에 정의된 가변 값이다.</li>
+  <li>픽셀셰이더가 정점데이터를 이용하려면 정점셰이더의 도움이 필요하다.</li>
+  <li>정점셰이더가 출력하는 값은 모두 보간기를 거친다.</li>
+  <li><code>tex2D</code>함수를 이용하면 쉽게 텍스처를 샘플링할 수 있다.</li>
+</ul>
+
+<p>고급셰이더 기법 중에 텍스처매핑을 사용하지 않는 기법은 없다고 해도 과언이 아닐 정도로 텍스처매핑은 셰이더 프로그래밍에 없어서는 안 될 존재입니다. 다행히도 HLSL에서 텍스처매핑이 그리 어렵진 않으니 잘 익혀두시기 바랍니다.</p>
+
+<p>수고하셨습니다.</p>
+
+<p><a href="/ko/2011/12/26/intro-to-shader-04-lighting-part-1.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

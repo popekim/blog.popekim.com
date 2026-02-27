@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>05. Let's Add Colors to Objects: Diffuse/Specular Shader | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2015/01/12/intro-to-shader-05-diffuse-specular-shader.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">05. Let's Add Colors to Objects: Diffuse/Specular Shader</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Jan 12, 2015
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<p>Why do different objects have different colors? It is because they absorb and reflect different spectrums of incoming light. For example, a black surface looks black because it absorbs all the spectrums, and a white surface is white because it reflects everything. Likewise, a red surface reflects red spectrum while absorbing the others.</p>
+
+<p>Then how do we represent this absorption property in shader? If a surface has only one uniform color across its surface, we can just use a global variable for this, right? However, most surfaces have more complicated patterns than this. This means that each pixel needs to have a different color. So let's think it this way. We are going to “draw” an image on a surface, and this image defines which color will be reflected on each pixel. Once this image is saved as a texture, we can look it up inside a pixel shader and apply it to the lighting result.</p>
+
+<p>Do you remember that we calculated diffuse and specular light separately in Chapter 4? Then do you think we need to multiply this texture to the sum of diffuse and specular light or not? As mentioned earlier, the reason why we can recognize an object is mainly due to diffuse lighting. (On the other hand, the specular light adds a tight highlight to it.) Therefore, it is good enough to apply the texture to the diffuse lighting result only. Since this texture is only applied to diffuse lighting, we will call it diffuse map.</p>
+
+<p>Then how about specular lighting? It is okay to use the same diffuse map for specular lighting, too, but usually different textures are used for specular lighting for the following two reasons. First, some surfaces reflect different spectrums for diffuse and specular lighting. Second, specular maps are often used to turn off specularity on certain pixels without affecting diffuse light, which is more globally applied. One great example is our face. When you observe specular light on a human face, do you expect to see a smooth highlight without any noise as shown in Chapter 4? If you look into a mirror, you will see the forehead and nose have more specularity. Furthermore, you will see not all the part of your nose or forehead has visible specularity. It is because your face is not perfect due to pores and facial hair. With specular mapping, this effect can be simulated to some degree. So, we will be using two separate diffuse and specular maps in this chapter.</p>
+
+<p>There is another thing that affects the color of an object: the light color. If you cast a red light on a white object, the object looks reddish, right? The color of light can be easily defined as a global variable.</p>
+
+<p>What we discussed so far can be summed like this:</p>
+
+<pre><code>Final diffuse = light color X amount of diffuse lighting X diffuse map
+Final specular = light color X amount of specular lighting X specular map
+</code></pre>
+<p>Then, with the above knowledge under our belt, let's write diffuse/specular mapping shader now.</p>
+
+<h2 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h2>
+<p>First, make a copy of the RenderMonkey project used in the last chapter, and save it inside another folder. If you forgot to save it in the last chapter, you can use samples\04_lighting\lighting.rfx file from the accompanying code samples.</p>
+
+<p>Now open this file inside RenderMonkey, and change the effect name to SpecularMapping. Once the name is changed, it's time to add images that will be used as diffuse and specular maps. Right-click on the effect name, and select <code>Add Texture</code> &gt; <code>Add 2D Texture</code> &gt; <code>Fieldstone.tga</code> file from the pop-up menu. Now you will see a texture, named Fieldstone. Change the name to DiffuseMap.</p>
+
+<p>Then right-click on Pass 0 and select <code>Add Texture Object</code> &gt; <code>DiffuseMap</code>. You will see a texture object, named <code>Texture0</code>. Change the name to <code>DiffuseSampler</code>.</p>
+
+<p>We need to add a specular map now, but I was not able to find a good candidate from the RenderMonkey installation folder. So I handmade a specular map and included with the accompanying code samples. Let's take a look at how this specular map looks like first, side by side with the diffuse map.</p>
+
+<p><img src="/en/assets/img/2015/01/00.jpg" alt="fig5-1" /></p>
+
+<p><strong>Figure 5.1 Diffuse map (left) and specular map (right)</strong></p>
+
+<p>Do you see the seams between stone bricks are colored in black in the specular map? These seams won't reflect any specular light. (Still, there is diffuse light as you can guess from the diffuse map.) One thing to note here is that textures do not always contain color information, as you can see with the specular map in Figure 5.1. The information stored in a specular map is not color; instead, it defines the amount of specular light that will be reflected from each pixel. Similarly, it is very common to use a texture map if there are variables that need to be controlled on each pixel. You will see this technique again later when we are implementing normal mapping.</p>
+
+<blockquote>
+  <p><strong><em>Tip: Use textures for the variables that need to be controlled per pixel.</em></strong></p>
+</blockquote>
+
+<p>Then, find Samples\05_DiffuseSpecularMapping\Fieldstone_SM.tga file from the accompanying code samples and add it to the RenderMonkey project. To do so, you can simply drag and drop the file onto the effect name. Also change the texture name to SpecularMap, and texture object name to SpecularSampler.</p>
+
+<p>Next, we will add the light color. Right-click on the effect name and select Add Variable &gt; Float &gt; Float3. The variable name will be gLightColor. Now double-click on the variable to assign some value. To make it emit bluish light, we will use (0.7, 0.7, 1.0) for the light color.</p>
+
+<p>Last up is Stream Mapping. Unlike in Chapter 4, a texture is used here, so UV coordinates are needed. Double-click on Stream Mapping to add TEXCOORD0. The data type is float2, of course.
+Once all the above steps are finished, your RenderMonkey Workspace should look like Figure 5.2.</p>
+
+<p><img src="/en/assets/img/2015/01/01.jpg" alt="fig5-2" /></p>
+
+<p><strong>Figure 5.2 RenderMonkey project after the initial setup</strong></p>
+
+<h2 id="vertex-shader">Vertex Shader</h2>
+<p>Now let's look at vertex shader. I will show you the full source code first, and explain newly added code.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+float4 gWorldCameraPosition;
+
+struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+  float3 mNormal: NORMAL;
+  float2 mUV: TEXCOORD0;
+};
+
+struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+  float2 mUV: TEXCOORD0;
+  float3 mDiffuse : TEXCOORD1;
+  float3 mViewDir: TEXCOORD2;
+  float3 mReflection: TEXCOORD3;
+};
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+  VS_OUTPUT Output;
+
+  Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+  float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+  lightDir = normalize(lightDir);
+
+  float3 viewDir = normalize(Output.mPosition.xyz - gWorldCameraPosition.xyz);
+  Output.mViewDir = viewDir;
+
+  Output.mPosition = mul( Output.mPosition, gViewMatrix );
+  Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+
+  float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+  worldNormal = normalize(worldNormal);
+
+  Output.mDiffuse = dot(-lightDir, worldNormal);
+  Output.mReflection = reflect(lightDir, worldNormal);
+
+  Output.mUV = Input.mUV;
+
+  return Output;
+}
+</code></pre>
+
+<p>Was there any new global variables that needs be added? Yes, a light color and two texture samplers. Texture samplers are used in pixel shader, so they don't need to be declared here. Then what about the light color? It can simply be multiplied inside pixel shader, right? So, nothing to be added here!</p>
+
+<p>Then how about the input/output structure? There was one thing to add: the UV coordinates. It will be used by pixel shader to sample textures. Let's add the following line to both input and output structures of the vertex shader.</p>
+
+<pre><code class="language-cpp">  float2 mUV: TEXCOORD0;
+</code></pre>
+
+<p>We also need to add only one line to vertex shader function. The below line passes the UV coordinates to pixel shader.</p>
+
+<pre><code class="language-cpp">  Output.mUV = Input.mUV;
+</code></pre>
+<p>Pretty simple, right? That's it for vertex shader.</p>
+
+<h2 id="pixel-shader">Pixel Shader</h2>
+<p>As we did earlier, full pixel shader code is listed first, followed by explanation on newly added code.</p>
+
+<pre><code class="language-cpp">struct PS_INPUT
+{
+  float2 mUV : TEXCOORD0;
+  float3 mDiffuse : TEXCOORD1;
+  float3 mViewDir: TEXCOORD2;
+  float3 mReflection: TEXCOORD3;
+};
+
+sampler2D DiffuseSampler;
+sampler2D SpecularSampler;
+
+float3 gLightColor;
+
+float4 ps_main(PS_INPUT Input) : COLOR
+{
+  float4 albedo = tex2D(DiffuseSampler, Input.mUV);
+  float3 diffuse = gLightColor * albedo.rgb * saturate(Input.mDiffuse);
+
+  float3 reflection = normalize(Input.mReflection);
+  float3 viewDir = normalize(Input.mViewDir);
+  float3 specular = 0;
+  if ( diffuse.x &gt; 0 )
+  {
+   specular = saturate(dot(reflection, -viewDir ));
+   specular = pow(specular, 20.0f);
+  
+   float4 specularIntensity = tex2D(SpecularSampler, Input.mUV);
+   specular *= specularIntensity.rgb * gLightColor;
+  }
+
+  float3 ambient = float3(0.1f, 0.1f, 0.1f) * albedo;
+
+  return float4(ambient + diffuse + specular, 1);
+}
+</code></pre>
+
+<p>First, we will globally declare three variables which were added to RenderMonkey.</p>
+
+<pre><code class="language-cpp">sampler2D DiffuseSampler;
+sampler2D SpecularSampler;
+
+float3 gLightColor;
+</code></pre>
+
+<p>Then, add UV coordinates to PS_INPUT.</p>
+
+<pre><code class="language-cpp"> float2 mUV : TEXCOORD0;
+</code></pre>
+
+<p>Now, it's time to sample the diffuse map. Add the following line to the top of the pixel shader function.</p>
+
+<pre><code class="language-cpp">  float4 albedo = tex2D(DiffuseSampler, Input.mUV);
+</code></pre>
+
+<p>The sampling result, albedo, is the color which current pixel reflects. I said we need to multiply this to diffuse lighting amount and light color, right? Change the previous code, which was calculating diffuse, to this:</p>
+
+<pre><code class="language-cpp">  float3 diffuse = gLightColor * albedo.rgb * saturate(Input.mDiffuse);
+</code></pre>
+
+<p>Now press F5 twice to compile the vertex and pixel shaders, separately. Then look at the preview window.</p>
+
+<p><img src="/en/assets/img/2015/01/02.jpg" alt="fig5-3" /></p>
+
+<p><strong>Figure 5.3 Result with diffuse map only</strong></p>
+
+<p>You should be able to see the brick wall texture, as well as the bluish light. However, the specular lighting does not look right. Even the seams have specular light! It's probably because we haven't applied the specular map yet. Then let's add the specular map.</p>
+
+<blockquote>
+  <p><em><strong>Tip: How to Rotate an Object in Preview Window</strong> To cast specular light in the seams like Figure 5.3, you will need to rotate the object. To rotate an object in Preview window, move the mouse around while holding down left mouse button inside the window. If you want translation or scaling instead of rotation, click on the second right icon from the toolbar to switch to Overloaded Camera Mode.</em></p>
+</blockquote>
+
+<p>Add the following code, which samples the specular map, below where we did pow() on specular.</p>
+
+<pre><code class="language-cpp">   float4 specularIntensity = tex2D(SpecularSampler, Input.mUV);
+</code></pre>
+
+<p>We need to multiply this, as well as the light color, to specular, right? The code doing it is shown below.</p>
+
+<pre><code class="language-cpp">   float4 specularIntensity = tex2D(SpecularSampler, Input.mUV);
+   specular *= specularIntensity.rgb * gLightColor;
+</code></pre>
+
+<p>Another problem with the result shown in Figure 5.3 is that the details of diffuse texture disappear when the diffuse light disappears. It is because (0.1, 0.1, 0.1) is used for the ambient light. Since ambient light is indirect light hitting the surface, it should be modulated by the diffuse map, as well. Find the code where ambient is calculated and change the code like this:</p>
+
+<pre><code class="language-cpp">float3 ambient = float3(0.1f, 0.1f, 0.1f) * albedo;
+</code></pre>
+
+<p>Again, compile the vertex and pixel shaders, and see the preview window.</p>
+
+<p><img src="/en/assets/img/2015/01/03.jpg" alt="fig5-4" />
+<strong>Figure 5.4 Result with diffuse/specular map and ambient light</strong></p>
+
+<p>You see the obvious difference from Figure 5.3, right? Specular light is not that strong anymore, and the seams look perfect, too! In addition, you can see the traits of diffuse map in the very dark pixels, too.</p>
+
+<h2 id="optional-directx-framework">(Optional) DirectX Framework</h2>
+<p>This is an optional section for readers who want to use shaders in a C++ DirectX framework.</p>
+
+<p>First, make a copy of the framework used in Chapter 4 and save it into a new folder. Next, save the shader and 3D model that we used in RenderMonkey into Sphere.x and SpecularMapping.fx files so that they can be used in the DirectX framework. Also copy and paste two textures used in RenderMonkey into the framework folder. Filedstone_DM.tga and Fieldstone_SM.tga will be the file names.</p>
+
+<p>Now open the Visual C++ solution, and change all instances of gpLightingShader variable to gpSpecularMappingShader in the source code.</p>
+
+<p>Next, go to the global variable section to declare pointers to the two textures and a variable to store the light color, as shown below:</p>
+
+<pre><code class="language-cpp">// Textures
+LPDIRECT3DTEXTURE9    gpStoneDM  = NULL;
+LPDIRECT3DTEXTURE9    gpStoneSM  = NULL;
+
+// light color
+D3DXVECTOR4        gLightColor(0.7f, 0.7f, 1.0f, 1.0f);
+</code></pre>
+
+<p>You see that we are using the exact same bluish color, (0.7, 0.7, 1.0), for the light, right? Now we will add some code to release newly added 3D resources: two textures declared above. Add the following code to CleanUp() function.</p>
+
+<pre><code class="language-cpp">  // release textures
+  if ( gpStoneDM )
+  {
+    gpStoneDM-&gt;Release();
+    gpStoneDM = NULL;
+  }
+
+  if ( gpStoneSM )
+  {
+    gpStoneSM-&gt;Release();
+    gpStoneSM = NULL;
+  }
+</code></pre>
+
+<p>Now, it is time to load D3D resources. Add the next line to LoadAssets() function.</p>
+
+<pre><code class="language-cpp">  // loading textures
+  gpStoneDM = LoadTexture("Fieldstone_DM.tga");
+  if ( !gpStoneDM )
+  {
+    return false;
+  }
+
+  gpStoneSM = LoadTexture("Fieldstone_SM.tga");
+  if ( !gpStoneSM )
+  {
+    return false;
+  }
+</code></pre>
+
+<p>Don't forget to change the shader file to SpecularMapping.fx, too.</p>
+
+<pre><code class="language-cpp">  gpSpecularMappingShader = LoadShader("SpecularMapping.fx");
+</code></pre>
+
+<p>Lastly, we are going to look at RenderScene() function. The shader is doing all the work already, so we can simply assign new variables. Remember where SetMatrix() function was called before? Add the following code below those function calls.</p>
+
+<pre><code class="language-cpp">  gpSpecularMappingShader-&gt;SetVector("gLightColor", &amp;gLightColor);
+  gpSpecularMappingShader-&gt;SetTexture("DiffuseMap_Tex", gpStoneDM);
+  gpSpecularMappingShader-&gt;SetTexture("SpecularMap_Tex", gpStoneSM);
+</code></pre>
+
+<p>The above code passes the light color and two textures to the shader. You still remember that _Tex postfix must be added while assigning a texture map, right? It was mentioned in Chapter 3.</p>
+
+<p>If you compile and execute the program, you will see the same result you saw in RenderMonkey.</p>
+
+<p>As you probably know by now, there is not much to do in a DirectX Framework when shaders are used. Loading D3D resources and managing shader variables and render states are the only things that the framework should take care of.</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>The reason why we can recognize the color of an object is because different objects absorb and reflect different spectrums of a light.</li>
+  <li>In 3D graphics, diffuse and specular maps are used to simulate the absorption and reflection of light. Specular map mainly controls the amount of specular light reflection on each pixel.</li>
+  <li>Light color also contributes to the final color.</li>
+  <li>Textures don't always store color information. A specular map is a good example of this exception.</li>
+</ul>
+
+<p>This chapter was pretty easier than we thought, right? It's because we started from the lighting shader implemented in last chapter. Like diffuse and specular mapping, there are many techniques that can be implemented very easily by extending some basic shaders.</p>
+
+<p>However, do not take the material covered in this chapter lightly. Most recent games mix this technique with normal mapping to create pretty impressive visuals.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

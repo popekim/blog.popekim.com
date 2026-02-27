@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>04. Basic Lighting Shader - Part 2 | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2014/02/11/intro-to-shader-04-lighting-part-2.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">04. Basic Lighting Shader - Part 2</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Feb 11, 2014
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h2 id="specular-light">Specular Light</h2>
+
+<h3 id="background">Background</h3>
+<p>Specular light is different from diffuse light in a way that it only reflects to one direction and the angle of incidence is same as the angle of reflection. So if you want to observe specular light in action, you will have to see the surface from the direction where the reflected rays point toward. Have you ever turned your head away because the sun glare is too bright on your monitor? If you tilt the monitor a bit, it is bearable, right? That is specular light.</p>
+
+<p>Then let's add specular light to Figure 4.2, which had only diffuse light.</p>
+
+<p><img src="http://3.bp.blogspot.com/-vrcImzzp-So/UvGB8xUr1gI/AAAAAAAATY8/t3HdKNMwuB8/s1600/fig_04_08(eng).png" alt="fig4-8" /></p>
+
+<p><strong>Figure 4.8 Diffuse and specular light</strong></p>
+
+<p>Just like diffuse light, there are many different specular lighting models, too. In this book, we will use Phong model, which is widely used in video games. In order to calculate specular lighting, Phong model finds the cosine value of the angle between the reflect vector (light vector reflected off the surface) and camera vector (a vector from the camera position to the current position), and raises the result to the power of some exponent. Look at the picture below for better understanding.</p>
+
+<p><img src="/en/assets/img/2014/02/06.png" alt="fig4-9" /></p>
+
+<p><strong>Figure 4.9 An example of specular lighting</strong></p>
+
+<p>Finding the cosine of the angle between reflect vector, R, and camera vector, V, is not different from what we did for diffuse lighting except that R and V are used instead of normal and light vectors. By the way, why do we raise cosine to the power of an exponent? You will find the answer in Figure 4.10.</p>
+
+<p><img src="/en/assets/img/2014/02/07.jpg" alt="fig4-10" /></p>
+
+<p><strong>Figure 4.10 As the exponent gets bigger, the cosine graph falls faster.</strong></p>
+
+<p>You see the graph falls faster as the exponent grows, right? If you observe specular light in the real world, you will notice that radius of the light is very tight unlike diffuse light, which is rather wide. This is why we use the power function: to mimic the tightness.[1] Then, what exponent should we use? It depends on the materials of surfaces. Rougher surfaces have less tight specular light, so the smaller exponent should be used. As a general rule, start from an exponent of 20, and experiment with bigger and smaller numbers.</p>
+
+<p>Now let's write some shader code.</p>
+
+<h3 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h3>
+<p>Let's add specular light to the diffuse light shader we wrote earlier in this chapter. After all, we need both diffuse and specular to get a “correct” light effect.</p>
+
+<p>What were the new things added to Figure 4.9? They were reflect and camera vectors, right? Reflect vector is a light vector which is reflected off the surface, and the angel between normal and light vectors is same as the angle between normal and reflect vectors. This means that reflect vector can be found from all the information we already have. Then, what about camera vector? Just like how we found the light vector, we can draw a line from the camera position to the current position, right? Therefore, the camera position will be a global variable. Go to RenderMonkey, and right-click on Lighting effect to add a new float4 variable. gWorldCameraPosition should be good for the name. Now right-click on it and assign ViewPosition semantic.</p>
+
+<p>Now we got everything we need. Let's look at the vertex shader.</p>
+
+<h3 id="vertex-shader">Vertex Shader</h3>
+<p>Just like before, the full source code is listed first.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+float4 gWorldCameraPosition;
+
+struct VS_INPUT 
+{
+    float4 mPosition : POSITION;
+    float3 mNormal: NORMAL;
+};
+
+struct VS_OUTPUT 
+{
+    float4 mPosition : POSITION;
+    float3 mDiffuse : TEXCOORD1;
+    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+};
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+    VS_OUTPUT Output;
+
+    Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+    float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+    float3 lightDirUnnorm = lightDir;
+    lightDir = normalize(lightDir);
+
+    Output.mViewDir = Output.mPosition.xyz - gWorldCameraPosition.xyz;
+
+    Output.mPosition = mul( Output.mPosition, gViewMatrix );
+    Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+
+    float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+    worldNormal = normalize(worldNormal);
+
+    Output.mDiffuse = dot(-lightDir, worldNormal);
+    Output.mReflection = reflect(lightDirUnnorm, worldNormal);
+
+    return Output;
+}
+</code></pre>
+
+<h4 id="global-variables-and-input-data-of-vertex-shader">Global Variables and Input Data of Vertex Shader</h4>
+<p>Let's take a look at the input data to vertex shader. Do we need any extra vertex information? I can't think of any, so there must be none. :P Let's just use the same input structure we used earlier in this chapter.</p>
+
+<p>Then how about global variables? We have to declare gWorldCameraPosition that we just added to the RenderMonkey project, right? Add the following line:</p>
+
+<pre><code class="language-cpp">float4 gWorldCameraPosition;
+</code></pre>
+
+<h4 id="output-data-from-vertex-shader">Output Data from Vertex Shader</h4>
+<p>Let's look at the vertex shader's output data. As we did with diffuse light, can we calculate the specular light in vertex shader and pass the result to pixel shader? Unfortunately, no. To calculate the specular light, we have to raise the cosine value to the power of an exponent, but doing it so before the interpolation step produces a wrong result. This is because the power function is not linear. This means that we need to calculate specular light in pixel shader, so we will find two directional vectors, R and V in vertex shader and pass them to pixel shader. Please add the following lines to VS_OUTPUT structure.</p>
+
+<pre><code class="language-cpp">    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+</code></pre>
+
+<h4 id="vertex-shader-function">Vertex Shader Function</h4>
+<p>K, now let's find these two vectors. Remember how we can find the camera vector? It's simple. Just draw a line from the camera position to current position. This is not different from finding a light vector, at all. Let's add the camera vector code right below where we calculated the light vector.</p>
+
+<pre><code class="language-cpp">    Output.mViewDir = Output.mPosition.xyz - gWorldCameraPosition.xyz;
+</code></pre>
+
+<p>Now it's time to find the reflect vector. Then what is the math formula for vector reflection? Guess what? I don't even remember! But don't worry. There is another magic HLSL function for this. It's called reflect(). This function takes two parameters, light and surface normal vectors. Add the following line before the Output structure is returned</p>
+
+<pre><code class="language-cpp">    Output.mReflection = reflect(lightDirUnnorm, worldNormal);
+</code></pre>
+
+<p>In the above code, we used a variable that's not defined yet: lightDirUnnorm. This is the unnormalized light vector, which we don't have yet. It is best not to normalize vectors which will be passed to pixel shaders to avoid visual artifacts on large triangles. That's why we did not normalize mViewDir either. But you might still see some artifacts because we calculated the reflection vector in vertex shader. In rare cases, the reflection vector might become 0 during interpolation. If you see this symptom, find the reflection vector in pixel shader. Anyways, add the following line right below where lightDir was defined to remember the unnormalized light vector:</p>
+
+<pre><code class="language-cpp">    float3 lightDirUnnorm = lightDir;
+</code></pre>
+
+<p>Now that we found both vectors we need, there's nothing more to do in vertex shader.</p>
+
+<h3 id="pixel-shader">Pixel Shader</h3>
+<p>Let's see the full pixel shader code first.</p>
+
+<pre><code class="language-cpp">struct PS_INPUT
+{
+    float3 mDiffuse : TEXCOORD1;
+    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+};
+
+float4 ps_main(PS_INPUT Input) : COLOR
+{
+    float3 diffuse = saturate(Input.mDiffuse);
+    
+    float3 reflection = normalize(Input.mReflection);
+    float3 viewDir = normalize(Input.mViewDir); 
+    float3 specular = 0;
+    if ( diffuse.x &gt; 0 )
+    {
+        specular = saturate(dot(reflection, -viewDir ));
+        specular = pow(specular, 20.0f);
+    }
+
+    float3 ambient = float3(0.1f, 0.1f, 0.1f);
+ 
+    return float4(ambient + diffuse + specular, 1);
+}
+</code></pre>
+<p>First add the following two vectors to PS_INPUT structure. These are exactly same as what we added to VS_OUTPUT structure.</p>
+
+<pre><code class="language-cpp">    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+</code></pre>
+
+<p>We will add some new code right after where we calculated diffuse lighting earlier in this chapter. First, normalize mReflection and mViewDir.</p>
+
+<pre><code class="language-cpp">    float3 reflection = normalize(Input.mReflection);
+    float3 viewDir = normalize(Input.mViewDir);
+</code></pre>
+
+<p>Then, find the dot product of these two vectors and raise it to the 20th power.</p>
+
+<pre><code class="language-cpp">    float3 specular = 0;
+    if ( diffuse.x &gt; 0 )
+    {
+        specular = saturate(dot(reflection, -viewDir ));
+        specular = pow(specular, 20.0f);
+    }
+</code></pre>
+
+<p>From the above code, we calculate specular light only when diffuse light is bigger than 0%. It's because there's no light hitting the surface if there is no diffuse light, so specular light cannot exist there, either. Also you must have noticed that –viewDir is used when calculating the dot product, right? As with diffuse light, two vectors' tails must meet to calculate specular light correctly.</p>
+
+<p>Also please note that pow() is used to raise the value to the 20th power. The exponent 20 would be different for different objects.[2] So declaring it as a global float variable would be a good idea if you need different specular tightness for different objects. I will leave this task to readers.
+Now it's time to return the result. Let's return only specular light first. Replace the return statement with the following line.</p>
+
+<pre><code class="language-cpp">    return float4(specular, 1);
+</code></pre>
+
+<p>Once you compile and run the shader, you will see specular light, as shown in Figure 4.11.</p>
+
+<p><img src="/en/assets/img/2014/02/08.jpg" alt="fig4-11" /></p>
+
+<p>** Figure 4.11 Specular light has much stronger and tighter highlight than diffuse light**</p>
+
+<p>Now you know how specular light looks like. If we add diffuse light to this, the result will be more perfect. Please change the return code like this:</p>
+
+<pre><code class="language-cpp">    return float4(diffuse + specular, 1);
+</code></pre>
+
+<p>There are cases when the addition of diffuse and specular becomes bigger than 1. Luckily, you don't need to worry about this because the result is automatically clamped to 1.[3]</p>
+
+<p>If you compile both vertex and pixel shader and see the preview window, you will find a nice looking sphere with both diffuse and specular light.</p>
+
+<p><img src="/en/assets/img/2014/02/09.jpg" alt="fig4-12" /></p>
+
+<p><strong>Figure 4.12 Diffuse + Specular</strong></p>
+
+<p>This is already pretty good, but the bottom-left part of the sphere is too dark. In fact, it is almost invisible. As mentioned before, indirect light usually illuminates the dark area in the real world. Then, why don't we just add simple ambient light to brighten the dark area? Let's declare the ambient light as 10% .</p>
+
+<pre><code class="language-cpp">    float3 ambient = float3(0.1f, 0.1f, 0.1f);
+</code></pre>
+
+<p>Then, add this ambient amount to the final return value.</p>
+
+<pre><code class="language-cpp">    return float4(ambient + diffuse + specular, 1);
+</code></pre>
+
+<p>After this, you will see the result like Figure 4.13.</p>
+
+<p><img src="/en/assets/img/2014/02/10.jpg" alt="fig4-13" /></p>
+
+<p><strong>Figure 4.13 Ambient + Diffuse + Specular</strong></p>
+
+<h3 id="optional-directx-framework">(Optional) DirectX Framework</h3>
+<p>This is an optional section for readers who want to use shaders in a C++ DirectX framework.</p>
+
+<p>First, make a copy of the framework used in Chapter 3 and save it into a new folder. Next, save the shader and 3D model that we used in RenderMonkey into Sphere.x and Lighting.fx files so that they can be used in the DirectX framework.</p>
+
+<p>Then, open the solution file in Visual C++. We will look at the global variables first. Since we don't use any texture in this chapter, delete the texture variable declared in the last chapter. Its name was gpEarthDM. Now change the name of the shader variable from gpTextureMappingShader to gpLightingShader.
+Now it is time to declare new variables for the light and camera positions. Both of them are in the world space. First, we will reuse the same light position used in RenderMonkey.</p>
+
+<pre><code class="language-cpp">// world position of the light
+D3DXVECTOR4 gWorldLightPosition(500.0f, 500.0f, -500.0f, 1.0f);
+</code></pre>
+
+<p>For the camera position, we are using the same values defined in RenderScene() function in the last chapter.</p>
+
+<pre><code class="language-cpp">// world position of the camera
+D3DXVECTOR4 gWorldCameraPosition(0.0f, 0.0f, -200.0f, 1.0f);
+</code></pre>
+
+<p>Now go to CleanUp() function. Since gpEarthDM texture is not used anymore, delete the code which was releasing the texture.</p>
+
+<p>Next up is LoadAssets() function. Again, delete the code which was loading gpEarthDM texture. And change the shader's name to Lighting.fx. Don't forget to change the variable name from gpTextureMappingShader to gpLightingShader.</p>
+
+<pre><code class="language-cpp">    // loading textures
+
+    // loading shaders
+    gpLightingShader = LoadShader("Lighting.fx");
+    if (!gpLightingShader)
+    {
+        return false;
+    }
+</code></pre>
+
+<p>Lastly, we will look at RenderScene() function. First, find all the instance of gpTextureMappingShader, and replace them with gpLightingShader. Now let's look at the code which constructs the view matrix. There was a variable named vEyePt that we used to make the view matrix, right? This variable's value is same as gWorldCameraPosition, so we will reuse this value.</p>
+
+<p>Change below code</p>
+
+<pre><code class="language-cpp">    D3DXVECTOR3 vEyePt( 0.0f, 0.0f, -200.0f );
+</code></pre>
+
+<p>to this:</p>
+
+<pre><code class="language-cpp">    D3DXVECTOR3 vEyePt( gWorldCameraPosition.x, gWorldCameraPosition.y, 
+        gWorldCameraPosition.z );
+</code></pre>
+
+<p>Now delete gpLightingShader-&gt;SetTexture() code. The shader in this chapter does not use a texture, so we don't need this code. Then, pass the light and camera positions to the shader. Since the data type is D3DXVECTOR4, we will call SetVector() function.</p>
+
+<pre><code class="language-cpp">    gpLightingShader-&gt;SetVector("gWorldLightPosition", &amp;gWorldLightPosition);
+    gpLightingShader-&gt;SetVector("gWorldCameraPosition", &amp;gWorldCameraPosition);
+</code></pre>
+
+<p>Now compile and run the shader. You can see the same visual that you saw in RenderMonkey, right?</p>
+
+<h3 id="other-lighting-techniques">Other Lighting Techniques</h3>
+<p>Still the most common lighting techniques in computer games is Lambert + Phong, but now there are more games using more advanced lighting techniques. For the readers who want to learn more about advanced lighting techniques, I will mention some of them in the following list:</p>
+
+<ul>
+  <li>Blinn-Phong: a technique that is very similar to Phong.</li>
+  <li>Oren-Nayar: a diffuse lighting technique that takes account of the roughness of a surface.</li>
+  <li>Cook-Torrance: a specular lighting technique that takes account of surface roughness</li>
+  <li>Spherical Harmonics Lighting: once indirect light is preprocessed offline, it can be applied in real-time.</li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+<p>A quick summary of what we learned in this chapter:</p>
+<ul>
+  <li>Both Lambert and Phong models use cosine function.</li>
+  <li>Phong specular lighting model uses pow() function.</li>
+  <li>Once you change the vector's length to 1, a dot product can replace cosine.</li>
+  <li>If a same calculation can be done either in vertex and pixel shader, doing it in vertex shader is a better choice.</li>
+  <li>There are more realistic, but more complicated techniques. Some of them are already used in recent computer games.</li>
+</ul>
+
+<p>With the completion of lighting shader, now we have learned all the basic shaders. We will mix and match what we have learned so far to implement more practical techniques. So if there was anything you are unsure about from Chapter 1 to 4, please review it before coming to Chapter 5.</p>
+
+<hr />
+<h6 id="footnotes">Footnotes:</h6>
+<ol>
+  <li>This was invented as a hack, which has no physical correctness, but still is used a lot in games.</li>
+  <li>Higher exponents produce tighter specular light. Experiment with different numbers.</li>
+  <li>It is because our back buffer format is 8 bit per channel. If a floating-point texture is used, values bigger than 1 can be stored, as well.</li>
+</ol>
+
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/05/intro-to-shader-04-lighting-part-1.html">04. Basic Lighting Shader - Part 1</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

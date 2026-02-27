@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>내가 만든 방어 유틸 함수 5종 세트 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2025/10/11/defensive-assertion-utils.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/10/11/defensive-assertion-utils.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/10/11/defensive-assertion-utils.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">내가 만든 방어 유틸 함수 5종 세트</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2025-10-11
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/csharp/">C#</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/assertion/">assertion</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/debugging/">디버깅</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/software-engineering/">소프트웨어공학</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/defensive-programming/">방어적프로그래밍</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>C# 기본 제공 <code>Debug.Assert()</code>만으로는 부족했다.<br />
+<strong>운영 중 발생할 수 있는 가정 위반, 내부 버그, 즉시 대응이 필요한 크리티컬 상황</strong>을<br />
+한 체계로 다루고 싶었다.</p>
+
+<p>그래서 아래 다섯 가지 유틸을 만들었다.</p>
+
+<pre><code class="language-csharp">global using static POCU.Core.Assertion.Check;
+</code></pre>
+
+<p>이렇게 전역으로 불러와서 전부 <strong>대문자</strong>로 사용한다.<br />
+로직 코드 중간에서도 눈에 확 띄어서 "이건 방어 코드다"라는 걸 한눈에 알 수 있다.</p>
+
+<h2 id="-공통-규칙">🧱 공통 규칙</h2>
+
+<p>모든 함수의 <strong>첫 번째 인자는 반드시 <code>bool</code> 표현식</strong> 이다.</p>
+
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User should not be null");
+</code></pre>
+
+<ul>
+  <li><code>true</code> → 아무 일도 일어나지 않는다.</li>
+  <li><code>false</code> → 각 함수에 맞는 방식으로 <strong>로그·알림·예외</strong>가 발생한다.</li>
+</ul>
+
+<p>즉, <code>if (!condition) { ... }</code>을 매번 쓰지 않아도 된다.<br />
+표현식 하나로 "이게 깨지면 뭔가 잘못된 거다"를 명확히 선언할 수 있다.</p>
+
+<h2 id="-함수-요약">📊 함수 요약</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>함수</th>
+      <th>목적</th>
+      <th>행동 요약</th>
+      <th>운영팀 대응</th>
+      <th>예외</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>VERIFY</strong></td>
+      <td>"그럴 리 없겠지" 가정 관찰</td>
+      <td>로그만 남기고 계속 실행</td>
+      <td>덜 바쁠 때 확인</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>DBG_CHECK</strong></td>
+      <td>디버그 전용 어서션</td>
+      <td>Debug 빌드에서만 중단</td>
+      <td>❌</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK912</strong></td>
+      <td>내부 문제 감지 (비긴급)</td>
+      <td>알림 + 그래프 집계</td>
+      <td>1~2일 내 확인/수정</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911</strong></td>
+      <td>즉시 대응 필요</td>
+      <td>알림 + 그래프 집계</td>
+      <td>즉시 확인/수정</td>
+      <td>❌</td>
+    </tr>
+    <tr>
+      <td><strong>CHECK911_THROW</strong></td>
+      <td>트랜잭션 보호용</td>
+      <td>알림 + 그래프 집계 + 예외 발생</td>
+      <td>즉시 확인</td>
+      <td>✅</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>🔔 모든 CHECK 계열은 회사 메신저로 노티가 오고,<br />
+발생 횟수는 자동 집계되어 <strong>그래프로 시각화</strong>된다.</p>
+</blockquote>
+
+<h2 id="-verify--장기-가정-검증용-센서">🧩 VERIFY — 장기 가정 검증용 센서</h2>
+
+<p><code>VERIFY</code>는 단순한 로그가 아니다.<br />
+<strong>"현재는 절대 일어나지 않을 거라 생각하는 상황"</strong>을 장기적으로 관찰하기 위한 센서다.</p>
+
+<pre><code class="language-csharp">VERIFY(order.TotalPrice &gt;= 0, "Order total should never be negative");
+</code></pre>
+
+<ul>
+  <li>지금은 이게 절대 깨질 리 없다고 생각한다.</li>
+  <li>하지만 혹시 모른다. 1년, 2년 동안 한 번이라도 깨질 수도 있다.</li>
+  <li>그때 로그가 오면, "우리의 가정이 잘못됐구나"를 알 수 있다.</li>
+  <li>반대로 몇 년간 한 번도 안 깨지면 그 라인은 제거해도 된다.</li>
+</ul>
+
+<p>이건 <strong>테스트로 잡을 수 없는 실운영 환경의 가정 검증</strong>이다.<br />
+운영 중 일시적인 엣지케이스나 외부 시스템의 불규칙성을 감시하기에 적합하다.</p>
+
+<h3 id="-또-하나의-꼼수">💡 또 하나의 꼼수</h3>
+
+<p>가끔 이런 경우도 있다.</p>
+
+<p>오래된 코드인데, "절대 일어나지 않을 조건"이라 삭제하고 싶지만
+<strong>확신이 안 설 때</strong>가 있다.</p>
+
+<p>이럴 땐 다음처럼 처리한다:</p>
+
+<pre><code class="language-csharp">// TODO(delete): delete after 2028-12-31
+VERIFY(someOldFlag == false, "Old flag still being used?");
+</code></pre>
+
+<ul>
+  <li>일단 VERIFY를 걸어둔다.</li>
+  <li>운영 중 1년 정도 지켜본다.</li>
+  <li>한 번도 깨지지 않으면, 해당 코드를 안전하게 삭제한다.</li>
+</ul>
+
+<p>이 패턴은 "<strong>실운영 환경에서 살아있는 테스트</strong>" 같은 역할을 한다.
+수많은 라이브 유저가 테스트해주는 <strong>자동 테스트 시스템 완성! 최고다, 헤헤 😎</strong>
+실제로 코드 정리 주기를 시스템적으로 관리하기가 훨씬 쉬워진다.</p>
+
+<h2 id="-dbg_check--디버그-전용-강력-어서션">🧪 DBG_CHECK — 디버그 전용 강력 어서션</h2>
+
+<pre><code class="language-csharp">DBG_CHECK(buffer.Length == expectedSize, "Unexpected buffer size");
+</code></pre>
+
+<ul>
+  <li><strong>Debug 빌드에서만</strong> 실행된다.</li>
+  <li>Release 빌드에서는 완전히 제거되어 성능 부담이 없다.</li>
+  <li>"개발 중엔 절대 이 조건이 깨지면 안 된다"를 강하게 보장할 때 쓴다.</li>
+</ul>
+
+<blockquote>
+  <p>✅ 테스트 중 빠르게 터트려야 하는 조건에는 <code>DBG_CHECK</code>.<br />
+✅ 운영 중 관찰해야 하는 조건에는 <code>VERIFY</code>.</p>
+</blockquote>
+
+<h2 id="-check912--내부-문제지만-긴급-아님">🔍 CHECK912 — 내부 문제지만 긴급 아님</h2>
+
+<pre><code class="language-csharp">CHECK912(userCache.Count &gt; 0, "User cache is unexpectedly empty");
+</code></pre>
+
+<ul>
+  <li>내부 버그 가능성이 높지만 <strong>당장 서비스에 영향은 없다.</strong></li>
+  <li>메신저 알림이 오고, 그래프에 집계된다.</li>
+  <li>운영팀은 "하루나 이틀 뒤에 봐도 되는 이슈"로 분류한다.</li>
+</ul>
+
+<p>예시:</p>
+<ul>
+  <li>캐시 불일치</li>
+  <li>일시적인 네트워크 재시도 성공</li>
+  <li>데이터 통계의 경계값 초과</li>
+</ul>
+
+<h2 id="-check911--즉시-대응이-필요한-크리티컬">🚨 CHECK911 — 즉시 대응이 필요한 크리티컬</h2>
+
+<pre><code class="language-csharp">CHECK911(paymentResponse.IsValid, "Payment gateway returned invalid data");
+</code></pre>
+
+<ul>
+  <li>데이터 손실, 보안, 고객 영향 같은 <strong>즉시 대응이 필요한 문제</strong>다.</li>
+  <li><strong>메신저로 바로 알림이 전송</strong>되고,<br />
+<strong>그래프 집계</strong> 및 <strong>운영 훅(예: 세이프모드 전환)</strong>이 트리거된다.</li>
+  <li>하지만 예외는 던지지 않는다.<br />
+→ 워커나 파이프라인을 멈추지 않고 <strong>운영팀이 실시간 대응</strong>할 수 있게 한다.</li>
+</ul>
+
+<h2 id="-check911_throw--트랜잭션-보호용">💣 CHECK911_THROW — 트랜잭션 보호용</h2>
+
+<pre><code class="language-csharp">CHECK911_THROW(invoice != null, "Invoice must exist before commit");
+</code></pre>
+
+<ul>
+  <li><code>CHECK911</code>과 동일한 알림을 보내지만, <strong>즉시 예외를 던져 트랜잭션을 중단</strong>한다.</li>
+  <li>잘못된 상태가 DB나 외부 API로 퍼지는 걸 방지하기 위한 안전장치다.</li>
+  <li>보통 다음과 같은 곳에서 사용된다:</li>
+</ul>
+
+<p>예시:</p>
+<pre><code class="language-csharp">CHECK911_THROW(user != null, "User not found");
+CHECK911_THROW(balance &gt;= 0, "Negative balance detected");
+</code></pre>
+
+<blockquote>
+  <p>트랜잭션 내부, 커밋 직전, 외부 시스템 호출 직후 같은<br />
+"사이드이펙트가 퍼지기 전에 막아야 하는 시점"에 쓴다.</p>
+</blockquote>
+
+<h2 id="️-내부-동작-개요">⚙️ 내부 동작 개요</h2>
+
+<p>모든 함수는 내부적으로 같은 베이스 로직을 공유한다:</p>
+
+<ol>
+  <li><code>bool expression</code> 평가</li>
+  <li><code>false</code>면 → 공통 로거 호출</li>
+  <li>로거는 다음을 수행
+    <ul>
+      <li>로그 작성 (파일 / 콘솔 / Sentry 등)</li>
+      <li>메신저로 노티 전송</li>
+      <li>메트릭 집계 (그래프용)</li>
+    </ul>
+  </li>
+  <li><code>*_THROW</code> 계열은 마지막에 <code>throw</code> 수행</li>
+</ol>
+
+<p>즉, 같은 알림 인프라 위에서 심각도만 다르게 분류된다.</p>
+
+<h2 id="-마무리">🧩 마무리</h2>
+
+<p>이 다섯 가지 함수는 결국 한 가지 목적을 가진다.<br />
+<strong>"로직과 방어선을 분리하고, 발생 시점에 따라 적절히 대응하기."</strong></p>
+
+<ul>
+  <li><code>VERIFY</code>: 장기 가정 검증 센서</li>
+  <li><code>DBG_CHECK</code>: 디버그 전용 강한 어서션</li>
+  <li><code>CHECK912</code>: 내부 문제 감지 (비긴급)</li>
+  <li><code>CHECK911</code>: 즉시 대응 필요 (운영 크리티컬)</li>
+  <li><code>CHECK911_THROW</code>: 즉시 대응 + 트랜잭션 중단</li>
+</ul>
+
+<p>이제 로직 코드 한가운데서 이렇게 쓰면 된다:</p>
+
+<pre><code class="language-csharp">CHECK911_THROW(totalPrice &gt;= 0, "Negative total price detected");
+</code></pre>
+
+<p>그 한 줄이면 끝이다.<br />
+읽는 사람은 "이건 단순 로직이 아니라, 안전선을 세운 부분"임을 바로 알 수 있다.</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/10/17/two-db-commit-side-effects.html">두 개의 DB에 동시에 쓰면서 사이드 이펙트를 최소화하는 방법</a></li>
+                        
+                        <li><a href="/ko/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">페북 Graph API 자주 끊기는 시대, ASP.NET Core 로그인은 이렇게 관리해야 한다</a></li>
+                        
+                        <li><a href="/ko/2025/08/26/clean-assert-wrapper.html">Assert 래퍼 깔끔하게 쓰기</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

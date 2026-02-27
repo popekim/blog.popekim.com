@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>디퍼트 라이팅 엔진에서 Oren-Nayar 조명 쓰기 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/11/24/oren-nayar-lighting-in-light-prepass.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">디퍼트 라이팅 엔진에서 Oren-Nayar 조명 쓰기</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-11-24
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>그래픽스 프로그래밍 관련 블로그를 가끔 보는 편이다. 일단 이게 새로운 기법을 배우는데 도움이 되니까… 그런데 가끔씩 실제 경험보다는 그냥 이론에 치우쳐 사실이 아닌걸 우기는 블로그 포스트들이 있어서 좀 맘이 불편하다.</p>
+
+<p>일례로 다음은 다른 그래픽 프로그래머와 나눈 대화 중 하나:- 다른놈: "우리 엔진은 디퍼트 라이팅이라 오렌 네이어(Oren-Nayar) 조명을 쓰는건 매우 힘들어"</p>
+
+<ul>
+  <li>나: "먼 개소리? -_- 졸 쉬워~"</li>
+  <li>다른놈: "아냐아냐 그렇지 않아.<a href="http://gamedevcoder.wordpress.com/2011/04/11/light-pre-pass-vs-deferred-renderer-part-1/">이 블로그</a>에서 힘들다고 했어."</li>
+  <li>나: "으음… -_- 근데 난 이미 2년전에 울 엔진에서 구현했는걸? 매우 쉬워."</li>
+  <li>다른놈: "허걱~~" ( 땀을 삐질.. -_-;;;; )</li>
+</ul>
+
+<p>그래서 그놈에게 어떻게 해는지를 설명해 줬다…… 그리고 이놈처럼 잘못된 글 때문에 혼돈스러워 하시는 분들을 위해 여기에도 설명을….</p>
+
+<p>우선 사전 지식…..</p>
+
+<p>Oren-Nayar가 뭔지 모르시는 분들은 <a href="http://content.gpwiki.org/index.php/D3DBook:(Lighting)_Oren-Nayar">여기</a>를 우선 보시길… 텍스처 룩업을 통해 최적화하는 방법도 소개함… <a href="http://kblog.popekim.com/2011/11/blog-post_16.html">그 외에 울 팀에서 자체적으로 만든 approximation 함수도 있음</a>… 내 맘대로 Oren-Nayar 조명을 간단히 설명하자면, <strong>거칠음(roughness)</strong>을 조명 계산공식에 반영하는 diffuse 조명 모델이라고 하겠음….</p>
+
+<p>그리고… 디퍼드 라이팅이 뭔지 모르시는 분들은 <a href="http://diaryofagraphicsprogrammer.blogspot.com/2008/03/light-pre-pass-renderer.html">여기</a>를 볼 것.</p>
+
+<p>이 정도면 사전지식도 된듯 하니 본격적으로 설명을 하면….. Oren-Nayar조명을 하려면 기타 조명에 비해 다른 정보 하나가 필요하다. 거칠은 정도. 그럼 디퍼드 라이팅 엔진에서 Oren-Nayar를 하려면 어떻게 할까? 거칠은 정도를 G 버퍼에 저장하면 끝…. 물론 G 버퍼에 거칠은 정도를 저장하는 법은 여러가지가 있는데… 이게 사람들이 많이 혼돈스러워 하는 부분일 듯 하다.</p>
+
+<p>대부분의 디퍼드 라이팅 엔진은 법선(normal)의 XY를 G 버퍼의 R16G16에 저장하는 듯 하다. 그러면 이 별도의 정보(거칠은 정도)를 저장하려면 렌더타겟이 하나 더 필요하단 이야기지… 렌더타겟을 하나 더 사용하면 메모리도 더 먹고 속도도 느려지므로 그닥 좋은 방법은 아님.</p>
+
+<p>다른 방법은 법선을 8비트 채널에 저장하는 방법… 이것의 단점은 8비트 자체의 정밀도(precision)가 떨어져서 조명 결과가 부드럽지 않게 나오는 것…. 하지만 Crytek에서 발표한 <a href="http://www.crytek.com/cryengine/presentations/CryENGINE3-reaching-the-speed-of-light">best-fit normal</a>을 사용하면 R8G8B8 채널에 법선을 제대로 저장할 수 있다. (스페이스마린에서도 한동안 이 방법을 사용했었음.). 일단 이렇게 법선을 저장하고 나면 마지막 alpha채널에 거칠은 정도를 저장할 수 있으니…. 문제해결…….. 일까?</p>
+
+<p>그러니 내가 구현한 방법은 이보다는 조금 더 복잡했다. 스페큘라 파워(specular power)도 저장해야 했거든… 곰곰히 생각해보니 스펙 파워에 굳이 8비트를 전부다 사용할 일이 없더라… (정말 127이상의 스펙 파워를 쓰는 경우가 얼마나 있을까? 11 미만의 스펙 파워를 쓰는 경우도 거의 없을듯?) 그래서 스페큘러 파워에 7비트만을 사용하고 거칠은 표면인지를 나타내는 플래그에 1비트를 사용하기로 했다.</p>
+
+<p>on/off로 거칠은 정도만 표현하면 되냐고? 물론 아니다. 조금더 생각해보면 거칠은 정도란 결국 스페큘러 파워의 역함수임을 알 수 있었다. 거칠은 표면은 조명을 더욱 고르게 산란시키므로 스페큘러 파워가 적어야 하고, 매끄러운 표면은 그 반대이므로 스페큘러 파워가 높아야 하고….</p>
+
+<p>이런 관찰 결과를 내 맘대로 대충 함수로 짜보니 이런 꼴이 되더라…</p>
+
+<p><strong>G-버퍼 저장법</strong></p>
+<ul>
+  <li>RGB: 법선</li>
+  <li>A: 거칠음/스펙 파워의 짬뽕</li>
+</ul>
+
+<p><strong>매우 간략화시킨 디퍼드 라이팅 셰이더 코드</strong></p>
+
+<pre><code class="language-hlsl">float4 gval = tex2D(Gbuffer, uv);
+
+// Crytek의 기법을 사용하여 법선을 decode
+float3 normal = decodeNormal(gval.xyz);
+float specpower = gval.a;
+float roughness = 0;
+
+if (specpower &gt; 127) {
+    specpower -= 127;
+    roughness = someHackeryCurveFunction(127 - specpower);
+}
+
+// 이제 이 변수를 이용하여 올바른 조명을 계산할 것...
+</code></pre>
+
+<p>이정도면 별로 안어렵지? Xbox 360과 PS3에서도 별로 느리지 않은 방법이었다. 물론 <a href="/ko/2011/11/16/optimized-oren-nayar-approximation.html">approximation을 이용해 Oren-Nayar를 최적화</a>시키기도 했지만…..</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2023/03/07/shader-compilation.html">셰이더 컴파일이란?</a></li>
+                        
+                        <li><a href="/ko/2013/10/02/artist-friendly-uber-shader.html">아티스트에게 사랑받는 3DS Max 우버셰이더</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

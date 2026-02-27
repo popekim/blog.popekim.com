@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 04. 기초적인 조명셰이더 Part 3 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2012/01/09/intro-to-shader-04-lighting-part-3.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 04. 기초적인 조명셰이더 Part 3</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2012-01-09
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2012/01/02/intro-to-shader-04-lighting-part-2.html">이전편 보기</a></p>
+
+<h2 id="정-반사광">정 반사광</h2>
+
+<h3 id="배경">배경</h3>
+<p>정 반사광(specular light)<span class="Apple-style-span" style="font-size: x-small;">(이것을 반사광이라 부르기도 합니다.)</span>은 난 반사광과는 달리 한 방향으로만 반사되는 빛으로 입사각이 출사각과 같은 것이 특징입니다. 따라서 정 반사광의 효과를 보려면 빛이 반사되는 방향에서 물체를 바라봐야만 합니다. 모니터에 빛이 반사 되서 화면을 보기 힘들었던 기억 있으시죠? 그 때 모니터를 조금 돌리면 조금 살만했던 거도요? 그게 바로 정 반사광입니다.</p>
+
+<p>앞에서 보여 드렸던 난 반사광을 그림에 정 반사광도 추가해 보지요.</p>
+
+<p><img src="/ko/assets/img/2012/01/20.jpg" alt="" /> <br />
+<strong>그림 4.8 난 반사광과 정 반사광</strong></p>
+
+<p>난 반사광과 마찬가지로 정 반사광을 수학적으로 재현해내는 수학공식이 여럿 있습니다. 여기서는 게임업계에서 널리 사용하는 기법인 퐁(phong) 모델을 사용하겠습니다. 퐁 모델은 반사광과 카메라벡터(카메라에서 현재 위치까지 선을 그은 벡터)가 이루는 각도의 코사인 값을 구하고, 그 결과를 여러번 거듭제곱하면 정 반사광을 구할 수 있다고 합니다. 아래의 그림을 보시죠.</p>
+
+<p><img src="/ko/assets/img/2012/01/21.jpg" alt="" /> <br />
+<strong>그림 4.9. 정반사광의 예</strong></p>
+
+<p>반사광(R)과 카메라벡터(V)가 이루는 각도의 코사인 값을 구하는 것은 난 반사광에서 했던 것과 별반 차이가 없겠군요. 법선벡터와 입사광 벡터 대신에 반사광 벡터와 카메라벡터를 쓰는 것만 빼면요. 근데 왜 이 결과에 다시 거듭제곱을 할까요? 역시 코사인 그래프를 보면 답이 보입니다.</p>
+
+<p><img src="/ko/assets/img/2012/01/22.jpg" alt="" /> <br />
+<strong>그림 4.10. 거듭제곱수가 늘어남에 따라 빠르게 줄어드는 코사인 그래프</strong></p>
+
+<p>위 그래프에서 보면 거듭제곱수가 늘어남에 따라 코사인 값이 빠르게 줄어드는 거 보이시죠? 실생활에서 정 반사광을 관찰해봅시다. 정반사광의 폭이 얼마나 되나요? 난 반사광에 비해 상당히 타이트하지 않나요? 바로 이런 타이트한 정 반사광을 재현하기 위해 코사인 값에 거듭제곱을 하는 겁니다.</p>
+
+<p>그러면 거듭제곱은 몇 번이나 해야 할까요? 이건 사실 표면의 재질에 따라 다릅니다. 거친 표면일수록 정 반사광이 덜 타이트할 테니까 거듭제곱 수를 줄여줘야겠죠. 보통 한 20번 정도 거듭제곱을 해주면 대충 괜찮은 결과를 얻으실 수 있습니다.</p>
+
+<p>그럼 이제 셰이더를 작성해 봅시다.</p>
+
+<h3 id="기초설정">기초설정</h3>
+<p>바로 조금 전에 작성했었던 난 반사광 셰이더에 정 반사광 조명 코드를 추가하도록 하죠. 어차피 이 두 광이 합쳐져야 제대로 된 조명효과니까요.</p>
+
+<p>그림 4.9에서 새로 추가된 것이 뭐가 있었죠? 반사광 벡터하고 카메라 벡터죠? 반사광 벡터야 입사광 벡터를 법선에 대해 반사시킨 것이니(입사각과 출사각이 같습니다) 이미 가지고 있는 정보에서 구할 수 있겠네요. 카메라 벡터는요? 입사광의 벡터를 구했던 것과 마찬가지 방법으로 카메라 위치에서 현재 위치까지 선을 쭈욱~ 그으면 되겠죠? 그러려면 카메라 위치를 전역변수로 만들어야 겠네요. 렌더몽키의 Lighting 셰이더 위에 마우스 오른쪽 버턴을 눌러 새로운 float4 변수를 추가합시다. 이름은 gWorldCameraPosition이 적당하겠네요. 이제 이 변수 위에 마우스 오른쪽 버튼을 눌러 ViewPosition이라는 변수 시맨틱을 대입합니다.</p>
+
+<p>이 외에 별다른 설정은 없는 것 같군요. 이제 정점셰이더를 살펴봅시다.</p>
+
+<h3 id="정점셰이더">정점셰이더</h3>
+<p>마찬가지로 정점셰이더의 전체 소스코드부터 보여드리겠습니다.</p>
+
+<pre><code class="language-hlsl">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+float4 gWorldCameraPosition;
+
+struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+    float3 mNormal: NORMAL;
+};
+
+struct VS_OUTPUT
+{
+    float4 mPosition : POSITION;
+    float3 mDiffuse : TEXCOORD1;
+    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+};
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+    VS_OUTPUT Output;
+
+    Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+    float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+    lightDir = normalize(lightDir);
+
+    float3 viewDir = normalize(Output.mPosition.xyz - gWorldCameraPosition.xyz);
+    Output.mViewDir = viewDir;
+
+    Output.mPosition = mul( Output.mPosition, gViewMatrix );
+    Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+
+    float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+    worldNormal = normalize(worldNormal);
+
+    Output.mDiffuse = dot(-lightDir, worldNormal);
+    Output.mReflection = reflect(lightDir, worldNormal);
+
+    return Output;
+}
+</code></pre>
+
+<h4 id="정점셰이더-입력데이터-및-전역변수">정점셰이더 입력데이터 및 전역변수</h4>
+<p>일단 정점셰이더 입력데이터를 보죠. 새로 필요한 정점정보가 있나요? 아무리 생각해도 별 다른 게 안 떠오르는 거 보니 없는 거 같네요. 난 반사광에 사용했던 입력구조체를 그냥 사용해도 될 거 같습니다.</p>
+
+<p>그렇다면 전역변수는 어떻죠? 방금 전에 추가했던 <code>gWorldCameraPosition</code>을 선언해야겠죠? 다음의 코드를 추가합니다.</p>
+
+<pre><code class="language-hlsl">float4 gWorldCameraPosition;
+</code></pre>
+
+<h4 id="정점셰이더-출력데이터">정점셰이더 출력데이터</h4>
+<p>이제 정점셰이더 출력데이터를 살펴보도록 하죠. 난 반사광에서 그랬던 것처럼 정점셰이더에서 정 반사광을 계산한 뒤에 픽셀셰이더에 전달해 주면 될까요? 불행히도 그렇진 않습니다. 정 반사광을 구하려면 코사인 값에 거듭제곱을 해야 하는데 거듭제곱을 한 뒤 보간(interpolate)을 한 결과와 보간을 한 뒤에 거듭제곱을 한 결과의 차이는 엄청납니다. 따라서 정 반사광 계산은 픽셀 셰이더에서 해야 하니 이 계산에 필요한 두 방향벡터인 R과  V를 구한 뒤에 픽셀셰이더에 전달해 주도록 하겠습니다. 다음의 코드를 VS_OUTPUT에 추가합시다.</p>
+
+<pre><code class="language-hlsl">    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+</code></pre>
+
+<h4 id="정점셰이더-함수">정점셰이더 함수</h4>
+<p>이제 정 반사광을 계산하는데 필요한 두 방향벡터를 구해보죠. 카메라 벡터는 어떻게 구한다고 했었죠? 그냥 카메라 위치로부터 현재위치까지 선을 그으면 된다고 했죠? 입사광의 방향벡터를 구하는 것과 별 다를 바가 없겠네요. 입사광의 방향벡터를 구하는 코드 바로 아래에 다음의 코드를 추가합니다.</p>
+
+<pre><code class="language-hlsl">    float3 viewDir = normalize(Output.mPosition.xyz - gWorldCameraPosition.xyz);
+    Output.mViewDir = viewDir;
+</code></pre>
+
+<p>이제 정 반사광의 방향벡터를 구할 차례입니다. 이 때, 빛의 입사각과 출사각이 같다고 말씀드렸었죠? 그럼 반사벡터를 구하는 수학 공식이 필요하겠군요. 근데 이런 공식은 굳이 기억하지 않으셔도 됩니다. (저도 수학책 다시 열어봐야 압니다. -_-) 여태까지 그랬던 것처럼 당연히 이런 것을 척척 처리해주는 HLSL 함수가 있겠죠? reflect()라는 함수입니다. reflect는 첫 번째 인자로 입사광의 방향벡터를 두 번째 인자로 반사 면의 법선을 받습니다. Output을 반환하기 바로 전에 다음의 코드를 입력합니다.</p>
+
+<pre><code class="language-hlsl">    Output.mReflection = reflect(lightDir, worldNormal);
+</code></pre>
+
+<p>자, 이제 두 벡터를 다 구해봤으니 정점셰이더에서 할 일은 끝났습니다.</p>
+
+<h3 id="픽셀셰이더">픽셀셰이더</h3>
+<p>마찬가지로 픽셀셰이더의 전체 코드부터 보여드립니다.</p>
+
+<pre><code class="language-hlsl">struct PS_INPUT
+{
+    float3 mDiffuse : TEXCOORD1;
+    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+};
+
+float4 ps_main(PS_INPUT Input) : COLOR
+{
+    float3 diffuse = saturate(Input.mDiffuse);
+
+    float3 reflection = normalize(Input.mReflection);
+    float3 viewDir = normalize(Input.mViewDir);
+    float3 specular = 0;
+    if ( diffuse.x &gt; 0 )
+    {
+        specular = saturate(dot(reflection, -viewDir ));
+        specular = pow(specular, 20.0f);
+    }
+
+    float3 ambient = float3(0.1f, 0.1f, 0.1f);
+
+    return float4(ambient + diffuse + specular, 1);
+}
+</code></pre>
+
+<p>우선 정점셰이더 출력데이터에서 가져올 두 벡터를 PS_INPUT 구조체에 추가합니다.</p>
+
+<pre><code class="language-hlsl">    float3 mViewDir: TEXCOORD2;
+    float3 mReflection: TEXCOORD3;
+</code></pre>
+
+<p>이전에 diffuse를 구했던 코드 바로 밑에 새로운 코드들을 추가하겠습니다. 우선 mReflection과 mViewDir을 다시 한번 정규화시켜 줍니다. 정점셰이더에서 이미 단위벡터로 만들었던 이 벡터들을 다시 정규화해 주는 이유는 보간기를 거치는 동안 그 값이 흐트러질 수 있기 때문입니다.(보간기가 선형적(linear)으로 보간을 해서 그렇습니다.)</p>
+
+<pre><code class="language-hlsl">    float3 reflection = normalize(Input.mReflection);
+    float3 viewDir = normalize(Input.mViewDir);
+</code></pre>
+
+<p>이제 이 두 벡터의 내적을 구한 뒤, 거듭제곱을 합니다.</p>
+
+<pre><code class="language-hlsl">    float3 specular = 0;
+    if ( diffuse.x &gt; 0 )
+    {
+        specular = saturate(dot(reflection, -viewDir ));
+        specular = pow(specular, 20.0f);
+    }
+</code></pre>
+
+<p>위에서 난반사광의 양이 0% 이상일 때에만 정 반사광을 계산하는 거 보이시죠? 난 반사광이 존재하지 않는 표면에는 이미 빛이 닿지 않으므로 정 반사광이 존재할 수가 없기 때문입니다. 내적을 구할 때 -viewDir을 사용한 것도 보이시죠? 난 반사광을 구할 때와 마찬가지로 두 벡터의 밑동이 만나야 올바른 내적의 결과를 구할 수 있기 때문입니다.</p>
+
+<p>또한 거듭제곱을 할 때 pow() 함수를 이용한 것도 눈 여겨 봐주시기 바랍니다. 여기서는 20번 거듭제곱을 했는데 각 물체마다 이 값을 다르게 하는 것이 보통입니다. (거듭제곱의 수가 높을 수록 정반사광의 범위가 타이트해집니다. 숫자를 바꿔보면서 실험해보세요.)  따라서 이 값을 float형의 전역변수로 선언해주는 게 보다 나은 방법이 되겠습니다. 이 정도는 독자 분들의 몫으로 남겨두도록 하지요.</p>
+
+<p>이제 결과를 반환할 차례입니다. 일단 정 반사광의 효과만을 보기 위해 specular만을 반환해볼까요? 이전에 있던 return문을 다음과 같이 바꿉니다.</p>
+
+<pre><code class="language-hlsl">  return float4(specular, 1);
+</code></pre>
+
+<p>이제 셰이더를 컴파일한 뒤 실행해보면 다음의 결과를 보실 수 있을 것입니다.</p>
+
+<p><img src="/ko/assets/img/2012/01/23.jpg" alt="" /> <br />
+<strong>그림 4.11. 난 반사광에 비해 매우 강렬하고 타이트한 하이라이트를 보여주는 정 반사광</strong></p>
+
+<p>이제 정 반사광이 어떤 건지 확실히 보이시죠? 여기에 난 반사광을 더하면 보다 완벽한 조명효과가 되겠네요. return 코드를 다음과 같이 바꿔봅시다.</p>
+
+<pre><code class="language-hlsl">    return float4(diffuse + specular, 1);
+</code></pre>
+
+<p>위 코드에서 난 반사광과 정 반사광을 더하면 그 결과가 1이 넘는 경우가 있는데 크게 걱정하지 않으셔도 됩니다. 그런 경우엔 알아서 1이 됩니다. (현재 하드웨어 백버퍼의 포맷이 8비트 이미지이기 때문입니다. 부동소수점 텍스처를 사용하면 1 이상의 값을 저장할 수도 있습니다.)</p>
+
+<p>이제 정점셰이더와 픽셀셰이더를 각각 컴파일 하신 뒤 미리 보기 창을 보면 다음과 같은 결과가 보이죠?</p>
+
+<p><img src="/ko/assets/img/2012/01/24.jpg" alt="" /> <br />
+<strong>그림 4.12. 난 반사광 + 정 반사광</strong></p>
+
+<p>자, 이 정도면 훌륭한 조명효과입니다. 하지만 공의 왼쪽 밑부분이 칠흑같이 어두운 게 좀 망에 안 드는군요. 앞서 말씀 드렸다시피 실제세계에서는 간접광이 저 어두운 부분을 비춰줄 텐데 말이지요. 그럼 아주 간단하게 주변광을 정의해줘서 저 부분을 조금이나마 밝혀볼까요? 주변광을 10%로 선언해서 ambient 변수에 대입해주도록 합시다.</p>
+
+<pre><code class="language-hlsl">    float3 ambient = float3(0.1f, 0.1f, 0.1f);
+</code></pre>
+
+<p>그리고 최종 반환 값에 ambient를 추가합니다.</p>
+
+<pre><code class="language-hlsl">    return float4(ambient + diffuse + specular, 1);
+</code></pre>
+
+<p>이제 결과가 아래와 같이 바뀔 겁니다.</p>
+
+<p><img src="/ko/assets/img/2012/01/25.jpg" alt="" /> <br />
+**그림 4.13. 주변광 + 난 반사광 + 정 반사</p>
+
+<h2 id="선택사항-directx-프레임워크">선택사항: DirectX 프레임워크</h2>
+<p>이제 C++로 작성한 DirectX 프레임워크에서 셰이더를 사용하시고자 하는 분들을 위한 선택적인 절입니다.</p>
+
+<p>우선 '제3장: 텍스처매핑'에서 사용했던 프레임워크의 사본을 만들어 새로운 폴더에 저장합니다. 그 다음, 렌더몽키에서 사용했던 셰이더와 3D 모델을 DirectX 프레임워크에서 사용할 수 있도록 파일로 저장합니다. Sphere.x와 Lighting.fx라는 파일이름을 사용하도록 하겠습니다.</p>
+
+<p>이제 비주얼 C++에서 솔루션 파일을 엽니다.</p>
+
+<p>자, 그럼 전역변수를 먼저 살펴보겠습니다. 일단 이 장에서는 텍스처를 사용하지 않으니 저번 장에서 선언했던 텍스처 변수, gpEarthDM를 지우겠습니다. 그 다음, 셰이더 변수의 이름을 gpTextureMappingShader에서 gpLightingShader로 바꿉니다.</p>
+
+<p>이제 새로운 변수들을 선언할 차례입니다. 광원의 위치와 카메라의 위치가 필요했었죠? 이 둘은 모두 월드공간 안에 있었네요. 렌더몽키에서 사용했던 빛의 위치를 다시 사용하겠습니다.</p>
+
+<pre><code class="language-cpp">// 빛의 위치
+D3DXVECTOR4                 gWorldLightPosition(500.0f, 500.0f, -500.0f, 1.0f);
+</code></pre>
+
+<p>카메라 위치는 예전에 RenderScene() 함수 안에서 사용했던 값을 그대로 가져왔습니다.</p>
+
+<pre><code class="language-cpp">// 카메라 위치
+D3DXVECTOR4                 gWorldCameraPosition( 0.0f, 0.0f, -200.0f, 1.0f );
+</code></pre>
+
+<p>이제 CleanUp() 함수로 가봅시다. 더 이상 gpEarthDM 텍스처를 사용하지 않으니 이를 해제하는 코드를 지웁니다.</p>
+
+<p>다음은 LoadAssets() 함수 입니다. 우선 gpEarthDM 텍스처를 로딩하는 코드를 삭제합니다. 그리고 셰이더의 파일명을 Lighting.fx로 바꿉니다. gpTextureMappingShader라는 변수명을gpLightingShader로 바꾸는 것도 잊지 마세요.</p>
+
+<pre><code class="language-cpp">    // 텍스처 로딩
+
+    // 셰이더 로딩
+    gpLightingShader = LoadShader("Lighting.fx");
+    if ( !gpLightingShader )
+    {
+        return false;
+    }
+</code></pre>
+
+<p>마지막으로 RenderScene() 함수를 보겠습니다. 일단gpTextureMappingShader 라는 변수명을 모두 찾아gpLightingShader로 바꿉니다. 이제 뷰행렬을 만드는 코드를 보죠. 뷰행렬을 만들 때 사용했던 vEyePt라는 변수가 있었죠? 이 변수의 값이 앞서 정의했던 gWorldCameraPosition의 값과 동일하니 gWolrldCameraPosition의 값을 사용하도록 하지요.</p>
+
+<p>예전에 아래처럼 되어 있던 코드를</p>
+
+<pre><code class="language-cpp">    D3DXVECTOR3 vEyePt( 0.0f, 0.0f, -200.0f );
+</code></pre>
+
+<p>다음과 같이 바꿉니다.</p>
+
+<pre><code class="language-cpp">    D3DXVECTOR3 vEyePt( gWorldCameraPosition.x, gWorldCameraPosition.y,
+        gWorldCameraPosition.z );
+</code></pre>
+
+<p>이제gpLightingShader-&gt;SetTexture() 코드를 지웁니다. 이 장에서 만든 셰이더에는 텍스처를 사용하지 않으니 이 코드가 필요 없습니다. 그럼 마지막으로 광원의 위치와 카메라의 위치를 셰이더에 전달해 줍니다. 이들의 데이터형은 D3DXVECTOR4이므로 셰이더에서 SetVector()를 호출합니다.</p>
+
+<pre><code class="language-cpp">    gpLightingShader-&gt;SetVector("gWorldLightPosition", &amp;gWorldLightPosition);
+    gpLightingShader-&gt;SetVector("gWorldCameraPosition", &amp;gWorldCameraPosition);
+</code></pre>
+
+<p>이제 코드를 컴파일 한 뒤 실행해보시죠. 아까 렌더몽키에서 보셨던 것과 동일한 결과를 볼 수 있죠?</p>
+
+<h2 id="기타-조명기법">기타 조명기법</h2>
+<p>여전히 대부분의 게임이 사용하는 조명기법은 람베르트 + 퐁이지만 최근 들어 다른 조명기법들을 사용하는 게임들이 늘어나고 있습니다. 조명기법을 좀 더 심층적으로 연구하고 싶으신 독자 분들을 위해 몇 가지 기법을 언급하겠습니다.</p>
+
+<ul>
+  <li>블린-퐁(Blinn-Phong): 퐁과 거의 비슷한 기법. 현재도 많이 사용함</li>
+  <li>오렌-네이어(Oren-Nayar): 표면의 거친 정도를 고려한 난 반사광 조명기법</li>
+  <li>쿡-토런스(Cook-Torrance): 표면의 거친 정도를 고려한 정 반사광 조명기법</li>
+  <li>구면조화 조명기법(spherical harmonics lighting): 오프라인에서 간접광을 사전 처리한 뒤, 실시간에서 이를 주변광으로 적용할 때 사용할 수 있음</li>
+</ul>
+
+<h2 id="정리">정리</h2>
+<p>다음은 이 장에서 배운 내용을 짧게 요약해 놓은 것입니다.</p>
+
+<ul>
+  <li>람베르트 모델은 난 반사광을 계산하는 기법으로 코사인 함수를 사용한다.</li>
+  <li>퐁 모델은 정 반사광을 계산하는 기법으로 코사인 값을 거듭제곱 한다.</li>
+  <li>벡터의 길이를 1로 바꾸면 내적을 구하는 것만으로도 코사인 함수를 대신할 수 있다.</li>
+  <li>동일한 계산을 어느 쪽에서도 할 수 있다면 픽셀셰이더 보다는 정점셰이더에서 한다.</li>
+  <li>이 장에서 배운 조명보다 훨씬 사실적이고 복잡한 기법들이 존재한다. 그 중 일부는 이미 몇몇 게임에서 쓰이고 있다.</li>
+</ul>
+
+<p>이제 조명기법까지 마쳤으니 셰이더의 기초는 다 배운 거나 다름없습니다. 다음 장부터는 여태까지 배웠던 지식들을 잘 혼합하여 보다 실용적인 기법들을 구현해 보겠습니다. 제1~4장 중에 잘 이해가 안 되는 내용이 있었다면 다시 한 번 복습을 하신 뒤에 제5장으로 넘어오시기 바랍니다.</p>
+
+<p><a href="/ko/2012/01/16/intro-to-shader-05-diffuse-specular-shader-part-1.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

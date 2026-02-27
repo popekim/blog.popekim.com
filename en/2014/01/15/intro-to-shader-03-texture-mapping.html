@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>03. Texture Mapping | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2014/01/15/intro-to-shader-03-texture-mapping.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">03. Texture Mapping</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Jan 15, 2014
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h6 id="new-hlsl-in-this-chapter">New HLSL in this chapter</h6>
+<ul>
+  <li><strong>sampler2D</strong>: a texture sampler data type which is used to get a texel from a texture</li>
+  <li><strong>tex2D()</strong>: a HLSL function to sample a texel from a texture</li>
+  <li><strong>swizzling</strong>: a way to access the components of a vector in an arbitrary order</li>
+</ul>
+
+<p>What did you think about what we covered in the last chapter? Too easy? It didn't seem that useful for the game you are trying to make? Yeah, you are right. The main goal of the last chapter was learning the basic syntax of HLSL through a simple practice. Just consider it as a hello-world program in other programming languages. Now, you are going to learn something more useful in this chapter. What about wrapping the red sphere with an image? You know this is called Texture Mapping, right?</p>
+
+<h2 id="texture-mapping-and-uv-coordinates">Texture Mapping and UV Coordinates</h2>
+<p>As mentioned earlier in this book, the building blocks of a 3D object are triangles. Then, what's involved to put an image, or a texture, on a triangle? We should order the GPU like this: "Show the pixel at the right-bottom corner of that image on the left vertex of this triangle"[1] We all know that a triangle is made of three vertices, so all we need to do is mapping each of three vertices to a pixel in a texture. Then how do we specify one pixel on a texture? A texture is an image file after all, so can we just say something like "the pixel at x = 30, y = 101"? But, what happens if we doubles the width and height of the image? We will have to change it to "x = 60, y = 202". This is not good, at all!</p>
+
+<p>Let's take a moment and think about a common sense that we learned in the last chapter. We did something very similar with the color representation. To represent a color in a uniform way regardless the number of bits per channel, we used the percentage notation [0~1]. So why don't we just use the same method? Let's say x = 0 points to the very left column of a texture, and x = 1 points to the very right column. Similarly, y = 0 is the top row and y = 1 is the bottom row. By the way, the UV notation is normally used instead of XY for texture mapping; there is no special reason, it's just to avoid any confusion since XY is normally associated with positions. Figure 3.1 shows what we just discussed here:</p>
+
+<p><img src="http://3.bp.blogspot.com/-ktdkX7EB8DM/UtMgOeVFkuI/AAAAAAAASxs/Mxd1AeYGN4I/s1600/fig_03_01(eng).png" alt="fig3-1" /></p>
+
+<p><strong>Figure 3.1</strong> UV layout on a texture</p>
+
+<p>Now let's see some examples of how different UV coordinates change the visuals. Please look at Figure 3.2.</p>
+
+<p><img src="/en/assets/img/2014/01/07.png" alt="fig3-2" /></p>
+
+<p><strong>Figure 3.2</strong> Various examples of texture mapping</p>
+
+<pre><code>(a) 2 triangles with no texture. Vertices v0, v1, v2 and v0, v2, v3 are making up one triangle each.
+(b) The range of UV coordinates is [0, 0] ~ [1, 1]. It shows a full texture.
+(c) The range of UV coordinates is [0, 0] ~ [0.5, 1]. It shows only the left half of the texture. 0.5 means 50%, so it's halfway, right?
+(d) The range of UV coordinates is [0, 0] ~ [0.5, 0.5]. So it only shows the top left quarter of the image.
+(e) The range of UV coordinates is [0, 0] ~ [1, 2]. It repeats the texture twice vertically. [2]
+(f) The range of UV coordinates is [0, 0] ~ [2, 2]. It repeats the texture twice vertically and twice horizontally. [3]
+</code></pre>
+
+<p>Additionally, you can flip the texture horizontally if the range of UV coordinates is set to [1, 0] ~ [0, 1]. I believe it's enough for you to understand how UV coordinates work. Then, it is about time to write Texture Mapping shader, finally!</p>
+
+<h2 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h2>
+
+<ol>
+  <li>As we did in Chapter 2, open RenderMonkey to make a new DirectX effect. Then, delete all the code inside the vertex and pixel shaders.</li>
+  <li>Now, change the name of shader to TextureMapping.</li>
+  <li>Don't forget to add gWorldMatrix, gViewMatrix and gProjectionMatrix variables that are needed to transform vertex positions. You still remember how to use variable semantics to pass the data, right?</li>
+  <li>Next, we will add an image that is going to be used as the texture. Right-click on TextureMapping shader and select Add Texture &gt; Add 2D Texture &gt; [RenderMonkey installation folder]\examples\media\textures\earth.jpg. Now you will see a texture, named Earth, is added.</li>
+  <li>Change the name of texture to DiffuseMap.</li>
+  <li>Now, right-click on Pass 0 and select Add Texture Object &gt; DiffuseMap. You should be able to see a newly added texture object, named Texture0.</li>
+  <li>Change the name from Texture0 to DiffuseSampler.</li>
+</ol>
+
+<p>Once you finish these steps, the Workspace panel should look like Figure 3.3.</p>
+
+<p><img src="/en/assets/img/2014/01/08.png" alt="fig3-3" /></p>
+
+<p><strong>Figure 3.3</strong> RenderMonkey project after the initial setup</p>
+
+<h2 id="vertex-shader">Vertex Shader</h2>
+<p>The full source code is listed below, followed by line-by-line explanation.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+ float4 mPosition : POSITION;
+ float2 mTexCoord : TEXCOORD0;
+};
+
+struct VS_OUTPUT
+{
+ float4 mPosition : POSITION;
+ float2 mTexCoord : TEXCOORD0;
+};
+
+float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+VS_OUTPUT vs_main(VS_INPUT Input)
+{
+ VS_OUTPUT Output;
+ 
+ Output.mPosition = mul(Input.mPosition, gWorldMatrix);
+ Output.mPosition = mul(Output.mPosition, gViewMatrix);
+ Output.mPosition = mul(Output.mPosition, gProjectionMatrix);
+ 
+ Output.mTexCoord = Input.mTexCoord;
+ 
+ return Output;
+}
+</code></pre>
+
+<p>Before walking through the vertex shader code, let's take a moment and think about what kind of new data is needed to perform texture mapping. Obviously, we need an image, which is going to be used as the texture. Then where should we perform the actual texture mapping between the vertex and pixel shaders? If you think about where vertex and pixel shaders are executed, you can find the answer easily. A vertex shader is executed for each vertices, but where the texture will be shown? Is it on vertices? No, it's not. We want to see the texture on all the pixels inside of a triangle, so texture mapping got to be performed inside the pixel shader, which is executed for each pixels. Then, now we know that it's unnecessary to declare a texture variable inside of vertex shaders.</p>
+
+<p>Then, is there any other information required for texture mapping? It was mentioned earlier in this chapter. Yes, you need the UV coordinates. Do you remember where the UV coordinates are stored? They are stored in vertex data since they can differ across vertices. Therefore, the UV coordinates are passed via vertex data instead of global variables. Now, with this knowledge, let's take a look at the input and output data of the vertex shader.</p>
+
+<h3 id="input-data-to-vertex-shader">Input Data to Vertex Shader</h3>
+<p>We start from the input data structure used in Chapter 2.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>We will add the UV coordinates to this structure. The UV coordinates have two components, U and V, so the data type should be float2. Then which semantic must be used to retrieve the UV information from the vertex buffer? Just like how the position information was retrieved via POSITION semantic, UV coordinates have their own semantic: TEXCOORD.[4] After adding the data field for UV to the structure, it looks like below:</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+  float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<p>The reason why the number 0 follows TEXCOORD is because multiple TEXCOORDs are supported by HLSL. There are cases where multiple textures are used in a shader. In those cases, you would use different semantics, such as TEXCOORD0, TEXCOORD1 and so on.</p>
+
+<h3 id="output-data-from-vertex-shader">Output Data from Vertex Shader</h3>
+<p>Again, we start from the output structure used in Chapter 2.</p>
+
+<pre><code class="language-cpp">struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>Can you guess if we need to add another information here? One of those things that were not explained in Chapter 2 is that a vertex shader can return more than just the vertex position. The reason why a vertex shader must return a vertex position was to allow the rasterizer to find pixels. However, this is not the reason why a vertex shader returns information other than the position. It does so solely for the pixel shader, and a good example is the UV coordinates.</p>
+
+<p>Pixel shaders cannot directly access the vertex buffer data. Therefore, any data that needs to be accessed by pixel shaders (e.g., UV coordinates) must be passed through vertex shaders. Does it feel like an unnecessary restriction? Once you look at Figure 3.4, you will understand why this restriction exists.</p>
+
+<p><img src="/en/assets/img/2014/01/09.png" alt="fig3-4" /></p>
+
+<p><strong>Figure 3.4</strong> What would be the UV coordinates of this pixel?</p>
+
+<p>Where the UV coordinates are defined is on each vertices, but as you can see in Figure 3.4, most pixels' UV coordinates are different from any vertices UV coordinates. [5] Therefore, the right way of finding the correct UV coordinates of a pixel is smoothly blending the UV coordinates defined on three vertices based on the distance from the pixel to each vertices. Luckily, you do not have to do this calculation manually. Just like vertex positions, any other data is automatically handled by a device called interpolator. Let's add the interpolator to the figure of a GPU pipeline presented in Chapter 1.</p>
+
+<p><img src="/en/assets/img/2014/01/10.png" alt="fig3-1" /></p>
+
+<p><strong>Figure 3.5</strong> Still pretty simple 3D pipeline after adding the interpolator</p>
+
+<p>By the way, this device doesn't stop at interpolating[6] the UV coordinates. It interpolates any data that is returned from vertex shaders and pass the result to pixel shaders.</p>
+
+<p>By now, you should know that the UV coordinates need to be returned from this vertex shader. Let's add the data field.</p>
+
+<pre><code class="language-cpp">struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+  float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<h3 id="global-variables">Global Variables</h3>
+<p>We don't need any extra global variables other than what we already used in Chapter 2. So, I'll just show the code again and skip the explanation.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+</code></pre>
+
+<h3 id="vertex-shader-function">Vertex Shader Function</h3>
+<p>You heard it enough. The most important responsibility of a vertex shader is transforming vertex positions into the projection space. The below code is identical to the one used in Chapter 2.</p>
+
+<pre><code class="language-cpp">VS_OUTPUT vs_main( VS_INPUT Input )
+{
+ VS_OUTPUT Output;
+
+ Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+ Output.mPosition = mul( Output.mPosition, gViewMatrix );
+ Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+</code></pre>
+
+<p>Now, it's time to pass through the UV coordinates, but do we need to apply any transformation before assigning the UV coordinates to Output structure? The answer is no. UV coordinates do not exist in any 3D spaces discussed in this book. Therefore, we will simply pass the UV coordinates without any transformation.</p>
+
+<pre><code class="language-cpp"> Output.mTexCoord = Input.mTexCoord;
+</code></pre>
+
+<p>I cannot think of any other data that needs to be handled here, so I'll finish this function by returning Output.</p>
+
+<pre><code class="language-cpp"> return Output;
+}
+</code></pre>
+
+<h2 id="pixel-shader">Pixel Shader</h2>
+<p>As done in Vertex Shader section, the full source code is listed first below:</p>
+
+<pre><code class="language-cpp">sampler2D DiffuseSampler;
+
+struct PS_INPUT
+{
+ float2 mTexCoord : TEXCOORD0;
+};
+
+float4 ps_main( PS_INPUT Input ) : COLOR
+{
+ float4 albedo = tex2D(DiffuseSampler, Input.mTexCoord);
+ return albedo.rgba;
+}
+</code></pre>
+
+<h3 id="input-data-to-pixel-shader-and-global-variables">Input Data to Pixel Shader and Global Variables</h3>
+<p>It is time to look at the pixel shader. What we need to do here is retrieving a texel [7] from a texture image and output its color on the screen. Then, we need a texture and current pixels' UV coordinates, right? A texture image is uniform for all the pixels, so it would be a global variable. Unlikely, the UV coordinates are part of the input data sent from the vertex shader and passed through the interpolator. First, let's declare the input structure of the pixel shader.</p>
+
+<pre><code class="language-cpp">struct PS_INPUT
+{
+ float2 mTexCoord : TEXCOORD0;
+};
+</code></pre>
+
+<p>Wait. We saw something like this before. It is almost identical to the VS_OUTPUT structure except it is missing mPosition. In fact, the input structure of a pixel shader should match the output structure of its counter-part vertex shader. After all, the pixel shader is getting what is returned from the vertex shader, right?</p>
+
+<p>The next step is texture declaration. Do you remember that we made a texture object named DiffuseSampler while setting up the RenderMonkey project earlier in this chapter? This object is the texture sampler and will be used to retrieve a texel. Therefore, the name of the texture sampler in HLSL must be DiffuseSampler, as well.</p>
+
+<pre><code class="language-cpp">sampler2D DiffuseSampler;
+</code></pre>
+
+<p>sampler2D is another data type that is supported in HLSL, and is used to sample a texel from a 2D texture. There are also other samplers, such as sampler1D, sampler3D and samplerCUBE.</p>
+
+<p>Now, we are ready to write the pixel shader function.</p>
+
+<h3 id="pixel-shader-function">Pixel Shader Function</h3>
+<p>Let's take a look at the function header first</p>
+
+<p>float4 ps_main( PS_INPUT Input ) : COLOR
+{</p>
+
+<p>The only difference from previous pixel shader function headers is that it takes a parameter, and its type is PS_INPUT. This is to receive the UV coordinates the interpolator calculated for us. Equipped with the texture sampler and UV coordinates, we can get the value of the texel. A HLSL built-in function, tex2D() can do the magic. tex2D takes two parameters: a texture sampler and UV coordinates, in order.</p>
+
+<p>float4 albedo = tex2D(DiffuseSampler, Input.mTexCoord);</p>
+
+<p>The above code reads a texel which is located at the coordinates which Input.mTexCoord specifies from DiffuseSampler. And the value will be stored in a variable named albedo. Now what do we do with this value? Well, we wanted to show the texture as is, so let's just return it.</p>
+
+<p>return albedo.rgba;
+}</p>
+
+<p>If we press F5 to compile the vertex and pixel shaders and see the preview window…… uh… it's messed up!</p>
+
+<p><img src="/en/assets/img/2014/01/11.png" alt="fig3-6" /></p>
+
+<p><strong>Figure 3.6</strong> Something is messed up here!</p>
+
+<p>Why? It is because that we forgot to map the UV coordinates element in the vertex buffer to the TEXCOORD semantic. To map it properly, go to Workspace panel and left-click on Stream Mapping. There is currently only one entry: POSITION. Now click on Add button to add a new entry, and then change Usage to TEXCOORD. Make sure Index is 0 and Data Type is FLOAT2. You do not need to change Attribute Name. Once you click on OK button, you will see a proper globe as shown in Figure 3.7.</p>
+
+<p><img src="/en/assets/img/2014/01/12.jpg" alt="fig3-7" /></p>
+
+<p><strong>Figure 3.7</strong> A nice looking globe</p>
+
+<p>By the way, did you notice that I used return albedo.rgba; instead of return albedo; while returning the final color? Although it is completely valid to use return albedo;, I intentionally did so to show you something new.</p>
+
+<p>In HLSL, you can attach a postfix, such as .xyzw or .rgba to a vector variable to access the vector's components with ease. For example, if we are dealing with a float4 variable, which has a four components, you can think it as an array of four floats. So if you add .x (or .r), it accesses the first component. Likewise, .y (or .g), .z (or .b) and .w (or .a) point to the second, third and fourth components, respectively. So, if you want to get only the rgb value from albedo, you would do something like this:</p>
+
+<pre><code class="language-cpp">float3 rgb = albedo.rgb;
+</code></pre>
+
+<p>Neat, right? But it does not stop here. You can even change the order of the postfix to access vector components in an arbitrary order. Below example shows how to create a new vector with the same components, but in reverse order.</p>
+
+<pre><code class="language-cpp">float4 newAlbedo = albedo.bgra;
+</code></pre>
+
+<p>Or you can even repeat only one channel three times like this:</p>
+
+<pre><code class="language-cpp">float4 newAlbedo = albedo.rrra;
+</code></pre>
+
+<p>Pretty rad. We refer this technique, which allows us to access vectors' components in any arbitrary order, swizzling.</p>
+
+<p>Maybe you can do some practice here. How about switching the red and blue channels of the globe? Go ahead and try it. It should be a piece of cake for you. :-)</p>
+
+<h2 id="optional-directx-framework">(Optional): DirectX Framework</h2>
+<p>This is an optional section for readers who want to use shaders in a C++ DirectX framework.</p>
+
+<p>First, make a copy of the framework that we used in Chapter 2 into a new directory. Then, save the shader and 3D model into TextureMapping.fx and Sphere.x respectively so that they can be used in the DirectX framework. Also make a copy of earth.jpg texture file that we used in RenderMonkey. You can find this file in \Examples\Media\Textures folder from RenderMonkey installation folder.</p>
+
+<p>First, let's look at the global variables. In Chapter 2, we used gpColorShader variable for the shader. Change the name to gpTextureMappingShader:</p>
+
+<pre><code class="language-cpp">// Shaders
+LPD3DXEFFECTgpTextureMappingShader = NULL;
+</code></pre>
+
+<p>Also, we need to declare a texture pointer, which will be used to store the globe texture.</p>
+
+<pre><code class="language-cpp">// Textures
+LPDIRECT3DTEXTURE9 gpEarthDM = NULL;
+</code></pre>
+
+<p>Don't forget to release D3D resources that we just declared. Go to CleanUp() function to do so. Doing so makes you a good programmer. You know that, right? ;) Also don't forget to change the name of gpColourShader.</p>
+
+<pre><code class="language-cpp"> // release shaders
+ if (gpTextureMappingShader)
+ {
+  gpTextureMappingShader-&gt;Release();
+  gpTextureMappingShader = NULL;
+ }
+
+ // release textures
+ if (gpEarthDM)
+ {
+  gpEarthDM-&gt;Release();
+  gpEarthDM = NULL;
+ }
+</code></pre>
+
+<p>Now we will load the texture and shader. Of course, we do this in LoadAssets() function.</p>
+
+<p>First, change the name of shader variable and file to gpTextureMappingShader and TextureMapping.fx, respectively.</p>
+
+<pre><code class="language-cpp"> // loading shaders
+ gpTextureMappingShader = LoadShader("TextureMapping.fx");
+ if (!gpTextureMappingShader)
+ {
+  return false;
+ }
+</code></pre>
+
+<p>Then, load earth.jpg file by using LoadTexture() function that we implemented earlier in this book.</p>
+
+<pre><code class="language-cpp"> // loading textures
+ gpEarthDM = LoadTexture("Earth.jpg");
+ if (!gpEarthDM)
+ {
+  return false;
+ }
+</code></pre>
+
+<p>Now go to RenderScene() function which takes care of all the drawings. There are multiple places where gpColorShader variable is used. Find and replace them all to gpTextureMappingShader.</p>
+
+<p>There was a newly added global variable in the texture mapping shader, right? Yes, the texture sampler. But we can't just assign the texture to the sampler directly in the D3D framework; instead, we have to assign it to a texture variable. Do you remember there was something called DiffuseMap? That was the texture variable. Then, you would think we should be able to assign the texture to a shader variable named DiffuseMap, right? Well that's the most sensible thing to do, but guess what? RenderMonkey changed the texture variable's name to something else. If you open TextureMapping.fx file in Notepad, you will see there's only one variable which data type is texture, and apparently RenderMonkey added _Tex postfix to it. Bad, Bad Monkey!</p>
+
+<pre><code class="language-cpp">texture DiffuseMap_Tex
+</code></pre>
+
+<p>Well, complaining does not solve anything. So we will just use this variable name. In order to pass a texture to a shader, we use SetTexture() function. Like SetMatrix() function, it takes the variable name in the shader as the first parameter.</p>
+
+<pre><code class="language-cpp">  gpTextureMappingShader-&gt;SetTexture("DiffuseMap_Tex", gpEarthDM);
+</code></pre>
+
+<p>Now, compile and run the program. You should be able to see the same visual as RenderMonkey showed us. Hey! I have an idea. Why don't we do something cooler? Let's make it rotate! After all, it is the earth!</p>
+
+<p>First, add a global variable which will remember the current rotation angle.</p>
+
+<pre><code class="language-cpp">// Rotation around UP vector
+float gRotationY = 0.0f;
+</code></pre>
+
+<p>The rotation and position of a 3D object are part of the world matrix. So, let's go back to RenderScene() function and change the world matrix construction code like this:</p>
+
+<pre><code class="language-cpp"> // for each frame, we rotate 0.4 degree
+ gRotationY += 0.4f * PI / 180.0f;
+ if (gRotationY &gt; 2 * PI)
+ {
+  gRotationY -= 2 * PI;
+ }
+
+ // world matrix
+ D3DXMATRIXA16 matWorld;
+ D3DXMatrixRotationY(&amp;matWorld, gRotationY);
+</code></pre>
+
+<p>The above code keeps adding 0.4 degree to the rotation each frame. Depending on the computer you are using, this might make the globe to rotate too fast or slow. Change the value appropriately. [8]</p>
+
+<p>Run the code again. You can see the rotating earth, right?</p>
+
+<h2 id="summary">Summary</h2>
+<p>A quick summary of what we learned in this chapter:</p>
+
+<ul>
+  <li>UV coordinates are required for texture mapping.</li>
+  <li>UV coordinates are varying values across vertices, thus defined on each vertex.</li>
+  <li>A pixel shader requires a vertex shader's help to access vertex data.</li>
+  <li>Any data returned by a vertex shader goes through the interpolator.</li>
+  <li>tex2D() function is a magic function for texture sampling.</li>
+</ul>
+
+<p>I cannot think of an advanced shading technique which doesn't rely on texture mapping. So, texture mapping is very crucial in shader programming. Fortunately, performing a texture lookup is very easy with HLSL, so please practice it enough so that you can use it anytime!</p>
+
+<p>Congratulations! You just finished texture mapping. Now take some break, and see you in Chapter 4. :D</p>
+
+<hr />
+<h6 id="footnotes">Footnotes:</h6>
+
+<ol>
+  <li>You are basically mapping a pixel to a vertex.</li>
+  <li>There are different ways of handling the UV coordinates outside 0~1 range. The current explanation is only valid when texture wrapping mode is used. Other modes, such as mirror and clamp, are also available.</li>
+  <li>Again, this explanation is only correct with wrap mode.</li>
+  <li>An abbreviation for texture coordinates.</li>
+  <li>UV coordinates are same only when the positions of pixels are same as the vertices'.</li>
+  <li>If you are having a hard time understanding this term just think it this way: it blends the values defined on three vertices. But by how much? Based on the distances to the vertices.</li>
+  <li>As a pixel is the smallest element in a picture, a texel is the smallest element in a texture.</li>
+  <li>For a real game, you would measure the elapsed time since the last frame and use it to calculate the proper rotation delta. This book's code is definitely not ready for real-world applications. :P</li>
+</ol>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

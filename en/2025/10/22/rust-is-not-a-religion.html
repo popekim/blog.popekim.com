@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Rust Is a Great Language — But It's Not a Religion | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2025/10/22/rust-is-not-a-religion.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/10/22/rust-is-not-a-religion.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/10/22/rust-is-not-a-religion.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Rust Is a Great Language — But It's Not a Religion</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Oct 22, 2025
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rust/">rust</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cpp/">cpp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/rants/">rants</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>Ten years ago, when no one cared, I was already saying it: <strong>"Rust is a great language."</strong></p>
+
+<p>Back then, I had no data to back it up. It was just my gut feeling and experience. Rust was designed in a way that naturally prevents programmers from making common mistakes.</p>
+
+<!--more-->
+
+<p>And now, the data proves it. Microsoft, Google, and Android have all confirmed that over half of security vulnerabilities come from memory safety issues. But with Rust, such mistakes are <strong>impossible by design.</strong> In real-world Rust code, those vulnerabilities have dramatically decreased.</p>
+
+<h2 id="the-fatigue-of-the-rust-religion">The Fatigue of the Rust Religion</h2>
+
+<p>But honestly, I'm getting tired of the way people talk about Rust these days. You hear things like, "Rust will kill every other language," or "C++ is dead."</p>
+
+<p>That's not a technical discussion — that's <strong>religion.</strong> There's no logic, no data. It's just people with little skill trying to sound relevant by jumping on the "innovation" bandwagon. And ironically, this kind of hype actually hurts Rust's progress.</p>
+
+<h2 id="why-c-is-still-alive">Why C++ Is Still Alive</h2>
+
+<p>People often say Rust will replace C++. So let me ask — why isn't C++ dead yet?</p>
+
+<ol>
+  <li>
+    <p><strong>There's simply too much legacy code.</strong> Game engines, operating systems, native libraries, embedded systems — decades of C++ code power the world. Rewriting all of that in Rust overnight is impossible.</p>
+  </li>
+  <li>
+    <p><strong>The tools and ecosystem are incredibly strong.</strong> Just look at Visual Studio. Back in the day, even Sony and Nintendo had their own IDEs. But as codebases grew and development efficiency became critical, both ended up supporting Visual Studio. The result? The entire industry moved under the C++ ecosystem. Instead of dying, C++ actually became stronger.</p>
+  </li>
+  <li>
+    <p><strong>The learning curve and talent pool.</strong> Rust enforces strict safety guarantees, but that also means fewer developers can handle it well. Meanwhile, C++ still has a massive developer base and a deeply established presence in both academia and industry. It's not something Rust can replace overnight.</p>
+  </li>
+  <li>
+    <p><strong>Other languages can adopt Rust's innovations.</strong> Memory safety, concurrency models — those can (and will) be borrowed. The "unique innovation" that once defined Rust won't stay exclusive forever.</p>
+  </li>
+</ol>
+
+<h2 id="safety-alone-wont-make-you-a-better-developer">Safety Alone Won't Make You a Better Developer</h2>
+
+<p>Lastly, there's a limit to developers who have only used "safe" languages. If you've never wrestled with a wild language like C and felt its pain firsthand, you might still write weird, unsafe logic even inside a safe language like Rust.</p>
+
+<p>This isn't new. We saw the same thing years ago with Java and C# — managed languages that made developers comfortable, but not necessarily competent.</p>
+
+<h2 id="history-repeats-itself">History Repeats Itself</h2>
+
+<p>Remember when Java once declared, "C++ is over! Java will rule the world"?</p>
+
+<p>And what happened? C++ is still alive and well, while Java is now worried about losing its market share. Rust could fall into the same trap if it's not careful. Rust is a great language, but <strong>turning it into a religion will destroy it.</strong></p>
+
+<h2 id="conclusion-a-language-is-just-a-tool">Conclusion: A Language Is Just a Tool</h2>
+
+<p>When evaluating a language, you must separate objectivity from subjectivity. Objectivity is about whether the language <strong>actually reduces human error</strong> — and whether that's <strong>proven by data.</strong> By that measure, Rust is an excellent language.</p>
+
+<p>But saying "I like using it" is purely subjective. And once you start presenting that as objective truth, technology disappears and religion takes its place.</p>
+
+<p><strong>Programming languages are not religions.</strong> They are tools. And tools should always be used according to data and reality.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2013/05/21/pimpl-pattern-me-no-likey.html">PIMPL Pattern - Me No Likey</a></li>
+                        
+                        <li><a href="/en/2025/10/23/aws-outage-multi-cloud.html">AWS Went Down? Multi-Cloud Isn't the Answer</a></li>
+                        
+                        <li><a href="/en/2025/08/25/7700k-windows11-upgrade.html">The End of Windows 10 Support and the Unfair Fate of an Intel i7</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

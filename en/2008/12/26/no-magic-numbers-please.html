@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>No Magic Numbers Please | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2008/12/26/no-magic-numbers-please.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">No Magic Numbers Please</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Dec 26, 2008
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cpp/">cpp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/coding-standards/">coding standards</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <h2 id="a-real-world-example-why-magic-numbers-are-witchcraft">A Real-world Example Why Magic Numbers Are Witchcraft</h2>
+
+<p><img src="/en/assets/img/2008/12/01.jpg" alt="coding standards" /></p>
+
+<p>We all know that magic numbers are bad, but it always surprises me whenever I found out even some programmers with several years of experience in this industry still use magic numbers.  This is a code snippet that I had to debug some weeks ago. This code was originally written by a programmer at my work.</p>
+
+<pre><code class="language-cpp">// program code:
+if ( info.packageID == -1 || info.layerID == -1 )
+{
+    // do something
+}
+</code></pre>
+
+<p>Okay, we all know <code>-1</code> is a magic number here. For me, it did not take long to find out <code>packageID</code> of <code>-1</code> means invalid package. Although using the constant <code>-1</code> as an invalid index is very common in programming, I prefer some meaningful description even for this unless it's a code for a small tool which is meant to be modified by only a handful of programmers. But I can still live with it: we programmers all tend to get lazy time to time and it's pretty straight-forward anyways.</p>
+
+<p>Then what about <code>layerID</code> of <code>-1</code>? I just assumed it would be also the invalid index, but this case invalid layer. It is a very reasonable guess since another <code>-1</code> on the same line means invalidpackage, right? Wrong. It turned out to be not the case after I wasted hours of my "expensive" work hours digging other areas to fix the bug I was trying to solve. To my surprise,<code>layerID</code> of <code>-1</code> means <em>Still Loading</em>. What? The same number on the same line means two different things?  Even in English, we get confused if one word means two different things. Even Eminem implied "what you mean is two different things" is bad in his song, Say What You Say… Okay, maybe Eminem is not so much relevant here. Anyways, you don't wanna do that in a programming language, which tends to be more confusing!</p>
+
+<p>No wonder why this is a very good, or bad, example why you don't want to use magic numbers, eh?</p>
+
+<h2 id="its-all-about-coding-standards-really">It's All About Coding Standards, Really</h2>
+
+<p>In fact, it's all about coding standards, which are pretty subjective to any programmer out there: there is no one coding standard all programmers agree with.  The reason why coding standards exist is to make collaboration easier: if your code is not easily understandable by your coworkers, you are being inconsiderate, and you can't be more than a dungeon programmer. In other words, you don't deserve to work at any place other than your own basement suite. Having that in mind, this is the rule I go by:</p>
+
+<p><strong>When Not to Use Magic Numbers</strong>:</p>
+<ul>
+  <li>when a same constant value is showing up multiple times in code. So, if <code>packageID </code>of <code>-1</code> is used more than once in the codebase, it's better to give it a meaningful name.</li>
+  <li>or when the number is just too magical, thus confusing people if not explained. <code>layerID </code>of<code> -1</code> meaning <em>Still Loading</em> is out of normal usage of -1 in my opinion.</li>
+  <li>or when more than handful of programmers are editing the same codebase. If it's only a small tool which is edited only by only you.  Who cares?</li>
+</ul>
+
+<h2 id="how-not-to-be-evil">How Not To Be Evil</h2>
+<p>These are some of good alternatives you can use to make that code look better.  All of these methods do NOT involves any run-time cost, so you should use them, if you are a programmer who cares about your coworkers.</p>
+
+<p>My personal preference is the last method which uses unnamed <code>enum </code>in class.</p>
+
+<h3 id="1-use-define">1. Use #define:</h3>
+
+<p>You can use good old C-style <code>#define</code> to globally associate these magic numbers with meaningful names.</p>
+
+<p><code>package.h:</code></p>
+<pre><code class="language-cpp">#define INVALID_PACKAGE_ID -1
+</code></pre>
+<p><code>layer.h:</code></p>
+<pre><code class="language-cpp">#define LAYER_STILL_LOADING -1
+</code></pre>
+<p><code>program code:</code></p>
+<pre><code class="language-cpp">if ( info.packageID == INVALID_PACKAGE_ID || info.layerID == LAYER_STILL_LOADING )
+{
+    // do something
+}
+</code></pre>
+<p>The only downside of this method is name collision and making everything globally available does not really get along with OOP.</p>
+
+<h3 id="2-use-const-int-in-namespace">2. Use <code>const int</code> in <code>namespace</code></h3>
+<p>To limit the scopes of these unmagical numbers, some programmers embed <code>const int </code>into <code>namespace</code>.</p>
+
+<p><code>package.h:</code></p>
+<pre><code class="language-cpp">namespace pacakge
+{
+    const int INVALID_ID = -1;
+    ... 
+}
+</code></pre>
+<p><code>layer.h:</code></p>
+<pre><code class="language-cpp">namespacelayer
+{
+    const int STILL_LOADING = -1;
+    ... 
+}
+</code></pre>
+<p><code>program code:</code></p>
+<pre><code class="language-cpp">if ( info.packageID == package::INVALID_ID || info.layerID == layer::STILL_LOADING )
+{
+    // do something
+}
+</code></pre>
+
+<p>I don't particularly disagree with this method, but I have never preferred this method because it essentially stores these <code>const int</code>s separate from classes.</p>
+
+<h3 id="3-use-static-const-int-in-class">3. Use static <code>const int</code> in Class</h3>
+<p>Instead of wrapping <code>const int</code>s with namespace blocks, you can simple define the same <code>const int</code>s as <code>static</code> variable in a class.</p>
+
+<p><code>package.h:</code></p>
+<pre><code class="language-cpp">class pacakge
+{
+public:
+    // something else
+    static const int INVALID_ID;   
+}
+</code></pre>
+
+<p><code>package.cpp:</code></p>
+<pre><code class="language-cpp">int package::INVALID_ID = -1;
+</code></pre>
+
+<p><code>layer.h:</code></p>
+<pre><code class="language-cpp">class layer
+{
+    public:
+    // something else
+    static const int STILL_LOADING;   
+}
+</code></pre>
+
+<p><code>layer.cpp:</code></p>
+<pre><code class="language-cpp">int layer::STILL_LOADING = -1;
+</code></pre>
+
+<p><code>program code:</code></p>
+<pre><code class="language-cpp">if ( info.packageID == package::INVALID_ID || info.layerID == layer::STILL_LOADING )
+{
+    // do something
+}
+</code></pre>
+
+<p>It's an okay way, but still having to define each variables in a separate <code>.cpp</code> file is not so desirable.</p>
+
+<h3 id="4-use-unnamed-enum-in-class">4. Use Unnamed <code>enum </code>in Class</h3>
+<p>This is my preferred way, which works pretty much same as the last method, but keeps everything in one place in a clean way.</p>
+
+<p><code>package.h:</code></p>
+<pre><code class="language-cpp">class pacakge
+{
+    public:
+    // something else
+    enum { INVALID_ID = -1 };
+}
+</code></pre>
+
+<p><code>layer.h:</code></p>
+<pre><code class="language-cpp">class layer
+{
+    public:
+    // something else
+    enum { STILL_LOADING = -1 };  
+}
+</code></pre>
+<p><code>program code:</code></p>
+<pre><code class="language-cpp">if ( info.packageID == package::INVALID_ID || info.layerID == layer::STILL_LOADING )
+{
+    // do something
+}
+</code></pre>
+
+<p>What do you think? You feel like it is much cleaner, and hopefully less evil?</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2023/10/01/danger-of-weak-typing.html">The Dangers of Weak Typing</a></li>
+                        
+                        <li><a href="/en/2025/10/22/rust-is-not-a-religion.html">Rust Is a Great Language — But It's Not a Religion</a></li>
+                        
+                        <li><a href="/en/2013/05/21/pimpl-pattern-me-no-likey.html">PIMPL Pattern - Me No Likey</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>01. What is Shader | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2012/12/31/intro-to-shader-01-what-is-shader.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">01. What is Shader</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Dec 31, 2012
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h6 id="definition-of-shader">Definition of Shader</h6>
+<p>The very first question I used to get in my class was "what the heck is shader?" Looking back, I also asked this same question when I heard about shader first few times, but no one was able to give me the one sentence explanation that made sense to a noob like me. I eventually figured it out, and I think the following sentence is the easiest way to define what shader is.</p>
+
+<p><strong><em>Shaders are functions which calculate the position and colour of a pixel on screen.</em></strong></p>
+
+<p>Still not clear enough? Maybe it is easier to understand if we look at where shaders are used in a modern graphics pipeline.</p>
+
+<h2 id="simplified-3d-graphics-pipeline">Simplified 3D Graphics Pipeline</h2>
+<p>Only vertex and pixel shaders are covered in this book. So, let me quickly show you how these shaders are used in a modern 3D graphics pipeline.</p>
+
+<p>One of the reasons why 3D pipeline exists is to display a 3D object onto a 2D screen. First, take a look at Figure 1.1, which shows an overly simplified 3D graphics pipeline. [1]</p>
+
+<p><img src="http://3.bp.blogspot.com/-bzD5yN1IGjg/UOIu4uAo-DI/AAAAAAAABdA/pNBjsmdYbsI/s1600/fig_01_01(eng).png" alt="fig1-1" /></p>
+
+<p><strong>Figure 1.1</strong> Overly simplified 3D graphics pipeline</p>
+
+<p>In figure 1.1, what a vertex shader takes as input is a 3D model itself. A 3D model is usually represented with polygons, which are nothing more than a collection of triangles. To make a triangle, you need 3 vertices, right? So, you can just say the input for a vertex shader is an array of vertices, instead. A-ha! Now you know why it is called vertex shader.</p>
+
+<p>Then what does a vertex shader do? The most important responsibility of a vertex shader is transforming vertices of a 3D object into the screen space. You can compare this to how a painter captures real-world scenery onto a canvas. Have you heard of perspective drawing? Even if you draw exactly same two objects onto the canvas, the final sizes on the canvas can be different based on the distance between each of objects and your eyes. In other words, close-by objects look bigger and far-away objects look smaller.</p>
+
+<p>In graphics, we like to say that those two objects had the same size in world space, but now they have different sizes in screen(=canvas) space. Well, do not worry about these spaces. We will learn more about it in the next chapter. I just wanted to tell you that vertex shaders must transform an object from one space to another.</p>
+
+<p>Remember I told you a 3D model is basically a bunch of vertices? So if you transform all the vertices that make up a 3D model one by one, it is same as transforming the 3D object itself. This is exactly how vertex shaders work. Then, how many times a vertex shader will be executed? Exactly. Just same times as the number of vertices in the model.</p>
+
+<p>We can sum up the last paragraph with the following sentence:</p>
+
+<p><strong><em>The main role of a vertex shader is transforming each vertex's position into another space.</em></strong>*</p>
+
+<p>So, one thing a vertex shader must output at the end of its execution is the vertex position in screen space . Every three of these vertex positions make a triangle, also in screen space. [2]</p>
+
+<p>Now, can you tell me how many pixels would be inside of each triangle? The screen is made of pixels, so we should know how many pixels we need to draw and where we need to draw them, right? This is what the rasterizer unit does. Rasterizer groups every three vertex positions a vertex shader outputs and makes a triangle to find out how many pixels are in it. So now you can guess how many times the pixel shader should be executed, right? Of course, as many times as the number of pixels the rasterizer finds out.</p>
+
+<p>Then, what would be the main work of pixel shader? Here is a hint. This is the last stage of the 3D graphics pipeline before reaching to the screen.</p>
+
+<p><strong><em>The main responsibility of a pixel shader is to calculate the final colour on screen.</em></strong></p>
+
+<p>If you combine the roles of vertex and pixel shaders, you finally get the definition I mentioned earlier:</p>
+
+<p><strong><em>Shaders are functions which calculate the position and colour of a pixel on screen.</em></strong></p>
+
+<p>Even though we tried to define what shader is, I honestly do not think most beginners would get a firm grasp of it yet. You should actually write some sample codes to do so. Would it help if I say shader is a way to manipulate the positions and colours of pixels while we are drawing a 3D object? Maybe not? Don't worry. Just keep reading, you will get your eureka moment pretty soon. :)</p>
+
+<h2 id="shader-programming">Shader Programming</h2>
+<p>K, now we kind of know what shader is, but what does it mean to write a shader program? Let's look at Figure 1.1 again. In Figure 1.1, do you see that some stages are rectangular while the others are round? Round stages are what GPU (Graphics Processing Unit) does automatically for you, which means we programmers have no control over them. On the other hand, rectangular stages are what programmers can manipulate "freely". You get to write a function for each of those rectangles. This is what we call shader programming. So, you see there are only two rectangular stages in Figure 1.1, right? Yes, vertex and pixel shaders! So when someone talks about shader programming, he means writing a function for the Vertex Shader unit and another one for the Pixel Shader unit, that's it! [3]</p>
+
+<p>Just like anything in the life, there are multiple shader languages out there, but what this book uses is HLSL(High Level Shader Language) from DirectX. HLSL uses C-like syntax and is very close to other shader languages, such as GLSL[4] and CgFX[5] . Once you learn HLSL, it is very trivial to switch to another shader languages.</p>
+
+<p>The best way to learn a programming language is writing code. Debating over the philosophy and syntax of a language only makes beginners bored, uninterested or clueless. Once you feel the fun of coding in that new language, all the other things naturally follow. So I will not try to turn you off by listing all HLSL syntax at this moment. Instead, I will force you to write very easy shaders in HLSL first. If you are one of those people who cannot live without knowing all the syntax, please refer to the appendix at the very back. I really do not like to bore out people.</p>
+
+<p>Well, I lied. There are still some initial setups we need to do. It is boring, I know. But you will need it to learn shader programming with this book, so please bear with me? It is not that long.</p>
+
+<h2 id="preparation-for-shader-programming">Preparation for Shader Programming</h2>
+<p>As mentioned in Introduction, the only focus of this book is shader programming. The reason why I decided not to cover anything about DirectX is because there are many good DirectX books out there, so I did not want to waste any of my time (and pages[6]) to discuss about it. Also I wanted to allow technical artists to learn HLSL programming through this book, so covering DirectX, mostly programmer-only material, was a no-no to me.</p>
+
+<p>To allow technical artists to find this book useful, I separated each chapter into two steps. First step involves writing shader program in an application called Render Monkey from AMD. Both programmers and technical artists should do this step.</p>
+
+<p>Second step, which is only for programmers, plugs the shaders authored in Render Monkey into a C++/DirectX framework. If you are a programmer who is not interested in C++/DirectX, feel free to skip this step, too.</p>
+
+<p>Now, it is time to prepare something for these two steps.</p>
+
+<h3 id="render-monkey">Render Monkey</h3>
+<p>Render Monkey is a shader authoring tool provided by AMD. I found this tool great for quick prototyping. You can download version 1.82 from AMD website.</p>
+
+<p>Just use the default option when install.</p>
+
+<h3 id="optional-simple-directx-framework">Optional: Simple DirectX Framework</h3>
+<p>If you are one of those braves wishing to run shaders in the C++/DirectX framework, please read this section.</p>
+
+<p>First, install Visual C++ 2010 and DirectX SDK. If you do not have Visual C++, you can download the express version for free from Microsoft website. You can also download DirectX SDK from the same website.</p>
+
+<p>Once you installed above two programs, open 01_DxFramework/BasicFramework.sln file from this book's code samples. (You can download them from <a href="https://blog.popekim.com/en/">my blog</a>). If you just run this program, you will see something like Figure 1.2.</p>
+
+<p><img src="http://2.bp.blogspot.com/-8NiyRlonY_U/UOIv5VEyIHI/AAAAAAAABdM/xbv6bTKUDiU/s1600/fig_01_02+(eng).png" alt="fig1-2" /></p>
+
+<p><strong>Figure 1.2</strong>. Super simple framework</p>
+
+<p>This framework "supports" the following "features":</p>
+
+<ul>
+  <li>Basic window functions, such as window creation and message loop</li>
+  <li>Direct 3D device creation</li>
+  <li>Resource loading, such as textures, models and shaders</li>
+  <li>Simple game loop</li>
+  <li>Simple keyboard input handling</li>
+</ul>
+
+<p>By the way, this stripped-down framework is made to run shader codes quickly. As a result, all functions are in a single .cpp file, and it does not use any concept of OOP(Object Oriented Programming). In other words, everything is written in C-style and all variables are globally defined. You see the problem? Yes. <strong>IF YOU ARE MAKING A REAL GAME, NEVER EVER WRITE YOUR FRAMEWORK THIS WAY.</strong> Again, this framework is intentionally made very simple to allow you to run shader demos very quickly.</p>
+
+<p>Alright, that was enough warning, I think. Now, let's take a look at the framework. First, open BasicFramework.h file.</p>
+
+<pre><code class="language-cpp">//*************************************************************
+//
+// ShaderFramework.h
+//
+// Super simple C-style framework for Shader Demo
+// (NEVER ever write framework like this when you are making real
+// games.)
+//
+// Author: Pope Kim
+//
+//*************************************************************
+
+#pragma once
+
+#include &lt;d3d9.h&gt;
+#include &lt;d3dx9.h&gt;
+
+// ---------- constants ------------------------------------
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 600
+
+// ---------------- function prototype ------------------------
+
+// Message procedure related
+LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
+void ProcessInput(HWND hWnd, WPARAM keyPress);
+
+// Initialization-related
+bool InitEverything(HWND hWnd);
+bool InitD3D(HWND hWnd);
+bool LoadAssets();
+LPD3DXEFFECT LoadShader( const char * filename );
+LPDIRECT3DTEXTURE9 LoadTexture(const char * filename);
+LPD3DXMESH LoadModel(const char * filename);
+
+// game loop related
+void PlayDemo();
+void Update();
+
+// Rendering related
+void RenderFrame();
+void RenderScene();
+void RenderInfo();
+
+// cleanup related
+void Cleanup();
+</code></pre>
+
+<p>This header file is very straight-forward. You probably noticed WIN_WIDTH and WIN_HEIGHT. These define the window size. All the other codes are just function declarations, and the implementations are all inside ShaderFramework.cpp. So let's take a look at ShaderFramework.cpp.</p>
+
+<p>You can see all the global variables at the top of the file.</p>
+
+<pre><code class="language-cpp">//---------------------------------------------------------------
+// Globals
+//---------------------------------------------------------------
+
+// D3D-related
+LPDIRECT3D9    gpD3D   = NULL;  // D3D
+LPDIRECT3DDEVICE9 gpD3DDevice= NULL; // D3D device
+
+// Fonts
+ID3DXFont*    gpFont   = NULL;
+
+// Models
+
+// Shaders
+
+// Textures
+
+// Application name
+const char*gAppName= "Super Simple Shader Demo Framework";
+</code></pre>
+
+<p>Now time to create the window.</p>
+
+<pre><code class="language-cpp">//---------------------------------------------------------------
+// Application entry point/message loop
+//---------------------------------------------------------------
+
+// entry point
+INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR, INT )
+{
+</code></pre>
+
+<p>To create a windows, you need to register a window class first.</p>
+
+<pre><code class="language-cpp"> // register windows class
+ WNDCLASSEX wc = {sizeof(WNDCLASSEX), CS_CLASSDC, MsgProc, 0L, 0L,
+         GetModuleHandle(NULL), NULL, NULL, NULL, NULL,
+         gAppName, NULL };
+ RegisterClassEx( &amp;wc );
+</code></pre>
+
+<p>Now, it is time to create an instance of the window class that we just registered. CreateWindow() functions does this. Use WIN_WIDTH and WIN_HEIGHT for the width and height of the window, respectively.</p>
+
+<pre><code class="language-cpp"> // creates program window
+ DWORD style = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+ HWND hWnd = CreateWindow( gAppName, gAppName,
+              style, CW_USEDEFAULT, 0, WIN_WIDTH, WIN_HEIGHT,
+              GetDesktopWindow(), NULL, wc.hInstance, NULL );
+</code></pre>
+
+<p>The funny thing about a windowed program is that the actual area you can render onto is smaller than WIN_WIDTH and WIN_HEIGHT. It is because the window also has other junks like the title bar and border lines. So you need to adjust the window size once it is created so that the renderable area, or client rect, is equal to WIN_WIDTH and WIN_HEIGHT.</p>
+
+<pre><code class="language-cpp"> // Client Rect size will be same as WIN_WIDTH and WIN_HEIGHT
+ POINT ptDiff;
+ RECT rcClient, rcWindow;
+
+ GetClientRect(hWnd, &amp;rcClient);
+ GetWindowRect(hWnd, &amp;rcWindow);
+ ptDiff.x = (rcWindow.right - rcWindow.left) - rcClient.right;
+ ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
+ MoveWindow(hWnd,rcWindow.left, rcWindow.top, WIN_WIDTH + ptDiff.x,
+      WIN_HEIGHT + ptDiff.y, TRUE);
+</code></pre>
+
+<p>Now that we got the correct windows size, let's show the window!</p>
+
+<pre><code class="language-cpp"> ShowWindow( hWnd, SW_SHOWDEFAULT );
+ UpdateWindow( hWnd );
+</code></pre>
+
+<p>Next, we initialize Direct3D and load all D3D resources, such as textures, shaders and meshes. InitEverything() function contains all these things. If the program fails at initializing Direct3D or other stuff, it simply quits.</p>
+
+<pre><code class="language-cpp"> // Initialize everything including D3D
+ if( !InitEverything(hWnd) )
+ {
+  PostQuitMessage(1);
+ }
+</code></pre>
+
+<p>Once D3D initialization is completed, what is left is to keep running the demo until WM_QUIT message is sent. WM_QUIT is a window message which nicely asks us to finish the execution of the program.</p>
+
+<pre><code class="language-cpp"> // Message loop
+ MSG msg;
+ ZeroMemory(&amp;msg, sizeof(msg));
+ while(msg.message!=WM_QUIT)
+ {
+  if( PeekMessage( &amp;msg, NULL, 0U, 0U, PM_REMOVE ) )
+  {
+   TranslateMessage( &amp;msg );
+   DispatchMessage( &amp;msg );
+  }
+  else // If there's no message to handle, update and draw the game
+  {
+   PlayDemo();
+  }
+ }
+</code></pre>
+
+<p>When we need to finish the demo, we unregister the window class and return from the program.</p>
+
+<pre><code class="language-cpp"> UnregisterClass( gAppName, wc.hInstance );
+ return 0;
+}
+</code></pre>
+
+<p>We also need to see the function that takes care of window messages.</p>
+
+<pre><code class="language-cpp">// Message handler
+LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+{
+ switch( msg )
+ {
+</code></pre>
+
+<p>keyboard input is handled by ProcessInput() function.</p>
+
+<pre><code class="language-cpp"> case WM_KEYDOWN:
+  ProcessInput(hWnd, wParam);
+  break;
+</code></pre>
+
+<p>When the window is being closed, all D3D resources we loaded during the initialization step should be released by calling CleanUp() function. Once it is done, "please terminate this program" message is sent.</p>
+
+<pre><code class="language-cpp"> case WM_DESTROY:
+  Cleanup();
+  PostQuitMessage(0);
+  return 0;
+ }
+</code></pre>
+
+<p>Any message that is not being handled by this function will be sent to the default message procedure, which will, in turn, handle them.</p>
+
+<pre><code class="language-cpp"> return DefWindowProc( hWnd, msg, wParam, lParam );
+}
+</code></pre>
+
+<p>The only keyboard input this framework listens to at this moment is ESC key. When this key is pressed, the program will be terminated.</p>
+
+<pre><code class="language-cpp">// Keyboard input handler
+void ProcessInput( HWND hWnd, WPARAM keyPress)
+{
+ switch(keyPress)
+ {
+  // when ESC key is pressed, quit the demo
+ case VK_ESCAPE:
+  PostMessage(hWnd, WM_DESTROY, 0L, 0L);
+  break;
+ }
+}
+</code></pre>
+
+<p>Now, let's look at the initialization code more closely.</p>
+
+<pre><code class="language-cpp">//------------------------------------------------------------
+// intialization code
+//------------------------------------------------------------
+bool InitEverything(HWND hWnd)
+{
+</code></pre>
+
+<p>First, we initialize D3D by calling InitD3D() function. Unless it fails, we call LoadAssets() function to load D3D resources, such as textures, models and shaders.</p>
+
+<pre><code class="language-cpp"> // init D3D
+ if( !InitD3D(hWnd) )
+ {
+  return false;
+ }
+
+ // loading models, shadsers and textures
+ if( !LoadAssets() )
+ {
+  return false;
+ }
+</code></pre>
+
+<p>Next up is font loading. We will use this font to display debug information on screen.</p>
+
+<pre><code class="language-cpp"> // load fonts
+ if(FAILED(D3DXCreateFont( gpD3DDevice, 20, 10, FW_BOLD, 1, FALSE,
+             DEFAULT_CHARSET,OUT_DEFAULT_PRECIS,
+             DEFAULT_QUALITY,(DEFAULT_PITCH | FF_DONTCARE),
+             "Arial", &amp;gpFont )))
+ {
+  return false;
+ }
+
+ return true;
+}
+</code></pre>
+
+<p>The meanings of parameters used with D3DXCreateFont():</p>
+
+<ul>
+  <li>gpD3DDevice: D3D device</li>
+  <li>20: the height of the font</li>
+  <li>10: the width of the font</li>
+  <li>FW_BOLD: use bold style</li>
+  <li>1: mipmap level</li>
+  <li>FALSE: do not use italic style</li>
+  <li>DEFAULT_CHARSET: use default character set</li>
+  <li>OUT_DEFAULT_PRECIS: defines how close the final font properties displayed on the screen should be to the ones we are setting here</li>
+  <li>DEFAULT_QUALITY: defines how close the final font quality displayed on the screen to the one we are setting here</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>DEFAULT_PITCH</td>
+          <td>FF_DONTCARE: Use default pitch, and I don't care about the font family</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>"Arial": the name of font to use</li>
+  <li>gpFont: stores the newly created font</li>
+</ul>
+
+<p>Now let's take a look at InitD3D() function, which creates a D3D object and D3D device. In order to load resources or draw with DirectX, you must create a D3D device.</p>
+
+<pre><code class="language-cpp">// D3D and device initialization
+bool InitD3D(HWND hWnd)
+{
+</code></pre>
+
+<p>First, we create a Direct3D object.</p>
+
+<pre><code class="language-cpp"> // D3D
+ gpD3D = Direct3DCreate9( D3D_SDK_VERSION );
+ if ( !gpD3D )
+ {
+  return false;
+ }
+</code></pre>
+
+<p>Now, we need to fill in the structure to create a D3D device.</p>
+
+<pre><code class="language-cpp"> // fill in the structure needed to create a D3D device
+ D3DPRESENT_PARAMETERS d3dpp;
+ ZeroMemory( &amp;d3dpp, sizeof(d3dpp) );
+
+ d3dpp.BackBufferWidth  = WIN_WIDTH;
+ d3dpp.BackBufferHeight = WIN_HEIGHT;
+ d3dpp.BackBufferFormat = D3DFMT_X8R8G8B8;
+ d3dpp.BackBufferCount  = 1;
+ d3dpp.MultiSampleType  = D3DMULTISAMPLE_NONE;
+ d3dpp.MultiSampleQuality = 0;
+ d3dpp.SwapEffect  = D3DSWAPEFFECT_DISCARD;
+ d3dpp.hDeviceWindow  = hWnd;
+ d3dpp.Windowed  = TRUE;
+ d3dpp.EnableAutoDepthStencil = TRUE;
+ d3dpp.AutoDepthStencilFormat = D3DFMT_D24X8;
+ d3dpp.Flags   = D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL;
+ d3dpp.FullScreen_RefreshRateInHz= 0;
+ d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_ONE;
+</code></pre>
+
+<p>Here are some fields worth understanding:</p>
+
+<ul>
+  <li>BackBufferWidth: the width of back buffer(rendering area)</li>
+  <li>BackBuferHeight: the height of back buffer</li>
+  <li>BackBufferFormat: the format of back buffer</li>
+  <li>AutoDepthStencilFormat: the format of depth/stencil buffer</li>
+  <li>SwapEffect: the effect of swap. For performance reasons, D3DSWAPEFFECT_DISCARD is recommended.</li>
+  <li>PresentationInterval: the relationship between the refresh rate of monitor and the frequency of swapping back buffer. D3DPRESENT_INTERVAL_ONE means back buffer will be swapped whenever monitory v-sync happens. Most computer games swap the back buffer without waiting for V-sync. (D3DPRESENT IMMEDIATE) It is mainly for performance reasons. The most noticeable downside of this mode is the screen tearing</li>
+</ul>
+
+<p>Now that we have this structure filled, we can create a D3D device.</p>
+
+<pre><code class="language-cpp"> // create D3D device
+ if( FAILED( gpD3D-&gt;CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
+                 hWnd,
+                 D3DCREATE_HARDWARE_VERTEXPROCESSING,
+                 &amp;d3dpp, &amp;gpD3DDevice ) ) )
+ {
+  return false;
+ }
+
+ return true;
+}
+</code></pre>
+
+<p>LoadAssets() function is supposed to load D3D resources, but there is no code in it at this moment. You will get to call other functions, such as LoadShader(), LoadTexture() and LoadModel(), to load resources in the later chapters.</p>
+
+<pre><code class="language-cpp">bool LoadAssets()
+{
+ // texture loading
+
+ // shader loading
+
+ // model loading
+
+ return true;
+}
+</code></pre>
+
+<p>Next is LoadShader() function, which loads a shader program saved in a .fx file. A .fx file is a text file which can contain both vertex and pixel shader functions. It can be dynamically compiled and loaded via D3DXCreateEffectFromFile() function. So, if there is any syntax error in HLSL code you write, this function will encounter compiler errors. The last parameter of this function is how you retrieve the error messages. We will print out the error messages in Visual C++'s output window.</p>
+
+<pre><code class="language-cpp">// shader loading
+LPD3DXEFFECT LoadShader(const char * filename )
+{
+ LPD3DXEFFECT ret = NULL;
+
+ LPD3DXBUFFER pError = NULL;
+ DWORD dwShaderFlags = 0;
+
+#if _DEBUG
+ dwShaderFlags |= D3DXSHADER_DEBUG;
+#endif
+
+ D3DXCreateEffectFromFile(gpD3DDevice, filename,
+             NULL, NULL, dwShaderFlags, NULL, &amp;ret, &amp;pError);
+
+ // if failed at loading shaders, display compile error
+ // to output window
+ if(!ret &amp;&amp; pError)
+ {
+  int size= pError-&gt;GetBufferSize();
+  void *ack= pError-&gt;GetBufferPointer();
+
+  if(ack)
+  {
+   char* str = new char[size];
+   sprintf(str, (const char*)ack, size);
+   OutputDebugString(str);
+   delete [] str;
+  }
+ }
+
+ return ret;
+}
+
+</code></pre>
+
+<p>The meanings of the parameters of D3DXCreateEffectFromFile() function are:</p>
+
+<ul>
+  <li>gpD3DDevice: D3D device</li>
+  <li>filename: the name of shader file to load</li>
+  <li>NULL: do not use additional #define definitions for shader compilation</li>
+  <li>NULL: do not use additional #includes</li>
+  <li>dwShaderFlags: shader compilation flags</li>
+  <li>NULL: do not use an effect pool object for shared parameters</li>
+  <li>ret: will store compiled shader</li>
+  <li>pError: will point to error messages, if any</li>
+</ul>
+
+<p>Next is model loading code. It assumes models are stored in .x format, which is supported by DirectX natively.</p>
+
+<pre><code class="language-cpp">// loading models
+LPD3DXMESH LoadModel(const char * filename)
+{
+ LPD3DXMESH ret = NULL;
+ if ( FAILED(D3DXLoadMeshFromX(filename,D3DXMESH_SYSTEMMEM, gpD3DDevice,
+                NULL,NULL,NULL,NULL, &amp;ret)) )
+ {
+  OutputDebugString("failed at loading a model: ");
+  OutputDebugString(filename);
+  OutputDebugString("\n");
+ };
+
+ return ret;
+}
+</code></pre>
+
+<p>Again, the meaning of the above parameters for D3DXLoadMeshFromX() function call are:</p>
+
+<ul>
+  <li>D3DXMESH_SYSTEMMEM: load the mesh to system memory</li>
+  <li>gpD3DDevice: D3D device</li>
+  <li>NULL: Don't give me adjacency data</li>
+  <li>NULL: Don't give me material information</li>
+  <li>NULL: Don't give me effect instance</li>
+  <li>NULL: Don't give me the number of materials</li>
+  <li>ret: will store loaded mesh</li>
+</ul>
+
+<p>Finally, let's look at LoadTexture(), which loads a texture(image) file.</p>
+
+<pre><code class="language-cpp">// loading textures
+LPDIRECT3DTEXTURE9 LoadTexture(const char * filename)
+{
+ LPDIRECT3DTEXTURE9 ret = NULL;
+ if ( FAILED(D3DXCreateTextureFromFile(gpD3DDevice, filename, &amp;ret)) )
+ {
+  OutputDebugString("failed at loading a texture: ");
+  OutputDebugString(filename);
+  OutputDebugString("\n");
+ }
+
+ return ret;
+}
+</code></pre>
+
+<p>Next is our game loop function, PlayDemo(). This function is called whenever there is no window message to handle. For real games, you would calculate the elapsed time since last frame and use it for both update and rendering functions, but it is omitted here for simplicity.</p>
+
+<pre><code class="language-cpp">//------------------------------------------------------------
+// game loop
+//------------------------------------------------------------
+void PlayDemo()
+{
+ Update();
+ RenderFrame();
+}
+</code></pre>
+
+<p>There is nothing in Update() function yet. One day, we will add something in here.</p>
+
+<pre><code class="language-cpp">// Game logic update
+void Update()
+{
+}
+</code></pre>
+
+<p>Next is RenderFrame() function, which draws stuff onto screen.</p>
+
+<pre><code class="language-cpp">//------------------------------------------------------------
+// Rendering
+//------------------------------------------------------------
+
+void RenderFrame()
+{
+</code></pre>
+
+<p>We first clear the back buffer with blue colour.</p>
+
+<pre><code class="language-cpp"> D3DCOLOR bgColour = 0xFF0000FF;// background colour - blue
+
+ gpD3DDevice-&gt;Clear( 0, NULL, (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
+           bgColour, 1.0f, 0 );
+</code></pre>
+
+<p>Then, we draw our scene and debug info.</p>
+
+<pre><code class="language-cpp"> gpD3DDevice-&gt;BeginScene();
+ {
+  RenderScene();  // draw 3D objects and so on
+  RenderInfo();  // show debug info
+ }
+ gpD3DDevice-&gt;EndScene();
+</code></pre>
+
+<p>Once rendering is done, we simply present what is drawn onto the back buffer to the screen.</p>
+
+<pre><code class="language-cpp"> gpD3DDevice-&gt;Present( NULL, NULL, NULL, NULL );
+}
+</code></pre>
+
+<p>Just like Update() function, there is no code in RenderScene() function yet. We will write some code here in the next chapter to draw a 3D object.</p>
+
+<pre><code class="language-cpp">// draw 3D objects and so on
+void RenderScene()
+{
+}
+</code></pre>
+
+<p>RenderInfo() function simply displays key mapping information onto the screen.</p>
+
+<pre><code class="language-cpp">// show debug info
+void RenderInfo()
+{
+ // text colour
+ D3DCOLOR fontColor = D3DCOLOR_ARGB(255,255,255,255);  
+
+ // location to show the text
+ RECT rct;
+ rct.left=5;
+ rct.right=WIN_WIDTH / 3;
+ rct.top=5;
+ rct.bottom = WIN_HEIGHT / 3;
+
+ // show debug keys
+ gpFont-&gt;DrawText(NULL, "Demo Framework\n\nESC: Quit demo", -1, &amp;rct, 0,
+         fontColor);
+}
+</code></pre>
+
+<p>When the program is being shut down, we must release all D3D resources to prevent memory leak. Once all resources are released, the D3D device and the D3D object need to be released too.</p>
+
+<pre><code class="language-cpp">//------------------------------------------------------------
+// cleanup code
+//------------------------------------------------------------
+
+void Cleanup()
+{
+ // release fonts
+ if(gpFont)
+ {
+  gpFont-&gt;Release();
+  gpFont = NULL;
+ }
+
+ // release models
+
+ // release shaders
+
+ // release textures
+
+ // release D3D
+ if(gpD3DDevice)
+ {
+  gpD3DDevice-&gt;Release();
+  gpD3DDevice = NULL;
+ }
+
+ if(gpD3D)
+ {
+  gpD3D-&gt;Release();
+  gpD3D = NULL;
+ }
+}
+</code></pre>
+
+<p>That is it. We just finished writing a very simple framework. Even if you do not understand above code very well, that is completely fine. It does not really prevent you from learning HLSL with this book. But if your dream is to be a rendering dude, I highly recommend you to learn DirectX properly after finishing this book.</p>
+
+<p>Thank you so much for suffering through the boring preparation steps. After the following quick summary, you we are off to the next chapter, where you will actually have some fun making something to show up on the screen!</p>
+
+<h2 id="summary">Summary</h2>
+<p>The short summary of what we discussed in this chapter:</p>
+
+<ul>
+  <li>Shaders are functions calculating the position and colour of each pixel.</li>
+  <li>If you think shaders in terms of a painter's workflow, vertex shader is perspective sketch and pixel shader is colouring.</li>
+  <li>Shader programming is nothing more than writing functions which are executed by vertex and pixel shading units.</li>
+  <li>Render Monkey is a great tool for quick shader prototyping.</li>
+</ul>
+
+<hr />
+<h6 id="footnotes">Footnotes:</h6>
+
+<ol>
+  <li>I intentionally over-simplified this figure to help you understand the roles of vertex and pixel shaders. Real 3D graphics pipelines are way more complicated than this.</li>
+  <li>Vertex shaders often outputs more information than just vertex positions. You will see more of it in the following chapters.</li>
+  <li>New shader types are introduced with DirectX 10 and 11. But they are not for beginners and currently not being used enough in real-world to be included in this book.</li>
+  <li>It stands for OpenGL Shader Language. As the name suggests, it is OpenGL's shader language, which is somewhat different from HLSL syntax-wise.</li>
+  <li>It is a shader programming language supported by NVidia. It is almost identical to HLSL except a few things.</li>
+  <li>More pages = higher price = less beer = sadder life</li>
+</ol>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

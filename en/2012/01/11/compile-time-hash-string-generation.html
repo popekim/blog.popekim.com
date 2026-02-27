@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Compile-Time Hash String Generation | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2012/01/11/compile-time-hash-string-generation.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2012/01/11/compile-time-hash-string-generation.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2012/01/11/compile-time-hash-string-generation.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Compile-Time Hash String Generation</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Jan 11, 2012
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/optimization/">optimization</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/cpp/">cpp</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/hash/">hash</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/x65599/">x65599</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <h2 id="motivation">Motivation</h2>
+<p>Recently, I worked on a code-base where everything was referenced by strings. It was quite expensive as you can imagine, so to avoid the cost of string comparison, hash values(ints) were used. This system had a giant hash string registry, which generates a hash value and stores both the hash and actual strings whenever the code sees a new string, well all during run-time.</p>
+
+<p>I personally did not enjoy this system for a number of reasons:</p>
+
+<ul>
+  <li>it takes up too much memory
+    <ul>
+      <li>almost 90% of those strings were never really used as real char * string representation &amp; they were simply just look-up keys</li>
+      <li>so no need to store actual string representations: just hash values were enough</li>
+      <li>then we can generate hash values offline</li>
+    </ul>
+  </li>
+  <li>hash string registry was quite slow to be multithread-safe. New strings can be registered by any thread, so we had to have a locking mechanism, which turned out to be a bottle neck time to time</li>
+  <li>strings in the executable or data files are easy to read by anyone with a hex editor. Maybe it makes attackers' life a bit easier?</li>
+</ul>
+
+<p>So I thought of doing something better…… (as follows)</p>
+
+<h2 id="we-need-two-different-string-types">We Need Two Different String Types</h2>
+<p>I think we should adopt two different ways of handling strings for those 90% and 10%.</p>
+
+<h2 id="1-pure-char-string-10">1. Pure char* String (10%)</h2>
+<p>Any string that needs actual string representations should be in this format:</p>
+
+<ul>
+  <li>filenames that the game needs to load sometime (unless your filenames are hashed, too. If you wanna go nuts sure.. but I think it's too extreme)</li>
+  <li>
+    <p>any string that needs to be printed out on the screen. You really don't want your users to read some hex number like 0xFFFFF, 0x888888 or 0x000000, right? (looking at the picture below.. I think it might be okay… lol)</p>
+
+    <p><img src="/en/assets/img/2012/01/04.jpg" alt="cat" />
+  Image Source:<a href="http://icanhascheezburger.com/2007/11/15/ffffff-888888-000000/">icanhascheeszburger.com</a></p>
+  </li>
+</ul>
+
+<p>Since they would be only 10% of the string for most games, probably you can just do strcmp() on them instead of generating and storing hash values for them. But if you really insist, you can still do the similar thing to what our hash string manger used to do. (still better than having 10 times more strings stored on memory)</p>
+
+<h2 id="2-hash-valued-string-90">2. Hash-Valued String (90%)</h2>
+<p>So all the other strings, of which char* representations are never used, will be just a simple hash value, an int. A good example is any strings</p>
+<ul>
+  <li>only used for comparison</li>
+  <li>only used as look-up key</li>
+</ul>
+
+<p>#1(pure char* string) is very straight forward, sofrom now on I'll only focus on #2(Hash-Valued String) in this post.</p>
+
+<h2 id="choosing-a-good-hash-function-x65599">Choosing a Good Hash Function: x65599</h2>
+<p>We all know what hash function is. Just in case you don't, it's just a function that will "hopefully" generate unique integer values for different strings. (I said "hopefully" because there is chance to have a same vale for tow different strings: we call it hash collision.) Once you have a unique hash value for each strings, you can simply compare two strings by those hash values instead of comparing every single characters in them What you get out of this? It's faster and simpler.</p>
+
+<p>Then how do you generate a unique hash value for each string? Well, therea lot of different hash functions. Some have less collisions while the others have more. Some are faster while the others are slow. You can choose whatever based on your need. For me, a hash function for game should:</p>
+<ul>
+  <li>have near-zero collision</li>
+  <li>versatile enough to be used as run-time function: you will possibly need toconcatenate strings and then generate hash value to compare in your game</li>
+  <li>be fast enough to be used in game</li>
+</ul>
+
+<p>I did some research and found <a href="http://chrissavoie.com/articles-mainmenu-29/15/65-hash2">this amazing comparison chart by Chris Savoie</a>, and I decided the best one for me is x65599. (Also I liked the name quite a lot. Anything that starts with X = a badass)</p>
+
+<p>I also looked into the implementation (shown below). It's simple. You keep multiplying 65599. A-Ha! that's why it's called x65599 :D</p>
+
+<pre><code class="language-cpp">// A hash function with multiplier 65599 (from Red Dragon book)
+unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+    for(size_t i = 0; i &lt; len; ++i)
+    {
+       hash = 65599 * hash + string[i];
+    }
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<p>Alright, now I picked the hash function. Let's move onto what to do in tools-side and code-side.</p>
+
+<h2 id="saving-data-from-tools">Saving Data from Tools</h2>
+<p>If there is any tool that used to save useless char* values into the game data, it's time to change it to save out a hash value, instead. It's simple. Just call that function from your tool (or implement same function if the tools use different language from your game).</p>
+
+<p>Simply done. Moving onto in-game code.</p>
+
+<h2 id="generating-compile-time-hash-value-in-code">Generating Compile-time Hash Value in Code</h2>
+<p>Alright let's say, I want to find a bone named "funny_bone". I would usually write a code like this:</p>
+
+<pre><code class="language-cpp">bones.find("funny_bone");
+</code></pre>
+
+<p>but now the tools export a hash value for this string, so I have to write something like this:</p>
+
+<pre><code class="language-cpp">const char * boneToFind = "funny_bone";
+bones.find( generateHash(boneToFind, strlen(boneToFind) );
+</code></pre>
+
+<p>Sure, it would work. But wouldn't the string "funny_bone" into our executable? If so, it will use the same or more amount of memory than our old string registry. But this string is a const string, and compiler "might" know about it. Can we make sure the compiler does all thenecessarycomputation during compile time and somehow magically spits out assembly codeequivalentto this?</p>
+
+<pre><code class="language-cpp">// yup 0XF1C66FD7F is the real hash value for "funny_bone"
+bones.find(0xF1C6FD7F);  
+</code></pre>
+
+<p>I think we can if these two things can happen:</p>
+
+<ul>
+  <li>inlining the hash function: if compiler choose to not inline the hash function, there is no way it can calculate an int value during the compile-time. So this is a must. inline keyword is kinda a guideline on most compilers, but I don't think it's a hard thing to achieve.</li>
+  <li>unrolling the hash loop: we are dealing with constant length string, so if we have a way to tell compiler to unroll this and do all the calculation during compile-time, it would work.</li>
+</ul>
+
+<h2 id="help-inlining-generatehashconst-char-size_t">Help Inlining <code>generateHash(const char*, size_t)</code></h2>
+<p>First off, I want to make sure theimplementationof generateHash(const char*, size_t) function is available for inlining when the compiler compiles the code. Also I want to allow programmers to use a simple macro without calling strlen(const char *) specifically. So I decided to add a define like this:</p>
+
+<pre><code class="language-cpp">#define HASH_STRING(str) generateHash(str, strlen(str));
+</code></pre>
+
+<p>With this, my hash.h looks like this:</p>
+
+<pre><code class="language-cpp">// compiile-time hash string test
+// author: Pope Kim (www.popekim.com)
+
+#include &lt;string.h&gt;
+#define HASH_STRING(str) generateHash(str, strlen(str));
+
+// A hash function with multiplier 65599 (from Red Dragon book).
+// we put this implementation into header file so that compiler can
+// always inline it.
+inline unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+    for(size_t i = 0; i &lt; len; ++i)
+    {
+       hash = 65599 * hash + string[i];
+    }
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<h2 id="test-code">Test Code</h2>
+<p>Now I made a test code to see if different compilers and optimization options can flat down HASH_STRING(str) into a single integer value in compile-time.</p>
+
+<p>This is my main.cpp:</p>
+
+<pre><code class="language-cpp">// compiile-time hash string test
+// author: Pope Kim (www.popekim.com)
+
+#include &lt;stdio.h&gt;
+
+#include "hash.h"
+
+int main(int args, char** argv)
+{
+    unsigned int hashValue = HASH_STRING("funny_bone");
+    printf("hash value is 0x%8x\n", hashValue);
+
+
+    return 0;
+}
+</code></pre>
+
+<p>Now, let's see if the compilers do a good job on this.</p>
+
+<h2 id="with-visual-studio-2010-sp1">With Visual Studio 2010 SP1</h2>
+<p>I've created a quick win32 console application project and tested it with different optimization flag. This is what I did.</p>
+<ol>
+  <li>Change project configuration to Release</li>
+  <li>To output assembly file, I went to Project Properties &gt; C/C++ &gt; Output Files &gt; Assembler Output, and chose Assembly-Only Listing (/FA)</li>
+  <li>Then to test different optimization flag, I went to Project Properties &gt; C/C++ &gt; Optimization and compiled with the following settings:</li>
+</ol>
+
+<h3 id="disabled-od">Disabled (/Od)</h3>
+
+<p><strong>Two findings:</strong></p>
+<ul>
+  <li>generateHash() function call is not inlined, as expected</li>
+  <li>interestingly, strlen() is optimized: look at push 10</li>
+</ul>
+
+<pre><code class="language-nasm">_main      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 11
+ push ebp
+ mov ebp, esp
+ push ecx
+; Line 12
+---&gt; push 10     ; 0000000aH
+ push OFFSET $SG-5
+---&gt; call ?generateHash@@YAIPBDI@Z  ; generateHash
+ add esp, 8
+ mov DWORD PTR _hashValue$[ebp], eax
+; Line 13
+ mov eax, DWORD PTR _hashValue$[ebp]
+ push eax
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8&lt;div&gt;; Line 15
+ xor eax, eax
+; Line 16
+ mov esp, ebp
+ pop ebp
+ ret 0
+_main ENDP
+</code></pre>
+
+<h3 id="minimize-sizeo1">Minimize Size(/O1)</h3>
+<p>same as disabled, but the function call is inlined at least.</p>
+
+<pre><code class="language-nasm">_main      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 12
+ xor ecx, ecx
+ xor eax, eax
+$LL5@main:
+ movsx edx, BYTE PTR ??_C@_0L@DDOFCBGB@funny_bone?$AA@[eax]
+ imul ecx, 65599    ; 0001003fH
+ add ecx, edx
+ inc eax
+---&gt; cmp eax, 10     ; 0000000aH
+---&gt; jb SHORT $LL5@main
+ mov eax, ecx
+ shr eax, 16     ; 00000010H
+ xor eax, ecx
+; Line 13
+ push eax
+ push OFFSET ??_C@_0BF@DJEFNLLJ@hash?5value?5is?50x?$CF8x?6?$AA@
+ call DWORD PTR __imp__printf
+ pop ecx
+ pop ecx
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<h3 id="maximize-speedo2">Maximize Speed(/O2)</h3>
+<p>You see the first line? push -238617217 which is 0xF1C6FDF? IT IS ALL FLATTENED DOWN TO AN INT!</p>
+
+<pre><code class="language-nasm">; Line 13
+---&gt; push -238617217    ; f1c6fd7fH
+ push OFFSET ??_C@_0BF@DJEFNLLJ@hash?5value?5is?50x?$CF8x?6?$AA@
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<p>So I opened the resulting .exe file in a text editor to see if there's any string named "funny_bone". And I couldn't find any! YAY!</p>
+
+<p><img src="/en/assets/img/2012/01/05.jpg" alt="notepad" /></p>
+
+<h3 id="full-optimizationox">Full Optimization(/Ox)</h3>
+<p>Walla! again!</p>
+
+<pre><code class="language-nasm">_main      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 13
+---&gt; push -238617217    ; f1c6fd7fH
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<p>But when I searched "funny_bone" in the exe file…</p>
+
+<p><img src="/en/assets/img/2012/01/06.jpg" alt="there is funny bone" />
+<b>WTF? Why are you there, funny_bone?</b></p>
+
+<p>Seriously? Full Optimization option doesn't strip unused strings? To be sure I tested with another simple program, but the result was same. Even this very simple string doesn't get stripped out with this compiler option.</p>
+
+<pre><code class="language-cpp">void idiot()
+{
+ const char* idiot = "OMG";
+}
+</code></pre>
+
+<p>I talked to this to <a href="http://twitter.com/IoNPulse">Karl</a>, and he found String Pooling option is off for <code>/Ox</code> by default while it is on for both <code>/O1</code> and <code>/O2</code>. Strange eh? As soon as I enabled C/C++ &gt; Code Generation &gt; Enable String Polling the string disappeared. YAY!</p>
+
+<h2 id="with-g">With G++</h2>
+<p>How can I finish a test without trying G++? I used G++ 4.5.3 to test this with this compiler flags:</p>
+
+<pre><code>g++ *.cpp -pedantic -Wall -S &lt;optimization-flag&gt;
+</code></pre>
+
+<p>Note that -S flag is to stop generating after assembler</p>
+
+<h3 id="-o0">-O0</h3>
+<p>-O0 flag means no optimization pretty much, so i didn't expect anything. Still <code>strlen()</code> function seems to be converted to 10, at least.</p>
+
+<pre><code class="language-nasm">LFE4:
+ .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI4:
+ movl %esp, %ebp
+LCFI5:
+ andl $-16, %esp
+LCFI6:
+ subl $32, %esp
+LCFI7:
+ call ___main
+---&gt; movl $10, 4(%esp)
+ movl $LC0, (%esp)
+---&gt; call __Z12generateHashPKcj
+ movl %eax, 28(%esp)
+ movl 28(%esp), %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ movl $0, %eax
+ leave
+LCFI8:
+ ret
+</code></pre>
+
+<h3 id="-o1">-O1</h3>
+<p>now generateHash() function is inlined too. But still doing all the calculation.</p>
+
+<pre><code class="language-nasm">.def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ pushl %ebx
+LCFI3:
+ subl $28, %esp
+LCFI4:
+ call ___main
+ movl $LC0, %eax
+ movl $LC0+10, %ebx
+ movl $0, %edx
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl %ecx, %edx
+ addl $1, %eax
+---&gt; cmpl %ebx, %eax
+---&gt; jne L2
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %eax, %edx
+ movl %edx, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ movl $0, %eax
+ addl $28, %esp
+ popl %ebx
+LCFI5:
+ movl %ebp, %esp
+LCFI6:
+ popl %ebp
+LCFI7:
+ ret
+</code></pre>
+
+<h3 id="-o2">-O2</h3>
+<p>Same as -O1. Of course, loop unroll optimization is only enabled with -O3.</p>
+
+<pre><code class="language-nasm"> .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+ .p2align 4,,15
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+ movl $LC0, %eax
+ xorl %edx, %edx
+ .p2align 4,,7
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl $1, %eax
+ addl %ecx, %edx
+---&gt; cmpl $LC0+10, %eax
+---&gt; jne L2
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %edx, %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+</code></pre>
+
+<p>Also I tried to search the string in the exe file, but it was not there.. YAY!</p>
+
+<h3 id="-o3">-O3</h3>
+<p>Finally… Seeing <code>movl $-238617217, 4(%esp)</code>? It's flattened down!</p>
+
+<pre><code class="language-nasm"> .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+ .p2align 4,,15
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+---&gt; movl $-238617217, 4(%esp)&lt;/u&gt;&lt;/i&gt;
+ movl $LC0, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+</code></pre>
+
+<h3 id="-os">-Os</h3>
+<p>-Os stands for size. And it didn't do good :(</p>
+
+<pre><code class="language-nasm">LFE4:
+ .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI7:
+ movl %esp, %ebp
+LCFI8:
+ andl $-16, %esp
+LCFI9:
+ subl $16, %esp
+LCFI10:
+ call ___main
+ movl $10, 4(%esp)
+ movl $LC0, (%esp)
+---&gt; call __Z12generateHashPKcj
+ movl $LC1, (%esp)
+ movl %eax, 4(%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI11:
+ ret
+</code></pre>
+
+<h2 id="quick-summary">Quick Summary</h2>
+<p>So let me quickly summarize which optimization flags you should use for VS 2010 SP1 and G++ to use this amazing(maybe a bit stupid if you are cynical :P) trick.</p>
+
+<h3 id="visual-studio-2010-sp1">Visual Studio 2010 SP1</h3>
+<ul>
+  <li>/O2</li>
+  <li>/Ox with Enable String Pooling on</li>
+</ul>
+
+<h3 id="g-453">G++ 4.5.3</h3>
+<ul>
+  <li>-O3</li>
+</ul>
+
+<h2 id="debugging">Debugging</h2>
+<p>Alright. It's good we removed the string representations from code. The size of the executable is smaller, but it's horrible for debugging. When I got a crash on a bone "named" 0xF1C6FD7F, how do I know which bone I have to look at in 3DS Max? ARRGHH.. Okay, so apparently we really need char* string for at least debugging!</p>
+
+<p>So should I revert everything I did so far? I don't want to. :) This data is only useful for debugging, so I should devise a way of debugging it without affecting the disc build. Actually, it is a very easy problem. I just need a string database, which has both pairs of <code>&lt;hash key, char*&gt;</code> for all the strings saved out from the data baking tools and used in our code.</p>
+
+<h2 id="generating-debug-string-database">Generating Debug String Database</h2>
+<p>In what format, should I store our string database? Using a light-weight SQL DB file is definitely an option. What about SQL-lite? I heard good things about it. Or I can simply outputs a list of pairs of <code>&lt;int, char*&gt;</code> values into a text file. I would probably choose a plain text file, or compressed text file, to make it easier to load the file in C++ codebase. Whatever it is, the filename will bedebug.string_db.</p>
+
+<h3 id="saving-debug-string-db-from-tools">Saving Debug String DB from Tools</h3>
+<p>So now I just need to change my tools to open debug.string_db file and insert any new string entries into this while it's saving game-ready data.</p>
+
+<p>Very simply done!</p>
+
+<h3 id="saving-debug-string-db-from-codebase">Saving Debug String DB from Codebase</h3>
+<p>Then what do we do with the strings in the code? Luckily enough, I defined HASH_STRING("") macro. I can just write a C# or python script searching through all the text files in my codebase to find any char* strings wrapped by that macro. Regular expression? sure. Then I would run same hash generation code to get the hash key, and write this intodebug.string_dbfile.</p>
+
+<p>Not very simple. But easy and fast enough…. done!</p>
+
+<h2 id="looking-up-string-values">Looking Up String Values</h2>
+<p>So now the question is how we can easily find what string it is while we are in Visual Studio.</p>
+
+<h3 id="string-lookup-tool">String Lookup Tool</h3>
+<p>Do you remember using DirectX Error Lookup tool that comes with DirectX SDK? It looks like this:</p>
+
+<p><img src="/en/assets/img/2012/01/07.jpg" alt="DX Error Lookup Tool" /></p>
+
+<p>Maybe I can write a tool like this. This tool would simply opendebug.string_dbfile and find any hash value I type in. Yeah I can justcopy and paste the hash value from Visual Studio Watch window into this. Yup, it's a bit annoying but it's easy to make.</p>
+
+<h3 id="visual-studio-plug-in">Visual Studio Plug-in?</h3>
+<p>Next thought I have is something I'm not sure if it's possible because I don't know too much about making a Visual Studio plug-in.</p>
+
+<p>If a Visual Studio plug-in is allowed to read a text file(or a SQL DB) and modifies what shows up in Watch window, maybe I can do this. It's just something I need to take some time and see if it's possible.. I haven't done it so far. I think I'll be fine with the string lookup tool for now</p>
+
+<h3 id="in-game-hashstring-registry">In-Game Hash/String Registry</h3>
+<p>Or I can make a debug-only hash/string registry, which simply loadsdebug.string_dbfile. Then anyone can find out the actual string representation easily in the code. This will be only available on debug build, and the loading code will simply disappear in the disc build.</p>
+
+<h2 id="maybe-im-crazy-but">Maybe I'm Crazy But</h2>
+<p>While I was thinking about the last option for looking up string values, I found this is actually very close to how the localization database works. You have a string id(key) and the value of the given language. If you want to swap to different language you will just load different localization database file. In the files, all the keys are same as before, just the string values are different.</p>
+
+<p>So, if one decides to implement the in-game hash/string registry option for debugging, maybe he can use the same architecture for localization? I don't know too much about localization database, so I might be just being stupid. I just had this crazy idea. heh =)</p>
+
+<h2 id="one-big-problem-though">One BIG Problem, Though</h2>
+<p>I was excited for a while. Then Noel, my buddie and one of the best programmers I've met in this industry, asked me if the loop unroll works if it the string length is longer. So I did a quick test.</p>
+
+<h2 id="with-visual-studio-2010-sp1-1">With Visual Studio 2010 SP1</h2>
+<p><strong>I found Visual Studio 2010 SP1 works only up to 10 characters</strong>. This is the result I got when I used 11 character-long string "funny_bone1".</p>
+
+<pre><code class="language-nasm">_main      ; COMDAT
+
+; File e:\temp\x65599\main.cpp
+; Line 12
+ xor ecx, ecx
+ xor eax, eax
+ npad 12
+$LL5@main:
+ movsx edx, BYTE PTR $SG-5[eax]
+ imul ecx, 65599    ; 0001003fH
+ inc eax
+ add ecx, edx
+---&gt; cmp eax, 11     ; 0000000bH
+---&gt; jb SHORT $LL5@main
+ mov eax, ecx
+ shr eax, 16     ; 00000010H
+ xor eax, ecx
+; Line 13
+ push eax
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<h2 id="with-g-1">With G++</h2>
+<p>G++ did a better job. <strong>G++ works up to 17 characters</strong>. This is the result I got when i used 18 character-long string "funny_bone12345678"</p>
+
+<pre><code class="language-nasm"> .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+ movl $LC0, %eax
+ xorl %edx, %edx
+ .p2align 4,,7
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl $1, %eax
+ addl %ecx, %edx
+---&gt; cmpl $LC0+18, %eax
+---&gt; jne L2
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %edx, %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+&lt;div&gt;
+</code></pre>
+
+<h2 id="what-does-this-meanb">What Does This Mean?&lt;/b&gt;</h2>
+<p>This means it will optimize strings with length equal to or less than 10 or 17 depending on your compilers. For other strings, it'll do all the calculation during run-time. Is it still worth it? I think so. You will just need to follow this guideline:</p>
+
+<ul>
+  <li>if possible, keep look-up key strings short</li>
+  <li>don't call HASH_STRING() macro multiple times on a same string. In other words, cache the hash value somewhere(e.g, as a member variable of an object)</li>
+</ul>
+
+<p>Also there's a chance that future compilers do a better job at unrolling this. Up to 64 characters would be nice. (Unfortunately, VS 2011 Preview doesn't do any better job….)</p>
+
+<p>Or constexpr from C++11 can be used for this one day? It's not even being supported by VS 2011 Preview… so whateva……</p>
+
+<p>The best solution would be a compiler switch like this:</p>
+
+<pre><code class="language-cpp">inline unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+
+    #pragma unroll
+    for(size_t i = 0; i &lt; len; ++i)
+    {
+        hash = 65599 * hash + string[i];
+    }
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<p>This would unroll the loop if len is constant. I believe the IBM compiler supports something similar to this. And we have this kinda switch in HLSL. So why can't we have it in our C++ compilers?</p>
+
+<p><strong>Microsoft, can we please have this option, pretty please?</strong></p>
+
+<h2 id="walkaround-for-now">Walkaround (for now)</h2>
+<p>Since my original was posted, <a href="http://twitter.com/pixelmager">Mikkel Gjoel</a> let me know Humus had <a href="http://humus.name/index.php?page=Comments&amp;ID=296&amp;start=24">a way to generate compile-time hash more than this limit</a>.</p>
+
+<p>I tested it quickly and it works great. I tested up to 64 chars! <del>There is an usability issue: you can't have a generic <code>generateHash(const char*)</code> function with specialized <code>generateHash(const char &amp;(string)[N])</code>; functions together. Compiler gets confused. So now I have to make two different versions.</del></p>
+
+<p>From the <a href="http://altdevblogaday.com/2011/10/27/quasi-compile-time-string-hashing/">altdevblogaday link posted in the comment</a>, I found a nice way to get around the striked-through issue:</p>
+
+<pre><code class="language-cpp">struct ConstCharWrapper
+{
+  inline ConstCharWrapper(const char* str) : m_str(str) {}
+  const char* m_str;
+};
+
+inline unsigned int generateHash(ConstCharWrapper wrapper, size_t len)
+{
+  const char* string = wrapper.m_str;
+
+  // same as before
+}
+</code></pre>
+
+<p>Also I found VS 2010 is not smart enough to know these two are same, thus not flattening down the first even with my way: (g++ is smart enough to know it).</p>
+
+<p>#1</p>
+<pre><code class="language-cpp">const char * const funny = "funny_bone";
+unsigned int hashValue = HASH_STRING(funny);
+</code></pre>
+
+<p>#2</p>
+
+<pre><code class="language-cpp">unsigned int hashValue = HASH_STRING("funny_bone");
+</code></pre>
+
+<p>But using #1 confuses regex when generating the debug string DB anyways, so probably I can just ignore it. But how would I <del>force</del> educate other programmers to use the first form if the string is const? That's something I'm trying to figure out.</p>
+
+<p>Anyways, if I figure out a nice way to use this new info in a less painful way, I'll write another post. This post has gotten too long already.. ugggh…</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2012/05/21/com-smart-pointer-in-dx-renderer.html">COM Smart Pointer in DX9/11 Renderer?</a></li>
+                        
+                        <li><a href="/en/2010/07/07/video-game-optimization.html">This and That: Video Game Optimization</a></li>
+                        
+                        <li><a href="/en/2025/10/22/rust-is-not-a-religion.html">Rust Is a Great Language — But It's Not a Religion</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

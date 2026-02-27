@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2012/01/30/intro-to-shader-06-toon-shader.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2012-01-30
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">이전편 보기</a></p>
+
+<p><strong>이 장에서 새로 배우는 HLSL</strong></p>
+
+<ul>
+  <li>ceil() - 무조건 올림 함수</li>
+</ul>
+
+<p><strong>이 장에서 새로 사용하는 수학</strong></p>
+<ul>
+  <li>행렬합치기 - 여러 개의 행렬을 미리 곱해놓은 뒤, 그 결과를 정점변환에 사용해도 결과는 동일함. 단, 속도는 더 빠름.</li>
+  <li>역행렬 - 반대 방향으로 공간변환을 할 때 유용.</li>
+</ul>
+
+<h2 id="배경">배경</h2>
+<p>얼마 전에 저희 회사의 아트 디렉터가 했던 말이 있습니다. 프로그래머는 언제나 사실적인 3D 그래픽을 추구하지만, 게이머들의 보통 미적 스타일을 최대로 살린 비사실적인 그래픽에 열광한다고요. 생각해보니 맞는 말이더군요. 프로그래머들은 언제나 수학적으로 옳은 것을 추구하려고 하지만 언제나 미적 스타일을 갖춘 게임들이 흥행을 하니까요. 스트리트 파이터 4, 팀포트리스 2, 보더랜드 등이 그 좋은 예겠죠?</p>
+
+<p>그 동안 현대 3D 그래픽의 주 초점도 사실적인 그래픽을 재현해 내는 것이었습니다. 하지만 그 와중에도 미적인 효과를 살리기 위한 비사실적 렌더링 기법들도 간간이 등장했는데요 여기서 살펴볼 툰쉐이딩(toon shading, 셀 쉐이딩(cell shading)이라고도 합니다)도 그 중 하나입니다. 툰(toon)이라 하면 만화(cartoon)를 뜻합니다. 만화를 보면 명암처리를 부드럽게 하는 대신에 칼같이 딱딱 끊어서 2~3 단계로 하죠? 뭐, 만화를 안보신 분들은 없을 듯 하니 다 아시겠네요. ^^ 여기서 구현할 셰이더가 바로 그런 일을 할 겁니다. 일단 결과를 미리 사진으로 보여드리면 대충 감이 오시겠네요.</p>
+
+<p><img src="/ko/assets/img/2012/01/13.jpg" alt="fig 6-1" /></p>
+
+<p><strong>그림. 6.1. 이장에서 만들어 볼 툰셰이더</strong></p>
+
+<p>위의 사진을 잘 관찰해 봅시다. 여태까지 사용했던 평범한(?) 난반사광 셰이더와 뭐가 다르죠? 난반사광이 부드럽게 어두워지는 대신 단계적으로 팍팍 줄어든다는 거죠? 마치 계단을 걸어 내려가는 것처럼요. 그렇다면 이것을 그래프로 그려보면 어떨까요? 일반적인 난반사광의 그래프와 비교해서 보면 좀 더 이해가 쉽겠네요.</p>
+
+<p><img src="/ko/assets/img/2012/01/14.jpg" alt="fig 6-2" /></p>
+
+<p><strong>그림 6.2. 일반 난반사광 그래프와 툰쉐이딩 그래프</strong></p>
+
+<p>위 그래프를 보니 감이 팍팍 오지 않나요? 아니라고요? 으음… 그럼 위 그래프를 표로 간단하게 정리해 보겠습니다..</p>
+
+<p>| <strong>난반사광의 양</strong> | <strong>툰셰이더 값</strong> |
+|——————|—————-|
+| 0                 | 0             |
+| 0 ~ 0.2	        | 0.2           |
+| 0.2 ~ 0.4	        | 0.4           |
+| 0.4 ~ 0.6	        | 0.6           |
+| 0.6 ~ 0.8	        | 0.8           |
+| 0.8 ~ 1	        | 1             |
+<strong>표 6.1 난반사광의 양과 툰셰이더 값의 비교</strong></p>
+
+<p>이렇게 비교를 하니 정말 쉽네요. 난반사광의 값을 가져다가 0.2단위로 무조건 올림을 하면 툰셰이더 값이 나오는군요? 그럼 이 정도만 알면 툰셰이더를 만드는 건 식은 죽 먹기일 듯 합니다. 곧바로 렌더몽키로 가 볼까요?</p>
+
+<h2 id="기초설정">기초설정</h2>
+<p>렌더몽키를 실행한 뒤, DirectX 이펙트를 추가합니다. 새로 생긴 이펙트의 이름을 Default_DirectX_Effect에서 ToonShader로 바꿉니다. matViewProjection이란 행렬이 정의되어 있는 것도 보이시죠? 삭제해 주세요.</p>
+
+<p>그림 6.1에서 주전자 모델을 보여드렸었죠? 주전자는 3D 그래픽 논문에서 즐겨 사용하는 모델 중에 하나입니다. 이리저리 다양한 굴곡이 많아서 셰이더의 결과를 딱 한눈에 살펴보기 좋다나요? 저희도 주전자 모델을 사용하겠습니다. 렌더몽키의 작업공간 패널에서 Model을 찾으세요. 이 위에 마우스 오른쪽 버튼을 누른 뒤, Change Model &gt; Teapot.3ds를 선택합니다.</p>
+
+<p>툰쉐이딩을 하려면 일단 난반사광을 계산해야겠죠? 그래야 그 결과를 0.2 단위로 올림할 수 있으니까요. 그렇다면 '제4장: 기초적인 조명셰이더'에서 그랬던 것처럼 빛의 위치와 정점의 법선정보가 필요하겠군요. 우선 빛의 위치를 변수로 선언하겠습니다. ToonShader에 오른쪽 마우스 버튼을 누른 뒤, Add Variable &gt; Float &gt; Float4를 선택하고, 변수의 이름을 gWorldLightPosition으로 바꿉니다. 이 변수의 값은 예전과 마찬가지로 (500, 500, -500, 1)으로 맞춰주세요. 다음은 정점에서 법선정보를 읽어올 차례입니다. Stream Mapping을 더블클릭해서 NORMAL 필드를 추가하면 되겠죠? 데이터형은 FLOAT3, Index는 0으로 해주는 것도 잊지 마세요.</p>
+
+<p>그림 6.1을 다시 한번 봐 보죠. 주전자가 녹색이죠? 주전자의 색을 지정해주는 방법은 여러 가지가 있지만 여기서는 전역변수 하나로 전체 표면의 색을 지정해 주겠습니다. (만약 한 표면 위에서 여러 가지 색상을 사용하시고 싶으시다면 3DS MAX에서 메쉬를 만드실 때, 정점색상(vertex color)를 칠하셔도 됩니다. 그리고 정점셰이더 입력데이터에서 COLOR0이나 COLOR1 시맨틱을 사용하시면 이 정점정보를 읽어올 수 있습니다.) ToonShader에 마우스 오른쪽 버튼을 누른 뒤, Add Variable &gt; Float &gt; Float3를 선택합니다. 새로 변수가 생기면 이름을 gSurfaceColor로 바꿉니다. 이제 이 변수 위에 마우스를 더블클릭하여 값을 (0, 1, 0)으로 변경합니다. 셰이더에서 색상을 0~1 사이의 백분율 값으로 표현한다는 거 잊지 않으셨죠?</p>
+
+<p>이제 행렬들을 좀 추가해 주겠습니다. 여태까지 다뤘던 셰이더 기법에서는 기초설정을 할 때마다 월드행렬, 뷰행렬, 투영행렬을 따로 정의해 줬었죠? 여기서는 조금 다른 방법을 사용하도록 하죠. 3D 그래픽에서 공간변환을 할 때, 행렬을 사용하는 이유 중 하나가 여러 행렬들을 미리 합쳐놓으면(concatenation) 불필요한 연산을 줄일 수 있기 때문입니다. 예를 들면, 정점의 위치를 공간변환 할 때 월드행렬, 뷰행렬, 투영행렬을 차례대로 곱해줘야 하죠? 이러지 말고 미리 월드행렬, 뷰행렬, 투영행렬을 곱해서 새로운 행렬을 하나 구해 놓은 뒤, 그 행렬을 정점에 곱해도 결과는 동일합니다. 그러나 성능상으로 보면 행렬을 3번 곱하는 것보다 1번 곱하는 게 당연히 빠를 테니 행렬을 미리 합치는 방법이 더 낫지요.</p>
+
+<p>여기서도 미리 행렬을 합치겠습니다. 그럼 그 결과 행렬을 건네 받을 전역변수를 하나 추해야겠죠? ToonShader에 오른쪽 마우스 버튼을 눌러 Add Variable &gt; Matrix &gt; Float(4x4)를 선택한 뒤, 변수명을 gWorldViewProjectionMatrix로 바꿉니다. 이제 이 변수 위에 마우스 오른쪽 버튼을 눌러 Variable Semantic &gt; WorldViewProjection을 선택합니다.</p>
+
+<p>자, 그럼 이렇게 행렬을 한 번만 곱하는 건 좋은데 난반사광을 계산하려면 월드행렬이 필요했던 것 같은데요? 빛의 위치가 월드공간에 정의되어 있으니까 빛의 방향벡터를 만들려면 월드공간에서의 정점위치가 필요했었네요. 그럼 당연히 월드행렬을 곱해야겠죠. 그리고 난반사광을 구하려면 역시 월드공간에서의 정점법선도 필요했었으니 역시 월드행렬이 필요하군요. 그렇다면 월드행렬을 전역변수로 전달해줘서 이렇게 행렬곱을 두 번 더 해줘야 할까요? 뭐 그러셔도 상관 없습니다. 틀린 방법은 아니거든요. 하지만 조금만 생각을 더 해보면 행렬곱 1번만으로 똑같은 일을 할 수 있습니다.</p>
+
+<p>정점의 위치와 법선을 월드공간으로 변환하는 이유는 빛의 위치가 월드공간에 정의되어 있어서였습니다. 모든 변수가 동일한 공간에 있어야만 올바른 결과를 구할 수 있으니까요. 그럼 정점의 위치와 법선벡터를 월드공간으로 변환하는 대신에 빛의 위치를 지역공간으로 변환해버리면 어떨까요? 그러면 정점의 위치와 법선에 손을 대지 않아도 모든 매개변수들이 동일한 공간에 있겠죠? 이 방법은 행렬을 1번만 곱하니 아무래도 조금 더 빠르겠네요.</p>
+
+<p>그렇다면 월드공간을 물체공간으로 어떻게 변환할까요? 월드행렬의 역행렬(inverse matrix)을 곱하면 됩니다. 그럼 렌더몽키에 월드행렬의 역행렬도 추가해 보도록 하죠. ToonShader에 마우스 오른쪽 버튼을 누른 뒤, Add Variable &gt; Matrix &gt; Float(4x4)를 선택합니다. 이제 이 변수 이름을 gInvWorldMatrix로 바꿔 주세요. 마지막으로 변수 위에 마우스 오른쪽 버튼을 눌러 Variable Semantic &gt; WorldInverse를 누르면 모든 설정이 마무리 되었습니다.</p>
+
+<p><img src="/ko/assets/img/2012/01/15.jpg" alt="fig 6-3" /></p>
+
+<p><strong>그림 6.3. 기초설정을 마친 렌더몽키 프로젝트</strong></p>
+
+<h2 id="정점셰이더">정점셰이더</h2>
+<p>일단 전체 소스코드부터 보여드린 뒤, 한 줄씩 차근차근 설명해드리겠습니다.</p>
+
+<pre><code class="language-c">struct VS_INPUT 
+{ 
+   float4 mPosition : POSITION; 
+   float3 mNormal: NORMAL;  
+}; 
+
+ struct VS_OUTPUT 
+{ 
+   float4 mPosition : POSITION; 
+   float3 mDiffuse : TEXCOORD1;  
+}; 
+
+float4x4 gWorldViewProjectionMatrix; 
+float4x4 gInvWorldMatrix; 
+
+float4 gWorldLightPosition; 
+
+VS_OUTPUT vs_main( VS_INPUT Input ) 
+{ 
+   VS_OUTPUT Output; 
+
+    Output.mPosition = mul( Input.mPosition, gWorldViewProjectionMatrix ); 
+   
+   float3 objectLightPosition = mul( gWorldLightPosition, gInvWorldMatrix); 
+   float3 lightDir = normalize(Input.mPosition.xyz - objectLightPosition); 
+   
+   Output.mDiffuse = dot(-lightDir, normalize(Input.mNormal)); 
+   
+   return( Output ); 
+} 
+</code></pre>
+
+<h3 id="정점셰이더-입출력데이터-및-전역변수">정점셰이더 입출력데이터 및 전역변수</h3>
+<p>조명(난반사광)을 계산하려면 법선이 필요하죠? 따라서 정점셰이더 입력데이터로 위치와 법선이 필요합니다. (정점마다 색을 지정해주셨다면 float3 mColor : COLOR0; 도 추가하셔야 합니다. Stream Mapping에서도 COLOR0을 더해주는 거 잊지 마세요.)</p>
+
+<pre><code class="language-c">struct VS_INPUT 
+{ 
+   float4 mPosition : POSITION; 
+   float3 mNormal: NORMAL;  
+}; 
+</code></pre>
+
+<p>정점출력데이터도 별로 어렵지 않습니다. 난반사광을 계산한 뒤, 픽셀셰이더에 전달해 주는 게 전부입니다. (마찬가지로 정점마다 색을 지정해주셨다면  float3 mColor: COLOR0;도 추가하셔야 합니다.)   이게 잘 이해가 안 되시는 분들은 '제4장: 기초적인 조명셰이더'를 다시 한 번 읽어 주세요.</p>
+
+<pre><code class="language-c">struct VS_OUTPUT 
+{ 
+   float4 mPosition : POSITION; 
+   float3 mDiffuse : TEXCOORD1;  
+}; 
+</code></pre>
+
+<p>이제 전역변수로는 위에서 설명 드렸던 행렬 2개와 광원의 위치를 선언해야겠네요.</p>
+
+<pre><code class="language-c">float4x4 gWorldViewProjectionMatrix; 
+float4x4 gInvWorldMatrix; 
+
+float4 gWorldLightPosition; 
+</code></pre>
+
+<p>이러면 앞서 렌더몽키 프로젝트에 더했던 변수들을 다 처리한 거 같죠? 이제 정점셰이더 함수를 보겠습니다.</p>
+
+<h3 id="정점셰이더-함수">정점셰이더 함수</h3>
+<p>우선 정점셰이더의 가장 중요한 임무를 수행하겠습니다. 정점의 위치를 투영공간으로 가져옵니다. 월드행렬, 뷰행렬, 투영행렬을 하나로 미리 합쳐버렸으니 코드 한 줄로 이런 일을 할 수 있겠네요.</p>
+
+<pre><code class="language-c">VS_OUTPUT vs_main( VS_INPUT Input ) 
+{ 
+   VS_OUTPUT Output; 
+
+    Output.mPosition = mul( Input.mPosition, gWorldViewProjectionMatrix ); 
+</code></pre>
+
+<p>이제 난반사광의 양을 계산할 차례입니다. 앞서 말씀 드렸듯이 빛의 위치를 지역공간으로 변환한 뒤, 모든 계산을 이 공간에서 해보겠습니다. 우선 빛의 위치를 지역공간으로 변환합니다.</p>
+
+<pre><code class="language-c">   float3 objectLightPosition = mul( gWorldLightPosition, gInvWorldMatrix); 
+</code></pre>
+
+<p>이제 광원의 위치에서 현재 위치(이미 지역공간에 있습니다)를 가리키는 방향벡터를 만듭니다. 이 방향벡터의 길이를 1로 만드는 것도 잊지 말아야겠죠?</p>
+
+<pre><code class="language-c">   float3 lightDir = normalize(Input.mPosition.xyz - objectLightPosition); 
+</code></pre>
+
+<p>이제 그 결과와 정점의 법선(역시 지역공간에 존재합니다) 간의 내적을 구하면 난반사광의 양을 구할 수 있습니다.</p>
+
+<pre><code class="language-c">   Output.mDiffuse = dot(-lightDir, normalize(Input.mNormal)); 
+</code></pre>
+
+<p>위에서 법선의 길이를 1로 만들기 위해 normalize()함수를 호출한 거 보이시죠? 보통 정점버퍼로부터 곧바로 가져온 법선은 이미 정규화가 되어있는 게 보통이나 혹시나 해서 normalize()를 한 번 더 호출해 봤답니다.</p>
+
+<p>이제 가볍게 Output을 반환합니다.</p>
+
+<pre><code class="language-c">   return( Output ); 
+}
+</code></pre>
+
+<p>정점셰이더 함수는 별로 어려운 게 없었습니다. '제4장: 기초적인 조명셰이더'에서 다 배웠던 내용이니까요. 그냥 다른 공간을 사용했다는 게 좀 다른 내용이지만 그리 어렵지 않게 이해하시리라 믿습니다. 이제 픽셀셰이더를 살펴보겠습니다.</p>
+
+<h2 id="픽셀셰이더">픽셀셰이더</h2>
+<p>정점셰이더에서와 마찬가지로 전체 소스코드부터 보여드립니다.</p>
+
+<pre><code class="language-c">float3 gSurfaceColor; 
+
+struct PS_INPUT 
+{ 
+   float3 mDiffuse : TEXCOORD1; 
+}; 
+
+float4 ps_main(PS_INPUT Input) : COLOR 
+{  
+   float3 diffuse = saturate(Input.mDiffuse); 
+   
+   diffuse = ceil(diffuse * 5) / 5.0f; 
+   
+   return float4( gSurfaceColor * diffuse.xyz, 1); 
+} 
+</code></pre>
+
+<p>우선 전역변수와 픽셀셰이더 입력데이터를 정의하죠. 표면의 색상을 전역변수로 선언하고 정점셰이더에서 계산을 마친 난반사광의 양을 입력데이터로 받겠습니다.</p>
+
+<pre><code class="language-c">float3 gSurfaceColor; 
+
+struct PS_INPUT 
+{ 
+   float3 mDiffuse : TEXCOORD1; 
+}; 
+</code></pre>
+
+<p>이제 픽셀셰이더 함수를 봅시다. 우선 mDiffuse에서 저희에게 별 의미가 없는 0 이하의 값을 잘라 냅니다.</p>
+
+<pre><code class="language-c">float4 ps_main(PS_INPUT Input) : COLOR 
+{  
+   float3 diffuse = saturate(Input.mDiffuse); 
+</code></pre>
+
+<p>이제 이 값을 0.2단위로 딱딱 잘라야겠네요. 0.2단위로 무조건 올림을 하면 된다고 했었죠? HLSL에서 무조건 올림을 하는 함수는 ceil()입니다. (영어로 ceiling이 '천장'이라는 뜻이니까, ceil을  '천장으로 올리다' 정도로 생각하시면 이해에 도움이 되실 겁니다. 이 반대로 무조건 내림을 하는 함수로 floor()입니다. 이것은 '바닥으로 내리다' 정도로 이해하세요.)  근데 ceil() 함수는 언제나 바로 위의 정수로만 올림을 한다는군요. 저희는 0.2단위로 올림을 해야 하는데 어쩌죠? 다음과 같이 간단히 곱셈과 나눗셈을 하면 됩니다.</p>
+
+<pre><code class="language-c">   diffuse = ceil(diffuse * 5) / 5.0f; 
+</code></pre>
+
+<p>위 공식(?)을 자세히 살펴보죠. diffuse가 0~1 사이의 값이니 여기에 5를 곱하면 범위가 0~5가 될 것입니다. 여기에 ceil()을 적용하면 그 결과값이 0, 1, 2, 3, 4, 5중에 하나가 되겠죠. 이제 이 값을 5로 나누면 최종 결과값이 0, 0.2, 0.4, 0.6, 0.8, 1 중에 하나가 될 겁니다. 이게 바로 저희가 원하는 값 맞죠? 그림 6.2와 표 6.1를 다시 봐도 이 값이 맞네요.</p>
+
+<p>그럼 이제 표면의 색을 곱하기만 하면 끝입니다. (빛의 색상은 흰색(1, 1, 1)이라고 가정했습니다. 어떤 수에 1을 곱해도 결과는 바뀌지 않는 거 아시죠?)</p>
+
+<pre><code class="language-c">   return float4( gSurfaceColor * diffuse.xyz, 1);
+}
+</code></pre>
+
+<p>이제 F5를 눌러 정점셰이더와 픽셀셰이더를 각각 컴파일 한 뒤, 미리 보기 창을 보시면 그림 6.1와 똑같은 주전자가 보이죠? 아, 배경색이 다르다고요? 미리 보기 창 안에서 마우스 오른쪽 버튼을 누른 뒤 Clear Color를 선택하시면 배경색을 바꿀 수 있습니다.</p>
+
+<h2 id="선택사항-directx-프레임워크">선택사항: DirectX 프레임워크</h2>
+<p>이제 C++로 작성한 DirectX 프레임워크에서 셰이더를 사용하시고자 하는 분들을 위한 선택적인 절입니다.</p>
+
+<p>우선 '제3장: 텍스처매핑'에서 만들었던 프레임워크의 사본을 만들어 새로운 폴더에 저장합니다. 그 다음은 렌더몽키에서 사용했던 셰이더와 3D 모델을 DirectX 프레임워크에서 사용할 수 있도록 파일로 저장할 차례입니다.</p>
+
+<ol>
+  <li>Workspace 패널에서 ToonShader를 찾아 오른쪽 마우스 버튼을 누릅니다.</li>
+  <li>팝업메뉴에서 Export &gt; FX Exporter를 선택합니다.</li>
+  <li>위에서 새로 만든 폴더를 찾아 그 안에 ToonShader.fx란 이름으로 파일을 저장합니다.</li>
+  <li>이제 Worspace 패널에서 Model을 찾아 오른쪽 마우스 버튼을 누릅니다.</li>
+  <li>팝업메뉴에서 Save &gt; Geometry Saver를 선택합니다.</li>
+  <li>위에서 새로 만든 폴더를 찾아 그 안에 Teapot.x란 이름으로 파일을 저장합니다.</li>
+</ol>
+
+<p>이제 비주얼 C++ 에서 프레임워크의 솔루션 파일을 엽니다.</p>
+
+<p>우선 예전에 있던 전역변수들부터 살펴보겠습니다. gpTextureMappingShader 변수가 있는데 이 변수가 언급되어 있는 곳을 모두 찾아 gpToonShader로 바꿉니다. gpSphere변수도 똑같은 방법으로 모두 gpTeapot으로 바꿔 줍니다. 텍스처 변수, gpEarthDM도 있네요. 여기서는 텍스처를 전혀 사용하지 않으니 gpEarthDM변수를 사용하는 코드를 모두 찾아 삭제해주세요.</p>
+
+<p>이제 새로 추가해야 할 전역변수들을 알아볼까요? 새로 추가해야 할 전역변수는 빛의 위치와 표면의 색상밖에 없는 것 같군요. 다음의 코드를 추가합니다.</p>
+
+<pre><code class="language-cpp">// 광원의 위치 
+D3DXVECTOR4 gWorldLightPosition = D3DXVECTOR4(500.0f, 500.0f, -500.0f, 1.0f); 
+
+ // 표면의 색상 
+D3DXVECTOR4 gSurfaceColor =       D3DXVECTOR4(0, 1, 0, 1); 
+</code></pre>
+
+<p>위 코드에서 전역변수를 선언할 때 렌더몽키에서 사용했었던 값도 그대로 대입해줬습니다.</p>
+
+<p>이제 LoadAssets() 함수로 가서 로딩해올 셰이더와 모델의 이름을 각각 Toonshader.fx와 Teapot.x로 바꿔줍니다.</p>
+
+<pre><code class="language-cpp">bool LoadAssets() 
+{ 
+    // 텍스처 로딩 
+
+     // 셰이더 로딩 
+    gpToonShader = LoadShader("ToonShader.fx"); 
+    if ( !gpToonShader ) 
+    { 
+        return false; 
+    } 
+
+     // 모델 로딩 
+    gpTeapot = LoadModel("Teapot.x"); 
+    if ( !gpTeapot ) 
+    { 
+        return false; 
+    } 
+
+     return true; 
+} 
+</code></pre>
+
+<p>다음은 실제로 장면을 그리는 RenderScene() 함수입니다. 행렬 2개를 새로 전달해줘야 했었죠? 월드/뷰/투영행렬을 합친 행렬과 월드행렬의 역행렬이었습니다. 우선 월드행렬의 역행렬을 구해봅시다. 월드행렬을 구했던 코드 아래에 다음의 라인을 추가합니다.</p>
+
+<pre><code class="language-cpp">    // 월드행렬의 역행렬을 구한다. 
+    D3DXMATRIXA16 matInvWorld; 
+    D3DXMatrixTranspose(&amp;matInvWorld, &amp;matWorld); 
+</code></pre>
+
+<p>위 코드에서 사용한 D3DXMatrixTranspose() 함수는 전치행렬(transpose matrix)을 구합니다. 여기서 역행렬 대신에 전치행렬을 구한 이유는 월드행렬이 직교행렬이기 때문이죠. 직교행렬의 전치행렬은 역행렬과 같습니다.(이에 대한 증명 및 자세한 설명은 이미 시중에 나와있는 훌륭한 수학책을 참고하시기 바랍니다. 참고로 순수하게 역행렬을 구하시려 한다면 D3DXMatrixInverse() 함수를 쓰시면 됩니다.)</p>
+
+<p>이제 월드/뷰/투영행렬을 서로 곱할 차례입니다. D3DXMatrixMultiply() 함수를 사용하겠습니다.</p>
+
+<pre><code class="language-cpp">    // 월드/뷰/투영행렬을 미리 곱한다. 
+    D3DXMATRIXA16 matWorldView; 
+    D3DXMATRIXA16 matWorldViewProjection; 
+    D3DXMatrixMultiply(&amp;matWorldView, &amp;matWorld, &amp;matView); 
+    D3DXMatrixMultiply(&amp;matWorldViewProjection, &amp;matWorldView, &amp;matProjection); 
+</code></pre>
+
+<p>월드행렬 X 뷰행렬 X 투영행렬 순으로 곱해준 거 보이시죠?</p>
+
+<p>이제 위에서 만들었던 두 행렬을 셰이더에 전달해 주겠습니다. 예전에 사용했던 SetMatrix() 함수 호출들을 다 지우시고 아래의 코드를 대신 삽입해주세요.</p>
+
+<pre><code class="language-cpp">     // 셰이더 전역변수들을 설정 
+    gpToonShader-&gt;SetMatrix("gWorldViewProjectionMatrix", 
+        &amp;matWorldViewProjection); 
+    gpToonShader-&gt;SetMatrix("gInvWorldMatrix", &amp;matInvWorld); 
+</code></pre>
+
+<p>마지막으로 광원의 위치와 표면의 색상을 전달해주는 것도 잊지 마셔야겠죠?</p>
+
+<pre><code class="language-cpp">    gpToonShader-&gt;SetVector("gWorldLightPosition", &amp;gWorldLightPosition); 
+    gpToonShader-&gt;SetVector("gSurfaceColor", &amp;gSurfaceColor); 
+</code></pre>
+
+<p>이제 코드를 컴파일 한 뒤, 프로그램을 실행하시면 빙글빙글 도는 주전자를 보실 수 있을 겁니다. 아무래도 회전을 하니까 손잡이나 주둥이에서 툰셰이더 효과가 더 잘 나타나죠?</p>
+
+<h2 id="정리">정리</h2>
+<p>다음은 이 장에서 배운 내용을 짧게 요약해 놓은 것입니다.</p>
+
+<ul>
+  <li>툰셰이더는 비실사 렌더링 기법 중에 하나이다.</li>
+  <li>툰쉐이딩은 난반사광을 단계적으로 감소시키는 것에 지나지 않는다.</li>
+  <li>행렬들을 미리 곱해놓으면 공간변환을 더 빨리 할 수 있다.</li>
+</ul>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                        <li><a href="/ko/2012/01/16/intro-to-shader-05-diffuse-specular-shader-part-1.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 1</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

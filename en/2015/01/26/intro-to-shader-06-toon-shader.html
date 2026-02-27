@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>06. Love Cartoons? Here's Toon Shader | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2015/01/26/intro-to-shader-06-toon-shader.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">06. Love Cartoons? Here's Toon Shader</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Jan 26, 2015
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h6 id="new-hlsl-in-this-chapter">New HLSL in this chapter</h6>
+<ul>
+  <li><code>ceil()</code>: finds the smallest integer value greater than the input parameter.</li>
+</ul>
+
+<h6 id="new-math-in-this-chapter">New math in this chapter</h6>
+<ul>
+  <li>Matrix Concatenation: Once multiple transformation matrices are pre-multiplied into one, the resulting matrix can be used for vertex transformation. This is faster than multiplying multiple matrices to each vertex.</li>
+  <li>Inverse Matrix: Can be used to transform spaces in reverse order.</li>
+</ul>
+
+<h2 id="background">Background</h2>
+<p>One day, an art director who I used to work with said, "programmers always seem to pursue super-realistic 3D graphics, but most gamers get excited about non-realistic graphics with a great style." I thought about this for a while, and now I completely agree. It is always fun to see that programmers try to find some comfort in mathematical correctness, but highly successful games often put more stress on artistic styles. Street Fighter 4, Team Fortress and Journey would be some great examples of this.</p>
+
+<p>A recent trend in 3D graphics was mostly realistic graphics, but occasionally non-realistic techniques were introduced to fulfill our artistic needs. Toon shading technique which will be covered in this chapter is also one of those. Toon is a short form or cartoon. If you read a comic book, you would probably notice that the shading of an object is very abruptly changing while real-world objects have very smooth shading. The shading technique in comic books is toon shading. Still not sure what it is? Then please take a look at Figure 6.1.</p>
+
+<p><img src="/en/assets/img/2015/01/04.jpg" alt="fig 6-1" /></p>
+
+<p><strong>Figure 6.1 Toon shader we are going to implement in this chapter</strong></p>
+
+<p>Let's take a close look at Figure 6.1. How is it different from ordinary diffuse lighting? With diffuse lighting, the shading changes very smoothly across the surface, but, with toon shading, it changes suddenly after not changing for a while at all. In other words, it changes discretely as if you are walking down stair steps. Now, let's turn this observation into a graph for a better understanding.</p>
+
+<p><img src="/en/assets/img/2015/01/05.jpg" alt="fig 6-2" /></p>
+
+<p><strong>Figure 6.2 Difference between diffuse lighting and toon shading</strong></p>
+
+<p>It makes much more sense, right? No? Um, then how about a comparison table?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><strong>Diffuse Lighting</strong></th>
+      <th style="text-align: center"><strong>Toon Shading</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0 ~ 0.2</td>
+      <td style="text-align: center">0.2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0.2 ~ 0.4</td>
+      <td style="text-align: center">0.4</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0.4 ~ 0.6</td>
+      <td style="text-align: center">0.6</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0.6 ~ 0.8</td>
+      <td style="text-align: center">0.8</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">0.8 ~ 1</td>
+      <td style="text-align: center">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Table 6.1 Comparison between diffuse lighting and toon shading</strong></p>
+
+<p>This table should give you a much better idea. Table 6.1 shows that we simply need to turn every range into its upper bound in order to convert diffuse lighting to toon shading. That sounds super easy, so let's go to RenderMonkey, right away!</p>
+
+<h2 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h2>
+<p>After launching RenderMonkey, add a new DirectX effect and change the name from Default_DirectX_Effect to ToonShader. You see a matrix, named matViewProjection, right? Please delete it.</p>
+
+<p>Figure 6.1 was showing a teapot model, which is often used in 3D graphics because its curvature is really good for demonstrating shader techniques. Therefore, we will use it in this chapter, as well. Inside RenderMonkey, find Model in Workspace panel. Then, right-click on it and select <code>Change Model</code> &gt; <code>Teapot.3ds</code>.</p>
+
+<p>To do toon shading, we should calculate diffuse lighting first, right? So, we need the light position and normal information as we did in Chapter 4. First, we will declare a variable for the light position. Right-click on ToonShader and select <code>Add Variable</code> &gt; <code>Float</code> &gt; <code>Float4</code>. A new variable will be added. Now change the name to gWorldLightPosition and set the value to (500, 500, -500, 1). Now, it's time to retrieve normal information from the vertex buffer. It is as simple as double-clicking on Stream Mapping and add NORMAL field. Make sure to set the data type to FLOAT3 and Index to 0.</p>
+
+<p>Let's look at Figure 6.1, again. The teapot is green, right? There are different ways of coloring the teapot, but we will simply use a global variable to specify the color.  Right-click on ToonShader and select <code>Add Variable</code> &gt; <code>Float</code> &gt; <code>Float3</code>. Once a new variable is added, change the name to gSurfaceColor. Now, double-click on the variable and change the value to (0, 1, 0). You haven't forgot that colors are represented as a percentage values between 0 and 1, right?</p>
+
+<p>Now we are going to add some matrices. Until now, we always declared three separate matrices for world, view and projection matrices, but we will do something a bit different here to make things faster. If you concatenate all the matrices into one, you can just multiply the resulting matrix to a vector instead of multiplying the matrices separately. For example, we used to multiply world, view and project matrices to a vector in order. But we can just multiply these three matrices together to get another matrix, and multiply it to the vector to produce the same result. Performance-wise, this is faster because multiplying one matrix is faster than multiplying three.</p>
+
+<p>For the reasons we just discussed, we will concatenate matrices here. Therefore, we only need one global variable to hold the concatenated matrix in the end. Right-click on ToonShader and select <code>Add Variable</code> &gt; <code>Matrix</code> &gt; <code>Float(4x4)</code>. Then, change the variable name to <code>gWorldViewProjectionMatrix</code>, and right-click on it to select <code>Variable Semantic</code> &gt; <code>WorldViewProjection</code>.</p>
+
+<p>Multiplying a matrix only once sounds really great, but don't we still need a world matrix to calculate diffuse lighting? Light position is defined in the world space, so to find a light vector, we need a vertex position in the world space. It is the same story with the normal vector, as well. So yeah, passing a world matrix to do these multiplication twice is something we should do. But if you think a bit more, you can do the same thing with only one matrix multiplication.</p>
+
+<p>The reason why we transformed the vertex position and normal vector into the world space was to match the spaces between all operands. You remember that the calculation is wrong if any of these is in a different space, right? The light position is already defined in the world space, so "why not transforming other information into the world?” was our logic. But here is another way. You can also transform the light position to the local space (of the object being drawn), while leaving the vertex position and normal vector unchanged in the local space. This also produces correct calculations since all the operands are in a same space. Even better, this way is faster because we transform only one vector instead of two.</p>
+
+<p>Then how do we transform something from world to local space? Simply by multiplying the inverse matrix of world matrix. To add the inverse matrix to RenderMonkey, right-click on ToonShader and select <code>Add Variable</code> &gt; <code>Matrix</code> &gt; <code>Float(4x4)</code>. Then, change the variable name to <code>gInvWorldMatrix</code>. Finally, right-click on the variable and select <code>Variable Semantic</code> &gt; <code>WorldInverse</code> to finish all the setup!</p>
+
+<p><img src="/en/assets/img/2015/01/06.jpg" alt="fig 6-3" /></p>
+
+<p><strong>Figure 6.3 RenderMonkey project after the initial setup</strong></p>
+
+<h2 id="vertex-shader">Vertex Shader</h2>
+<p>I will show you the full source code first, and provide line-by-line explanation after.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+    float4 mPosition : POSITION;
+    float3 mNormal: NORMAL;
+};
+
+struct VS_OUTPUT
+{
+   float4 mPosition : POSITION;
+   float3 mDiffuse : TEXCOORD1;
+};
+
+float4x4 gWorldViewProjectionMatrix;
+float4x4 gInvWorldMatrix;
+
+float4 gWorldLightPosition;
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+   VS_OUTPUT Output;
+
+   Output.mPosition = mul( Input.mPosition, gWorldViewProjectionMatrix );
+
+   float3 objectLightPosition = mul( gWorldLightPosition, gInvWorldMatrix);
+   float3 lightDir = normalize(Input.mPosition.xyz - objectLightPosition);
+
+   Output.mDiffuse = dot(-lightDir, normalize(Input.mNormal));
+
+   return( Output );
+}
+</code></pre>
+
+<h2 id="input-and-output-data-of-vertex-shader">Input and Output Data of Vertex Shader</h2>
+<p>To calculate lighting, a normal vector is needed. So, the input structure will have vertex position and normal.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+   float4 mPosition : POSITION;
+   float3 mNormal: NORMAL;
+};
+</code></pre>
+
+<p>The output structure is nothing special, either. The vertex shader will calculate diffuse lighting and pass the result to this structure.  If you are not sure what I am talking about here, please review Chapter 4 again.</p>
+
+<pre><code class="language-cpp">struct VS_OUTPUT
+{
+   float4 mPosition : POSITION;
+   float3 mDiffuse : TEXCOORD1;
+};
+</code></pre>
+
+<p>Now, declare three global variables explained earlier: two matrices and the light position.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldViewProjectionMatrix;
+float4x4 gInvWorldMatrix;
+
+float4 gWorldLightPosition;
+</code></pre>
+
+<p>I believe these were all the variables we added to RenderMonkey, so now you can move onto the vertex shader function.</p>
+
+<h2 id="vertex-shader-function">Vertex Shader Function</h2>
+<p>First, we will perform the most important role of any vertex shader: transforming the vertex position to the projection space. Since world, view and projection matrices were merged into one already, this can be done with one line of code.</p>
+
+<pre><code class="language-cpp">VS_OUTPUT vs_main( VS_INPUT Input )
+{
+   VS_OUTPUT Output;
+
+   Output.mPosition = mul( Input.mPosition, gWorldViewProjectionMatrix );
+</code></pre>
+
+<p>Now, it's time to calculate diffuse lighting. As explained earlier, we will transform the light position to the local space to perform all the calculations in the local space.</p>
+
+<pre><code class="language-cpp">   float3 objectLightPosition = mul( gWorldLightPosition, gInvWorldMatrix);
+</code></pre>
+
+<p>Then, make a vector pointing from the light position to the current vertex position (in the local space.) Also don't forget to make the vector's length to 1.</p>
+
+<pre><code class="language-cpp">   float3 lightDir = normalize(Input.mPosition.xyz - objectLightPosition);
+</code></pre>
+
+<p>After the above code, the light and normal vectors are both in the local space, so we can calculate a dot product of these two to calculate diffuse lighting correctly.</p>
+
+<pre><code class="language-cpp">   Output.mDiffuse = dot(-lightDir, normalize(Input.mNormal));
+</code></pre>
+
+<p>Do you see that Input.mNormal is normalized here? Usually normalized normals are stored in a vertex buffer, but we are calling normalize() again just in case.</p>
+
+<p>Now simply return Output.</p>
+
+<pre><code class="language-cpp">   return( Output );
+}
+</code></pre>
+
+<p>There was nothing hard with the vertex shader function because we already knew everything from Chapter 4. The only difference was that we used the local space in this chapter. But I believe it's not a hard idea to understand. Then, let's take a look at pixel shader.</p>
+
+<h2 id="pixel-shader">Pixel Shader</h2>
+<p>As in Vertex Shader, I'll show you the full source code first.</p>
+
+<pre><code class="language-cpp">float3 gSurfaceColor;
+
+struct PS_INPUT
+{
+   float3 mDiffuse : TEXCOORD1;
+};
+
+float4 ps_main(PS_INPUT Input) : COLOR
+{
+   float3 diffuse = saturate(Input.mDiffuse);
+
+   diffuse = ceil(diffuse * 5) / 5.0f;
+
+   return float4( gSurfaceColor * diffuse.xyz, 1);
+}
+</code></pre>
+
+<p>First, let's declare global variables and input structure of the pixel shader. The surface color is declared as a global variable, and the diffuse lighting, calculated in the vertex shader, is passed to <code>PS_INPUT</code>.</p>
+
+<pre><code class="language-cpp">float3 gSurfaceColor;
+
+struct PS_INPUT
+{
+   float3 mDiffuse : TEXCOORD1;
+};
+</code></pre>
+
+<p>Now it's time to look at pixel shader function. First we clamp out meaningless negative values from mDiffuse.</p>
+
+<pre><code class="language-cpp">float4 ps_main(PS_INPUT Input) : COLOR
+{
+   float3 diffuse = saturate(Input.mDiffuse);
+</code></pre>
+
+<p>Now we will divide diffuse into 5 discrete steps so that each step's width become 0.2. We can use ceil() function to do this.  ceil() function ceils the input parameter to the nearest integer, but what we need is ceiling to the nearest multiple of 0.2. The following code solves our problem:</p>
+
+<pre><code class="language-cpp">   diffuse = ceil(diffuse * 5) / 5.0f;
+</code></pre>
+
+<p>Let's look at the above formula more closely. diffuse is between [0, 1], so multiplying 5 results in [0, 5]. When <code>ceil()</code> is applied here, the result will become one of these: 0, 1, 2, 3, 4 or 5. Now dividing the result by 5 will give us one of these values: 0, 0.2, 0.4, 0.6, 0.8 or 1. This is what we are looking for right? Figure 6.2 and Table 6.1 say so!</p>
+
+<p>The last thing to do in pixel shader is multiplying the surface color  as shown below.</p>
+
+<pre><code class="language-cpp">   return float4( gSurfaceColor * diffuse.xyz, 1);
+}
+</code></pre>
+
+<p>Now press F5 to compile vertex and pixel shaders separately and see the preview window. You will see a teapot as shown in Figure 6.1. What? The background color is different? Then right-click inside the preview window and select Clear Color to change it.</p>
+
+<h2 id="optional-directx-framework">(Optional) DirectX Framework</h2>
+<p>This is an optional section for readers who want to use shaders in a C++ DirectX framework.</p>
+
+<p>First, make a copy of the framework used in Chapter 3 and save it into a new folder. Then, we will save the shader and 3D model that we used in RenderMonkey so that they can be used in the DirectX Framework.</p>
+
+<ul>
+  <li>From Workspace panel, find ToonShader and right-click on it. A pop-up menu will appear.* From the pop-up menu, select <code>Export</code> &gt; <code>FX Exporter</code>.</li>
+  <li>Browse to the folder we just created and save it as <code>ToonShader.fx</code>.</li>
+  <li>From <code>Workspace</code> panel, find <code>Model</code> and right-click on it. A pop-up menu will appear.</li>
+  <li>From the pop-up menu, select <code>Save</code> &gt; <code>Geometry Saver</code>.</li>
+  <li>Browse to the folder we just created and save it as Teapot.x.</li>
+</ul>
+
+<p>Now open the solution file in Visual C++.</p>
+
+<p>First, we will find global variables we don't need anymore. Find all the instances of gpTextureMappingShader, and change them to gpToonShader. Also change all instances of gpSphere variable to gpTeapot. There's a texture variable, gpEarthDM, too. Since we don't use any texture in this chapter, please remove all instances of gpEarthDM variable from the code.</p>
+
+<p>What new global variables did we add to shader? There were two: light position and surface color. Add the following code:</p>
+
+<pre><code class="language-cpp">// Light Position
+D3DXVECTOR4 gWorldLightPosition = D3DXVECTOR4(500.0f, 500.0f, -500.0f, 1.0f);
+
+// Surface Color
+D3DXVECTOR4 gSurfaceColor =       D3DXVECTOR4(0, 1, 0, 1);
+</code></pre>
+
+<p>We also set the same values used in RenderMonkey to above variables.</p>
+
+<p>Now go to <code>LoadAssets()</code> function to change the name of model and shader to <code>Toonshader.fx</code> and <code>Teapot.x</code>, respectively.</p>
+
+<pre><code class="language-cpp">bool LoadAssets()
+{
+    // loading textures
+
+    // loading shaders
+    gpToonShader = LoadShader("ToonShader.fx");
+    if ( !gpToonShader )
+    {
+        return false;
+    }
+
+    // loading models
+    gpTeapot = LoadModel("Teapot.x");
+    if ( !gpTeapot )
+    {
+        return false;
+    }
+
+    return true;
+}
+</code></pre>
+
+<p>Next is <code>RenderScene()</code>, which actually draws the scene. We need to pass two new matrices: a concatenated world/view/projection matrix and inverse of world matrix. First, to find the inverse matrix, add the following lines below the code calculating the world matrix.</p>
+
+<pre><code class="language-cpp">    // find inverse matrix of the world matrix
+    D3DXMATRIXA16 matInvWorld;
+    D3DXMatrixTranspose(&amp;matInvWorld, &amp;matWorld);
+</code></pre>
+
+<p><code>D3DXMatrixTranspose()</code> function used in above code finds the transpose matrix. The reason why we find the transpose matrix instead of the inverse matrix is because the world matrix is an orthogonal matrix. The inverse and transpose of an orthogonal matrix are same.</p>
+
+<p>Now it's time to multiply world, view and projection matrices together. To do so, we use <code>D3DXMatrixMultiply()</code> function like this:</p>
+
+<pre><code class="language-cpp">    // concatenate world/view/projection matrices
+    D3DXMATRIXA16 matWorldView;
+    D3DXMATRIXA16 matWorldViewProjection;
+    D3DXMatrixMultiply(&amp;matWorldView, &amp;matWorld, &amp;matView);
+    D3DXMatrixMultiply(&amp;matWorldViewProjection, &amp;matWorldView, &amp;matProjection);
+</code></pre>
+
+<p>Please note that the order of multiplication is World Matrix X View Matrix X Projection Matrix.</p>
+
+<p>Now, we will pass these two matrices to shader. Delete all SetMatrix() function calls which were already in the code, and insert the following code, instead.</p>
+
+<pre><code class="language-cpp">    // set shader global variables
+    gpToonShader-&gt;SetMatrix("gWorldViewProjectionMatrix",
+        &amp;matWorldViewProjection);
+    gpToonShader-&gt;SetMatrix("gInvWorldMatrix", &amp;matInvWorld);
+</code></pre>
+
+<p>Finally, don't forget to pass the light position and the surface color.</p>
+
+<pre><code class="language-cpp">    gpToonShader-&gt;SetVector("gWorldLightPosition", &amp;gWorldLightPosition);
+    gpToonShader-&gt;SetVector("gSurfaceColor", &amp;gSurfaceColor);
+</code></pre>
+
+<p>If you compile and execute the program, you will see a spinning teapot. With rotation, you should be able to see the toon shader effect much better, especially on the spout and handle.</p>
+
+<h2 id="summary">Summary</h2>
+<p>A quick summary of what we learned in this chapter:</p>
+<ol>
+  <li>Toon shader is one of the non-realistic rendering techniques.</li>
+  <li>Toon shader is nothing more than changing diffuse shading, which is continuous, to discrete.</li>
+  <li>Vector transformation can be optimized with matrix concatenation.</li>
+</ol>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                        <li><a href="/en/2014/02/05/intro-to-shader-04-lighting-part-1.html">04. Basic Lighting Shader - Part 1</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

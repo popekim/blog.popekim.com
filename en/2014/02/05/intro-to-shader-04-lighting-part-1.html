@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>04. Basic Lighting Shader - Part 1 | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2014/02/05/intro-to-shader-04-lighting-part-1.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">04. Basic Lighting Shader - Part 1</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Feb 5, 2014
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h6 id="new-hlsl-in-this-chapter">New HLSL in this chapter</h6>
+<ul>
+  <li>NORMAL: a shader semantic used to retrieve normal data from a vertex buffer</li>
+  <li>normalize(): normalizes a vector</li>
+  <li>dot(): dot product function</li>
+  <li>saturate(): clamps a value to [0, 1] range</li>
+  <li>reflect(): vector reflection function</li>
+  <li>pow(): raises base to the power of exponent</li>
+</ul>
+
+<h6 id="new-math-in-this-chapter">New math in this chapter</h6>
+<ul>
+  <li>dot product: can be used to find the cosine value of an angle quickly</li>
+  <li>normalization: converts a vector to a unit vector, which has a length of 1</li>
+</ul>
+
+<p>If there is no light, we can see nothing. It sounds very obvious, but we often forget about it. For example, if you go into a room with no window and close the door, you cannot see anything. No matter how long you stay in the dark, you can't see a thing… well, unless there is a seam under the door or something. The reason why we keep forgetting this obvious fact is because it is really hard to find a complete dark place in the real world. Why is it so? It's because light reflects off objects endlessly, and the reflected light eventually reaches our eyes. This type of light is called indirect light. On the other hand, direct light is the light directly coming from a light source. An example is shown in Figure 4.1.</p>
+
+<p><img src="http://3.bp.blogspot.com/-PxoWkc0QTgI/UvF78vjh3II/AAAAAAAATYk/1yC6xQQS_rU/s1600/fig_04_01(eng).png" alt="fig4-1" /></p>
+
+<p><strong>Figure 4.1 An example of direct and indirect light</strong></p>
+
+<p>Between direct and indirect light, which one would be easier to calculate? As the above picture hint, the answer is direct light. Indirect light goes through multiple reflections, so it is inherently harder to calculate. As one of the methods to calculate indirect light, there is a technique called Ray Tracing. Readers who are interested in 3D graphics probably heard about it, but this technique is still not widely used in computer games due to hardware limitations.[1] Therefore, most real-time 3D applications, including computer games, are still calculating only direct light “properly”, and trying to mimic indirect light. That is why this book only covers direct light.[2] By the way, the lighting techniques covered in this chapter are still widely used in most games, so make sure you understand them very well.</p>
+
+<p>In computer graphics, we like to think light is made of two major components: diffuse and specular light, so we will look at these two separately in this chapter.</p>
+
+<h2 id="diffuse-light">Diffuse Light</h2>
+<h3 id="background">Background</h3>
+<p>Although most objects don't emit light by themselves, the reason why we can still recognize them is because light emitted from other objects, such as the sun, reflects off them. When this happens, some light is evenly reflected to all directions. We call this diffuse light. Have you ever wondered why an object's color and darkness do not change regardless where you look at it from? It is because of diffuse light, which is evenly reflected to all directions. If it is reflected to only one direction[3], you should be able to recognize the object only from a certain direction.</p>
+
+<p>By the way, a rougher surface usually reflects more diffuse light.[4]</p>
+
+<p>Maybe a drawing will help.</p>
+
+<p><img src="/en/assets/img/2014/02/00.png" alt="fig4-2" /></p>
+
+<p><strong>Figure 4.2 Diffuse lighting</strong></p>
+
+<p>One thing that I didn't show you in Figure 4.2 is specular light that we will learn shortly. Don't worry about this for now, and just remember that some part of an incoming light becomes diffuse light, and some other part becomes specular light.</p>
+
+<p>Well, then how do we calculate diffuse lighting? As one can guess, there are various diffuse lighting models created by many great mathematicians. Out of these, we will learn only one simple diffuse lighting model, called Lambert diffuse lighting model, which happens to be a very popular lighting model in computer games. Lambert diffuse lighting model, which was created by a mathematician named Johann Heinrich Lambert, says the amount of diffuse light at a point on a surface is same as the cosine value of the angle between the surface normal[5] and the incoming light ray. Then, let's observe the cosine graph shown in Figure 4.3.</p>
+
+<p><img src="/en/assets/img/2014/02/01.png" alt="fig4-3" /></p>
+
+<p><strong>Figure 4.3 A graph showing y = cos(x) function</strong></p>
+
+<p>From the above graph, you can see that the result, or the value on the y-axis, is 1 when the angle is 0. And as the angle grows bigger, the result gets smaller until it becomes 0 at 90 degree. If we go further, the result even becomes negative. With this observation in mind, let's look at Figure 4.4, which shows what happens in the real word depending on the angle of the incoming light rays?</p>
+
+<p><img src="/en/assets/img/2014/02/02.png" alt="fig4-4" /></p>
+
+<p><strong>Figure 4.4 Various angles between different light and normal vectors</strong></p>
+
+<p>Can you guess when the surface would be lit brightest? Yes, it is when the sun reaches its highest position in the sky. (Case a) As the sun lowers, the surface gradually gets darker. (Case b) And when the sun finally goes down over the horizon, the surface becomes completely dark. (Case c) Then, what happens after the sunset? The surface will remain dark because it is not getting any light. (Case d) Then let's turn this observation into a graph. The angle between the surface normal and the sun is on the x-axis and the brightness of the surface is on the y-axis. The range of the y-axis is [0, 1]: 0 is when the surface is darkest, and 1 is when the surface is brightest.</p>
+
+<p><img src="/en/assets/img/2014/02/03.png" alt="fig4-5" /></p>
+
+<p><strong>Figure 4.5 A graph showing our observation</strong></p>
+
+<p>The reason why I put question marks between -90 ~ 90 degrees in the above figure is because it is still unknown how fast the surface darkens as the angle decreases. Now let's compare this figure to Figure 4.3. If you clamp any negative values to 0 in Figure 4.3, it looks almost identical to our current figure, right? The only difference is that the falloff speed between -90 and 90 is a bit different. Then, can we just believe that uncle Lambert derived this cosine formula after through observations? Yes, at least I'd love to! :P</p>
+
+<p>Then we should be able to calculate diffuse light with a cosine function if we use the Lambert model! However, cosine is not a cheap function, so calling it every time in pixel shader makes me feel icky. Is there any alternative? Yes. If you flip through you math book, you will find a section where it says dot product can replace cosine… well, only under certain conditions.</p>
+
+<pre><code>θ = angle between A and B
+| A | = length of vector A
+| B | = length of vector B
+A ∙ B = cosθ | A || B |
+</code></pre>
+
+<p>In other words,</p>
+
+<pre><code>cosθ = (A ∙ B) ÷ (| A |ⅹ| B |);
+</code></pre>
+
+<p>According to the above dot product formula, the cosine value of an angle between two vectors is same as two vector's dot product divided by the multiplication of lengths of two vectors. If we simplify this formula even further by making the lengths of both vectors to 1.</p>
+
+<pre><code>cosθ = (A' ∙ B')
+</code></pre>
+
+<p>The simplified formula says if you take the cosine of the angle between two vectors, it's same as the dot product of them. But here's a question: is it okay to change the lengths of vectors like this? In other words, the lengths of the normal and light vectors are important while diffuse light is calculated? No, not at all. What matters is only the angel between two vectors, and the lengths don't affect the result, at all. Therefore, it sounds much better to make the lengths to 1 to simplify the formula.[6]</p>
+
+<p>Do you want to know why a dot product is better than cosine? Let (a, b, c) be vector A, and (d, e, f) be vector B. Then you can find the dot product very easily like this:</p>
+
+<pre><code>A ∙ B = (a ⅹ d) + (b ⅹ e) + (c ⅹ f)
+</code></pre>
+
+<p>This looks much simpler than cosine function, right? If I ask you to calculate the cosine value, I'm pretty sure you will be slower than doing three multiplications followed by two additions. :P</p>
+
+<p>Okay, I think we learned enough to write diffuse lighting shader code.</p>
+
+<h3 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h3>
+<ol>
+  <li>As we did in other chapters, create a new DirectX effect inside RenderMonkey, and delete all the code inside vertex and pixel shaders.</li>
+  <li>Now change the shader name to Lighting.</li>
+  <li>Don't forget to add gWorldMatrix, gViewMatrix and gProjectionMatrix, and assign proper semantics for them. They are needed to transform vertex positions.</li>
+</ol>
+
+<p>What information did we need to calculate diffuse lighting with the Lambert model? The light and normal vectors, right? Normal information is normally stored in each vertex,[7] so we should get it from the vertex buffer. Do you remember what extra step we had to perform to get the UV coordinates from vertex buffer in Chapter 3? From Workspace panel, double-click on Stream Mapping and add a new field named NORMAL. Normal is a direction vector that exists in a 3D world, so it will be declared as FLOAT3. Again, you don't need to worry about Attribute Name, but make sure that Index is 0.</p>
+
+<p>Then, how do we find the light vector? This is not that hard. If you just a draw a line from the position of the light source to the current pixel position, that is what we are looking for. So once the light position is known, we can find the light vector very easily. Then how is the light position defined? Something like “the light is at (500, 500, -500) in the world” should be enough. This means that the light position is a global variable. From Workspace panel, right-click on Lighting, and select Add Variable &gt; Float &gt; Float4. Then, change the name of the newly-created variable to gWorldLightPosition. Finally, double-click the variable and set the values to (500, 500, -500, 1).</p>
+
+<p>Once you are done, RenderMonkey Workspace should look like Figure 4.6.</p>
+
+<p><img src="/en/assets/img/2014/02/04.png" alt="fig4-6" /></p>
+
+<p><strong>Figure 4.6 RenderMonkey project after the initial setup</strong></p>
+
+<h3 id="vertex-shader">Vertex Shader</h3>
+<p>I will show you the full source code first, and provide line-by-line explanation after.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+  float3 mNormal : NORMAL;
+};
+
+struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+  float3 mDiffuse : TEXCOORD1;
+};
+
+float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+  VS_OUTPUT Output;
+
+  Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+  float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+  lightDir = normalize(lightDir);
+
+
+  Output.mPosition = mul( Output.mPosition, gViewMatrix );
+  Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+
+  float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+  worldNormal = normalize( worldNormal );
+
+  Output.mDiffuse = dot(-lightDir, worldNormal);
+
+  return Output;
+}
+</code></pre>
+
+<h4 id="input-data-to-vertex-shader">Input Data to Vertex Shader</h4>
+<p>We will start from the input data structure used in Chapter 2.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>Now we need to add normal here. The semantic for normal is NORMAL. As mentioned earlier, normal is a direction vector in 3D space, so the data type will be float3.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+  float3 mNormal : NORMAL;
+};
+</code></pre>
+
+<h4 id="vertex-shader-function">Vertex Shader Function</h4>
+<p>In this chapter, we will take a look at the vertex shader function before its input and output data. I believe this is an easier way to understand the lighting shaders.</p>
+
+<p>First, we transform the vertex position, as usual.</p>
+
+<pre><code class="language-cpp">VS_OUTPUT vs_main( VS_INPUT Input )
+{
+  VS_OUTPUT Output;
+
+  Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+
+  Output.mPosition = mul( Output.mPosition, gViewMatrix );
+  Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+</code></pre>
+
+<p>The above code does not need explanation anymore. What other things did we need to calculate diffuse light? We need to find the light and normal vectors, but do we find these in the vertex or in pixel shader? Think about it for a second.</p>
+
+<p>…</p>
+
+<p>So, what do you think? There is no one absolute answer: you can do it in either shader. If we do this in vertex shader, we would calculate the dot product of these two vectors on each vertex, and return the result as part of VS_OUTPUT structure. Then, the output values will be passed to pixel shader after interpolated by interpolators, so we can just use interpolated dot product values in pixel shader.</p>
+
+<p>On the other hand, if you do this in pixel shader, you would return the normal information as part of VS_OUTPUT, and pixel shader will read it to calculate the dot product.</p>
+
+<p>Since there is no difference whether the calculation is done in vertex or pixel shader[8], we should select the option which is better for performance. To see which option is better, let's count how many times each shader is executed.[9]  When a triangle is drawn, how many times will the vertex shader run? A triangle consists of three vertices, so the vertex shader is executed three times. Then how about the pixel shader? It will be executed as many times as the pixels covered by this triangle on the screen. If the triangle is really tiny on the screen, thus covering only one pixel, the pixel shader will be executed only once. However, usually a triangle covers more than three pixels on the screen. So, if a same calculation can be done in either vertex or pixel shader, it is better to be done in vertex shader over pixel shader. Therefore, we will calculate diffuse lighting in vertex shader, as well.</p>
+
+<blockquote>
+  <p><strong>Tip</strong>: If a calculation can be done either in vertex or pixel shader. It is usually a better idea to do so in the vertex shader for performance reasons.</p>
+</blockquote>
+
+<p>Then, let's construct the light vector, first. As mentioned earlier, you can do this by drawing a line from the light position to current position. “Drawing a line” between two points is same as subtracting a position vector from another. So, if you subtract the light position from current position, you can get the light vector. However, there is one thing that we should be careful about. To get the correct result in 3D math, all variables must be in a same space. We defined the light position in the world space, right? But, which space is the vertex position defined in? Input.mPosition is in the local space, and Output.mPosition is in the projection space, but what we really need is the position in the world space. If you look at the vertex shader code listed above, you will see some empty lines after multiplying the world matrix to the local position. Output.mPosition right after the world matrix multiplication is the position in the world space, so we can just subtract the light position from it. Now replace the empty lines with the light vector construction code shown below:</p>
+
+<pre><code class="language-cpp">  float3 lightDir = Output.mPosition.xyz - gWorldLightPosition.xyz;
+</code></pre>
+
+<p>K, now it is time to make the vector's length to 1. I told you the reason for this is to use a dot product instead of a rather expensive cosine function. Did I also tell you an operation of making a vector's length to 1 is called normalization? To manually normalize a vector, you can divide each components of the vector by the length of the vector. However, we will just use a HLSL intrinsic function, normalize(). Yay for another magic function!</p>
+
+<pre><code class="language-cpp">  lightDir = normalize(lightDir);
+</code></pre>
+
+<p>Now that we have prepared the light vector, it is time to find the normal vector. Can we just use the normal information from the input data as-is? To find the answer, think about in which space the vector lives. Since this data directly comes from the vertex buffer, it must be in the local space. Now we know we need to transform it to the world space to calculate diffuse lighting properly.</p>
+
+<blockquote>
+  <p><strong>Caution</strong>: While performing any 3D operation, we have to make sure that all the variables are in a same space.</p>
+</blockquote>
+
+<pre><code class="language-cpp">  float3 worldNormal = mul( Input.mNormal, (float3x3)gWorldMatrix );
+</code></pre>
+
+<p>Do you see we are casting the world matrix to a 3-by-3 matrix? We prefixed (float3x3) to do so. In a 4-by-4 matrix, the fourth row (or column) contains translation information, so it does not affect direction vectors, at all.[10]</p>
+
+<p>Don't forget to change this vector to a unit vector, as well.</p>
+
+<pre><code class="language-cpp">  worldNormal = normalize( worldNormal );
+</code></pre>
+
+<p>Now we have all two vectors we need, so let's find the dot product of them. Do you still remember what the dot product formula was? Although it was not hard, you do not need to remember it at all because we will just use another HLSL intrinsic function, dot() for this.</p>
+
+<pre><code class="language-cpp">  Output.mDiffuse = dot(-lightDir, worldNormal);
+</code></pre>
+
+<p>The above code assigns the dot product result to mDiffuse of the return structure. Oh, another thing! Do you see we used -lightDir instead of lightDir here? The reason why we did this is because the tails of two vector must meet to calculate the dot product correctly. So, if lightDir was used, the light vector's header would meet the normal vector's tail, resulting in a wrong calculation.</p>
+
+<p>Also do you see that float3 is used for mDiffuse to store the dot product result, which is only a single float? If you assign a float value to a float3 variable, all three components of the variable will have the same float value. So, the above code is same as assigning dot(-lightDir, worldNormal).xxx.</p>
+
+<p>Now simply returns the result.</p>
+
+<pre><code class="language-cpp">  return Output;
+}
+</code></pre>
+
+<h4 id="global-variables">Global Variables</h4>
+<p>Have you figured out by now why I wanted explained the vertex shader function first? It is because it made no sense to say “I'm going to declare the light position as a global variable” without any explanation.</p>
+
+<p>Please add these global variables at the top of the source code.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+
+float4 gWorldLightPosition;
+</code></pre>
+
+<h4 id="output-data-from-vertex-shader">Output Data from Vertex Shader</h4>
+<p>As we saw while writing the vertex shader function, the output data is mPosition and mDiffuse. We already know float4 and POSITION semantic are used for the position. Then, what type and semantic should be used for mDiffuse? The dot product of two vectors is not a vector: it is just a single real number.[11]  Therefore, using float is completely fine, but float3 is used here since we are going to return this value as the RGB values of pixels. Then how about the semantic? Do you think there is a semantic like DIFFUSELIGHTING? Unfortunately, no.[12]  While programming shaders, there are often cases where you cannot find a semantic which is specifically made for your specific use. In these cases, TEXCOORD semantic is normally used. There are at least 8 TEXCOORDs[13], so they rarely run out! For this chapter, we will use TEXCOORD1.[14]</p>
+
+<p>Please add the following output structure to the source code.</p>
+
+<pre><code class="language-cpp">struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+  float3 mDiffuse : TEXCOORD1;
+};
+</code></pre>
+
+<h3 id="pixel-shader">Pixel Shader</h3>
+<p>Alright, pixel shader time! But what do we need to do? We already calculated diffuse lighting in vertex shader. So the only work left for the pixel shader is returning the interpolated diffuse result, which is passed to the pixel shader. If you recall, the dot product is used instead of cosine, so the range of the result is [-1, 1]. But, the range of diffuse lighting is [0, 1], so let's just clamp any negative value to 0. Although we can use an if statement for this, we will instead use a faster HLSL function, saturate(). This function clamps a value to [0, 1]. And even better, it is almost free performance-wise!</p>
+
+<pre><code class="language-cpp">struct PS_INPUT
+{
+  float3 mDiffuse : TEXCOORD1;
+};
+
+float4 ps_main(PS_INPUT Input) : COLOR
+{
+  float3 diffuse = saturate(Input.mDiffuse);
+  return float4(diffuse, 1);
+}
+</code></pre>
+
+<p>In the above code, the return value is constructed with float4(diffuse, 1). Just remember that this is a way to construct a float4 variable.</p>
+
+<p>Now press F5 to compile vertex and pixel shaders separately before seeing the preview window. You will see a sphere which is lit with very smooth diffuse light, as shown in Figure 4.7.</p>
+
+<p><img src="/en/assets/img/2014/02/05.png" alt="fig4-7" /></p>
+
+<p><strong>Figure 4.7 Our diffuse lighting effect!</strong></p>
+
+<hr />
+<h6 id="footnotes">Footnotes:</h6>
+
+<ol>
+  <li>Especially video game console hardware is a problem.</li>
+  <li>Lighting models that only consider direct light are called local illumination models, while ones that also consider indirect light are called global illumination models.</li>
+  <li>This is specular lighting, which we will cover later in this chapter.</li>
+  <li>There are not many objects which doesn't reflect diffuse light at all. Even very smooth surfaces reflect diffuse light because light can penetrate through and scatter below the surface until it finally comes out of the surface.</li>
+  <li>Normal is a direction vector that represents a surface's orientation. Therefore, the normal vector of a horizontally flat surface is perpendicular to the surface facing upward.</li>
+  <li>A vector whose length is 1 is called a unit vector. And a process of making a vector to have a length of 1 is normalization.</li>
+  <li>This is not always true. We will see another way of finding normal while implementing Normal Mapping shader later in this book.</li>
+  <li>In fact, there is a subtle difference between these two approaches.</li>
+  <li>There are also other factors that might degrade the performance, so this is a guideline only.</li>
+  <li>Think it this way. The direction which an arrow is pointing to doesn't change, even if it is moved around without any. So translation value has no meaning to a direction vector.</li>
+  <li>This is called scalar.</li>
+  <li>Some people use COLOR0 semantic for this, but this book does not. In vertex shader 2.0 spec, a value with COLOR semantic is clamped to [0, 1], and the interpolated values passed to pixel shader seem to have small errors because of this.</li>
+  <li>TEXCOORD0 ~ TEXCOORD7</li>
+  <li>The reason why TEXCOORD1 is used instead of TEXCOORD1 is because we will use TEXCOORD0 for the UV coordinates of a texture in the next chapter.</li>
+</ol>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

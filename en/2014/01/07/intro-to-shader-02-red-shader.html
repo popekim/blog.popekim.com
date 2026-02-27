@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>02. It's Really Easy! Red Shader! Red Shader | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1772152258827111107" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2014/01/07/intro-to-shader-02-red-shader.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">02. It's Really Easy! Red Shader! Red Shader</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Jan 7, 2014
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/graphics/">graphics</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader-book/">shader book</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/shader/">shader</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/book/">book</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <div class="clearfix pl-2 text-right float-right">
+    <img border="0" src="/en/assets/img/layout/shaderbook.jpg" />
+    <div>
+        <small>
+            <p class="font-weight-bold m-0">Where to buy:</p>
+            <p class="m-0">
+                <a href="http://www.amazon.com/Introduction-Shader-Programming-Pope-Kim-ebook/dp/B00IQTWZBY">Amazon</a>,
+                <a href="https://itunes.apple.com/us/book/introduction-to-shader-programming/id834814653?mt=11">Apple</a>,
+                <a href="https://play.google.com/store/books/details?id=FUb1AgAAQBAJ&rdid=book-FUb1AgAAQBAJ">Google</a>
+            </p>
+            <p class="font-weight-bold m-0">Source Code:</p>
+            <p class="m-0">
+                <a href="https://github.com/popekim/ShaderPrimer">GitHub</a>,
+                <a href="https://github.com/popekim/ShaderPrimer/archive/master.zip">Zip</a>
+            </p>
+        </small>
+    </div>
+</div>
+
+<h6 id="new-hlsl-in-this-chapter">New HLSL in this chapter</h6>
+<ul>
+  <li><strong>float4</strong>: a vector data type with 4 components</li>
+  <li><strong>float4x4</strong>: 4 X 4 matrix data type</li>
+  <li><strong>mul()</strong>: multiplication built-in function. Can handle almost all data types</li>
+  <li><strong>POSITION</strong>: Semantic for vertex position. Useful to read only the position info from vertex data</li>
+</ul>
+
+<h6 id="new-math-in-this-chapter">New math in this chapter</h6>
+<ul>
+  <li><strong>3D space transformation</strong>: uses matrix multiplication</li>
+</ul>
+
+<p>In the previous chapter, we defined shaders as functions that calculate the positions and colors of pixels. Then, we should try to write a shader that actually does the job, right? We are going to write a very simple shader here so that even readers with no shader programming experience can follow easily. What about a shader that draws a red sphere? [1] We are going to use RenderMoney for this and it will be your first time seeing any HLSL syntax. Yay! Excited? Once you write a shader in RenderMonkey, you can export it to a .FX file, which can be loaded directly into the DirectX framework we prepared in the last chapter.</p>
+
+<h2 id="initial-step-by-step-setup">Initial Step-by-Step Setup</h2>
+<p>Please follow these steps in order to start writing this shader</p>
+
+<ol>
+  <li>Launch RenderMonkey. A quick scary-looking monkey will welcome you for a moment, and there will be an empty workspace.</li>
+  <li>Inside Workspace panel, click the right mouse button on Effect. You will see a pop-up menu.</li>
+  <li>From the pop-up menu, select Add Default Effect &gt; DirectX &gt; DirectX, in order. Can you see a red sphere in the preview window?</li>
+  <li>You will also see a new shader named Deafult_DirectX_Effect in Workspace panel. Change the name to ColorShader.</li>
+</ol>
+
+<p>Now the screen should look like Figure 2.1.</p>
+
+<p><img src="/en/assets/img/2014/01/00.jpg" alt="fig2-1" /></p>
+
+<p><strong>Figure 2.1</strong> Our RenderMonkey project after initial setup</p>
+
+<h2 id="vertex-shader">Vertex Shader</h2>
+<p>Now, click on the plus(+) sign right next to ColorShader. Can you see Pass 0 at the very bottom? Again, click on the plus sign next to it and double-click on Vertex Shader. You will see the code for vertex shader in the shader editor window on the right. Well, this code is actually what we want: it draws a red ball! But we really need to practice, so let's just delete all the code in it.</p>
+
+<p>Did you delete the code? If so, let's get it started! <em>plays music</em> First, I'll show you the full source code for vertex shader below, and explain it line by line after.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+ float4 mPosition : POSITION;
+};
+
+struct VS_OUTPUT
+{
+ float4 mPosition : POSITION;
+};
+
+float4x4 gWorldMatrix;    
+float4x4 gViewMatrix;     
+float4x4 gProjectionMatrix;  
+
+VS_OUTPUT vs_main( VS_INPUT Input )
+{
+ VS_OUTPUT Output;
+
+ Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+ Output.mPosition = mul( Output.mPosition, gViewMatrix );
+ Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+ 
+ return Output;
+}
+</code></pre>
+
+<h3 id="global-variables-vs-vertex-data">Global Variables vs Vertex Data</h3>
+<p>There are two types of input values for shaders: global variables and vertex data. Where to put your input values between these two totally depends on whether all vertices in a mesh can use a same value or not. If a same value is used, you should pass it through a global variable. Otherwise, you cannot use a global variable: you have to pass it as part of the vertex data. (i.e. vertex buffer). [2]</p>
+
+<p>Good candidates for global variables include world matrix and camera position. On the other hand, the position and UV coordinates of each vertex are good examples of vertex data.</p>
+
+<h3 id="input-data-to-vertex-shader">Input Data to Vertex Shader</h3>
+<p>First, we are going to declare vertex input data as VS_INPUT structure.</p>
+
+<pre><code class="language-cpp">struct VS_INPUT
+{
+  float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>Do you remember that the most important role of a vertex shader is transforming each vertex's position from one space to another? It was mentioned in Chapter 1: What is Shader. To do so, you need the vertex position as your input. That is why the above structure retrieves the vertex position via the member variable, mPosition. The reason why this variable is able to retrieve the position info from a vertex buffer is because of POSITION semantic.[3]Often a vertex buffer contains many different data, such as the position, UV coordinates and normal vector, for each vertex. Semantics help you to extract only attributes that are meaningful to you.</p>
+
+<p>So when you see float4 mPosition : POSITION;, it is actually an order to your graphics hardware saying “extract the position information from my vertex data and assign it to mPosition!”</p>
+
+<p>Oh, right. I almost forgot. Then what is float4? This is the variable's data type. float4, a built-in type supported by HLSL, is nothing more than a vector that has four components: x, y, z and w. Of course, each component is a floating-point type as the type name suggests. HLSL also supports other data types, such as float, float2, float3. [4]</p>
+
+<h3 id="output-data-from-vertex-shader">Output Data from Vertex Shader</h3>
+<p>Now that the input data for vertex shader is declared, we need to turn our eyes to output data. When something goes in, something else should come out, right? Do you still remember the super simplified diagram of a GPU pipeline from Chapter 1? In that picture, vertex shader had to output transformed vertex positions so that rasterizer can figure out each pixel's position from them. A key point here: a vertex shader must return a transformed vertex position! Okay, that was enough nagging. Now let's declare the output data as a structure named VS_OUTPUT.</p>
+
+<pre><code class="language-cpp">struct VS_OUTPUT
+{
+  float4 mPosition : POSITION;
+};
+</code></pre>
+
+<p>It looks very familiar, right? We are returning the position data as float4 type. How do you(and your GPU) know its position? You see the semantic, POSITION? Yes! That's how.</p>
+
+<h3 id="global-variables">Global Variables</h3>
+<p>We need to declare a number of global variables that will be used in the vertex shader, but doing so without understanding what space transformation is sounds dumb to me.</p>
+
+<h4 id="3d-space-transformation">3D Space Transformation</h4>
+<p>I said that we need to transform vertex positions into different spaces to draw a 3D object on the monitor. Then, what kind of spaces should we go through to show it? Do you like apples? Let's use an apple as an example.</p>
+
+<h4 id="object-space">Object Space</h4>
+<p>Let's assume we have an apple in our left hand. The center of the apple is the origin point and from this point we can make 3 axes: one to the right direction (+x), one to the up direction (+y), and the other to the forward direction (+z). If you measure every single points on the surface of the apple, you can represent each points in (x, y, z) coordinates, right? Now you group every 3 points to build triangles. The result is an apple model!</p>
+
+<p>Now we move the arm here and there while holding the apple. Even if the hand's position is different, the distance from the origin to each points on the surface of the apple is same, right? This is the object space, or local space. In the object space, every objects (3D models) has its own coordinate system. If you think about it, it's kind of neat. But if you want to handle different objects in a same manner, it's a bit challenging because everyone has its own space! That is where the world space comes in.</p>
+
+<p><img src="/en/assets/img/2014/01/01.jpg" alt="fig2-2" /></p>
+
+<p><strong>Figure 2.2</strong> An example of object space</p>
+
+<h4 id="world-space">World Space</h4>
+<p>Now why don't you leave the apple right next to your monitor? The monitor is also an object, so it should have its own object space, too. Now we want to handle these two objects in a same manner. So what should we do? It's simple. We just need to bring those two objects into a same space. To do so, we need to make a new space. Do you have a door in the room you are in now? (I really hope you do! :-P ) Let's put an origin at the door and build 3 axes, +x, +y and +z, to right, up and forward directions, respectively. Now, from this origin, can you build new (x, y, z) coordinates for each vertices on the surface of the monitor? You should be able to do the same with the apple, too. We can call this space the world space.</p>
+
+<p><img src="/en/assets/img/2014/01/02.jpg" alt="fig2-3" /></p>
+
+<p><strong>Figure 2.3</strong> An example of world space</p>
+
+<p>####View Space
+Now, bring out your camera and take two pictures. Make sure the first picture has all these two objects in it, and the second picture doesn't have any of those in it. These two pictures are totally different, right? In the first space, you can see the objects, while you can't at all in the second picture. It means that there got to be positional difference, but positions of the objects in the world space didn't change at all. A-ha! The camera must be using another space! We call this space view space. The origin of the view space is at the center of camera lens, and you can again make 3 axes to the right, up and forward directions.</p>
+
+<p><img src="/en/assets/img/2014/01/03.jpg&quot;" alt="fig2-4" /></p>
+
+<p><strong>Figure 2.4</strong> An example of view space. Objects are inside of the camera's view</p>
+
+<p><img src="/en/assets/img/2014/01/04.jpg" alt="fig2-5" /></p>
+
+<p><strong>Figure 2.5</strong> An example of view space. Objects are outside of camera's view.</p>
+
+<h4 id="projection-space">Projection Space</h4>
+<p>When you see a picture that's taken by your everyday cameras, far-away objects look smaller than ones close by the lens. Just like how you see the world through your eyes. Do you know why our eyes work this way? It's because we humans have a field of view of roughly 100 degree horizontally and 75 degrees vertically. So you get to see more stuff as the distance increases but you are squeezing the “more stuff” into your fixed-size retinas. Your everyday camera does exactly same thing, but there is a special type of cameras called orthogonal cameras. These cameras don't have field of views: instead, they always look straight forward. So if you use these cameras, you can get the consistent object sizes regardless of the distance.</p>
+
+<p>Well, then we should be able to break down these photo-taking steps into two. First step is transforming objects from the world space to the camera space by applying scale, rotation and translation. Second step is projecting these objects onto a 2D image. (i.e., retina in the previous example) So can you distinguish the spaces we used for each of these two steps? Yes, they are view and projection spaces, respectively. With this separation, your view space is independent from the types of projections, such as orthogonal and perspective projections, you are using.</p>
+
+<p>Once you apply the final projection transformation, the transformed result is the final image shown on the screen.</p>
+
+<h4 id="summary">Summary</h4>
+<p>A usual way of transforming a vertex's space in 3D graphics is matrix multiplication. The number of spaces that an object goes through in order to be displayed on the screen is three: world, view and projection spaces. So you need three matrices, as well. By the way, if you know any space's origin and three axes, you can easily make a matrix that represents that space. [5]</p>
+
+<p>K, now let's sum it up. These are the space transformations that an object is going through:</p>
+
+<pre><code>Object --------&gt; World --------&gt; View ------&gt; Projection
+   ⅹWorld Mat   ⅹView Matrix  ⅹProjection Matrix
+</code></pre>
+
+<p>Since all these matrices are uniform for all the vertices in an object, global variables should be used.</p>
+
+<h3 id="global-variable-declarations">Global Variable Declarations</h3>
+<p>Now you should have a very clear idea which global variables are needed, right? We need world, view and projection matrices in order to transform vertices. Let's insert add the following three lines in the vertex shader code.</p>
+
+<pre><code class="language-cpp">float4x4 gWorldMatrix;
+float4x4 gViewMatrix;
+float4x4 gProjectionMatrix;
+</code></pre>
+
+<p>Hey, this is something new! float4x4! This is another data type supported by HLSL. It's very straight forward, right? Yup, this represents a 4 X 4 matrix. As you can guess, there are also similar data types like float2x2 and float3x3.</p>
+
+<p>Now we have these matrices declared. But, who is in charge of passing the values to these variables? Usually the graphics engine in a game takes care of this. But we are using RenderMonkey, so we should follow this monkey's rule. RenderMonkey uses something called variable semantics to pass values to global variables.</p>
+
+<p>Please follow these steps to set the values to the globals:</p>
+
+<ol>
+  <li>In Workspace panel, find ColorShader and right-click on it.</li>
+  <li>From the pop-up menu, select Add Variable &gt; Matrix &gt; Float(4x4) in order. It will add a new variable named f4x4Matrix.</li>
+  <li>Change this variable's name to gWorldMatrix.</li>
+  <li>Now, right-click on gWorldMatrix to select Variable Semantic &gt; World. This is how you pass a value to a variable in RenderMonkey.</li>
+  <li>Repeat above steps to make view and projection matrices too. Name the variables as gViewMatrixand and gProjectionMatrix, respectively. Also don't forget to assign variables semantics of View and Projection.</li>
+  <li>Lastly, delete matViewProjection variable. This was added by default when we were adding the effect. We do not need this now because we are use gViewMatrix and gProjectionMatrix, instead.</li>
+</ol>
+
+<p>If you finished all the above steps, your Workspace should look like Figure 2.6:</p>
+
+<p><img src="/en/assets/img/2014/01/05.jpg" alt="fig2-6" /></p>
+
+<p><strong>Figure 2.6</strong> Workspace panel after assigning variable semantics</p>
+
+<h3 id="vertex-shader-function">Vertex Shader Function</h3>
+<p>Finally, all prep works are done. It's time to write the vertex shader function! First up! The function header!</p>
+
+<pre><code class="language-cpp">VS_OUTPUT vs_main( VS_INPUT Input )
+{
+</code></pre>
+
+<p>What the function header means are:</p>
+
+<ul>
+  <li>This function's name is vs_main.</li>
+  <li>The name of the input parameter is Input and its type is VS_INPUT structure.</li>
+  <li>The return type of this function is VS_OUPUT structure.</li>
+</ul>
+
+<p>This is not different from how you define a function in C, right? As mentioned before, HLSL uses a C-like syntax. Now, let's look at the next line.</p>
+
+<pre><code class="language-cpp"> VS_OUTPUT Output;
+</code></pre>
+
+<p>This is nothing more than declaring a variable of VS_OUTPUT type that we are going to return at the end of the function. Do you remember what the member of VS_OUTPUT structure was? There was only one member: mPosition, which is in the projection space. That means we are finally apply space transformations! First, we transform the object-space position, stored in Input.mPosition, to the world space. How do you transform a vertex? Yes! You multiply a matrix to it. Since the position vector is a float4, we should multiply a float4x4 matrix, right? Wait. You don't need to flip through your math book to find a way to do this. HLSL already provides an almighty built-in mul() function that can multiply so many different types together. So, you can simply transform the position by calling this function like below:</p>
+
+<pre><code class="language-cpp"> Output.mPosition = mul( Input.mPosition, gWorldMatrix );
+</code></pre>
+
+<p>Above code multiplies the world matrix, gWorldMatrix, to an object-space vertex position, Input.mPosition, and assign the result, which is the world-space position, to Output.mPosition. And you do almost exactly same thing to transform the position into the view and projection spaces.</p>
+
+<pre><code class="language-cpp"> Output.mPosition = mul( Output.mPosition, gViewMatrix );
+ Output.mPosition = mul( Output.mPosition, gProjectionMatrix );
+</code></pre>
+
+<p>Nothing complicated, right? Then what do we need to do now? Well, the most important role of a vertex shader is transforming a vertex's position, which is originally in the object-space, to the projection space…. Um…. I think we just did it, right? Then, let's just return the result to finish this vertex shader section.</p>
+
+<pre><code class="language-cpp"> return Output;
+}
+</code></pre>
+
+<p>Take a moment and press F5 key to compile the vertex shader. You see a red sphere, right? This means we finished the vertex shader section with a great success! If you see any compiler error, please review the code again to see if there is any mistake.</p>
+
+<p><strong>Tip: Got a Shader Compile Error?</strong></p>
+
+<p>If RenderMonkey fails at compiling your code because of typo or invalid syntax, you will see the error messages in the preview window. To see the details about the error, take a look at the output window at the very bottom of RenderMonkey. It should display detailed error messages as well as exact line and column numbers of where the problems are.</p>
+
+<h2 id="pixel-shader">Pixel Shader</h2>
+<p>Now it's time to write the pixel shader. As we did in the Vertex Shader section, find Workspace window and double-click on Pixel Shader. Now, please delete all the code in it. You should type code with your fingers to learn how to code, so please delete all the code in it.</p>
+
+<p>Let's take a look at the full source code, which is only 4-lines long, and then I'll explain it line by line.</p>
+
+<pre><code class="language-cpp">float4 ps_main() : COLOR
+{ 
+ return float4( 1.0f, 0.0f, 0.0f, 1.0f );
+}
+</code></pre>
+
+<p>The most important role of a pixel shader is returning a color value and we want to draw a red sphere in this chapter. So we can just return red here. But, here's a question: how do you represent red in RGB values? If you are thinking RGB(255, 0, 0), you need to read the following section before writing any pixel shader code.</p>
+
+<h3 id="how-to-represent-a-color">How to Represent a Color</h3>
+<p>The reason why most beginners think (255, 0, 0) for the RGB values of the red color is because we are so used to a 8-bit-per-channel format to store an image. An 8-bit integer can represent 256 distinct values. (2^8 = 256) So if you start from 0, you can make 256 integer numbers ranging from 0 to 255. Then, what happens if 5 bits are used per channel instead of 8? 2^5 equals to 32, so 31 will be the maximum value this time. This means that the red color is (255, 0, 0) in a 8-bit format, while it is (31, 0, 0) in a 5-bit format. What a bummer!</p>
+
+<p>So now we know what the problem is. Then, is there any way to represent colors uniformly regardless how many bits are used per channel? If you have played with HDR images in an image editing software, such as Adobe Photoshop, you probably know the answer already. Yes. You can use percentage (%) notation. With this notation, the RGB values of the red color always become (100%, 0%, 0%). This is how shaders represent colors, too. Well almost. You know 0~100% is same as 0.0~1.0 right? So, shaders represent this color as RGB (1.0, 0.0, 0.0).</p>
+
+<h3 id="pixel-shader-function">Pixel Shader Function</h3>
+<p>Now we know what RGB values need to be output from the pixel shader. So let's write the function now. First is the function header:</p>
+
+<pre><code class="language-cpp">float4 ps_main() : COLOR
+{
+</code></pre>
+
+<p>What this line of code means are:</p>
+
+<ul>
+  <li>the function's name is ps_main</li>
+  <li>this function doesn't take any parameters</li>
+  <li>this function returns a float4</li>
+  <li>the return value will be treated as COLOR</li>
+</ul>
+
+<p>One thing to note here is that float4 is used for the return type instead of float3. 4th component is the alpha channel, which is normally used for transparency effect. [6]</p>
+
+<p>By the way, what did we say we need to do in this function? Oh right, we need to return red. The code should be as simple as this:</p>
+
+<pre><code class="language-cpp"> return float4( 1.0f, 0.0f, 0.0f, 1.0f );
+}
+</code></pre>
+
+<p>Two things worth mentioning here:</p>
+
+<ul>
+  <li>a color is encoded in a float4 vector in float4(r, g, b, a) form; and</li>
+  <li>the value of the alpha channel is 1.0, or 100%, so the pixel is completely opaque.</li>
+</ul>
+
+<p>Now press the F5 key inside the shader editing window to compile vertex and pixel shaders. You will have to do it twice. Once for the vertex shader, and once for the pixel shader. Then as shown in Figure 2.7, you will see a red sphere in the preview window.</p>
+
+<p><strong>Tip: How to Compile a Shader in RenderMonkey</strong></p>
+
+<p>You need to compile vertex and pixel shaders separately in RenderMonkey. Open up each shaders in the shader editor and press F5. When the preview window is about to open, both shaders get compiled, too.</p>
+
+<p><img src="/en/assets/img/2014/01/06.jpg" alt="fig2-7" /></p>
+
+<p><strong>Figure 2.7</strong> Our very first craft! So bloody red!</p>
+
+<p>It was really simple, right? What if you want to show a blue ball instead of a bloody one? Returning float4(0.0, 0.0, 1.0, 1.0) would do it, right? What about green? What about yellow? Yellow is basically a mix of green and red, so…. Oh well, you should be smart enough to know. So, I will stop bothering you here. :)</p>
+
+<p>Now, make sure to save this RenderMonkey project somewhere safe. Actually, save your RenderMonkey project at the end of every chapter because you will re-use them in the following chapters.</p>
+
+<h2 id="optional-directx-framework">(Optional) DirectX Framework</h2>
+<p>This is an optional section for readers who want to use shaders in a C++ DirectX framework.</p>
+
+<p>First, make a copy of the framework that we made in Chapter 1: What is Shader into a new directory. The reason why we make a copy of the framework for each chapter is because we will extend this framework for each chapter.</p>
+
+<p>Next, it is time to save the shader and 3D model we used in RenderMonkey into files so that they can be used in the DirectX framework.</p>
+
+<ol>
+  <li>From Workspace panel, find ColorShader and right-click on it.</li>
+  <li>From the pop-up menu, select Export &gt; FX Exporter.</li>
+  <li>Find the folder where we saved the DirectX framework, and save the shader as ColorShader.fx.</li>
+  <li>Again, from Workspace panel, right-click on Model.</li>
+  <li>From the pop-up menu, select Save &gt; Geometry Saver.</li>
+  <li>Again, find the DirectX framework folder, and save it as Sphere.x.</li>
+</ol>
+
+<p>Okay, now go ahead and open the framework's solution file in Visual C++. We are going to add the following code in ShaderFramework.cpp file.</p>
+
+<p>First, we will #define some constants that will be used for the projection matrix.</p>
+
+<pre><code class="language-cpp">#define PI      3.14159265f
+// Field of View
+#define FOV     (PI/4.0f)
+// aspect ratio of screen
+#define ASPECT_RATIO (WIN_WIDTH/(float)WIN_HEIGHT)  
+#define NEAR_PLANE  1         
+#define FAR_PLANE  10000
+</code></pre>
+
+<p>Then we declare two pointers that will store Sphere.x and ColorShader.fx files after loading.</p>
+
+<pre><code class="language-cpp">// Models
+LPD3DXMESH gpSphere = NULL;
+
+// Shaders
+LPD3DXEFFECT gpColorShader = NULL;
+</code></pre>
+
+<p>Don't you think it's time to load the model and shader files now? We will add some code to LoadAssets() function that we left empty in Chapter 1.</p>
+
+<pre><code class="language-cpp"> // loading shaders
+ gpColorShader = LoadShader("ColorShader.fx");
+ if (!gpColorShader)
+ {
+  return false;
+ }
+
+ // loading models
+ gpSphere = LoadModel("sphere.x");
+ if (!gpSphere)
+ {
+  return false;
+ }
+</code></pre>
+
+<p>To load files, the above code calls LoadShader() and LoadModel() functions, which were implemented in Chapter 1: What is Shader. If any of these results in a NULL pointer, it returns false, meaning “fail to load.” When this happens, there should be some error messages in the output window of Visual C++, so please take a look.</p>
+
+<p>Whenever you load new resources, don't forget to add code to release D3D resources, too. It is to prevent GPU memory leaks. Go to CleanUp() function and insert the following code right before releasing D3D.</p>
+
+<pre><code class="language-cpp"> // release models
+ if (gpSphere)
+ {
+  gpSphere-&gt;Release();
+  gpSphere = NULL;
+ }
+
+ // release shaders
+ if (gpColorShader)
+ {
+  gpColorShader-&gt;Release();
+  gpColorShader = NULL;
+ }
+</code></pre>
+
+<p>Alright, it's almost done. The last step is drawing the 3D object with our shader. We said we will put 3D drawing code inside RenderScene() function, right? Let's go to RenderScene() function.</p>
+
+<pre><code class="language-cpp">// draw 3D objects and so on
+void RenderScene()
+{
+</code></pre>
+
+<p>Do you remember we used some global variables in the shader? RenderMonkey used something called variable semantics to assign the values to these variables, but we don't have that luxury in our framework. Instead, we have to construct those values and manually pass them to the shader. K, construction time! View matrix is first!</p>
+
+<pre><code class="language-cpp"> // make the view matrix
+ D3DXMATRIXA16 matView;
+ D3DXVECTOR3 vEyePt(0.0f, 0.0f, -200.0f);
+ D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
+ D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
+ D3DXMatrixLookAtLH(&amp;matView, &amp;vEyePt, &amp;vLookatPt, &amp;vUpVec);
+</code></pre>
+
+<p>As shown in the above code snippet, a view matrix can be constructed with D3DXMatrixLookAtLH() function once we have these three information:</p>
+
+<ul>
+  <li>The position of a camera,</li>
+  <li>The position where the camera is looking at, and</li>
+  <li>The upward direction of the camera. (also known as the up vector)</li>
+</ul>
+
+<p>In this chapter, we assume the camera's current position is at (0, 0, -200) and is looking at the origin (0, 0, 0). In a real game, you would retrieve these information from your camera class.</p>
+
+<p>Next is the projection matrix. Depending on projection techniques being used, we need to call different functions with different parameters. Remember there are two different projection techniques? Yes, perspective and orthogonal. We will use perspective projection here, so the function of choice is D3DXMatrixPerspectiveFOVLH(). [7]</p>
+
+<pre><code class="language-cpp"> // projection matrix
+ D3DXMATRIXA16   matProjection;
+ D3DXMatrixPerspectiveFovLH(&amp;matProjection, FOV, ASPECT_RATIO, NEAR_PLANE, FAR_PLANE);
+</code></pre>
+
+<p>Yay! One more matrix to go! World Matrix! A world matrix is combination of the following three properties of an object:</p>
+
+<ul>
+  <li>position,</li>
+  <li>orientation, and</li>
+  <li>scale</li>
+</ul>
+
+<p>What this means is that each object should have its own world matrix. For this example, we assume the object is at the origin (0, 0, 0) without any rotation or scale, so we will just leave our matrix as an identity matrix.</p>
+
+<pre><code class="language-cpp"> // world matrix
+ D3DXMATRIXA16 matWorld;
+ D3DXMatrixIdentity(&amp;matWorld);
+</code></pre>
+
+<p>Now that we constructed all three global variables, we can pass these values to the shader. You can do this very easily by using the shader class' SetMatrix() function. First parameter of SetMatrix() function is the name of variable in the shader, and the second is a D3DXMATRIXA16 variable declared above in the framework.</p>
+
+<pre><code class="language-cpp"> // set shader global variables
+ gpColorShader-&gt;SetMatrix("gWorldMatrix", &amp;matWorld);
+ gpColorShader-&gt;SetMatrix("gViewMatrix", &amp;matView);
+ gpColorShader-&gt;SetMatrix("gProjectionMatrix", &amp;matProjection);
+</code></pre>
+
+<p>Once all necessary values are passed to the shader, it is time to order the GPU: “Use this shader for anything being drawn from now on!” To give this order, use Begin() / BeginPass() and EndPass() / End() functions. Any meshes drawn between BeginPass() and EndPass() calls will use the shader. Let's look at the below code first.</p>
+
+<pre><code class="language-cpp"> // start a shader
+ UINT numPasses = 0;
+ gpColorShader-&gt;Begin(&amp;numPasses, NULL);
+ {
+  for (UINT i = 0; i &lt; numPasses; ++i)
+  {
+   gpColorShader-&gt;BeginPass(i);
+   {
+    // draw a sphere
+    gpSphere-&gt;DrawSubset(0);
+   }
+   gpColorShader-&gt;EndPass();
+  }
+ }
+ gpColorShader-&gt;End();
+</code></pre>
+
+<p>Do you see DrawSubset() call which is wrapped by BeginPass() and EndPass() calls, which are again wrapped by Begin() and End() calls? This will make the GPU to draw gpSphere object with gpColorShader shader.</p>
+
+<p>Some readers might wonder “Why is there BeginPass() function call after Begin()? What is a pass?” Confusing, right? Well, here's a good news; you do not need to worry about it. Passes are only useful when you draw a same object multiple times at once, but we barely do this in real world, so let's just ignore it for now. Just remember that the address of numPasses variable is passed to Begin() function to get the number of passes that exist in the shader. Most of the time, the number is 1. If there are two or more passes in the shader, that means there are more than one vertex/pixel shader pairs, too. So you just need to call BeginPass() / EndPass() as many times as the number of passes.</p>
+
+<p>Now, compile and run the program. You will see the exact same red sphere that you saw in RenderMonkey.</p>
+
+<h2 id="summary-1">Summary</h2>
+<p>A quick summary of what we learned in this chapter:</p>
+
+<ul>
+  <li>Per-vertex data is passed as member variables in vertex data.</li>
+  <li>Shared data between all vertices is passed as global variables.</li>
+  <li>HLSL provides vector-operation-friendly data types, such as float4 and float4x4.</li>
+  <li>When transforming vertices into different spaces, matrices are used. To multiply a matrix to a vector, use HLSL intrinsic function, mul().</li>
+  <li>HLSL represents a color in a normalized form. [0 ~ 1]</li>
+</ul>
+
+<p>What we learned here is the basics of basics. So unless you can write this simple shader effortlessly, you shouldn't attempt to write other shaders. While I was teaching at a college, I saw some students who did not bother to write this red shader because they thought it was too easy, but later they had hard times with other shaders. It was not because the other shaders were hard, but because those students failed to learn very basic HLSL syntax with this red shader. Therefore, please take your time to write this simple shader once or twice before moving to the next chapter.</p>
+
+<hr />
+<h6 id="footnotes">Footnotes:</h6>
+<ol>
+  <li>You will be surprised to see how often graphics programmers use this one-color shader for debugging purposes.</li>
+  <li>Not entirely true. Textures can be used for this, too.</li>
+  <li>What the heck is a semantic? Just think it as a tag.</li>
+  <li>By the way, GPUs are optimized to handle floating-pointing vectors. So, don't worry about using floats over ints. floats are often faster than ints on GPUs.</li>
+  <li>For more details on how to manually construct these matrices, please refer to your 3D math book.</li>
+  <li>If this value is 1, the pixel is opaque, and 0 means the pixel is completely transparent.</li>
+  <li>Please use D3DXMatrixOrthoLH() for orthogonal projection.</li>
+</ol>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2015/02/09/intro-to-shader-programming-book.html">Introduction to Shader Programming</a></li>
+                        
+                        <li><a href="/en/2015/01/26/intro-to-shader-06-toon-shader.html">06. Love Cartoons? Here's Toon Shader</a></li>
+                        
+                        <li><a href="/en/2014/02/11/intro-to-shader-04-lighting-part-2.html">04. Basic Lighting Shader - Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

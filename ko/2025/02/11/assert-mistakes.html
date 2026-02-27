@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Assert 사용 시 주의해야 할 점 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2025/02/11/assert-mistakes.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/02/11/assert-mistakes.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/02/11/assert-mistakes.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Assert 사용 시 주의해야 할 점</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2025-02-11
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/popetv/">포프TV</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/best-practice/">베스트프랙티스</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/포프tv-610화/">포프TV 610화</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    <div class="embed-container">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/3ydH14AFhMQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
+                    
+                    <h2 id="세줄요약">세줄요약</h2>
+<ol>
+  <li>Assert는 디버그 빌드에서만 작동하며, 문제를 빠르게 찾는 강력한 도구지만, 잘못 사용하면 릴리스 모드에서 예상치 못한 버그가 발생할 수 있다.</li>
+  <li>주니어 개발자들이 흔히 저지르는 실수는 Assert 내부에 함수 호출을 포함하는 것이며, 이는 릴리스 모드에서 해당 함수가 실행되지 않는 문제를 유발한다.</li>
+  <li>Assert 내부에는 순수한 Boolean 표현식만 사용하고, 함수 호출이 필요하다면 디버그 전용 함수로 명확히 구분하는 것이 바람직하다.</li>
+</ol>
+
+<h2 id="소개">소개</h2>
+<p>개발을 하면서 저는 항상 "Assert를 많이 써라"라고 강조해 왔습니다. 예외 처리, 오류 코드, TDD, 테스트 등 다양한 방법들이 있지만, 개발 도중 문제를 빨리 찾아내는 가장 효율적인 방법 중 하나가 바로 Assert입니다. Assert만 잘 사용해도 TDD의 기본적인 기능을 어느 정도 구현할 수 있죠. 하지만, 주니어 개발자들이 흔히 저지르는 실수가 하나 있습니다. 바로 <strong>Assert 내부에 함수 호출을 포함하는 것</strong>입니다. 이 실수로 인해 릴리스 모드에서 문제가 발생할 수 있으므로, 이에 대해 짚고 넘어가고자 합니다.</p>
+
+<h2 id="assert의-기본-개념">Assert의 기본 개념</h2>
+<p>Assert는 기본적으로 다음과 같은 특징을 가집니다:</p>
+
+<ol>
+  <li><strong>Boolean 표현식을 검사한다</strong>: Assert 뒤에는 Boolean 값을 반환하는 조건식이 오며, 이 값이 거짓이면 코드 실행이 중단됩니다.</li>
+  <li><strong>디버그 빌드에서만 작동한다</strong>: 릴리스 빌드에서는 Assert 자체가 실행되지 않기 때문에 성능에 영향을 주지 않습니다.</li>
+  <li><strong>개발 중에 버그를 빠르게 찾는 역할을 한다</strong>: 배포 전에 논리적인 오류를 쉽게 발견할 수 있습니다.</li>
+</ol>
+
+<p>이러한 장점이 있지만, 잘못 사용하면 큰 문제를 초래할 수도 있습니다.</p>
+
+<h2 id="주니어-개발자들이-흔히-저지르는-실수">주니어 개발자들이 흔히 저지르는 실수</h2>
+<p>많은 주니어 개발자들이 다음과 같은 실수를 합니다. Assert 내부에 직접 함수 호출을 넣는 경우죠.</p>
+
+<pre><code class="language-cpp">assert(SomeFunction());
+</code></pre>
+
+<p>위 코드는 디버그 모드에서는 정상적으로 동작하지만, 릴리스 모드에서는 <code>SomeFunction()</code>이 호출되지 않아 예상한 동작이 이루어지지 않을 수 있습니다.</p>
+
+<h2 id="올바른-assert-사용법">올바른 Assert 사용법</h2>
+<p>Assert를 사용할 때 이러한 실수를 방지하기 위해 몇 가지 원칙을 정하면 좋습니다:</p>
+
+<h3 id="1-assert-내부에는-순수한-boolean-표현식만-넣는다">1. Assert 내부에는 순수한 Boolean 표현식만 넣는다</h3>
+<p>즉, 변수나 단순한 조건식을 사용하는 것이 좋습니다.</p>
+
+<pre><code class="language-cpp">bool bValid = SomeFunction();
+assert(bValid);
+</code></pre>
+
+<h3 id="2-assert-안에-함수-호출이-꼭-필요하다면-해당-함수는-디버그-빌드에서만-호출된다는-것이-확실해야-한다">2. Assert 안에 함수 호출이 꼭 필요하다면, 해당 함수는 디버그 빌드에서만 호출된다는 것이 확실해야 한다</h3>
+
+<p>이런 경우, 함수명을 명확하게 정하는 것이 중요합니다.</p>
+
+<pre><code class="language-cpp">bool DBG_EnsureValidState();
+assert(DBG_EnsureValidState());
+</code></pre>
+
+<p><code>DBG_</code> 접두사를 붙이면 이 함수가 디버그 모드에서만 사용된다는 점을 명확히 알릴 수 있습니다.</p>
+
+<h3 id="3-릴리스-모드에서-필요한-로직은-assert가-아닌-별도의-코드로-유지한다">3. 릴리스 모드에서 필요한 로직은 Assert가 아닌 별도의 코드로 유지한다</h3>
+
+<p>예를 들어, 중요한 초기화 로직이나 상태 검증을 Assert 안에만 넣어두면 릴리스 모드에서는 작동하지 않으므로 별도의 로직으로 유지해야 합니다.</p>
+
+<pre><code class="language-cpp">bool bValid = SomeFunction();
+assert(bValid);
+if (!bValid)
+{
+    HandleError();
+}
+</code></pre>
+
+<h2 id="결론">결론</h2>
+<p>Assert는 매우 강력한 도구이지만, 올바르게 사용하지 않으면 디버그 모드와 릴리스 모드에서 다른 동작을 초래할 수 있습니다. 특히, <strong>Assert 내부에 함수 호출을 포함하는 실수는 릴리스 모드에서 예상치 못한 버그를 유발할 수 있으므로 반드시 피해야 합니다.</strong></p>
+
+<p>제가 주니어 시절 직접 겪었던 실수이기도 하고, 많은 개발자들이 같은 실수를 경험합니다. 그러니 지금부터라도 올바른 습관을 들여 Assert를 효과적으로 활용하시길 바랍니다.</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2024/01/14/easy-markdown-editing-without-loose-vs-tight-lists.html">리스트 스타일 걱정 없는 마크다운 편집</a></li>
+                        
+                        <li><a href="/ko/2026/02/18/monorepo-architecture.html">우리가 모노리포를 유지하는 방식, 그리고 왜 DLL 경계가 더 중요한가</a></li>
+                        
+                        <li><a href="/ko/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">페북 Graph API 자주 끊기는 시대, ASP.NET Core 로그인은 이렇게 관리해야 한다</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

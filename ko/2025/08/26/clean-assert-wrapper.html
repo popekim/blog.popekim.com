@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Assert 래퍼 깔끔하게 쓰기 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2025/08/26/clean-assert-wrapper.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2025/08/26/clean-assert-wrapper.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2025/08/26/clean-assert-wrapper.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Assert 래퍼 깔끔하게 쓰기</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2025-08-26
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/csharp/">C#</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/debugging/">디버깅</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>C# 개발하다 보면 <code>Debug.Assert()</code>나 <code>Debug.Fail()</code> 같은 디버깅용 API를 자주 쓰게 된다. 그런데 프로젝트 전체에서 직접 호출하다 보면 불편할 때가 많지. 그래서 보통은 이를 감싸는 <strong>래퍼 함수</strong>를 만들어 전역적으로 쓰곤 한다.</p>
+
+<p>예를 들어:</p>
+
+<pre><code class="language-csharp">DBG_CHECK(x != null, "x is null!");
+</code></pre>
+
+<h2 id="왜-굳이-래퍼를-쓰는가">왜 굳이 래퍼를 쓰는가?</h2>
+
+<ul>
+  <li><code>DBG_CHECK()</code> 같은 헬퍼를 <code>using static</code>으로 글로벌하게 걸어두면 <strong>타이핑이 편하다.</strong></li>
+  <li>전부 대문자라서 코드 속에서 눈에도 잘 띈다. → <strong>로직 코드가 아니라 디버그 전용 장치</strong>라는 걸 금방 알아볼 수 있어서, 훑어보다가 쉽게 넘기기도 좋다.</li>
+  <li>내부에 추가적인 강제 로직을 몰래(?) 집어넣을 수도 있다.</li>
+</ul>
+
+<p>즉, 반복적으로 쓰는 <code>Debug.Assert()</code> 호출을 보기 좋고 쓰기 편하게 정리하는 셈이다.</p>
+
+<h2 id="conditionaldebug를-붙이는-이유"><code>[Conditional("DEBUG")]</code>를 붙이는 이유</h2>
+
+<p>이 래퍼 함수는 당연히 <strong>DEBUG 모드에서만 호출</strong>되길 원한다. C#에서는 <code>[Conditional("DEBUG")]</code> 어트리뷰트를 붙이면, 컴파일러가 <strong>릴리스 빌드에서 호출 자체를 제거</strong>한다.</p>
+
+<pre><code class="language-csharp">[Conditional("DEBUG")]
+public static void DBG_CHECK(bool condition, string? message = null)
+{
+    if (!condition)
+    {
+        Debug.Fail(message);
+    }
+}
+</code></pre>
+
+<ul>
+  <li>릴리스 빌드에선 IL 코드조차 남지 않는다.</li>
+  <li><code>#if DEBUG ... #endif</code> 블록을 매번 감쌀 필요도 없다.</li>
+  <li>성능/보안 측면에서 <strong>릴리스에 assert가 남으면 절대 안 되기 때문에 반드시 필요</strong>하다.</li>
+</ul>
+
+<h2 id="귀찮은-점-스택-트레이스-문제">귀찮은 점: 스택 트레이스 문제</h2>
+
+<p>문제는 이 함수를 쓰다 <code>Debug.Assert()</code>가 히트하면, <strong>스택의 맨 위가 항상 <code>DBG_CHECK()</code> 같은 래퍼 함수</strong>라는 점이다.</p>
+
+<p>예를 들어:</p>
+
+<pre><code class="language-csharp">void Foo()
+{
+    Bar(null);
+}
+
+void Bar(object? arg)
+{
+    DBG_CHECK(arg != null, "arg is null");
+}
+</code></pre>
+
+<p><code>arg</code>가 <code>null</code>일 때 스택은 이렇게 찍힌다:</p>
+
+<pre><code>DBG_CHECK()
+Bar()
+Foo()
+</code></pre>
+
+<p>내가 보고 싶은 건 <code>Bar()</code>인데, 디버거는 항상 <code>DBG_CHECK()</code> 안에서 멈춰버린다. 그래서 매번 콜 스택을 뒤돌려 봐야 하는 불편함이 있다.</p>
+
+<h2 id="해결책-debuggerhidden">해결책: <code>[DebuggerHidden]</code></h2>
+
+<p>이때 쓸 수 있는 게 바로 <code>[DebuggerHidden]</code> 어트리뷰트다.</p>
+
+<pre><code class="language-csharp">[Conditional("DEBUG")]
+[DebuggerHidden]
+public static void DBG_CHECK(bool condition, string? message = null)
+{
+    if (!condition)
+    {
+        Debug.Fail(message);
+    }
+}
+</code></pre>
+
+<ul>
+  <li><code>DebuggerHidden</code>은 디버거에게 <strong>이 함수 내부는 숨기라</strong>고 지시한다.</li>
+  <li>즉, 이 함수 안에서 브레이크가 걸리면 <strong>호출자 코드 위치로 곧장 점프</strong>한다.</li>
+  <li>Visual Studio에서는 아주 깔끔하게 잘 동작한다.</li>
+</ul>
+
+<h2 id="실제-동작-예시">실제 동작 예시</h2>
+
+<p>위 <code>Bar()</code> 함수에서 <code>DBG_CHECK()</code>가 실패하면 디버거는 이렇게 보여준다:</p>
+
+<pre><code>Bar()
+Foo()
+</code></pre>
+
+<p><code>DBG_CHECK()</code> 프레임이 스택에서 사라진 것처럼 보이므로, 원하는 호출 지점에서 바로 디버깅을 시작할 수 있다.</p>
+
+<h2 id="추가-디테일">추가 디테일</h2>
+
+<ul>
+  <li><code>DebuggerHidden</code>은 .NET Framework 2.0 이상, .NET Core, .NET 5~9까지 전부 지원된다.</li>
+  <li>Visual Studio 2019, 2022에서 정상 동작 확인. (JetBrains Rider도 비슷하지만 IDE별로 차이는 있을 수 있다.)</li>
+  <li>단점: <code>DebuggerHidden</code>이 붙은 함수 내부에는 <strong>브레이크포인트를 찍을 수 없다.</strong> 하지만 assert 래퍼라면 전혀 문제 없음.</li>
+</ul>
+
+<h2 id="정리">정리</h2>
+
+<ul>
+  <li><code>Debug.Assert()</code> 대신 <code>DBG_CHECK()</code> 같은 래퍼를 만들면 <strong>편하고 눈에 잘 띄며 코드 구분성도 좋아진다.</strong></li>
+  <li><code>[Conditional("DEBUG")]</code>를 붙여야 릴리스 빌드에서 안전하다.</li>
+  <li>하지만 항상 스택 최상단에 래퍼 함수가 찍히는 게 불편한데, <code>[DebuggerHidden]</code>을 함께 붙이면 호출자 쪽으로 바로 디버깅 포커스가 옮겨진다.</li>
+  <li>Visual Studio 기준 아주 깔끔하게 동작한다.</li>
+</ul>
+
+<p>👉 결론: <strong>Assert 래퍼 만들 땐 <code>Conditional("DEBUG") + DebuggerHidden</code> 콤보는 사실상 필수.</strong></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/10/11/defensive-assertion-utils.html">내가 만든 방어 유틸 함수 5종 세트</a></li>
+                        
+                        <li><a href="/ko/2025/10/17/two-db-commit-side-effects.html">두 개의 DB에 동시에 쓰면서 사이드 이펙트를 최소화하는 방법</a></li>
+                        
+                        <li><a href="/ko/2025/08/31/aspnet-core-facebook-login-graph-api-management.html">페북 Graph API 자주 끊기는 시대, ASP.NET Core 로그인은 이렇게 관리해야 한다</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>컴파일 중에 문자열해쉬 만들기....(를 시도해 보자? -_-) | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2012/01/11/compile-time-hash-string-generation.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2012/01/11/compile-time-hash-string-generation.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2012/01/11/compile-time-hash-string-generation.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">컴파일 중에 문자열해쉬 만들기....(를 시도해 보자? -_-)</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2012-01-11
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/optimization/">최적화</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/cpp/">C++</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/hash/">hash</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/x65599/">x65599</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <h2 id="동기">동기</h2>
+<p>최근에 한동안 동고동락했던 게임엔진에서는 모든 것을 문자열(string)로 참조했었습니다. 물론 문자열 비교를 계속 해야하니 꽤 느린 방법이었지요. 그래서 이걸 빠르게 하기 위해 해쉬값(정수, int)을 사용했었더라죠.</p>
+
+<p>이놈이 대충 이렇게 동작했습니다. 일단 엔진에 싱글턴으로 해쉬 문자열 매니저가 있고요, 게임실행 도중에 문자열을 사용할 때마다 이 매니저를 통해서 해쉬 값을 받는데, 그때마다 해쉬 값과 문자열이 해쉬문자열 매니저안에 저장됩니다. 그리고 문자열을
+비교할 때는 그냥 해쉬 값만 비교하고, 실제 문자열을 char*가 필요할 때는 <code>hashStringManager-&gt;GetString(hashKey);</code> 이런 식으로 호출해 주면 되었죠.</p>
+
+<p>개인적으로는 이 시스템이 그닥 맘에 들지 않았는데요……-_- 그 이유는:</p>
+
+<ul>
+  <li>메모리 낭비가 심하다:
+    <ul>
+      <li>해쉬문자열 매니저에 저장된 놈 중에 정작 게임에서 char* 문자열로 형태로 사용하는 놈은 10% 정도 밖에 안되었습니다.</li>
+      <li>따라서 90%는 그냥 룩업(look-up) 키처럼 해쉬값(int)만 사용할 뿐이었죠.</li>
+      <li>즉, 90% 에 대해선 실제 char* 을 저장해 둘 필요가 없었습니다. 그냥 해쉬값만 있으면 충분했죠.</li>
+      <li>그래서 한 생각이… .이 90%에 대해서는 굳이 해쉬값을 게임 실행중에 계산할게 아니라 오프라인에서(툴이나 컴파일 도중에) 만들어 주면 되겠다고….</li>
+    </ul>
+  </li>
+  <li>멀티쓰레딩을 할 때도 레이스(race) 컨디션이 없도록 하려다보니 해쉬문자열 매니저가 꽤 느려졌습니다. lock을 추가했는데, 특히 리소스 로딩도중에 여러 쓰레드가 이 lock을 걸려고 하다보니 이게 꽤 bottleneck이 걸리더라구요?</li>
+  <li>실행파일이나 게임리소스 데이터파일에 들어가있는 문자열은 hex 에디터 하나만으로도 쉽게 볼 수 있으니….좀 더 해킹당할 위험이 클껄요…?</li>
+</ul>
+
+<p>그래서 이보다 좀 나은 방법을 찾아보자….. 하고 시도했던 게 바로… 이 밑에 아주 장황하게 설명하는 놈입니다… </p>
+
+<h2 id="일단-문자열의-종류를-2가지로-나누자">일단 문자열의 종류를 2가지로 나누자</h2>
+<p>위에서 90%와 10%로 나눴던 문자열을 다른 포맷으로 저장하는게 우선입니다.</p>
+
+<h3 id="1-char-문자열-10">1. char* 문자열 (10%)</h3>
+
+<p>게임속에서 char* 형태로 사용해야 하는 문자열들은 (예전과 비슷하게) char[]포맷으로 저장합니다.</p>
+
+<ul>
+  <li>
+    <p>게임실행중에 로딩해야할 파일의 이름들 (단, 파일이름마저 해쉬로 만들어서 1HDA3820.ext 라는 형식으로 저장하는 경우에는 예외겠죠… 근데 정말 이렇게까지 하는 게임들이 몇이나 있을까요…..? 머엉…. -_-)</p>
+  </li>
+  <li>
+    <p>화면에 출력해야할 문장들: 게이머들에게 0xFFFFF, 0x888888 또는 0x000000 따위로 대화창을 보여주고 싶진 않겠죠….? (아래 사진을 보니 그래도 될거 같긴….  ^_^)</p>
+  </li>
+</ul>
+
+<p><img src="/ko/assets/img/2012/01/26.jpg" alt="" /> <br />
+Image Source: icanhascheeszburger.com</p>
+
+<p>대부분의 게임에서 쓰이는 문자열 중에 순수 char* 문자열이 필요한 경우는 대충 10% 정도 될테니까… 굳이 해쉬값을 계산하는 대신 곧바로 strcmp()로 한글자씩 문자열을 비교해도 될거 같은데요. 뭐, 정 해쉬값을 사용하려면 위에서 설명드렸던 해쉬 문자열 매니저를 사용해도 되구요. (최소한 예전에 비해 1/10정도의 문자열만 저장할테니 메모리 낭비는 적겠죠….)</p>
+
+<h3 id="2-해쉬값으로-표현한-문자열-90">2. 해쉬값으로 표현한 문자열 (90%)</h3>
+
+<p>위의 10%를 제외한 다른 문자열들, 즉 char* 형태가 전혀 사용되지 않는 문자열들은 그냥 간단히 해쉬값(int)로 저장합니다. 여기에 포함되는 문자열들로는 다음과 같은 놈들이 있죠.</p>
+
+<ul>
+  <li>문자열 비교에만 쓰이는 놈</li>
+  <li>(해쉬맵 등의) 룩업키로만 쓰이는 놈</li>
+</ul>
+
+<p>char* 문자열을 사용하는 법은 이미 다들 아실테니…. 두번째 방법인 해쉬값으로 표현하는 문자열에 대해서만 좀더 다루겠습니다.</p>
+
+<h2 id="괜찮은-해쉬함수-고르기-x65599">괜찮은 해쉬함수 고르기: x65599</h2>
+
+<p>해쉬함수가 뭔지는 다들 아실란가요? 모르시는 분들을 위해 간단히 말하면 다른 문자열마다 독특한('고유한'이라고도 표현합니다) 정수값을 만들어 내줄려고 "노력"하는 함수입니다. ("노력"에 따옴표를 두른 이유는 해쉬함수가 독특한 정수값을 계산해내지는 못하는 경우가 있기 때문입니다. 이렇게 문자열이 서로 다른데도 동일한 해쉬값이 나오는 경우를 두고 해쉬 충돌이 생겼다고 하지요.) 뭐든간에 각 문자열마다 독특한 해쉬값을 만들어 내었다면 문자열을 비교할 때, 그 안에 있는 글자를 하나씩 비교할 필요 없이 그냥 해쉬값 2개만 비교하면 되지요. 이것의 장점? 아무래도 빠르죠. 간단하고… ^^</p>
+
+<p>그렇다면 문자열마다 고유한 해쉬값을 계산하는 방법은 뭘까요? 뭐… 이미 꽤 많은 해쉬함수들이 공개되어있지요. 각, 함수따라 해쉬 충돌이 나는 횟수도 좀 다르고, 속도도 다양합니다. 그냥 본인의 필요에 따라 가장 적절한 함수를 선택하면 됩니다. 제 개인적으로 생각하는 게임에 적합한 해쉬 함수는 다음과 같은 조건을 충족해야 합니다.</p>
+
+<ul>
+  <li>해쉬 충돌이 거의 없어야 한다.</li>
+  <li>컴파일 도중과 게임실행 중에 모두 사용할 수 있을 정도로 유연해야 한다: 예를 들어 게임실행도중에 두 문자열을 합친(concat) 뒤 그 결과물에 해쉬값을 계산하려 한다면 컴파일 시점만 아니라 런타임에서도 이 함수를 쓸 수 있어야 겠죠?</li>
+  <li>게임속에서 사용할 수 있을 정도로 속도가 빨라야 한다.</li>
+</ul>
+
+<p>그래서 인터넷질을 좀 하던 도중 <a href="http://chrissavoie.com/articles-mainmenu-29/15/65-hash2">Chrisis Savoie 아저씨네 블로그에서 해쉬함수를 비교해둔 차트</a>를 찾았습니다. 차트를 쭉 둘러보니 x65599라고 불리는 해쉬함수가 저에게 가장 적합해 보이더군요. (그리고 이름도 멋지잖아요.. 앞에 X가 떡하니 붙으니.. 먼가 간지가 풀풀~ -_-;;; ) x65599는 성경책에 나오는 단어들을 모두 돌려도 해쉬 충돌이 없다더군요. (역시 위 링크 참조)</p>
+
+<p>그리고 실제 코드도 한번 봤는데(바로 아래 붙여놓았음) 매우 짧더군요. -_-;; 그냥 65599를 계속 곱해주면 끝(물론 오버플로우를 이용하는 거지만….) 아하! 그래서 이름이 x65599였군요.. ㅎㅎ… (참고로 65599는 소수(prime number)입니다. 해쉬값을 계산해 낼 때는 이렇게 소수를 많이 씁니다.)</p>
+
+<pre><code class="language-cpp">// 65599를 곱하는 해쉬함수. (Red Dragon 책에서 훔쳐옴 -0-)
+unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+    
+    for(size_t i = 0; i &lt; len; ++i)
+    {
+        hash = 65599 * hash + string[i];
+    }
+    
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<p>자, 그럼 그럴듯해 보이는 해쉬 함수도 골랐으니… 이제 툴과 게임코드에서 어떤 짓을 해야하는지 가볍게 살펴보죠.</p>
+
+<h2 id="툴에서-데이터-세이브하기">툴에서 데이터 세이브하기</h2>
+
+<p>char* 값을 게임데이터로 저장하는 툴이 있다면, char* 대신 해쉬값(int)을 저장하도록 툴 코드를 바꿔줍니다. 뭐 그냥 저 위의 해쉬함수에 char* 를 인자로 호출한 뒤, 그 결과를 저장해 주면 됩니다. (툴이 C#처럼 다른 언어로 되어있으면  그 언어에서 똑같은 함수를 만들어주던가.. 아니면 interop으로 감싸주던가…. )</p>
+
+<p>간단하죠? 이러면 데이터에서 char*는 사라집니다. 이제 게임코드쪽으로 고고고,,,</p>
+
+<h2 id="게임코드에서-컴파일시에-해쉬값-만들기">게임코드에서 컴파일시에 해쉬값 만들기</h2>
+<p>예를 들어 게임코드에서 "funny_bone"이란 이름의 조인트를 찾으려 한다고 하죠. 예전 같으면 이런 코드를 썼겠죠.</p>
+
+<pre><code class="language-cpp">bones.find("funny_bone");
+</code></pre>
+
+<p>근데 이제 툴에서 "funny_bone"이란 문자열 대신에 해쉬값을 저장하니… 이제는 대신 이렇게 코드를 작성해야 합니다.</p>
+
+<pre><code class="language-cpp">const char * boneToFind = "funny_bone";
+bones.find( generateHash(boneToFind, strlen(boneToFind) );
+</code></pre>
+
+<p>근데 이렇게 하면 "funny_bone"이라는 문자열이 여전히 실행파일에 삽입되지 않을까요?  만약 그렇다면 예전에 쓰던 해쉬문자열 매니저보다 메모리를 적게 잡아먹을리도 없겠고…. 으음…. 그렇다면.. 여태까지 왜 글을 쓴거지? -_-;;;; 는 아니고……..</p>
+
+<p>위를 잘보면 문자열이 상수(const) 잖아요? 그럼 저기에 generateHash() 함수에서 하는 계산을 적용하면 나오는 그 결과 해쉬값(int)도 정해져 있을 수밖에 없죠. 즉, 똑똑한 컴파일러라면 "아하! funny_bone이란 문자열이 이미 상수로 정의되어 있고 여기에 generateHash()란 함수를 호출하면서 이런저런 계산을 하는군. 그렇다면 굳이 프로그램 실행도중에 이런 계산을 할 필요가 없겠는걸? 컴파일 도중에 미리 해버려서 그 결과인 해쉬값'만' 코드에 넣으면 되지 않을까?" 라는 논리적 사고를 할 수 있어야 한다…. 는게 제 소망이자 바램이죠.. -_-;; 만약 컴파일러가 이리 똑똑할 수 있다면 컴파일 도중에 다음과 같이 코드가 바뀔 겁니다.</p>
+
+<pre><code class="language-cpp">// 0XF1C66FD7F이 실제 "funny_bone"의 해쉬값입니다.
+bones.find( 0xF1C6FD7F );    
+</code></pre>
+
+<p>이런 마법은(?) 다음 두 조건만 충족된다면 가능합니다.</p>
+
+<ul>
+  <li>컴파일러가 위 해쉬 함수를 인라인(inline)한다: 컴파일러가 해쉬함수를 인라인으로 삽입해주지 않으면 컴파일 도중에 해쉬값을 계산할 턱이 없지요. 그냥 함수를 호출할 테니까요. 따라서 이 조건이 반드시 충족되야 합니다. 대부분의 컴파일러에서 inline 키워드는 강제성이 없는 게 문제긴 한데… (가이드라인일 뿐)… 뭐 그닥 해결하기 어려운 문제는 아닙니다.</li>
+  <li>컴파일러가 해쉬함수 안에 있는 for루프를 언롤(unroll )해 준다: 언롤이란 루프 코드가 있을 때, 각 루프 회차를 일일이 코드로 풀어서 써주는 걸 뜻합니다. 컴파일러가 컴파일시에 루프를 몇번 돌릴 지 예측할 수 있다면 이걸 일일이 풀어 써주는게 불가능하지만은 않죠….</li>
+</ul>
+
+<h4 id="generatehashconst-char--size_t-함수의-인라인">generateHash(const char *, size_t) 함수의 인라인</h4>
+<p>우선 컴파일시에 generateHash(const char*, size_t) 함수가 인라인 될 수 있게 만들어줘야 겠죠. 그러려면 헤더파일에 함수본체를 넣는 방법이 최고입니다. 더 나아가, 문자열의 길이를 구하려고 strlen(const char *)함수를 따로 호출할 필요가 없도록 다음과 같은 매크로를 만들겠습니다.</p>
+
+<pre><code class="language-cpp">#define HASH_STRING(str) generateHash(str, strlen(str));
+</code></pre>
+
+<p>이 매크로까지 들어간 hash.h 파일을 보여드리면 다음과 같습니다.</p>
+
+<pre><code class="language-cpp">// 컴파일 타임 해쉬문자열 만들기 테스트
+// author: Pope Kim (www.popekim.com)
+
+#include &lt;string.h&gt;
+#define HASH_STRING(str) generateHash(str, strlen(str));
+
+// 65599를 곱하는 해쉬함수. (Red Dragon 책에서 훔쳐옴 -0-)
+// // 이 함수의 몸체까지 헤더파일에 넣어서 컴파일러의 인라인을 돕는다.inline unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+    
+    for(size_t i = 0; i &lt; len; ++i)
+    {
+        hash = 65599 * hash + string[i];
+    }
+    
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<h3 id="테스트-코드">테스트 코드</h3>
+<p>이제 테스트 코드를 만들어 컴파일러와 최적화 옵션에 따라 원하는 결과(<code>HASH_STRING(str)</code>이 정수로 탈바꿈 하는 것… 물론 컴파일시에…)가 나오는지 살펴보겠습니다.</p>
+
+<p>이게 테스트 코드, main.cpp입니다.</p>
+
+<pre><code class="language-cpp">// 컴파일 타임 해쉬문자열 만들기 테스트// author: Pope Kim (www.popekim.com)
+
+#include &lt;stdio.h&gt;
+#include "hash.h"
+
+int main(int args, char** argv)
+{
+    unsigned int hashValue = HASH_STRING("funny_bone");
+    printf("해쉬 값: 0x%8x\n", hashValue);
+    
+    return 0;
+}
+</code></pre>
+
+<p>이제 컴파일러들이 얼마나 똑똑한지 알아봅시다 -_-;</p>
+
+<h3 id="visual-studio-2010-sp1">Visual Studio 2010 SP1</h3>
+<p>비주얼 스튜디오에서 Win32 콘솔 프로젝트를 만든 뒤, 최적화 옵션을 바꿔가며 테스트 해봤습니다. (제가 영문 비졀 스튜디오를 써서 옵션은 대충 영문으로 남겨둡니다 -_-)</p>
+
+<ol>
+  <li>프로젝트 설정을 Release로 바꿔줍니다.</li>
+  <li>어셈블리 파일을 출력하기 위해 Project Properties &gt; C/C++ &gt; Output Files &gt; Assembler Output 옵션으로 가서 Assembly-Only Listing (/FA)을 선택 해줍니다.</li>
+  <li>최적화 플래그를 바꿔주기 위해 Project Properties &gt; C/C++ &gt; Optimization으로 가서 아래의 최적화 옵션들을 바꿔줘가며 컴파일을 합니다.</li>
+</ol>
+
+<h4 id="disabled-od">Disabled (/Od)</h4>
+<p>주목할 만한 것은 대략 2가지….</p>
+<ul>
+  <li>generateHash() 함수가 인라인 안되었군요.. (뭐 최적화를 전혀 안했으니 당연한…?)</li>
+  <li>재미있게도 strlen() 호출은 10으로 탈바꿈 했군요. push 10이라고 된 어셈코드를 보세요…</li>
+</ul>
+
+<pre><code>_main PROC      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 11
+ push ebp
+ mov ebp, esp
+ push ecx
+; Line 12
+ push 10     ; 0000000aH                       &lt;-------------- 여기!
+ push OFFSET $SG-5
+ call ?generateHash@@YAIPBDI@Z  ; generateHash &lt;-------------- 여기!
+ add esp, 8
+ mov DWORD PTR _hashValue$[ebp], eax
+; Line 13
+ mov eax, DWORD PTR _hashValue$[ebp]
+ push eax
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ mov esp, ebp
+ pop ebp
+ ret 0
+_main ENDP
+</code></pre>
+
+<h4 id="minimize-sizeo1">Minimize Size(/O1)</h4>
+<p>최적화 끈 거와 별 차이는 없습니다. 해쉬함수가 인라인되긴 했는데 여전히 루프를 돌립니다. (문자열 길이인 10하고 비교한 뒤 다시 루프 처음으로 점프(jb)하는 부분을 보시면 암)</p>
+
+<pre><code>main PROC      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 12
+ xor ecx, ecx
+ xor eax, eax
+$LL5@main:
+ movsx edx, BYTE PTR ??_C@_0L@DDOFCBGB@funny_bone?$AA@[eax]
+ imul ecx, 65599    ; 0001003fH
+ add ecx, edx
+ inc eax
+ cmp eax, 10     ; 0000000aH       &lt;-------------- 여기!
+ jb SHORT $LL5@main                &lt;-------------- 여기!
+ mov eax, ecx
+ shr eax, 16     ; 00000010H
+ xor eax, ecx
+; Line 13
+ push eax
+ push OFFSET ??_C@_0BF@DJEFNLLJ@hash?5value?5is?50x?$CF8x?6?$AA@
+ call DWORD PTR __imp__printf
+ pop ecx
+ pop ecx
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<h4 id="maximize-speedo2">Maximize Speed(/O2)</h4>
+
+<p>오옷! 첫 줄을 봐봐요. push -238617217 이게 16진수로 0xF1C6FDF?이거든요. 모든 계산이 다 사라지고 해쉬값 하나로 탈바꿈 했군요! 이야! 역시 가능한 거였어요 -_- 흣~</p>
+
+<pre><code>; Line 13
+ push -238617217    ; f1c6fd7fH     &lt;-------------- 여기!
+ push OFFSET ??_C@_0BF@DJEFNLLJ@hash?5value?5is?50x?$CF8x?6?$AA@
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<p>그리고 여기서 나온 .exe파일을 텍스트 에디터에서 열어서 funny_bone이란 문자열이 있나 찾아보니 없군요!</p>
+
+<p><img src="/ko/assets/img/2012/01/27.jpg" alt="" /></p>
+
+<h4 id="full-optimizationox">Full Optimization(/Ox)</h4>
+
+<p>이 옵션으로도 어셈블리어는 그럴듯해 보입니다.</p>
+
+<pre><code>_main PROC      ; COMDAT
+; File e:\temp\x65599\x65599\main.cpp
+; Line 13
+ push -238617217    ; f1c6fd7fH    &lt;-------------- 여기!
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<p>하지만 .exe파일을 열어서 funny_bone을 찾아보니…</p>
+
+<p><img src="/ko/assets/img/2012/01/28.jpg" alt="" /> <br />
+<strong>funny_bone이 왜 있는 건데…? 응?</strong></p>
+
+<p>이거 뭐하자는 건지… -_- Full Optimization이 사용안하는 문자열 하나 제거하지 않다니.. 참으로 웃긴 일입니다. 이 외에도 다른 테스트 프로그램을 만들어서 실험해봐도 결과는 같았습니다. 심지어 이따위 함수를 만들고 컴파일해도 exe파일안에 스트링이 그대로 있더군요.</p>
+
+<pre><code class="language-cpp">void idiot()
+{
+    const char* idiot = "OMG";
+}
+</code></pre>
+
+<p>사실 .exe 파일 안까지 뒤져볼 생각은 첨에 안했었는데 <a href="http://blog.naver.com/denoil">진영군(denoil)</a>이 안되는거 아니냐고 물어와서 그거 확인해보다 찾아낸 결과입니다. 진영군이 VS 2008과 VS2010 버전에서 실험했을때도 결과는 똑같이 개판이었어요 -_-;</p>
+
+<p>그래서 회사동료인 Karl하고 뒤적거리다 보니 C/C++ &gt; Code Generation &gt; Enable String Pooling이란 옵션이 있더군요. 이걸 Yes(/GF)로 켜주면 그제서야 문자열이 exe에서 사라집디다. 뭔 이유인진 모르겠지만 이 옵션이 /O1, /O2에는 켜있는데 /Ox에는 기본적으로 꺼져있더라는….</p>
+
+<h3 id="g">g++</h3>
+
+<p>그렇다면 g++ 컴파일러는 과연 어떨까요. 테스트에 사용한 g++ 버젼은 4.5.3이고.. 컴파일러 플랙은 이렇게 했습니다.</p>
+
+<pre><code>g++ *.cpp -pedantic -Wall -S &lt;최적화-플랙&gt;
+</code></pre>
+
+<p>-S 플랙은 어셈블러 코드만 만들고 컴파일을 중지하라는 의미임..(어셈블리어를 봐야 제대로 마법을 부렸는지 확인할 수 있으니…. -_-)</p>
+
+<h4 id="-o0">-O0</h4>
+<p>-O0 플랙은 최적화를 하지말란 의미죠. 따라서 결과는 뻔한… 비졀스튜디오와 마찬가지로 strlen() 함수가 10으로 탈바꿈 해버렸단 게 좀 특이할 뿐…. 하지만 여전히 해쉬함수는 인라인 안되었습니다.</p>
+
+<pre><code>LFE4:
+ .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI4:
+ movl %esp, %ebp
+LCFI5:
+ andl $-16, %esp
+LCFI6:
+ subl $32, %esp
+LCFI7:
+ call ___main
+ movl $10, 4(%esp)             &lt;-------------- 여기!
+ movl $LC0, (%esp)
+ call __Z12generateHashPKcj    &lt;-------------- 여기!
+ movl %eax, 28(%esp)
+ movl 28(%esp), %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ movl $0, %eax
+ leave
+LCFI8:
+ ret
+</code></pre>
+
+<h4 id="-o1">-O1</h4>
+
+<p>이 플래그에서는  generateHash() 함수가 인라인 됩니다만 여전히 계산은 다 합니다. 비졀 스튜디오랑 매우 비슷하군요?</p>
+
+<pre><code>.def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ pushl %ebx
+LCFI3:
+ subl $28, %esp
+LCFI4:
+ call ___main
+ movl $LC0, %eax
+ movl $LC0+10, %ebx
+ movl $0, %edx
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl %ecx, %edx
+ addl $1, %eax
+ cmpl %ebx, %eax          &lt;-------------- 여기!
+ jne L2                   &lt;-------------- 여기!
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %eax, %edx
+ movl %edx, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ movl $0, %eax
+ addl $28, %esp
+ popl %ebx
+LCFI5:
+ movl %ebp, %esp
+LCFI6:
+ popl %ebp
+LCFI7:
+ ret
+</code></pre>
+
+<h4 id="-o2">-O2</h4>
+<p>-O1플래그와 결과가 같군요. (뭐 그도 그럴법한게 루프 언롤은 -O3 플래그에서나 활성회 돠거든요…)</p>
+
+<pre><code> .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+ .p2align 4,,15
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+ movl $LC0, %eax
+ xorl %edx, %edx
+ .p2align 4,,7
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl $1, %eax
+ addl %ecx, %edx
+ cmpl $LC0+10, %eax       &lt;-------------- 여기!
+ jne L2                   &lt;-------------- 여기!
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %edx, %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+</code></pre>
+
+<h4 id="-o3">-O3</h4>
+
+<p>드디어 결과가 나왔습니다! <code>movl $-238617217, 4(%esp)</code> 보이시죠? 드디어 정수값 하나로 탈바꿈 했군요.</p>
+
+<pre><code> .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+ .p2align 4,,15
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+ movl $-238617217, 4(%esp)            &lt;-------------- 여기!
+ movl $LC0, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+</code></pre>
+
+<p>xe 파일을 열어서 문자열 검색을 해봐도 없었습니다. (스크린샷은 생략)</p>
+
+<h4 id="-os">-Os</h4>
+<p>-Os 는 크기를 제일 작게 최적화하란 플래그인데요. 역시 원하는 결과는 아닙니다.</p>
+
+<pre><code>LFE4:
+ .def ___main; .scl 2; .type 32; .endef
+ .section .rdata,"dr"
+LC0:
+ .ascii "funny_bone\0"
+LC1:
+ .ascii "hash value is 0x%8x\12\0"
+ .text
+.globl _main
+ .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI7:
+ movl %esp, %ebp
+LCFI8:
+ andl $-16, %esp
+LCFI9:
+ subl $16, %esp
+LCFI10:
+ call ___main
+ movl $10, 4(%esp)
+ movl $LC0, (%esp)
+ call __Z12generateHashPKcj    &lt;-------------- 여기!
+ movl $LC1, (%esp)
+ movl %eax, 4(%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI11:
+ ret
+</code></pre>
+
+<h3 id="간단-정리">간단 정리</h3>
+<p>자, 이 놀라운(어쩌면 어이없는 걸지도 -_-) 꼼수를 동작하게 하려면 필요한 비졀 스튜디오 2010과 g++의 최적화 플래그를 간단히 정리.</p>
+
+<h4 id="visual-studio-2010-sp1-1">Visual Studio 2010 SP1</h4>
+<ul>
+  <li>/O2</li>
+  <li>/Ox (단 Enable String Pooling option을 킬 것)</li>
+</ul>
+
+<h4 id="g-453">g++ 4.5.3</h4>
+<ul>
+  <li>-O3</li>
+</ul>
+
+<h2 id="디버깅">디버깅</h2>
+<p>자, 그럼 코드에서 char* 문자열도 제거했으니 실행파일 용량도 작아질테고… 어랏? 근데 디버깅은 어쩌죠? 예를 들어서 "0xF1C6FD7F"란 이름을 가진 본에서 크래쉬가 낫다면….. 이게 대체 3DS Max에서 어떤 본인지 어케 알까요? 디버깅을 하려면 char* 문자열이 여전히 필요하군요…… 써글 -_-;;;</p>
+
+<p>그렇다면 여태까지 한 걸 모두 접어야 할까요… 물론 그럴거면 이 글도 안썼겠죠 -_-; 이 데이터는 디버깅에만 유용한 거니까 디버깅에만 사용할 법한 꼼수를 찾아야죠. 생각해보면 사실 그닥 어려운 문제는 아닙니다. 그냥 문자열 데이터베이스 파일만 하나 있으면 되죠. 그 데이터베이스는 &lt;해쉬키, char*&gt;로 된 목록을 가질거고, 이제 1)게임코드에서 사용하는 모든 문자열과 2)툴에서 게임데이터로 저장하는 모든 문자열을 데이터베이스에 저장해 두기만 하면 됩니다.</p>
+
+<h3 id="디버그-문자열-데이터베이스-만들기">디버그 문자열 데이터베이스 만들기</h3>
+<p>디버그 문자열 DB는 무슨 파일포맷으로 저장해야할까요? SQL DB 라이트도 나쁜 생각은 아니죠. 근데 전 그냥  텍스트 파일에 저장할 거 같습니다. 아무래도 SQL DB보다는 텍스트 파일이 게임엔진에서 쉽게 읽을 수 있을 거 같아서요. 뭐, 무슨 포맷을 선택하던 그냥 파일이름은 debug.string_db로 하죠.</p>
+
+<h3 id="도구에서-디버그문자열-db-저장하기">도구에서 디버그문자열 DB 저장하기</h3>
+<p>뭐, 도구에서 할 일은 크게 없습니다. 그냥 게임데이터 파일에 새로운 문자열을 저장할 때마다 debug.string_db 파일에도 저장하면 됩니다.
+끝 -_-. 룰루~</p>
+
+<h3 id="게임코드에서-디버그-문자열-db-저장하기">게임코드에서 디버그 문자열 DB 저장하기</h3>
+<p>그렇다면 코드 안에 있는 문자열은 어케 할까요. HASH_STRING() 매크로 안에 인자로 전해주는 문자열들이요. 뭐, 다행히 HASH_STRING()이란 매크로를 정의해뒀군요. 간단히 C#이나 파이썬 같은 스크립트 언어로 소스코드 디렉토리를 다 뒤지면서 HASH_STRING() 패턴이 보일때마다 그 안에 있는 char*를 해쉬값으로 변환해서 debug.string_db에 저장하는 코드를 짜면 됩니다. regular expression을 쓰면 와따지요. 그리고 비졀 스튜디오 프로젝트의 포스트 빌드 이벤트로 이 스크립트를 한 번씩 호출해주면 끝… 속도도 꽤 빨라요… -_-</p>
+
+<p>뭐, 이건 아주 간단하진 않지만… 그닥 어렵지도 않은 문제였으니…… 끝…. -_- 룰루~</p>
+
+<h3 id="문자열-값-찾기">문자열 값 찾기</h3>
+<p>그럼 이제 비주얼 스튜디오에서 디버깅을 할 때 디버그 문자열들을 찾는 문제만 남았는데…. (어차피 watch 창에는 int로 된 해쉬 값밖에 안보일테니까요.)</p>
+
+<h3 id="문자역-룩업-툴">문자역 룩업 툴</h3>
+<p>DirectX SDK에 딸려오는 DirectX Error Lookup 툴 써보신 분 있으세요? 이따위로 생겼지요.</p>
+
+<p><img src="/ko/assets/img/2012/01/04.jpg" alt="" /></p>
+
+<p>간단히 이런 툴을 작성해도 됩니다. 툴이라고 해봤자 그냥 debug.string_db 파일을 읽어온 뒤 유저가 입력한 해쉬값과 일치하는 문자열을 찾아서 보여주는 게 전부죠. 일일이 해쉬값을 비졀 스튜디오 watch 창에서 복사해와 붙여넣는게 귀찮긴 하지만…… 쓰는데 큰 문제는 없겠죠?</p>
+
+<h3 id="visual-studio-플러그인">Visual Studio 플러그인?</h3>
+<p>다음으로 해 본 생각은… 비주얼 스튜디오 플로그인을 만드는 겁니다. 제가 직접 비주얼 스튜디오 플러그인을 만들어 본 적이 없어서 이게 가능한지는 확실치 않은데…</p>
+
+<p>비주얼 스튜디오 플러그인에서 텍스트 파일이라던가 SQL DB를 읽어올 수 있다면… 그리고 watch 창 안에 디버그 데이터를 보여주는 방법을 맘대로 주무를 수 있다면 가능할 거 같은데요? 언젠가 시간이 남는다면 한 번 제작할지도 모르겠지만….일단 전 대충 문자열 룩업 툴로 만족 -_-</p>
+
+<h3 id="디버그전용-해쉬문자열-매니저">디버그전용 해쉬문자열 매니저</h3>
+<p>아니면 게임코드 안에 디버그전용 해쉬문자열 매니저를 만들어도 되죠. 디버그 빌드에서만
+debug.string_db 파일을 로딩하게 만들면 되니까요. 그러면 코드 안에서 쉽게 문자열을 찾아낼 수 있죠. 이건 디버그 빌드에서만 동작하는 코드고 디스크 빌드에서는 컴파일러 스위치로 뿅~ 사라져야 하는 놈…</p>
+
+<h3 id="좀-더-어이없는-생각-하나-더">좀 더 어이없는 생각 하나 더….</h3>
+
+<p>디버그전용 해쉬문자열 문자열 매니저에 대해 쓰던 도중 갑자기 떠오른 생각…. 디버그전용 해쉬문자열 매니저가 로칼라이제이션 데이터베이스하고 되게 비슷한 거 같은데요? 문자열 ID를 키로 쓰고 거기에 대응하는 실제 문자열이 char* 값으로 들어가 있는 게 전부니… 나중에 언어를 바꿔주고 싶으면 그냥 각 문자열 ID마다 다른 언어로 char* 값이 들어가있는 로칼라이제이션 DB 파일을 로딩해버리면 되니까…. 해쉬문자열 매니저와 매우 비슷….</p>
+
+<p>따라서 디버그전용 해쉬문자열을 구현하기로 결정을 했다면 동일한 아키텍처를 이용해서 로칼라이제이션을 해버리면 어떨까 하는 생각… 사실 로칼라이제이션 DB에 대해서는 아는게 별로 없으므로 허무맹랑한 소리일지도 모릅니다. 그냥 이딴 생각이 들었을뿐입니다…. -_-</p>
+
+<h2 id="아악-좀-커다란-문제가-하나">아악! 좀 커다란 문제가 하나….</h2>
+<p>위에 글을 쓰고 매우 기뻐하고 있었는데… 제 동료인 Noel 아저씨가 갑자기 이딴 질문을…. "그 루프 언롤은 문자열의 길이에 상관없이 잘 돌아? 졸 길면 안되지 않을까?"… 그래서 다시 한번 재빨리 테스트를 해보니……. 흙~</p>
+
+<h3 id="visual-studio-2010-sp1-2">Visual Studio 2010 SP1</h3>
+<p><strong>Visual Studio 2010 SP1 는 10글자까지만 제대로 동작하더군요. -_-</strong>  "funny_bone1"이라고 11글자를 넣으니 이따위 결과가…!</p>
+
+<pre><code>_main PROC      ; COMDAT
+
+; File e:\temp\x65599\main.cpp
+; Line 12
+ xor ecx, ecx
+ xor eax, eax
+ npad 12
+$LL5@main:
+ movsx edx, BYTE PTR $SG-5[eax]
+ imul ecx, 65599    ; 0001003fH
+ inc eax
+ add ecx, edx
+ cmp eax, 11     ; 0000000bH    &lt;-------------- 여기!
+ jb SHORT $LL5@main             &lt;-------------- 여기!
+ mov eax, ecx
+ shr eax, 16     ; 00000010H
+ xor eax, ecx
+; Line 13
+ push eax
+ push OFFSET $SG-6
+ call DWORD PTR __imp__printf
+ add esp, 8
+; Line 15
+ xor eax, eax
+; Line 16
+ ret 0
+_main ENDP
+</code></pre>
+
+<h3 id="g-1">*g++</h3>
+<p>g++은 좀 납디다.. 아니 많이… <strong>g++은 무려 17글자까지! 두둥!</strong> "funny_bone12345678"이라고 17글자를 넣으니 그제서야 이런 결과가….</p>
+
+<pre><code> .def _main; .scl 2; .type 32; .endef
+_main:
+LFB5:
+ pushl %ebp
+LCFI0:
+ movl %esp, %ebp
+LCFI1:
+ andl $-16, %esp
+LCFI2:
+ subl $16, %esp
+LCFI3:
+ call ___main
+ movl $LC0, %eax
+ xorl %edx, %edx
+ .p2align 4,,7
+L2:
+ imull $65599, %edx, %edx
+ movsbl (%eax), %ecx
+ addl $1, %eax
+ addl %ecx, %edx
+ cmpl $LC0+18, %eax       &lt;-------------- 여기!
+ jne L2                   &lt;-------------- 여기!
+ movl %edx, %eax
+ shrl $16, %eax
+ xorl %edx, %eax
+ movl %eax, 4(%esp)
+ movl $LC1, (%esp)
+ call _printf
+ xorl %eax, %eax
+ leave
+LCFI4:
+ ret
+</code></pre>
+
+<h2 id="그래서-뭐-어쩌라고">그래서, 뭐 어쩌라고?</h2>
+<p>위의 실험이 의미하는 바는…. 컴파일러 따라 10이나 17자 까지만 멋지게 최적화가 된다는 거지요. 다른 문자열들은 실행도중에 계산됩니다… 으음… 그래도 과연 이런 짓(?)을 할 가치가 있을까 생각을 해봤는데요. 그래도 가치는 있다고 생각합니다. 가장 큰 이유는 최소한 게임데이터 파일 안에서 문자열이 사라지니까요. 대신 다음과 같은 가이드라인을 좀 따라야겠죠.</p>
+
+<ul>
+  <li>가능한 룩업키로 사용하는 문자열의 길이를 짧게 만든다.</li>
+  <li>동일한 문자열에 HASH_STRING() 매크로를 여러 번 호출하지 않는다. 대신 계산은 한 번만 하고 그 값을 다른 데 저장해뒀다 필요할 때마다 불러와 사용한다. (예. 오브젝트의 멤버변수로 저장)</li>
+</ul>
+
+<p>또 미래의 컴파일러가 루프 언롤을 좀 더 잘 해줄 수도 있구요. 한 64 글자까지만 되면 좋을텐데 말이죠….  (비졀 스튜디오 2011 Preview에서도 여전히 10글자더군요)
+아니면 C+11의 constexpr를 여따 쓸 수 있을까요….. 하지만 비졀스튜디오 2011 프리뷰에서도 아직 이 놈을 지원 안하는 걸요?…… 그러니 별 소용이 -_-</p>
+
+<p>제가 가장 선호하는 해결책은 MS사에서 다음과 같은 컴파일러 스위치를 추가해주는 겁니다.</p>
+
+<pre><code class="language-cpp">inline unsigned int generateHash(const char *string, size_t len)
+{
+    unsigned int hash = 0;
+
+    #pragma unroll        &lt;----------  이거 추가!
+    for (size_t i = 0; i &lt; len; ++i)
+    {
+        hash = 65599 * hash + string[i];
+    }
+    
+    return hash ^ (hash &gt;&gt; 16);
+}
+</code></pre>
+
+<p>이러면 len의 길이가 컴파일시에 이미 정해져 있는 경우 컴파일러가 루프 전체를 언롤해주는거죠. IBM 컴파일러에 저거랑 비슷한 컴파일러 스위치가 있다고 들었고, HLSL 컴파일러는 이미 저걸 지원하니 C++ 컴파일러에 저걸 넣지 못할 이유가 없을 듯 한데 말이죠.</p>
+
+<p><strong>마소 아저씨들! 저 컴파일러 옵션좀 추가해 주세요!</strong></p>
+
+<h2 id="급한대로-땜빵-해법">급한대로 땜빵 해법</h2>
+<p>영문 블로그에 며칠전에 이 글을 올렸었는데 그 뒤에 <a href="http://twitter.com/pixelmager">Mikkel Gjoel</a> 아찌가 트위터에서 말해주기를 Humus 아찌가 <a href="http://humus.name/index.php?page=Comments&amp;ID=296&amp;start=24">이 글자 제한에 상관없이 컴파일시에 해쉬를 만들어 내는 법</a>을 알고 있다고 귀뜸 해줬습니다.</p>
+
+<p>그래서 냅따 시도해봤지요. 오오~ 잘 작동합니다. 64글자까지 실험해봤는데 다 되요! <del>프로그래머가 사용하기 좀 불편하다는 단점은 있는데요. 범용적인 generateHash(const char*) 함수를 특화된 generateHash(const char &amp;(string)[N]); 함수들과 동시에 선언해둘수가 없거든요. 컴파일러가 헷갈려해요</del></p>
+
+<p>영문 블로그에 커멘트로 달린 <a href="http://altdevblogaday.com/2011/10/27/quasi-compile-time-string-hashing/">AltDevBlogADay 링크</a>에서 바로 위에 지워버린 내용을 해결할 수 있는 방법을 발견했습니다.</p>
+
+<pre><code class="language-cpp">struct ConstCharWrapper
+{
+    inline ConstCharWrapper(const char* str) : m_str(str) {}
+    const char* m_str;
+};
+
+inline unsigned int generateHash(ConstCharWrapper wrapper, size_t len)
+{
+    const char* string = wrapper.m_str;
+
+    // 요밑은 이전과 똑같은 코드
+}
+</code></pre>
+
+<p>그리고 비졀 스튜디오 2010이 좀 멍청해서… 다음의 두 코드가 같은 놈이란 걸 모르고.. 첫번째 놈을 해쉬값으로 바꿔주는 데 실패하더군요. 물론 제 해쉬 함수를 쓸때도요… (g++은 잘 함…)</p>
+
+<p>#1</p>
+<pre><code class="language-cpp">const char * const funny = "funny_bone";
+unsigned int hashValue = HASH_STRING(funny);
+</code></pre>
+
+<p>#2</p>
+<pre><code class="language-cpp">unsigned int hashValue = HASH_STRING("funny_bone");
+</code></pre>
+
+<p>그러나 #1 방식을 쓰면 디버그 스트링 DB를 만들려고 regular expression을 쓸 때도 개판이 나니… 첫번째 방법을 쓰면 안되겠죠. 그럼 상수 문자열을 쓸 때 다른 프로그래머들이 첫번째 방법을 쓰지 않도록 <del>강제</del> 교육할 방법이 있어야 할텐데….. 일단 좀더 생각해봐야 겠어요.</p>
+
+<p>어쨌든 이 새로운 정보를 좀 덜 짜증나게 쓸 수 있는 방법을 찾아내면 새로운 글을 올리지요. 이미… 너무 길어요.. 글이… 흙~ -_-</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2012/05/21/com-smart-pointer-in-dx-renderer.html">DX9/11 에서 COM 스마트 포인터 쓰기?</a></li>
+                        
+                        <li><a href="/ko/2012/10/12/screen-space-decal-presentation-at-kgc-2012.html">스크린 스페이스 데칼 (KGC 2012 발표자료)</a></li>
+                        
+                        <li><a href="/ko/2010/07/07/video-game-optimization.html">이것 저것: 비디오 게임 최적화</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

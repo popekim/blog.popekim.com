@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>[포프의 셰이더 입문강좌] 04. 기초적인 조명셰이더 Part 1 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1772152262735573072" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2011/12/26/intro-to-shader-04-lighting-part-1.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">[포프의 셰이더 입문강좌] 04. 기초적인 조명셰이더 Part 1</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2011-12-26
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">shader</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2011/12/19/intro-to-shader-03-texture-mapping-part-2.html">이전편 보기</a></p>
+
+<p><strong>이 장에서 새로 배우는 HLSL</strong></p>
+
+<ul>
+  <li>NORMAL: 정점의 법선정보를 불러올 때 사용하는 시맨틱- normalize(): 벡터 정규화 함수- dot(): 내적 함수- saturate(): 0 ~ 1을 넘어서는 값의 범위를 짤라 냄.- reflect(): 벡터반사 함수- pow(): 거듭제곱 함수</li>
+</ul>
+
+<p><strong>이 장에서 새로 사용하는 수학</strong></p>
+
+<ul>
+  <li>내적: 코사인 함수를 재빨리 계산할 때 사용할 수 있음- 정규화: 벡터를 단위벡터(길이가 1인 벡터)로 만듬.</li>
+</ul>
+
+<p>빛이 존재하지 않는다면 물체를 볼 수 없습니다. 매우 당연한 이치인데도 이걸 까먹고 지내는 분들이 많은 것 같습니다. (저도 종종 까먹습니다.) 예를 들어, 창문이 하나도 없는 방에 들어가서 문을 닫아버리면 아무것도 볼 수가 없지요? 어디서 새어 들어오는 빛이 있지 않는 한 아무리 어둠 속에서 오래 있어도 아무것도 보이지 않습니다. 이 당연한 사실을 자꾸 까먹는 이유는 실생활에서 완전히 칠흑 같은 어둠을 찾기가 쉽지 않기 때문입니다. 왜일까요? 바로 끝없이 반사하는 빛의 성질 때문입니다. 딱히 눈에 뜨이는 광원이 없더라도 대기중의 미세입자에 반사되어 들어오는 빛까지 있으니까요. 이렇게 다른 물체에 반사돼서 들어오는 빛을 간접광이라 합니다. 반대로 직접광은 광원으로부터 직접 받는 빛입니다. 그림 4.1에 예를 들어보겠습니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/27.jpg" alt="" /> <br />
+<strong>그림 4.1 직접광과 간접광의 예</strong></p>
+
+<p>직접광과 간접광 중에서 어떤 것을 더 쉽게 계산할 수 있을까요? 위 그림만 봐도 딱 답이 나오죠? 직접광입니다. 간접광은 수없이 반사의 반사를 거치므로 당연히 직접광보다 계산하기 어렵습니다. 간접광을 계산하는 방법 중 하나로 광선추적(ray-tracing)이라는 기법이 있습니다. 아마 3D 그래픽에 관심이 많으신 분들이라면 최근 들어 광선추적에 대해 논하는 많은 자료를 보셨을 겁니다. 하지만, 아직도 실시간 광선추적기법이 게임에서 널리 사용되지 않는 이유는 하드웨어 사양이 따라주지 않기 때문이라죠. (특히 콘솔 하드웨어의 하드웨어 사양이 더 큰 문제입니다.) 그렇기 때문에 아직도 컴퓨터 게임 등을 비롯한 실시간 3D 프로그램에서는 주로 직접광만을 제대로 계산하고 간접광은 흉내내기 정도로 그치는 게 보통입니다. 따라서 이 장에서도 직접광만을 다루도록 하겠습니다. (간접광까지도 다루는 조명모델을 전역조명모델(global illumination model)이라고 합니다. 반대로 직접광만을 다루는 조명모델을 지역조명모델(local illumination model)이라 합니다.)  참고로 이 장에서 배우는 조명 셰이더는 아직까지도 대부분의 게임에서 표준으로 사용하는 기법이므로 잘 숙지해 두세요.</p>
+
+<p>빛을 구성하는 요소는 크게 난 반사광(diffuse light)과 정 반사광(specular light)이 있습니다. 이 둘을 따로 살펴보도록 하겠습니다.</p>
+
+<h2 id="난-반사광">난 반사광</h2>
+<h3 id="배경">배경</h3>
+<p>대부분의 물체는 스스로 빛을 발하지 않습니다. 그럼에도 저희가 이 물체들을 지각할 수 있는 이유는 다른 물체(예, 태양)가 발산하는 빛이 이 물체의 표면에서 반사되기 때문입니다. 이 때, 여러 방향으로 고르게 반사되는 빛이 있는데 이것을 난 반사광(diffuse light)이라고 합니다. (diffuse 광은 아직도 용어정립이 잘 안되고 있습니다. 따라서 이 용어를 사용할  때마다 종종 영문 표기를 같이 하도록 하겠습니다. 다른 용어로는 산란광, 확산광 등이 있는데 난 반사광이 가장 적합한 것 같습니다.) 어느 방향에서 바라봐도 물체의 명암이나 색조가 크게 변하지 않는 이유를 아시나요? 여러 방향으로 고르게 퍼지는 난 반사광 덕분입니다. 만약 빛이 한 방향으로만 반사된다면(이것이 뒤에서 살펴볼 정 반사광입니다.) 그 방향에서만 물체를 지각할 수 있겠지요.</p>
+
+<p>참고로 물체의 표면이 거칠수록 난반사가 심해지는 것이 보통입니다. (표면이 완전히 매끈하더라도 난반사가 완전히 사라지는 경우는 극히 드뭅니다. 표면을 뚫고 들어간 뒤, 물체 내부에서 반사되는 빛도 있기 때문입니다.)</p>
+
+<p>일단 난 반사광을 그림으로 그려 보겠습니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/28.jpg" alt="" /> <br />
+<strong>그림 4.2. 난 반사광</strong></p>
+
+<p>그림 4.2에서 아직 보여 드리지 않은 것이 조금 후에 배워 볼 정 반사광입니다. 정 반사광이 무엇인지는 나중에 알려 드릴 테니 일단은 입사광 중의 일부는 난 반사광이 되고 다른 일부는 정 반사광이 된다고만 기억해 두세요.</p>
+
+<p>자, 그렇다면 수학적으로 난 반사광을 어떻게 계산할까요? 당연히 수학자마다 다른 주장을 하지만 그 중에서 게임에서 주로 사용하는 람베르트(lambert) 모델을 살펴봅시다. 요한 람베르트라는 수학자가 창시한 람베르트 모델은 표면법선(법선(normal)이란 표면의 방위(orientation)를 나타나는 벡터입니다. 따라서 그림 4.2에서처럼 좌우로 평평한 평면의 법선은 위쪽으로 수직인 선이 됩니다.)과 입사광이 이루는 각의 코사인 값을 구하면 그게 바로 난 반사광의 양이라고 합니다. 그렇다면 일단 코사인 함수의 그래프를 볼까요?</p>
+
+<p><img src="/ko/assets/img/2011/12/30.jpg" alt="" />  <br />
+<strong>그림 4.3. y = cos(x) 그래프</strong></p>
+
+<p>위 그래프를 보시면 입사광과 표면 법선의 각도가 0일 때, 결과(y축의 값)가 1인 거 보이시죠? 그리고 각도가 늘어날수록 결과가 점점 작아지다가 90도가 되니 0이 돼버립니다. 여기서 더 나아가면 그 후로는 아예 음수 값이 돼버리네요? 그러면 실제 세계에서 빛의 각도에 따라 결과가 어떻게 바뀌는지 살펴 볼까요?</p>
+
+<p><img src="/ko/assets/img/2011/12/32.jpg" alt="" /> <br />
+<strong>그림 4.4. 입사광과 법선이 이루는 다양한 각도</strong></p>
+
+<p>위의 그림에서 평면이 가장 밝게 빛나는 때가 언제일까요? 당연히 해가 중천에 떠있을 때겠죠? (그림 a) 그리고 해가 저물어감에 따라 점점 표면도 어두워지겠네요. (그림 b) 이제 해가 지평선을 넘어가는 순간, 표면도 깜깜해집니다. (그림 c) 그렇다면 해가 지고 난 뒤엔 어떻게 되죠? 여전히 표면이 깜깜하겠죠? 표면에 전혀 빛이 닿지 않으니까요. 자, 그럼 이 현상을 그래프로 그려보면 어떻게 될까요? 법선과 해가 이루는 각도를 X축으로 두고 표면의 밝기를 Y축으로 하겠습니다. 여기서 Y축이 가지는 값의 범위는 0~1인데0은 표면이 아주 깜깜한 때를(0%), 1은 표면이 최고로 밝은 때(100%)를 나타냅니다.</p>
+
+<p><img src="/ko/assets/img/2011/12/34.jpg" alt="" /> <br />
+<strong>그림 4.5. 관찰결과를 그려본 그래프</strong></p>
+
+<p>위 그래프에서 -90 ~ 90도사이의 그래프에 물음표를 달아둔 이유는 각도가 줄어듦에 따라 얼마나 빠르게 표면이 어두워지는지를 모르기 때문입니다. 이제 이 그림을 그림 4.3과 비교해 볼까요? 그림 4.3에서 결과가 0 이하인 부분들을 0으로 만들면 지금 만든 그래프와 꽤 비슷하네요? 차이점이라고는 -90 ~ 90도 사이에서 그래프가 떨어지는 속도가 조금 다르다 뿐이군요. 그렇다면 람베르트 아저씨가 표면이 어두워지는 속도를 아주 꼼꼼히 잘 관찰한 뒤에, 위 코사인 공식을 만들었다고 믿어도 될까요? 전 그렇게 믿고 있습니다. -_-</p>
+
+<p>자, 그럼 람베르트 모델을 적용하면 코사인 함수 한 번으로 난 반사광을 쉽게 구할 수 있겠군요! 하지만 코사인 함수는 그다지 값싼 함수가 아니어서 셰이더에서 매번 호출하는 것이 영 꺼림직합니다. 다른 대안이 없을까요? 수학책을 뒤적여 보니까 내적(dot product)이라는 연산이 코사인을 대신할 수 있다고 나오는 걸요?</p>
+
+<pre><code>θ = A와 B가 이루는 각도
+| A |  = 방향벡터 A의 길이
+| B |  = 방향벡터 B의 길이
+
+A ∙ B = cosθ | A || B |
+</code></pre>
+
+<p>즉,</p>
+
+<pre><code>cosθ = (A ∙ B) ÷ (| A |ⅹ| B |);
+</code></pre>
+
+<p>위의 내적 공식에 따르면 두 벡터가 이루는 각의 코사인 값은 그 둘의 내적을 구한 뒤 두 벡터의 길이를 곱한 결과로 나눈 것과 같습니다. 여기서 두 벡터의 길이를 1로 만들면 공식을 더 간단히 만들 수 있습니다.</p>
+
+<pre><code>cosθ = (A' ∙ B')
+</code></pre>
+
+<p>두 벡터가 이루는 각의 코사인 값은 두 벡터의 내적과 같다는 군요. 근데 이렇게 저희 맘대로 벡터의 길이를 바꿔도 되는 걸까요? 이 질문을 다르게 표현하면, '난 반사광을 계산할 때 법선의 길이나 입사광 벡터의 길이가 중요한가요?'입니다. 전혀 그렇지 않지요? 두 벡터가 이루는 각이 중요할 뿐 벡터의 길이는 결과에 아무런 영향을 미치지 않습니다. 따라서 이 두 벡터의 길이를 각각 1로 만들어서 공식을 간단하게 만드는 게 훨씬 나아 보이는군요. (이렇게 길이가 1인 벡터를 단위벡터(unit vector)라고 하며, 단위벡터를 만드는 과정을 정규화(normalize)라고 합니다.<strong>)</strong></p>
+
+<p>그럼 내적이 코사인 함수보다 값싼 연산인 이유를 살펴볼까요? 벡터 A의 성분을  (a, b, c)로 두고 벡터 B의 성분을 (d, e, f)로 두면 두 벡터의 내적을 이렇게 간단히 구할 수 있습니다.</p>
+
+<pre><code>A ∙ B = (a ⅹ d) + (b ⅹ e) + (c ⅹ f)
+</code></pre>
+
+<p>코사인 함수보다 훨씬 간단해 보이는 게 맞죠? 당장 코사인 함수를 구하라고 하면 머리부터 긁적이실 걸요? ^^</p>
+
+<p>자, 그럼 이 정도면 난 반사광에 대해 충분히 설명을 드린 것 같으니 지금 배운 내용들을 까먹기 전에 곧바로 셰이더를 작성해 보겠습니다.</p>
+
+<p><a href="/ko/2012/01/02/intro-to-shader-04-lighting-part-2.html">다음편 보기</a></p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a008">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        프로그래밍 공부순서 | 코딩공부, 지금 시작하세요 | 평생소장 컴공강의
+                                    </h2>
+                                    <p class="description m-0">10년 뒤에도 살아남는 프로그래머가 되려면 기본기부터 제대로 배워야 합니다. POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2025/11/14/shader-book-15-ebook.html">'셰이더 프로그래밍 입문 1.5판' 전자책 출간 안내</a></li>
+                        
+                        <li><a href="/ko/2012/01/30/intro-to-shader-06-toon-shader.html">[포프의 셰이더 입문강좌] 06. 만화같은 명암을 입히는 툰셰이더</a></li>
+                        
+                        <li><a href="/ko/2012/01/23/intro-to-shader-05-diffuse-specular-shader-part-2.html">[포프의 셰이더 입문강좌] 05. 물체에 색을 입히는 디퓨즈/스페큘러 매핑 Part 2</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>
