@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>Azure DevOps Agent Capabilities Disappearing? Windows Compression Might Be the Culprit | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1792715457164585347" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2026/10/19/azure-devops-agent-missing-capabilities.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/10/19/azure-devops-agent-missing-capabilities.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/10/19/azure-devops-agent-missing-capabilities.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">Azure DevOps Agent Capabilities Disappearing? Windows Compression Might Be the Culprit</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Oct 19, 2026
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/windows/">windows</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dotnet/">dotnet</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/debugging/">debugging</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/build/">build</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>At my company, we run a self-hosted build farm consisting of multiple Windows machines, each running an Azure DevOps build agent. Everything had been working fine until around April of this year, when we started encountering a rather strange problem.</p>
+
+<p><strong>After rebooting a build machine, its Azure DevOps agent would sometimes fail to register its System Capabilities properly.</strong></p>
+
+<!--more-->
+
+<p>Capabilities tell Azure DevOps which development tools and environments are available on an agent. For example, they include information about installed tools such as MSBuild and Visual Studio, along with their installation paths. Azure DevOps uses this information to assign build jobs to suitable machines. If these capabilities disappear, an agent may no longer qualify for certain build jobs, even though all the required development tools are still installed and working perfectly fine.</p>
+
+<h2 id="completely-inconsistent-symptoms">Completely Inconsistent Symptoms</h2>
+
+<p>Initially, I assumed something had gone wrong during agent initialization. But the behavior was bizarre.</p>
+
+<ul>
+  <li>Some machines would return to normal after a reboot.</li>
+  <li>Others would remain broken no matter how many times we rebooted them.</li>
+  <li>Even on the same machine, the problem would appear on some days but not others.</li>
+  <li>Restarting the agent service didn't fix anything.</li>
+</ul>
+
+<p>Our build farm uses separate accounts for administration and for running the actual build agents. Naturally, I suspected some kind of permission issue or a race condition during initialization.</p>
+
+<p>But while investigating, I discovered something even stranger.</p>
+
+<p><strong>Simply opening Command Prompt (cmd.exe) as Administrator could make the problem go away.</strong></p>
+
+<p>I didn't even have to execute a command. Just opening an elevated Command Prompt was sometimes enough for the capabilities to register properly afterward.</p>
+
+<p>At that point, I started to suspect this wasn't merely an Azure DevOps configuration issue.</p>
+
+<h2 id="clues-in-the-diagnostic-logs">Clues in the Diagnostic Logs</h2>
+
+<p>Azure DevOps agents write diagnostic logs to the <code>_diag</code> directory under their installation folder. If your agent isn't registering its capabilities properly, that's a good place to start looking.</p>
+
+<p>In our case, exceptions related to the .NET Framework provided some clues. In particular, the following keywords are worth searching for:</p>
+
+<ul>
+  <li><code>MarvinHash</code></li>
+  <li><code>ServicePointManager</code></li>
+  <li><code>System.Configuration.ConfigurationErrorsException</code></li>
+</ul>
+
+<p>Seeing these errors doesn't necessarily mean you're experiencing the same problem. However, if you encounter related exceptions during capability detection, it's worth checking the Windows file compression state described below.</p>
+
+<p>I'll spare you the details of all the troubleshooting. In the end, the solution turned out to be somewhere rather unexpected.</p>
+
+<h2 id="the-culprit-windows-wof-compression">The Culprit: Windows WOF Compression</h2>
+
+<p>The problem involved this file:</p>
+
+<pre><code class="language-text">C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config
+</code></pre>
+
+<p><code>machine.config</code> is a global configuration file used by the .NET Framework. It turned out that this file was <strong>compressed using WOF (Windows Overlay Filter)</strong>.</p>
+
+<p>WOF allows Windows to store files in a compressed format and decompress them transparently when needed. It's also used by Windows Compact OS and works differently from regular NTFS compression. Its primary purpose is to save disk space, particularly for executables and files that rarely change.</p>
+
+<p>There's nothing inherently wrong with this compression. It's a normal Windows feature.</p>
+
+<p>The problem appears to be that something went wrong when the .NET Framework tried to access this file in our environment. I haven't determined exactly where the failure occurred internally, or why simply opening an elevated Command Prompt could change the behavior.</p>
+
+<p>What I did confirm, however, is that <strong>the problem disappeared after decompressing the file</strong>.</p>
+
+<h2 id="how-to-check-and-fix-it">How to Check and Fix It</h2>
+
+<p>First, open Command Prompt (cmd.exe) as Administrator.</p>
+
+<p>Check the compression status of both the 32-bit and 64-bit .NET Framework <code>machine.config</code> files:</p>
+
+<pre><code class="language-cmd">compact "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config"
+compact "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\machine.config"
+</code></pre>
+
+<p>If either file is compressed, decompress it using the following commands. In our case, we ran both commands regardless of the files' existing compression states.</p>
+
+<pre><code class="language-cmd">compact /U /F /EXE "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config"
+compact /U /F /EXE "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\machine.config"
+</code></pre>
+
+<p>Here's what each option does:</p>
+
+<ul>
+  <li><code>/U</code>: Decompresses files.</li>
+  <li><code>/F</code>: Forces the compression or decompression operation.</li>
+  <li><code>/EXE</code>: Handles WOF-compressed files rather than just regular NTFS compression.</li>
+</ul>
+
+<p>The important part here is the <code>/EXE</code> option. <strong>Without it, the command only handles regular NTFS compression, potentially leaving WOF-compressed files untouched.</strong></p>
+
+<p>Once decompression is complete, run the <code>compact</code> commands again to verify the status of both files. Then reboot the machine and check whether the agent's System Capabilities are properly registered in Azure DevOps.</p>
+
+<p>This resolved the issue for us.</p>
+
+<h2 id="applying-the-fix-to-the-rest-of-the-build-farm">Applying the Fix to the Rest of the Build Farm</h2>
+
+<p>After confirming that decompression fixed the affected machines, we applied the same change to the rest of our build farm.</p>
+
+<p>Not every machine had experienced the problem. Some had been running perfectly fine all along, but there was no guarantee they wouldn't encounter it in the future.</p>
+
+<p>Besides, <code>machine.config</code> is a tiny configuration file. Decompressing it has a negligible impact on disk space. We saw no compelling reason to keep it compressed, so we decompressed both the 32-bit and 64-bit versions on every build machine.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>We had been dealing with this intermittent issue for months, and in the end, the fix was as simple as decompressing a small configuration file.</p>
+
+<p>I still don't know exactly why WOF compression caused this behavior. It could be a problem in a particular Windows or .NET Framework code path, or perhaps an interaction with some other environmental factor. Pinpointing the actual internal failure would require further investigation.</p>
+
+<p>What I can say is that decompressing the file resolved the problem on machines where we had been experiencing it.</p>
+
+<p><strong>If your Azure DevOps agent suddenly loses its System Capabilities after a reboot, check the compression status of <code>machine.config</code> before spending hours messing around with the agent configuration.</strong></p>
+
+<p>You might be surprised at how simple the fix turns out to be.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2026/10/20/dotnet-maui-nuget-update-build-failure.html">What to Do When a .NET MAUI Update Breaks Your Build on Windows + Visual Studio</a></li>
+                        
+                        <li><a href="/en/2025/08/26/clean-assert-wrapper.html">Clean Assert Wrappers</a></li>
+                        
+                        <li><a href="/en/2025/10/11/defensive-assertion-utils.html">Five Defensive Utility Functions I Made</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>
