@@ -1,0 +1,1300 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://blog.popekim.com/en/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.popekim.com/en/" rel="alternate" type="text/html" /><updated>2026-10-31T04:07:12+00:00</updated><id>https://blog.popekim.com/en/feed.xml</id><title type="html">PPMC</title><subtitle>Pope Kim&apos;s Blog</subtitle><author><name>Pope Kim</name></author><entry><title type="html">Visual Studio Automation Suddenly Failing? A Forced Update Popup Was the Culprit</title><link href="https://blog.popekim.com/en/2026/10/29/visual-studio-community-forced-update-automation-failure.html" rel="alternate" type="text/html" title="Visual Studio Automation Suddenly Failing? A Forced Update Popup Was the Culprit" /><published>2026-10-29T00:00:00+00:00</published><updated>2026-10-29T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/10/29/visual-studio-community-forced-update-automation-failure</id><content type="html" xml:base="https://blog.popekim.com/en/2026/10/29/visual-studio-community-forced-update-automation-failure.html"><![CDATA[<p>I like automating repetitive tasks, whether for work or everyday life. Even if setting up an automation takes some time initially, once it is working, I barely have to think about it again. Of course, that's assuming the automation keeps working.</p>
+
+<p>The kind of automation I'm talking about is a little different from the AI-based automation that's popular these days. AI-based automation is fundamentally non-deterministic. Given the same input, there's no guarantee it will produce the same result every time. What I primarily use, on the other hand, is deterministic automation that follows predefined procedures. The goal is to produce the same result every time, given the same environment and input.</p>
+
+<p>Recently, however, one of my automations that had been running reliably for a long time suddenly started failing. After investigating, I discovered that the problem wasn't in my code at all. It was a forced update popup in Visual Studio.</p>
+
+<!--more-->
+
+<h2 id="i-even-automate-the-visual-studio-ide">I Even Automate the Visual Studio IDE</h2>
+
+<p>One somewhat unusual part of my automation stack is that I have automation that directly controls the Visual Studio IDE itself.</p>
+
+<p>I'm not just running <code>dotnet build</code> or MSBuild from the command line. I'm launching Visual Studio, opening solutions, and directly controlling various IDE features from an external program.</p>
+
+<p>You can implement this in C# using libraries such as <code>EnvDTE</code> and <code>EnvDTE80</code>. These provide access to Visual Studio's COM-based automation interfaces.</p>
+
+<p>The problem is that these APIs aren't particularly developer-friendly. The documentation is rather limited, and some things behave differently from what you might expect. In many cases, you end up figuring things out through trial and error.</p>
+
+<p>Still, once you get everything working properly, it's extremely useful. You can automate IDE operations that would be difficult to accomplish with ordinary command-line tools.</p>
+
+<h2 id="the-automation-suddenly-started-failing">The Automation Suddenly Started Failing</h2>
+
+<p>Recently, this automation suddenly started failing.</p>
+
+<p>When Visual Studio launched, the first few operations completed successfully. But after roughly 3 or 4 COM calls, exceptions suddenly started occurring.</p>
+
+<p>As far as I remember, the error message looked something like this:</p>
+
+<pre><code class="language-text">System.Runtime.InteropServices.COMException (0x8001010A):
+The message filter indicated that the application is busy.
+(Exception from HRESULT: 0x8001010A (RPC_E_SERVERCALL_RETRYLATER))
+</code></pre>
+
+<p>I didn't save the actual error message at the time, so I don't remember the exact wording. But it was something along the lines of the application being busy and telling me to try again later. I suspect it was <code>RPC_E_SERVERCALL_RETRYLATER</code>.</p>
+
+<p>If you've automated Visual Studio through COM, this type of error probably isn't entirely unfamiliar. It can happen when Visual Studio is busy processing another operation or temporarily unable to respond to external calls.</p>
+
+<p>That's why my automation already had retry logic built into it. When this kind of error occurs, it waits briefly and attempts the same operation again. Usually, a few retries are enough to get things moving.</p>
+
+<p>But this time was different.</p>
+
+<p>No matter how many times it retried, the operation kept failing. If Visual Studio were only temporarily busy, the situation should eventually resolve itself. But waiting didn't help. The automation was effectively stuck in an infinite retry loop.</p>
+
+<p>What made it even stranger was that the first few operations worked perfectly fine. If everything had failed from the beginning, I might have suspected a configuration issue or a problem with the COM interface itself. Instead, everything worked normally until it suddenly didn't.</p>
+
+<h2 id="i-wasted-time-debugging-the-wrong-thing">I Wasted Time Debugging the Wrong Thing</h2>
+
+<p>Naturally, my first assumption was that something had gone wrong with my automation code.</p>
+
+<p>I considered several possibilities. Maybe a Visual Studio update had changed some behavior. Maybe I was using a COM object incorrectly. Maybe there was an issue with the order of operations.</p>
+
+<p>So I started modifying the code. I tried changing the call sequence and adjusting the wait times.</p>
+
+<p>Nothing worked.</p>
+
+<p>The automation kept failing at roughly the same point. Increasing the number of retries didn't help either.</p>
+
+<p>Eventually, I decided to stop staring at the automation code and launch Visual Studio manually to see what was actually happening.</p>
+
+<p>And that's when I immediately found the cause.</p>
+
+<h2 id="the-culprit-was-a-popup-that-appeared-after-10-seconds">The Culprit Was a Popup That Appeared After 10 Seconds</h2>
+
+<p>The machine experiencing the problem had Visual Studio 2026 Community installed.</p>
+
+<p>When I launched Visual Studio manually, everything initially looked fine. The IDE opened normally, and I could interact with it without any problems.</p>
+
+<p>But after roughly 10 seconds, a modal dialog suddenly appeared.</p>
+
+<p>It was telling me that I needed to update Visual Studio to continue using it.</p>
+
+<p>The problem was that this wasn't just an informational notification. While that modal dialog was open, I couldn't perform any other operations in the IDE.</p>
+
+<p>Suddenly, everything made sense.</p>
+
+<p>Immediately after launching Visual Studio, the automation worked normally. That's why the first 3 or 4 COM calls succeeded. But once the update dialog appeared about 10 seconds later, the IDE stopped accepting other operations.</p>
+
+<p>The externally invoked COM interfaces were affected as well. Visual Studio rejected the calls, resulting in exceptions.</p>
+
+<p>And no amount of retrying could fix that. Visual Studio wasn't temporarily busy. It was blocked by a modal dialog that required user interaction.</p>
+
+<p>No matter how much I changed my automation code, it was never going to solve the problem.</p>
+
+<h2 id="visual-studio-community-must-be-updated-within-180-days">Visual Studio Community Must Be Updated Within 180 Days</h2>
+
+<p>I became curious about when Visual Studio had started enforcing updates this way, so I looked through Microsoft's official documentation.</p>
+
+<p>It turns out that Visual Studio 2026 Community has the following policy:</p>
+
+<blockquote>
+  <p>You must update to the latest release of the Community or Team Explorer edition within 180 days to continue using the product.</p>
+</blockquote>
+
+<p>In other words, <strong>Visual Studio 2026 Community must be updated to the latest release within 180 days of that release becoming available in order to continue using it.</strong></p>
+
+<p>Source: <a href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/servicing-vs">Visual Studio Product Lifecycle and Servicing</a></p>
+
+<p>This policy applies to the Community and Team Explorer editions of Visual Studio 2026. Professional and Enterprise, on the other hand, offer more flexible update and support policies, including Long-Term Servicing Channels (LTSC).</p>
+
+<p>Of course, keeping software up to date is important. There are security issues to address and bugs to fix. And since Community is provided for free, Microsoft is entitled to set conditions like these.</p>
+
+<p>But things are a little different when you're running unattended automation.</p>
+
+<p>If the IDE suddenly demands an update at a time I didn't choose, and refuses to perform any other operations until that requirement is addressed, the entire automation comes to a halt.</p>
+
+<p>Worse, the error you actually see isn't about an update. It's a COM call failure. If you don't know what's happening, it's easy to waste a lot of time debugging the wrong thing.</p>
+
+<p>For the record, I can't say for certain that this 180-day update requirement was first introduced with Visual Studio 2026. What matters here is that Visual Studio 2026 Community explicitly has this condition, and in my case, the modal dialog demanding an update actually interfered with the automation.</p>
+
+<h2 id="an-unexpected-enemy-of-automation-popups">An Unexpected Enemy of Automation: Popups</h2>
+
+<p>In the end, the problem wasn't in my code. The COM interface itself wasn't broken, and there was nothing wrong with the retry logic.</p>
+
+<p>The problem was simply that Visual Studio had displayed a modal dialog.</p>
+
+<p>If a person had been using the application interactively, it wouldn't have been a big deal. They could have seen the popup and updated Visual Studio.</p>
+
+<p>But in an unattended automation environment, such a small difference can be critical. There's nobody watching the screen to see what dialog has appeared, and the automation has no idea why the COM method it invoked is failing.</p>
+
+<p>This is especially difficult to diagnose when, as in this case, everything works fine initially and only starts failing after a certain amount of time.</p>
+
+<p>One thing this experience reminded me of is that detecting failures and stopping at the appropriate point is just as important as having retry logic. If an error is temporary, retrying can solve it. But if the underlying problem isn't going away, retrying indefinitely accomplishes nothing.</p>
+
+<p>It's also important not to overlook the update and licensing policies of the applications you're automating. Even when the software itself is functioning correctly, its operational policies can bring your automation to a stop.</p>
+
+<p>Ultimately, updating Visual Studio resolved the problem.</p>
+
+<p>If you're automating Visual Studio through COM and suddenly start experiencing call failures, especially if the first few operations succeed but everything afterward keeps failing, check whether there's a popup on the Visual Studio screen before you start changing your automation code.</p>
+
+<p>Sometimes the culprit is surprisingly simple.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="visual-studio" /><category term="automation" /><category term="csharp" /><category term="debugging" /><category term="dev" /><summary type="html"><![CDATA[I like automating repetitive tasks, whether for work or everyday life. Even if setting up an automation takes some time initially, once it is working, I barely have to think about it again. Of course, that's assuming the automation keeps working. The kind of automation I'm talking about is a little different from the AI-based automation that's popular these days. AI-based automation is fundamentally non-deterministic. Given the same input, there's no guarantee it will produce the same result every time. What I primarily use, on the other hand, is deterministic automation that follows predefined procedures. The goal is to produce the same result every time, given the same environment and input. Recently, however, one of my automations that had been running reliably for a long time suddenly started failing. After investigating, I discovered that the problem wasn't in my code at all. It was a forced update popup in Visual Studio.]]></summary></entry><entry><title type="html">A Console Developer&apos;s Thoughts on the PS5 Jailbreak</title><link href="https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" rel="alternate" type="text/html" title="A Console Developer&apos;s Thoughts on the PS5 Jailbreak" /><published>2026-10-26T00:00:00+00:00</published><updated>2026-10-26T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts</id><content type="html" xml:base="https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html"><![CDATA[<p>I've been developing console games for a long time. Compared to PC game development, console development has several advantages. Traditionally, I've considered two of them particularly important.</p>
+
+<p>First, the hardware specifications are fixed. On PC, developers have to account for all sorts of combinations of CPUs, GPUs, memory, and other hardware. On consoles, that isn't necessary. Since every user has essentially the same hardware, performance is much more predictable, and developers can optimize specifically for that hardware. For developers who enjoy squeezing every last bit of performance out of a machine, it's a pretty attractive environment.</p>
+
+<p>Second, security is strong. When you release a game on PC, piracy is something you have to worry about. On consoles, the platform manufacturer takes care of much of that. Instead of spending time implementing copy protection or fighting hackers, developers can concentrate on making better games.</p>
+
+<p>Of course, consoles have never been completely secure. Jailbreaks and piracy have existed for a long time. But they weren't particularly accessible to ordinary users, and some methods required hardware modifications. At least from a developer's perspective, consoles provided a much more comfortable environment than PCs.</p>
+
+<p>Then, recently, I came across some discussion about a PS5 jailbreak on Twitter.</p>
+
+<p><strong>PS5 Relapse? What's that supposed to mean?</strong></p>
+
+<p>I got curious and decided to look into it.</p>
+
+<!--more-->
+
+<h2 id="jailbreaking-a-ps5-is-this-easy">Jailbreaking a PS5 Is This Easy?</h2>
+
+<p>Relapse is a jailbreak tool that exploits security vulnerabilities in the PS5 to execute programs that Sony hasn't authorized.</p>
+
+<p>What surprised me was how simple the process looked. On a PS5 running a supported firmware version, you open a particular webpage and launch the jailbreak. After that, you can load and run additional programs.</p>
+
+<p>Wait, jailbreaking a console is this easy now?</p>
+
+<p>What's even more interesting is that the jailbreak isn't permanent. If you fully reboot the console, the changes made in memory disappear, and you have to run the jailbreak again. However, if you leave the console in standby mode, its memory state is preserved, allowing the jailbreak to remain active.</p>
+
+<p>As of October 2026, the publicly available Relapse supports PS5 firmware versions 7.00 through 13.60. The relevant vulnerabilities have been patched in later firmware versions, so this doesn't work on every PS5.</p>
+
+<p>Still, the fact that you can bypass a console's security by clicking a few things on a webpage was pretty shocking.</p>
+
+<h2 id="didnt-we-used-to-modify-the-hardware">Didn't We Used to Modify the Hardware?</h2>
+
+<p>When I think about console piracy in the past, the first thing that comes to mind is the modchip.</p>
+
+<p>You would open up the console, install an additional chip, and solder wires directly to the appropriate points on the circuit board. The goal was to bypass the console's boot process or security checks so that unauthorized programs or copied games could run.</p>
+
+<p>Of course, software-only jailbreaks existed in the past as well. Not every console required hardware modifications. But many of the earlier methods of circumventing copy protection were closely tied to hardware modifications.</p>
+
+<p>Relapse, however, doesn't require touching the hardware at all.</p>
+
+<p>It's entirely software-based. And it uses the web browser functionality already built into the console.</p>
+
+<p>Simply opening a webpage can become the starting point for bypassing the console's security system.</p>
+
+<p>So I decided to dig a little deeper into how it actually works.</p>
+
+<h2 id="how-can-a-web-browser-jailbreak-a-console">How Can a Web Browser Jailbreak a Console?</h2>
+
+<p>Relapse works by chaining together two major stages of exploitation.</p>
+
+<p>The first stage exploits a vulnerability in the web browser. The second exploits a vulnerability in the operating system kernel.</p>
+
+<h3 id="1-escaping-the-web-browsers-security-restrictions">1. Escaping the Web Browser's Security Restrictions</h3>
+
+<p>The PS5 includes web browsing functionality based on WebKit. Unlike a typical PC browser, it isn't something users can freely launch and browse with, but the system uses web technologies for things like displaying user guides and other web content.</p>
+
+<p>WebKit is the browser engine used by Safari and several other browsers. It also includes JavaScriptCore, the engine responsible for executing JavaScript.</p>
+
+<p>The problem is that a web browser is a program that executes code obtained from external sources.</p>
+
+<p>When we open a webpage, the browser interprets its HTML and JavaScript and executes the appropriate code. However, that doesn't mean JavaScript can do whatever it wants on the computer. Browsers are designed to execute code within a restricted environment called a sandbox.</p>
+
+<p>Imagine if JavaScript on any random webpage could freely read operating system memory or launch arbitrary programs. Simply browsing the internet would be incredibly dangerous.</p>
+
+<p>But things change when the browser engine itself contains a security vulnerability.</p>
+
+<p>Relapse takes advantage of information disclosure and memory object handling issues in JavaScriptCore. More specifically, it exploits an inconsistency in the state of an internal object pool during object cloning, allowing it to corrupt the internal state of a TypedArray.</p>
+
+<p>A TypedArray is a JavaScript object used to work with binary data. Under normal circumstances, the JavaScript engine controls which memory regions the object can access. However, if a bug in the engine allows the memory information referenced by a TypedArray to be corrupted, it may become possible to access memory outside the normally permitted range.</p>
+
+<p>By exploiting vulnerabilities like these, an attacker can go beyond simply running JavaScript on a webpage and perform operations that wouldn't normally be permitted inside the browser process.</p>
+
+<p>But successfully reaching this point doesn't mean the entire console has been compromised.</p>
+
+<p>After all, the browser is still just another program running on top of the operating system.</p>
+
+<h3 id="2-now-attack-the-kernel">2. Now Attack the Kernel</h3>
+
+<p>Operating systems prevent ordinary programs from directly accessing critical system resources.</p>
+
+<p>Whether it's a game or a browser, a normal application can only operate within the boundaries permitted by the operating system. The kernel, on the other hand, is the core component responsible for things like process management, memory management, and device control.</p>
+
+<p>If an ordinary application could freely read or modify kernel memory, the operating system's security model could be severely compromised.</p>
+
+<p>That's exactly what Relapse targets next.</p>
+
+<p>Using the execution capabilities obtained through the browser vulnerability, it attacks a separate vulnerability in the operating system kernel.</p>
+
+<p>The vulnerability involved is a Use-After-Free (UAF) issue related to <code>aio_multi_wait</code>.</p>
+
+<p>A UAF is a bug where memory continues to be used after it has already been freed. Imagine an object being deallocated while some other code still holds a reference to it.</p>
+
+<p>In a normal program, this kind of bug might simply cause a crash. But if an attacker can precisely control when the memory is freed, when it gets reused, and what gets written into it, the bug may be exploitable to alter the program's execution flow.</p>
+
+<p>Relapse combines this race condition with address information leaks to obtain the ability to read and write kernel memory.</p>
+
+<p>The important point here is that this isn't merely about calling a function that happens to exist in the kernel.</p>
+
+<p><strong>The key is gaining the ability to read and modify memory managed by the kernel itself.</strong></p>
+
+<p>This can allow an attacker to modify important operating system data structures and change the system state to permit operations that would normally be prohibited.</p>
+
+<p>Of course, reaching this stage doesn't mean every security barrier has disappeared. The PS5 has additional layers of protection beyond the kernel, including a hypervisor. Obtaining kernel-level access and completely defeating every security mechanism in the console are two different things.</p>
+
+<p>Nevertheless, this provides an important foundation for executing programs that ordinary users aren't supposed to run.</p>
+
+<h3 id="3-running-custom-programs">3. Running Custom Programs</h3>
+
+<p>Once you've reached this point, the next step is relatively easy to understand.</p>
+
+<p>Normally, the PS5 only allows programs authorized and signed by Sony to execute through its official mechanisms. You can't simply create your own executable, copy it to a USB drive, and run it.</p>
+
+<p>But once you've obtained sufficient privileges through security exploits, it becomes possible to build a way around those restrictions.</p>
+
+<p>Relapse includes functionality for launching an ELF loader.</p>
+
+<p>ELF stands for Executable and Linkable Format. It's a binary file format used for executables, libraries, and related files. Developers familiar with Linux or other Unix-like systems have probably encountered it before.</p>
+
+<p>An ELF loader does exactly what its name suggests: it loads an ELF executable into memory and prepares it for execution.</p>
+
+<p>Normally, loading an executable involves placing its code and data into the appropriate memory regions, resolving necessary addresses, and transferring control to the program. Similar operations happen during the normal executable loading process in an operating system.</p>
+
+<p>However, once you've obtained execution privileges through security vulnerabilities, you can also create a way to load ELF programs that the platform would not officially allow.</p>
+
+<p>For Windows developers, DLL injection or API hooking might be useful analogies.</p>
+
+<p>DLL injection is a technique for executing code inside a process that wasn't originally intended to run that code. API hooking intercepts function calls or redirects them to different code, changing how a program behaves.</p>
+
+<p>Of course, Relapse doesn't work in exactly the same way as DLL injection. It first needs to chain browser and kernel vulnerabilities together to obtain the necessary memory access and execution privileges.</p>
+
+<p>But the underlying idea should feel familiar to developers.</p>
+
+<p><strong>You create a way to execute code that the system wouldn't normally allow, and potentially interfere with the behavior of existing programs or the operating system itself.</strong></p>
+
+<p>Once this kind of execution environment is established, various custom programs can be loaded.</p>
+
+<p>After looking into all this, I started seeing that simple jailbreak webpage in a different light.</p>
+
+<p>From the user's perspective, it's just a matter of clicking a few buttons on a webpage. Behind the scenes, however, a fairly sophisticated exploit chain combines a browser memory management bug with a kernel race condition.</p>
+
+<p>The technology required to make the jailbreak possible is anything but simple. It's just that other developers have automated all that complexity, making the end result surprisingly easy for ordinary users.</p>
+
+<h2 id="so-what-can-you-actually-do-with-a-jailbroken-ps5">So What Can You Actually Do with a Jailbroken PS5?</h2>
+
+<p>The most immediate change is the ability to run programs that Sony hasn't authorized.</p>
+
+<p>For example, you can run unofficial software commonly referred to as homebrew. This includes tools for examining or modifying internal game data, debugging utilities, file managers, and emulators.</p>
+
+<p>From a game developer's perspective, the ability to run arbitrary debugging tools is interesting in itself.</p>
+
+<p>In an official console development environment, developers use development kits and debugging tools provided by the platform manufacturer. These capabilities are heavily restricted on ordinary retail consoles.</p>
+
+<p>If jailbreaking allows some of those restrictions to be bypassed, it becomes possible to experiment with various tools on consumer hardware.</p>
+
+<p>The problem is that these capabilities aren't necessarily used for good purposes.</p>
+
+<p>They can also be used to bypass security checks, modify game data, run cheat programs, or extract game files. Combined with additional security bypass tools, they may also enable pirated games to run.</p>
+
+<p>Of course, obtaining kernel access doesn't automatically mean every game can be copied and executed. Other protection mechanisms, including game encryption, signature verification, and the hypervisor, still matter.</p>
+
+<p>But it certainly provides an important tool for bypassing parts of the console's security system.</p>
+
+<p>One of the reasons I enjoyed console development was that I didn't have to worry nearly as much about this kind of thing.</p>
+
+<p>On PC, it's relatively easy to examine or modify executable files. Developers may have to consider what protection mechanisms to implement and how to deal with piracy or cheating.</p>
+
+<p>On consoles, however, the platform manufacturer provides a strong security system. Developers can concentrate on building the game on top of that foundation.</p>
+
+<p>Of course, this doesn't mean console game developers can completely ignore cheating or security. Server-side validation and anti-cheat measures are particularly important in online games. But at least developers don't have to take responsibility for building the platform's copy protection system from scratch.</p>
+
+<p>I really liked that part of console development.</p>
+
+<h2 id="how-did-consoles-end-up-like-this">How Did Consoles End Up Like This?</h2>
+
+<p>This is the part that got me thinking even more than the technical details of Relapse.</p>
+
+<p>I feel that the fundamental direction of game consoles has changed quite a bit over the years.</p>
+
+<h3 id="consoles-used-to-be-seriously-powerful-gaming-machines">Consoles Used to Be Seriously Powerful Gaming Machines</h3>
+
+<p>Think back to the days when the PS3 and Xbox 360 were released.</p>
+
+<p>Back then, a console wasn't simply a cheap gaming PC. It was a machine that could compete with high-end PCs of its time while offering that level of hardware at a relatively affordable price.</p>
+
+<p>The Xbox 360, released in 2005, used an IBM PowerPC-based CPU with three cores. Its GPU, ATI's Xenos, adopted a unified shader architecture that hadn't yet become common in PC graphics cards.</p>
+
+<p>Instead of dividing hardware resources into separate, fixed vertex shader and pixel shader units, the unified shader architecture allowed those resources to be shared. This eventually became the mainstream approach in PC graphics hardware as well.</p>
+
+<p>The Xbox 360 launched in the United States at $299 or $399, depending on the model. That was a remarkably affordable way to get a system equipped with such powerful graphics hardware at the time.</p>
+
+<p>The PS3, released the following year, took things even further.</p>
+
+<p>Its Cell processor was designed in a radically different direction from conventional PC processors. It combined a PowerPC-based PPE with multiple SPEs to process large amounts of data in parallel.</p>
+
+<p>It certainly wasn't easy hardware to develop for. In fact, it could be a real headache when you first started working with it.</p>
+
+<p>But if you knew how to use it properly, you could extract tremendous computational performance for its time. There was a very clear reason for game developers to understand the hardware and write code specifically for it.</p>
+
+<p>The PS3 and Xbox 360 had very different architectures, but they shared something important.</p>
+
+<p><strong>They aggressively introduced cutting-edge technologies into game consoles and encouraged developers to squeeze as much performance as possible out of the hardware.</strong></p>
+
+<p>Development could be difficult, but there was a real payoff for understanding and using the hardware well.</p>
+
+<h3 id="things-changed-with-the-ps4">Things Changed with the PS4</h3>
+
+<p>With the PS4 and Xbox One generation, however, things started moving in a different direction.</p>
+
+<p>Both consoles adopted AMD Jaguar CPUs based on x86-64, along with Radeon-based GPUs.</p>
+
+<p>Using architectures similar to those found in PCs was certainly good news for developers. There was less need to learn completely different CPU architectures or write large amounts of console-specific code.</p>
+
+<p>But there was another change in terms of hardware performance.</p>
+
+<p>By the time the PS4 launched in 2013, you could already buy PCs equipped with more powerful CPUs and GPUs. Rather than introducing cutting-edge hardware that outperformed high-end PCs, the PS4 offered a balanced design that considered price, power consumption, and manufacturing costs.</p>
+
+<p>Of course, even earlier consoles weren't necessarily superior to high-end PCs in every component or every workload. The PS3 wasn't faster than contemporary high-performance PCs at everything either.</p>
+
+<p>Nevertheless, I felt that the overall design philosophy had clearly changed.</p>
+
+<p>In the past, manufacturers had designed unusual and aggressive hardware specifically for gaming. Now they were moving toward combining widely available, general-purpose technologies to build reasonably priced consoles.</p>
+
+<p>There are plenty of advantages to this approach.</p>
+
+<p>Development becomes easier, and porting games between PCs and consoles becomes more straightforward. Hardware development costs and risks are also reduced. And the actual gaming experience consumers get at a given price doesn't necessarily become worse.</p>
+
+<p>From the console manufacturers' perspective, it's an entirely reasonable decision.</p>
+
+<p>But for developers who enjoy pushing hardware to its limits, it inevitably feels different from the old days.</p>
+
+<h3 id="from-dedicated-gaming-machines-to-living-room-entertainment-devices">From Dedicated Gaming Machines to Living Room Entertainment Devices</h3>
+
+<p>Another noticeable change is the role consoles are expected to play.</p>
+
+<p>Of course, older consoles weren't exclusively for games either. The PS2 served as a DVD player, and the PS3 became popular as a Blu-ray player. The Xbox 360 also offered online services and various media features.</p>
+
+<p>So it's not as though media functionality suddenly appeared with the PS4.</p>
+
+<p>However, as console generations progressed, the effort to position consoles as comprehensive living room entertainment devices rather than just gaming machines became more apparent.</p>
+
+<p>Video streaming, music, web content, and various online services became increasingly important alongside games.</p>
+
+<p>For consumers, that's a good thing. If you're going to have a device in your living room anyway, it's convenient to use it for games, movies, and other services.</p>
+
+<p>But from a security perspective, things look a little different.</p>
+
+<p>As more features are added, more software needs to be included in the system. There's more code processing data obtained from external sources, and more libraries and services that need to be maintained.</p>
+
+<p>In security terminology, this is referred to as the attack surface.</p>
+
+<p>It represents the potential entry points where an attacker might discover and exploit vulnerabilities.</p>
+
+<p>Web browsers are a perfect example.</p>
+
+<p>A web browser is an extremely complex piece of software. It processes many different types of external data, including HTML, CSS, JavaScript, images, and video. It also uses sophisticated techniques such as JIT compilation and complex memory management to improve performance.</p>
+
+<p>With software this complicated, bugs are practically inevitable.</p>
+
+<p>Of course, simply having a web browser doesn't mean a console can necessarily be jailbroken. Relapse didn't bypass the PS5's security through a browser vulnerability alone. It also needed to exploit a separate kernel vulnerability.</p>
+
+<p>And using general-purpose hardware doesn't inherently make a system less secure either.</p>
+
+<p>However, as you continue adding general-purpose software and functionality to a dedicated gaming system, it's difficult to avoid increasing the number of places an attacker might investigate.</p>
+
+<p>The fact that Relapse uses the web browser as its entry point felt rather symbolic to me.</p>
+
+<p>We've reached a point where a machine built to run games can be jailbroken through a webpage.</p>
+
+<h2 id="i-miss-the-days-when-we-could-just-focus-on-making-games">I Miss the Days When We Could Just Focus on Making Games</h2>
+
+<p>Of course, I wouldn't conclude that the PS5 has terrible security based on this incident alone.</p>
+
+<p>Relapse doesn't rely on bugs that just anyone could easily discover. It's the result of finding and chaining together complicated browser memory vulnerabilities and kernel vulnerabilities.</p>
+
+<p>And the relevant vulnerabilities have been patched in newer firmware versions. The exploit only works on supported older firmware, and jailbreaking a console doesn't mean you can suddenly run every game you want.</p>
+
+<p>It wouldn't be fair to say that Sony hasn't taken security seriously.</p>
+
+<p>But what struck me as a developer was something a little different.</p>
+
+<p>One of the great things about console development in the past was that you could push fixed hardware to its limits while leaving much of the platform security to the manufacturer. That allowed you to focus on making the game itself.</p>
+
+<p>Of course, those advantages still exist on modern consoles. The PS5 still has a far more consistent hardware configuration than PCs, and its security architecture is very different from that of a typical open PC platform.</p>
+
+<p>But the days when consoles introduced radically different, cutting-edge hardware are largely behind us. Their hardware architectures have become more similar to general-purpose computers, while their operating systems and software have grown increasingly complex.</p>
+
+<p>That isn't necessarily a bad thing. In fact, considering development and manufacturing costs, it's probably a sensible direction.</p>
+
+<p>Still, I personally find it a little disappointing.</p>
+
+<p>Back then, there was something exciting about accomplishing things on console hardware that weren't easy to achieve on PCs. How well you understood and utilized the hardware could make an enormous difference in performance.</p>
+
+<p>At the same time, you could rely heavily on the platform manufacturer's security system for things like copy protection.</p>
+
+<p>From a developer's perspective, that was a pretty nice combination.</p>
+
+<p>I haven't completely left console game development behind. But compared to the past, I feel that much of what made consoles uniquely interesting has changed.</p>
+
+<p>And hearing that a PS5 can now be jailbroken with a few clicks on a webpage really brought that change home.</p>
+
+<p>Well, I suppose technology in the game industry was always going to keep changing.</p>
+
+<hr />
+
+<h2 id="appendix-can-you-run-ps3-games-on-a-jailbroken-ps5">Appendix: Can You Run PS3 Games on a Jailbroken PS5?</h2>
+
+<p>While looking into Relapse, I came across someone saying that jailbreaking a PS5 would also let you run PS3 games.</p>
+
+<p>That got me thinking about something else.</p>
+
+<p>If you wanted to emulate older PlayStation games on a PS5, which would be the most difficult: PS2, PS3, or PS4?</p>
+
+<p>You might assume that the older the console, the easier it would be to emulate. But that isn't necessarily true.</p>
+
+<p>When it comes to emulation, the original hardware's performance matters, but so does how different its architecture is from the host system.</p>
+
+<h3 id="ps2-modern-hardware-can-brute-force-its-way-through">PS2: Modern Hardware Can Brute-Force Its Way Through</h3>
+
+<p>The PS2 was released in 2000.</p>
+
+<p>It used a distinctive processor called the Emotion Engine and a graphics processor called the Graphics Synthesizer.</p>
+
+<p>The CPU was based on the MIPS architecture and used multiple vector processing units to perform the calculations needed by games.</p>
+
+<p>It was impressive hardware at the time, but its absolute processing power is extremely low by modern standards.</p>
+
+<p>Of course, accurately reproducing the PS2's hardware behavior still isn't an easy task. Its unusual memory architecture, vector processing units, and graphics pipeline all need to be considered.</p>
+
+<p>But modern CPUs and GPUs provide vastly more computational power than the PS2.</p>
+
+<p>That means they have enough performance headroom to absorb the substantial overhead introduced by emulation.</p>
+
+<p>In fact, we've been running PS2 games on PCs through emulators like PCSX2 for many years.</p>
+
+<p>More recently, projects like PS5SX2 have appeared, allowing PS2 emulation on jailbroken PS5 consoles.</p>
+
+<p>The PS2 has a distinctive hardware architecture, but modern hardware has become powerful enough to overcome much of that difference.</p>
+
+<h3 id="ps4-the-architecture-is-almost-the-same">PS4: The Architecture Is Almost the Same</h3>
+
+<p>The PS4 is a different story.</p>
+
+<p>Both the PS4 and PS5 use AMD CPUs based on x86-64. Their GPUs also belong to AMD's Radeon family.</p>
+
+<p>This means there's no need to translate CPU instructions from one completely different architecture to another.</p>
+
+<p>Of course, that doesn't mean running PS4 games on a PS5 is as simple as copying an executable file.</p>
+
+<p>You still need to handle the operating system APIs, memory management behavior, GPU commands, file system, and system services that the game expects.</p>
+
+<p>The GPUs in the PS4 and PS5 aren't identical either.</p>
+
+<p>But sharing the same CPU instruction set architecture is already a significant advantage. You don't need to interpret every CPU instruction in software or translate it into instructions for a completely different processor architecture.</p>
+
+<p>After all, the PS5 officially provides backward compatibility with most PS4 games. The similarity between the two systems' hardware architectures plays an important role in making this possible.</p>
+
+<p>Implementing an unofficial execution environment is a separate challenge, but having similar CPU architectures is certainly a major advantage.</p>
+
+<h3 id="ps3-now-thats-a-headache">PS3: Now That's a Headache</h3>
+
+<p>The PS3 is an entirely different story.</p>
+
+<p>Its Cell processor combined a PowerPC-based PPE with multiple SPEs.</p>
+
+<p>The PPE handled general program execution and task management, while the SPEs were designed to process large amounts of data in parallel.</p>
+
+<p>The SPU inside each SPE, in particular, operated very differently from a conventional CPU core.</p>
+
+<p>Each SPU had its own local memory, and data transfers worked differently from those in a typical shared-memory CPU architecture. Programs often had to explicitly move data around before performing calculations.</p>
+
+<p>Some PS3 games made extensive use of this architecture.</p>
+
+<p>The problem is that reproducing this behavior on a modern x86-64 CPU isn't easy.</p>
+
+<p>It isn't simply a matter of translating one instruction into another. You also need to reproduce memory transfers, parallel execution, synchronization, timing, and various other behaviors.</p>
+
+<p>On top of that, the PS3's SPUs were remarkably powerful at certain kinds of vector computations.</p>
+
+<p>Of course, modern CPUs are vastly more capable than the PS3's processor overall. But in an emulator, you aren't executing the original hardware's instructions directly. You're reproducing their behavior on hardware with a different architecture.</p>
+
+<p>That process can introduce substantial performance overhead.</p>
+
+<p>In fact, there were experiments in 2026 involving running Linux on a PS5 and using the RPCS3 emulator to execute PS3 games.</p>
+
+<p>The results were interesting.</p>
+
+<p>Games that didn't make heavy use of the SPUs ran relatively well. But in games that relied heavily on SPU processing, the PS5's CPU sometimes struggled enough that the games ran more slowly than they did on the original PS3.</p>
+
+<p>Just because the PS5 is a much newer console doesn't mean it can effortlessly emulate every aspect of the PS3.</p>
+
+<p>Ultimately, the difficulty of emulation isn't determined solely by how old the original console is or how much raw processing power it had.</p>
+
+<p><strong>What really matters is how efficiently you can bridge the gap between two different hardware architectures.</strong></p>
+
+<p>Come to think of it, this also relates to what made console development so interesting in the past.</p>
+
+<p>Unusual hardware like the PS3 made developers' lives difficult, but there was also a lot of satisfaction in understanding that hardware and learning how to use it properly.</p>
+
+<p>And now, all these years later, that same unusual architecture is giving emulator developers headaches all over again.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="ps5" /><category term="playstation" /><category term="console" /><category term="jailbreak" /><category term="security" /><category term="game-dev" /><category term="dev" /><summary type="html"><![CDATA[I've been developing console games for a long time. Compared to PC game development, console development has several advantages. Traditionally, I've considered two of them particularly important. First, the hardware specifications are fixed. On PC, developers have to account for all sorts of combinations of CPUs, GPUs, memory, and other hardware. On consoles, that isn't necessary. Since every user has essentially the same hardware, performance is much more predictable, and developers can optimize specifically for that hardware. For developers who enjoy squeezing every last bit of performance out of a machine, it's a pretty attractive environment. Second, security is strong. When you release a game on PC, piracy is something you have to worry about. On consoles, the platform manufacturer takes care of much of that. Instead of spending time implementing copy protection or fighting hackers, developers can concentrate on making better games. Of course, consoles have never been completely secure. Jailbreaks and piracy have existed for a long time. But they weren't particularly accessible to ordinary users, and some methods required hardware modifications. At least from a developer's perspective, consoles provided a much more comfortable environment than PCs. Then, recently, I came across some discussion about a PS5 jailbreak on Twitter. PS5 Relapse? What's that supposed to mean? I got curious and decided to look into it.]]></summary></entry><entry><title type="html">A Developer&apos;s Guide to Living with Presbyopia</title><link href="https://blog.popekim.com/en/2026/10/25/developer-presbyopia-experience.html" rel="alternate" type="text/html" title="A Developer&apos;s Guide to Living with Presbyopia" /><published>2026-10-25T00:00:00+00:00</published><updated>2026-10-25T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/10/25/developer-presbyopia-experience</id><content type="html" xml:base="https://blog.popekim.com/en/2026/10/25/developer-presbyopia-experience.html"><![CDATA[<p>If you want to keep working as a developer for a long time, taking care of your body is pretty important. Sure, it's mostly brain work, but you still need a body that can keep up. So I've always made an effort to stay reasonably healthy. That doesn't mean hitting the gym and working out like crazy every day. For me, it's mostly about eating well, sleeping well, and avoiding unnecessary strain on my body.</p>
+
+<p>When something does start hurting, though, I get a little more proactive. Years ago, when I started having shoulder pain, I switched to a tenkeyless keyboard. Without the number pad, I could keep my mouse closer to my body. Eventually, I got rid of the conventional mouse altogether and switched to a roller mouse.</p>
+
+<p>When my back started giving me trouble, I spent some time doing intensive strength training. I also got a standing desk and eventually invested in a Herman Miller chair. That's generally how I've dealt with these things. When something goes wrong, I try to figure out what's causing it and change something, whether it's exercise, equipment, or daily habits.</p>
+
+<p>But no matter how well you take care of yourself, some things are unavoidable as you get older. One of them is presbyopia, the age-related loss of the ability to focus on nearby objects.</p>
+
+<!--more-->
+
+<h2 id="presbyopia-creeps-up-on-you">Presbyopia Creeps Up on You</h2>
+
+<p>Presbyopia doesn't suddenly appear overnight. Your eyes gradually lose their ability to focus at close distances, and most people start noticing the inconvenience sometime in their 40s.</p>
+
+<p>I've always been nearsighted, so I've worn glasses for most of my life. Until my mid-40s, I had no real trouble getting by with my regular glasses.</p>
+
+<p>That doesn't mean nothing was changing. Small text on my phone was becoming harder to read. I gradually started holding my phone a little farther away, and at some point I began increasing the font size.</p>
+
+<p>But that was about it. My computer monitors were still perfectly comfortable to use, and reading books wasn't much of a problem either. So I didn't think much of it.</p>
+
+<p>The real trouble started when I got a new pair of glasses.</p>
+
+<h2 id="new-glasses-worse-experience-at-the-computer">New Glasses, Worse Experience at the Computer</h2>
+
+<p>In my mid-40s, I had my eyes checked and got a new pair of glasses for my nearsightedness. My old prescription was no longer quite right, so naturally I figured getting it corrected was a good thing.</p>
+
+<p>Then I sat down at my computer with the new glasses, and something felt off.</p>
+
+<p>It wasn't that I couldn't read the text on the monitor. I could. It just wasn't comfortable anymore. I found myself squinting or straining my eyes to read things that I used to look at without even thinking.</p>
+
+<p>Things in the distance were sharper, but the computer monitor I stared at all day had become uncomfortable. I had paid for new glasses, only to make my work more difficult. Great.</p>
+
+<p>Later, I learned that this could be related to presbyopia. Glasses for nearsightedness are primarily meant to correct distance vision, while the ability to focus on nearby objects decreases with age. A stronger prescription for distance vision can actually make close-up work less comfortable.</p>
+
+<p>Apparently, my old glasses had been better suited for looking at my monitors.</p>
+
+<h2 id="i-was-afraid-of-progressives-so-i-bought-multiple-pairs-of-glasses">I Was Afraid of Progressives, So I Bought Multiple Pairs of Glasses</h2>
+
+<p>I'd heard that progressive lenses were the usual solution for presbyopia. But I'd also heard stories from people who couldn't get used to them.</p>
+
+<p>Some said they made them dizzy. Others complained about distortion, and some eventually gave up wearing them altogether. After hearing all that, I wasn't particularly interested in spending a bunch of money on progressive lenses that I might not even be able to use.</p>
+
+<p>So instead, I bought several pairs of glasses.</p>
+
+<p>One for distance, one for computer work, and another for reading. Each pair used single-vision lenses with a prescription suited to its intended purpose.</p>
+
+<p>And honestly, this worked pretty well.</p>
+
+<p>When I was at my computer, I'd wear the glasses made for the distance between my eyes and the monitors. When I wanted to read, I'd switch to the reading glasses, which were designed for a shorter distance.</p>
+
+<p>I was especially happy with the computer glasses. I could see the entire monitor comfortably without constantly adjusting my head position or trying to look through a particular part of the lenses.</p>
+
+<p>The problem was going outside.</p>
+
+<p>Sometimes I'd need to look at something in the distance and then check my phone. Or I'd be at a restaurant trying to read the menu. Obviously, I couldn't keep switching glasses every time I needed to look at something closer. Carrying multiple pairs everywhere wasn't much fun either.</p>
+
+<p>The setup worked great when I was sitting in one place doing one particular task. For everyday life, though, it wasn't particularly convenient.</p>
+
+<h2 id="eventually-i-tried-progressive-lenses">Eventually, I Tried Progressive Lenses</h2>
+
+<p>So I finally decided to give progressive lenses a try.</p>
+
+<p>I was a little worried. After hearing so many people complain about dizziness and difficulty adjusting, I figured I might have the same problem.</p>
+
+<p>But when I actually tried them, they were surprisingly fine.</p>
+
+<p>Of course, progressive lenses have their limitations. The upper portion is designed for distance vision, while the lower portion handles closer distances. There's also distortion toward the edges. Some people need time to get used to moving their eyes and head differently.</p>
+
+<p>But at least for me, the adjustment wasn't particularly difficult. I guess everyone is different.</p>
+
+<p>By the way, I don't think you necessarily need to spend a fortune on progressive lenses. I got mine at a discount optical chain while visiting South Korea, using relatively inexpensive Korean-made lenses. They were surprisingly cheap compared to what I'd pay in Canada, and I've been perfectly happy with them. Maybe more expensive lenses have their advantages, but I don't have any complaints about mine, so I don't see much reason to switch.</p>
+
+<p>Once I started wearing progressives, everyday life became noticeably easier. Looking at something far away, checking my phone, reading small labels in a store, or looking at a restaurant menu could all be done with one pair of glasses.</p>
+
+<p>That didn't mean I threw away all my single-vision glasses, though.</p>
+
+<p>In fact, that's when I finally started figuring out the best way to use all of them.</p>
+
+<h2 id="the-best-solution-for-me-was-a-combination-of-progressives-and-single-vision-glasses">The Best Solution for Me Was a Combination of Progressives and Single-Vision Glasses</h2>
+
+<p>These days, I wear progressive glasses pretty much all the time. Even at home. Unless I have a specific reason to switch, I just keep my progressives on.</p>
+
+<p>But when I'm going to spend a long time doing something specific, like working at my computer or reading a book, I switch to single-vision glasses designed for that task.</p>
+
+<p>I keep computer glasses where I work and reading glasses where I usually read. Basically, I have several inexpensive pairs of glasses scattered around the house.</p>
+
+<p>I can certainly use my computer while wearing progressive lenses. But for extended work, single-vision lenses are much more comfortable. With progressives, the areas that provide clear vision at different distances are limited, so you may have to adjust your head position to look at the monitor comfortably.</p>
+
+<p>With single-vision computer glasses, the entire lens is optimized for the distance to my monitor. That gives me a much wider area of comfortable vision. When you spend most of the day working at a computer, it makes quite a difference.</p>
+
+<p>The same goes for reading. Glasses specifically made for reading distance are simply more comfortable for long reading sessions.</p>
+
+<p>Of course, if I plan to read for a long time or work on a computer while I'm out, I'll bring the appropriate glasses with me. But for quickly checking my phone or reading a menu, my progressives are more than enough.</p>
+
+<p>This combination has made my life a lot more comfortable.</p>
+
+<p>I started out using only multiple pairs of single-vision glasses, eventually added progressives, and finally settled on using both. It probably took me a year or two to figure out what worked best for me.</p>
+
+<p>It would've been nice to know all this from the beginning, but I suppose some things you just have to figure out through trial and error.</p>
+
+<h2 id="even-reading-glasses-need-upgrades">Even Reading Glasses Need Upgrades</h2>
+
+<p>So once you've adjusted, that's the end of it, right?</p>
+
+<p>Unfortunately, no.</p>
+
+<p>Presbyopia continues to progress for a while. Glasses that worked perfectly well a few years ago may gradually become less comfortable. Small text that used to be easy to read starts looking blurry again.</p>
+
+<p>Based on my experience, it seems reasonable to have the prescription checked every three years or so and get stronger reading glasses if necessary.</p>
+
+<p>Of course, presbyopia doesn't progress at the same rate forever. The changes are generally more noticeable during your 40s and 50s, and things tend to stabilize around your 60s. So I'm not suggesting that everyone will need stronger glasses every three years for the rest of their lives.</p>
+
+<p>One nice thing about having multiple pairs of glasses is that there's a way to save some money here.</p>
+
+<p>Let's say your reading glasses are no longer strong enough to comfortably read a book. That doesn't necessarily mean you need to throw them away. They might still work perfectly well for a computer monitor, which is typically farther away than a book.</p>
+
+<p>So you can repurpose your old reading glasses as computer glasses and just buy a new pair for reading. Obviously, you'd want to make sure the prescription is actually suitable for your monitor distance.</p>
+
+<p>Reusing glasses this way can save some money. Since I already keep multiple pairs around the house, there's no reason to replace every single one whenever my prescription changes.</p>
+
+<h2 id="the-blurriness-that-glasses-cant-fix">The Blurriness That Glasses Can't Fix</h2>
+
+<p>There's one problem that hasn't completely gone away, even after figuring out how to live with presbyopia.</p>
+
+<p>My eyes sometimes just feel blurry or hazy.</p>
+
+<p>Whether I'm wearing progressives or reading glasses, there are moments when my vision simply doesn't feel as clear or comfortable as it used to. Even when I'm looking at something at the correct focal distance, things can feel a little off.</p>
+
+<p>It's especially noticeable in dim lighting.</p>
+
+<p>When I was a kid, my mother would sometimes ask why I was reading in such a dark room and tell me to turn on the lights. Back then, I never understood what she was talking about. I could see perfectly fine.</p>
+
+<p>Well, I think I understand now. LOL.</p>
+
+<p>Lighting that used to be perfectly adequate for reading now feels too dim. I need brighter lights, and small text or low-contrast text is noticeably harder to read.</p>
+
+<p>I don't know whether all of this is caused by presbyopia. Aging can also bring problems like dry eyes and other changes in vision, so I wouldn't automatically blame everything on presbyopia. If things stay blurry even with the right glasses, getting an eye exam would probably be a good idea.</p>
+
+<p>In any case, getting the right glasses doesn't magically give you your younger eyes back.</p>
+
+<p>I guess this is what getting old feels like.</p>
+
+<h2 id="fortunately-coding-is-still-no-problem">Fortunately, Coding Is Still No Problem</h2>
+
+<p>The good news is that I still have no trouble working at my computer.</p>
+
+<p>With my dedicated single-vision computer glasses, I can stare at my monitors for hours without much discomfort. At least when it comes to development work, presbyopia isn't really getting in my way.</p>
+
+<p>I'm still using 24-inch monitors, and my Windows display scaling is still set to 100%. I haven't felt the need to increase font sizes or buy larger monitors.</p>
+
+<p>Of course, that might change in a few years.</p>
+
+<p>If it does, I figure I'll just increase the Windows display scaling to 125% or 150%. If the text becomes too small to read comfortably, I'll make it bigger. Isn't that one of the nice things about computers?</p>
+
+<p>And if I eventually need larger monitors, I can get those too. There are plenty of ways to adjust a computer setup.</p>
+
+<p>Getting presbyopia doesn't necessarily mean your productivity as a developer has to suffer. At least that hasn't been my experience so far.</p>
+
+<h2 id="you-cant-stop-aging-but-you-can-adapt">You Can't Stop Aging, but You Can Adapt</h2>
+
+<p>Looking back, the way I've dealt with presbyopia isn't all that different from how I've handled other physical problems over the years.</p>
+
+<p>When my shoulders hurt, I changed my keyboard and mouse. When my back hurt, I worked on strengthening my muscles and changed my desk and chair. When my eyes started giving me trouble, I got several pairs of glasses and changed how I used them.</p>
+
+<p>There is one difference, though.</p>
+
+<p>Shoulder or back pain can sometimes improve with exercise or changes in daily habits. Presbyopia, on the other hand, isn't something you can reverse by working out harder. At some point, you just have to accept it and adapt.</p>
+
+<p>I can't say I'm particularly happy about getting older. It's annoying when things you used to do without a second thought gradually become inconvenient. Life was definitely simpler when one pair of glasses was all I needed.</p>
+
+<p>But what can you do?</p>
+
+<p>Get the glasses you need, adjust your working environment, and figure out a solution whenever something new becomes inconvenient. I'm sure more physical changes are coming as I get older, and I'll probably deal with those the same way.</p>
+
+<p>I suppose the point of taking care of your body isn't to stay young forever. It's to keep yourself capable of doing the things you enjoy for as long as possible.</p>
+
+<p>For now, all I need to do is switch glasses when necessary, and I can still code just fine. Good enough for me.</p>]]></content><author><name>Pope Kim</name></author><category term="personal" /><category term="aging" /><category term="presbyopia" /><category term="glasses" /><category term="health" /><category term="dev" /><summary type="html"><![CDATA[If you want to keep working as a developer for a long time, taking care of your body is pretty important. Sure, it's mostly brain work, but you still need a body that can keep up. So I've always made an effort to stay reasonably healthy. That doesn't mean hitting the gym and working out like crazy every day. For me, it's mostly about eating well, sleeping well, and avoiding unnecessary strain on my body. When something does start hurting, though, I get a little more proactive. Years ago, when I started having shoulder pain, I switched to a tenkeyless keyboard. Without the number pad, I could keep my mouse closer to my body. Eventually, I got rid of the conventional mouse altogether and switched to a roller mouse. When my back started giving me trouble, I spent some time doing intensive strength training. I also got a standing desk and eventually invested in a Herman Miller chair. That's generally how I've dealt with these things. When something goes wrong, I try to figure out what's causing it and change something, whether it's exercise, equipment, or daily habits. But no matter how well you take care of yourself, some things are unavoidable as you get older. One of them is presbyopia, the age-related loss of the ability to focus on nearby objects.]]></summary></entry><entry><title type="html">What to Do When a .NET MAUI Update Breaks Your Build on Windows + Visual Studio</title><link href="https://blog.popekim.com/en/2026/10/20/dotnet-maui-nuget-update-build-failure.html" rel="alternate" type="text/html" title="What to Do When a .NET MAUI Update Breaks Your Build on Windows + Visual Studio" /><published>2026-10-20T00:00:00+00:00</published><updated>2026-10-20T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/10/20/dotnet-maui-nuget-update-build-failure</id><content type="html" xml:base="https://blog.popekim.com/en/2026/10/20/dotnet-maui-nuget-update-build-failure.html"><![CDATA[<p>When developing a .NET MAUI project with Visual Studio on Windows, you'll occasionally see a long list of available updates in the NuGet Package Manager. You update the packages as usual, and suddenly your build breaks. Sound familiar? If this happens right after updating MAUI-related packages such as <code>Microsoft.Maui.Controls</code>, this article is for you.</p>
+
+<!--more-->
+
+<p>Unlike ordinary NuGet packages, .NET MAUI requires a little more attention when it comes to updates.</p>
+
+<h2 id="net-maui-doesnt-run-on-nuget-packages-alone">.NET MAUI Doesn't Run on NuGet Packages Alone</h2>
+
+<p>.NET MAUI depends on two main components:</p>
+
+<ol>
+  <li><strong>NuGet packages</strong>: Libraries referenced by your project, such as <code>Microsoft.Maui.Controls</code>.</li>
+  <li><strong>.NET workloads</strong>: SDKs and tools required to build for platforms such as Android, iOS, and Windows.</li>
+</ol>
+
+<p>The problem is that these components are updated separately. Updating a NuGet package doesn't automatically update the workloads required by that version.</p>
+
+<p>For example, suppose you update your project to reference a newer version of <code>Microsoft.Maui.Controls</code>, but your development machine still has an older workload installed. This can lead to compatibility issues, resulting in build errors or warnings about mismatched package versions.</p>
+
+<p>Of course, this doesn't mean the NuGet package and workload version numbers must match exactly. What matters is that <strong>you're using compatible versions</strong>.</p>
+
+<h2 id="how-do-you-fix-this-on-windows--visual-studio">How Do You Fix This on Windows + Visual Studio?</h2>
+
+<p>If the problem started immediately after a NuGet update, first roll back the affected packages to their previous versions. This makes it easier to confirm whether the update caused the problem.</p>
+
+<p>Next, <strong>launch Visual Studio Installer and update Visual Studio and the MAUI development components.</strong></p>
+
+<p>When using Visual Studio on Windows, .NET MAUI workloads are generally managed through Visual Studio Installer. It's better to use Visual Studio Installer rather than updating the workloads separately through command-line tools.</p>
+
+<p>There's one thing to watch out for. If you search online for instructions on updating MAUI, you'll probably come across this command:</p>
+
+<pre><code class="language-cmd">dotnet workload update
+</code></pre>
+
+<p>However, <strong>don't blindly run this command in a Windows development environment managed by Visual Studio Installer.</strong></p>
+
+<p>Mixing workloads installed through Visual Studio Installer with those installed through the CLI can create confusion around installation state and version management. If Visual Studio manages your development environment, it's safer to use the same mechanism for updates.</p>
+
+<p>So, follow these steps:</p>
+
+<ol>
+  <li>Roll back the MAUI NuGet packages that caused the problem to their previous versions.</li>
+  <li>Update Visual Studio and the MAUI development components through Visual Studio Installer.</li>
+  <li>Update the necessary MAUI NuGet packages again, making sure the versions are compatible.</li>
+  <li>Build the project and verify that everything works.</li>
+</ol>
+
+<p>Of course, updating Visual Studio to the latest version doesn't guarantee compatibility with every latest MAUI NuGet package. You still need to check which versions are supported by your .NET SDK and Visual Studio installation.</p>
+
+<h2 id="do-you-really-need-to-manage-workload-versions-separately">Do You Really Need to Manage Workload Versions Separately?</h2>
+
+<p>.NET MAUI also allows you to explicitly manage SDK and workload versions using <code>global.json</code> and Workload Sets. This can be necessary, especially in macOS or CLI-based development environments.</p>
+
+<p>But if every developer uses Windows + Visual Studio and your team has standardized its development environment, that's a different story.</p>
+
+<p>If Visual Studio Installer already manages your workloads, why introduce separate CLI commands and another version management process?</p>
+
+<p>Having two different ways to manage the same development environment may simply create more opportunities for things to go wrong.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>.NET MAUI isn't just another NuGet library. The packages referenced by your project must also be compatible with the workloads installed in your development environment.</p>
+
+<p>So, if your build breaks right after updating MAUI-related NuGet packages, don't start blindly updating other packages. Roll back the changes first and confirm what caused the problem.</p>
+
+<p>And if your team has standardized on Windows + Visual Studio, <strong>update the MAUI development environment through Visual Studio Installer before updating the NuGet packages.</strong></p>
+
+<p>There's no need to introduce a complicated workload version management system when your development environment is already standardized. Standardizing the environment itself takes care of much of the version management problem.</p>
+
+<p><strong>The goal of version management isn't to maintain complicated configurations. It's to ensure that you can build your project reliably, anytime and anywhere.</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dotnet" /><category term="maui" /><category term="nuget" /><category term="visual-studio" /><category term="vcs" /><category term="dev" /><summary type="html"><![CDATA[When developing a .NET MAUI project with Visual Studio on Windows, you'll occasionally see a long list of available updates in the NuGet Package Manager. You update the packages as usual, and suddenly your build breaks. Sound familiar? If this happens right after updating MAUI-related packages such as Microsoft.Maui.Controls, this article is for you.]]></summary></entry><entry><title type="html">Azure DevOps Agent Capabilities Disappearing? Windows Compression Might Be the Culprit</title><link href="https://blog.popekim.com/en/2026/10/19/azure-devops-agent-missing-capabilities.html" rel="alternate" type="text/html" title="Azure DevOps Agent Capabilities Disappearing? Windows Compression Might Be the Culprit" /><published>2026-10-19T00:00:00+00:00</published><updated>2026-10-19T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/10/19/azure-devops-agent-missing-capabilities</id><content type="html" xml:base="https://blog.popekim.com/en/2026/10/19/azure-devops-agent-missing-capabilities.html"><![CDATA[<p>At my company, we run a self-hosted build farm consisting of multiple Windows machines, each running an Azure DevOps build agent. Everything had been working fine until around April of this year, when we started encountering a rather strange problem.</p>
+
+<p><strong>After rebooting a build machine, its Azure DevOps agent would sometimes fail to register its System Capabilities properly.</strong></p>
+
+<!--more-->
+
+<p>Capabilities tell Azure DevOps which development tools and environments are available on an agent. For example, they include information about installed tools such as MSBuild and Visual Studio, along with their installation paths. Azure DevOps uses this information to assign build jobs to suitable machines. If these capabilities disappear, an agent may no longer qualify for certain build jobs, even though all the required development tools are still installed and working perfectly fine.</p>
+
+<h2 id="completely-inconsistent-symptoms">Completely Inconsistent Symptoms</h2>
+
+<p>Initially, I assumed something had gone wrong during agent initialization. But the behavior was bizarre.</p>
+
+<ul>
+  <li>Some machines would return to normal after a reboot.</li>
+  <li>Others would remain broken no matter how many times we rebooted them.</li>
+  <li>Even on the same machine, the problem would appear on some days but not others.</li>
+  <li>Restarting the agent service didn't fix anything.</li>
+</ul>
+
+<p>Our build farm uses separate accounts for administration and for running the actual build agents. Naturally, I suspected some kind of permission issue or a race condition during initialization.</p>
+
+<p>But while investigating, I discovered something even stranger.</p>
+
+<p><strong>Simply opening Command Prompt (cmd.exe) as Administrator could make the problem go away.</strong></p>
+
+<p>I didn't even have to execute a command. Just opening an elevated Command Prompt was sometimes enough for the capabilities to register properly afterward.</p>
+
+<p>At that point, I started to suspect this wasn't merely an Azure DevOps configuration issue.</p>
+
+<h2 id="clues-in-the-diagnostic-logs">Clues in the Diagnostic Logs</h2>
+
+<p>Azure DevOps agents write diagnostic logs to the <code>_diag</code> directory under their installation folder. If your agent isn't registering its capabilities properly, that's a good place to start looking.</p>
+
+<p>In our case, exceptions related to the .NET Framework provided some clues. In particular, the following keywords are worth searching for:</p>
+
+<ul>
+  <li><code>MarvinHash</code></li>
+  <li><code>ServicePointManager</code></li>
+  <li><code>System.Configuration.ConfigurationErrorsException</code></li>
+</ul>
+
+<p>Seeing these errors doesn't necessarily mean you're experiencing the same problem. However, if you encounter related exceptions during capability detection, it's worth checking the Windows file compression state described below.</p>
+
+<p>I'll spare you the details of all the troubleshooting. In the end, the solution turned out to be somewhere rather unexpected.</p>
+
+<h2 id="the-culprit-windows-wof-compression">The Culprit: Windows WOF Compression</h2>
+
+<p>The problem involved this file:</p>
+
+<pre><code class="language-text">C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config
+</code></pre>
+
+<p><code>machine.config</code> is a global configuration file used by the .NET Framework. It turned out that this file was <strong>compressed using WOF (Windows Overlay Filter)</strong>.</p>
+
+<p>WOF allows Windows to store files in a compressed format and decompress them transparently when needed. It's also used by Windows Compact OS and works differently from regular NTFS compression. Its primary purpose is to save disk space, particularly for executables and files that rarely change.</p>
+
+<p>There's nothing inherently wrong with this compression. It's a normal Windows feature.</p>
+
+<p>The problem appears to be that something went wrong when the .NET Framework tried to access this file in our environment. I haven't determined exactly where the failure occurred internally, or why simply opening an elevated Command Prompt could change the behavior.</p>
+
+<p>What I did confirm, however, is that <strong>the problem disappeared after decompressing the file</strong>.</p>
+
+<h2 id="how-to-check-and-fix-it">How to Check and Fix It</h2>
+
+<p>First, open Command Prompt (cmd.exe) as Administrator.</p>
+
+<p>Check the compression status of both the 32-bit and 64-bit .NET Framework <code>machine.config</code> files:</p>
+
+<pre><code class="language-cmd">compact "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config"
+compact "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\machine.config"
+</code></pre>
+
+<p>If either file is compressed, decompress it using the following commands. In our case, we ran both commands regardless of the files' existing compression states.</p>
+
+<pre><code class="language-cmd">compact /U /F /EXE "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\machine.config"
+compact /U /F /EXE "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\Config\machine.config"
+</code></pre>
+
+<p>Here's what each option does:</p>
+
+<ul>
+  <li><code>/U</code>: Decompresses files.</li>
+  <li><code>/F</code>: Forces the compression or decompression operation.</li>
+  <li><code>/EXE</code>: Handles WOF-compressed files rather than just regular NTFS compression.</li>
+</ul>
+
+<p>The important part here is the <code>/EXE</code> option. <strong>Without it, the command only handles regular NTFS compression, potentially leaving WOF-compressed files untouched.</strong></p>
+
+<p>Once decompression is complete, run the <code>compact</code> commands again to verify the status of both files. Then reboot the machine and check whether the agent's System Capabilities are properly registered in Azure DevOps.</p>
+
+<p>This resolved the issue for us.</p>
+
+<h2 id="applying-the-fix-to-the-rest-of-the-build-farm">Applying the Fix to the Rest of the Build Farm</h2>
+
+<p>After confirming that decompression fixed the affected machines, we applied the same change to the rest of our build farm.</p>
+
+<p>Not every machine had experienced the problem. Some had been running perfectly fine all along, but there was no guarantee they wouldn't encounter it in the future.</p>
+
+<p>Besides, <code>machine.config</code> is a tiny configuration file. Decompressing it has a negligible impact on disk space. We saw no compelling reason to keep it compressed, so we decompressed both the 32-bit and 64-bit versions on every build machine.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>We had been dealing with this intermittent issue for months, and in the end, the fix was as simple as decompressing a small configuration file.</p>
+
+<p>I still don't know exactly why WOF compression caused this behavior. It could be a problem in a particular Windows or .NET Framework code path, or perhaps an interaction with some other environmental factor. Pinpointing the actual internal failure would require further investigation.</p>
+
+<p>What I can say is that decompressing the file resolved the problem on machines where we had been experiencing it.</p>
+
+<p><strong>If your Azure DevOps agent suddenly loses its System Capabilities after a reboot, check the compression status of <code>machine.config</code> before spending hours messing around with the agent configuration.</strong></p>
+
+<p>You might be surprised at how simple the fix turns out to be.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="windows" /><category term="dotnet" /><category term="debugging" /><category term="build" /><summary type="html"><![CDATA[At my company, we run a self-hosted build farm consisting of multiple Windows machines, each running an Azure DevOps build agent. Everything had been working fine until around April of this year, when we started encountering a rather strange problem. After rebooting a build machine, its Azure DevOps agent would sometimes fail to register its System Capabilities properly.]]></summary></entry><entry><title type="html">How We Maintain a Monorepo, and Why DLL Boundaries Matter More</title><link href="https://blog.popekim.com/en/2026/02/18/monorepo-architecture.html" rel="alternate" type="text/html" title="How We Maintain a Monorepo, and Why DLL Boundaries Matter More" /><published>2026-02-18T00:00:00+00:00</published><updated>2026-02-18T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2026/02/18/monorepo-architecture</id><content type="html" xml:base="https://blog.popekim.com/en/2026/02/18/monorepo-architecture.html"><![CDATA[<p>The company I run fundamentally adopts a <strong>Monorepo</strong> approach. Our folder structure is therefore not designed to "make the code look neat," but rather based on <strong>how we manage dependencies and reuse code properly</strong>.</p>
+
+<p>Many people debate whether to organize by feature or by domain. I approach this from a slightly different perspective.</p>
+
+<!--more-->
+
+<p>The core is not folders, but <strong>project (.csproj) boundaries</strong> — in other words, <strong>DLL-level separation</strong>.</p>
+
+<h2 id="level-0---product-level-separation">Level 0 - Product-Level Separation</h2>
+
+<p>First, we clearly define: "Which product does this code belong to?"</p>
+
+<ul>
+  <li><strong>Academy</strong>: Code related to POCU Academy</li>
+  <li><strong>ProctoredExamService</strong>: Online exam proctoring service</li>
+  <li><strong>Engine</strong>: Code shared across multiple products (effectively internal middleware)</li>
+</ul>
+
+<p>At this level, product boundaries are already clear. If code ownership becomes ambiguous, the overall structure starts to destabilize.</p>
+
+<h2 id="level-1---project-csproj-level">Level 1 - Project (.csproj) Level</h2>
+
+<p>This is the most important layer.</p>
+
+<p>Each product contains multiple <code>.csproj</code> files.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li><code>Academy.Services</code></li>
+  <li><code>Academy.Buildfarm</code></li>
+  <li><code>Shop</code> (the web app users directly interact with)</li>
+</ul>
+
+<p>Level 1 is not just a folder. It represents a <strong>DLL boundary</strong>.</p>
+
+<h3 id="the-real-reason-i-split-at-level-1">The Real Reason I Split at Level 1</h3>
+
+<p>Is it feature separation? Domain separation? No.</p>
+
+<p>It is for <strong>proper dependency management and access control of shared code</strong>.</p>
+
+<h2 id="operational-approach">Operational Approach</h2>
+
+<h3 id="1-app-specific-code">1) App-Specific Code</h3>
+
+<p>Code used only by a specific app remains inside that project. The internal folder structure is freely organized based on team agreement.</p>
+
+<p>In practice, folder structure affects development efficiency by perhaps 10%.</p>
+
+<p>Most navigation happens through:</p>
+
+<ul>
+  <li>Go to Definition</li>
+  <li>Search All References</li>
+  <li>Global Search (Ctrl + Shift + F)</li>
+  <li>Tracing through build errors</li>
+</ul>
+
+<p>This is far more efficient than manually navigating folders.</p>
+
+<h3 id="2-shared-code">2) Shared Code</h3>
+
+<p>When code is required by two or more apps, we move it into a shared library such as <code>Academy.Libs</code>.</p>
+
+<p>Namespaces are automatically determined by folder structure.</p>
+
+<p>For example:</p>
+
+<pre><code>Academy.Libs/Services/Order/OrderService.cs
+-&gt; namespace Academy.Services.Order
+</code></pre>
+
+<p>If we later extract this folder into a dedicated <code>Academy.Services.csproj</code>, the namespace remains unchanged.</p>
+
+<p>We simply reconnect project references and everything works.</p>
+
+<p>This is critical. We must be able to insert code quickly and extract it into a standalone module when needed.</p>
+
+<h3 id="3-further-separation-when-necessary">3) Further Separation When Necessary</h3>
+
+<p>As shared code grows, we separate it into dedicated libraries.</p>
+
+<p>For example:</p>
+
+<ul>
+  <li><code>Academy.Entities</code>: ORM entities + query extensions</li>
+  <li><code>Academy.Services</code>: Shared service logic</li>
+</ul>
+
+<p>Here, <strong>access control strategy</strong> becomes crucial.</p>
+
+<h2 id="access-control-and-collaboration-rules">Access Control and Collaboration Rules</h2>
+
+<p>Many classes inside <code>Academy.Entities</code> and <code>Academy.Services</code> are marked as <code>internal</code>.</p>
+
+<p>We selectively grant access via <code>InternalsVisibleTo</code> only when necessary.</p>
+
+<p>Why?</p>
+
+<ul>
+  <li>ORM entities</li>
+  <li>Core service logic</li>
+  <li>Performance-critical components</li>
+</ul>
+
+<p>Allowing unrestricted modification by junior developers significantly increases the risk of production issues.</p>
+
+<h3 id="actual-collaboration-rules">Actual Collaboration Rules</h3>
+
+<ul>
+  <li><strong>Shop Project</strong>
+    <ul>
+      <li>Anyone can modify</li>
+      <li>Merge to main without mandatory review</li>
+    </ul>
+  </li>
+  <li><strong>Academy.Services / Academy.Entities</strong>
+    <ul>
+      <li>Only senior developers may modify</li>
+      <li>Juniors require senior review before merging</li>
+    </ul>
+  </li>
+</ul>
+
+<p>If folder structure contributes 10% to efficiency, structured access control contributes far more.</p>
+
+<p>This is what truly ensures productivity and stability.</p>
+
+<h2 id="separation-for-nuget-size-optimization">Separation for NuGet Size Optimization</h2>
+
+<p>Sometimes we split libraries purely for deployment reasons.</p>
+
+<p>For example, placing the <code>clang</code> toolset inside <code>Academy.Libs</code> would increase every application's deployment size by hundreds of megabytes.</p>
+
+<p>So we separate it into its own DLL.</p>
+
+<p>Again, this is not about feature or domain separation — it is about deployment strategy and dependency control.</p>
+
+<h2 id="level-2---internal-project-folders">Level 2 - Internal Project Folders</h2>
+
+<p>This layer is flexible.</p>
+
+<p>Typical folders:</p>
+
+<ul>
+  <li>Services</li>
+  <li>Models</li>
+  <li>Entities</li>
+  <li>TransferData</li>
+</ul>
+
+<p>My usual convention:</p>
+
+<ul>
+  <li>DTOs → <code>TransferData</code></li>
+  <li>ViewModels → <code>Models</code></li>
+  <li>Database entities → <code>Entities</code></li>
+</ul>
+
+<p>This structure changes frequently:</p>
+
+<ul>
+  <li>When features expand</li>
+  <li>When concepts are redefined</li>
+  <li>When I make mistakes</li>
+</ul>
+
+<p>Modern C# IDEs automatically update namespaces and references, so moving files is low risk.</p>
+
+<p>Move files, compile, verify. Simple.</p>
+
+<h2 id="how-we-actually-navigate-the-codebase">How We Actually Navigate the Codebase</h2>
+
+<p>In reality:</p>
+
+<ul>
+  <li>90% of navigation happens via IDE features</li>
+  <li>10% through manual folder traversal</li>
+</ul>
+
+<p>My philosophy is this:</p>
+
+<blockquote>
+  <p>Folder structure is merely a management tool.<br />
+What truly matters is project-level dependency management and access control.</p>
+</blockquote>
+
+<h2 id="summary">Summary</h2>
+
+<ol>
+  <li>Level 0 and 1 must be rigorously structured</li>
+  <li>Level 1 is about DLL boundaries, not feature/domain labels</li>
+  <li>Level 2 can remain flexible</li>
+  <li>IDE navigation + compilation drive maintainability</li>
+  <li>Eliminating duplication and enforcing access control ensures long-term stability</li>
+</ol>
+
+<p>In one sentence:</p>
+
+<blockquote>
+  <p>Insert quickly, extract cleanly when needed — and enforce strong access control on top.</p>
+</blockquote>
+
+<p>This is how the company I run manages its monorepo architecture.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="dev" /><category term="git" /><category term="best-practice" /><category term="simplicity" /><summary type="html"><![CDATA[The company I run fundamentally adopts a Monorepo approach. Our folder structure is therefore not designed to "make the code look neat," but rather based on how we manage dependencies and reuse code properly. Many people debate whether to organize by feature or by domain. I approach this from a slightly different perspective.]]></summary></entry><entry><title type="html">The Repeating 3-Week Pattern: What I Learned by Finishing the Last Course Myself</title><link href="https://blog.popekim.com/en/2025/11/21/repeating-3week-pattern.html" rel="alternate" type="text/html" title="The Repeating 3-Week Pattern: What I Learned by Finishing the Last Course Myself" /><published>2025-11-21T00:00:00+00:00</published><updated>2025-11-21T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/11/21/repeating-3week-pattern</id><content type="html" xml:base="https://blog.popekim.com/en/2025/11/21/repeating-3week-pattern.html"><![CDATA[<p><a href="https://pocu.academy">POCU video lectures</a> come with transcripts that someone already cleaned up once. The content is mostly accurate, but the line breaks and punctuation are all over the place. To use them in an automated pipeline, they need to be reorganized. One student had been helping me with that work for several years on a part-time basis.</p>
+
+<p>He worked on multiple courses, and strangely, the pattern was always the same.</p>
+
+<!--more-->
+
+<p>He did exactly 3 weeks of content very well. Then he disappeared.</p>
+
+<p>A few months later he would reappear, apologize, finish another 3 weeks, and disappear again. It did not matter which course it was; the pattern repeated every single time.</p>
+
+<p>And now that I think about it, it was not because he was lazy. It is simply that the work itself was the kind that wears people out.</p>
+
+<p>I finally understood this very clearly when I tried doing it myself.</p>
+
+<h2 id="the-last-course-and-an-8-month-gap">The last course, and an 8-month gap</h2>
+
+<p>This time, the task he received was truly the last remaining course. Finishing this one would complete a multi-year transcript improvement project. As usual, he completed the first 3 weeks perfectly.</p>
+
+<p>Then he disappeared again. Three weeks later he showed up, extremely apologetic. I could feel his guilt and pressure right through the messages. That heavy feeling of "I know I should do it, but I just cannot get myself to do it."</p>
+
+<p>And after finishing another 3 weeks, he disappeared again. This time, the gap was especially long. About 8 months.</p>
+
+<p>The weight of the guilt he had shown before felt too heavy. I realized it would not be good for either of us to drag this out any longer.</p>
+
+<p>So I decided to finish the last course myself.</p>
+
+<h2 id="and-then-i-also-got-stuck-exactly-at-the-3-week-mark">And then… I also got stuck exactly at the 3-week mark</h2>
+
+<p>Once I started working on it, I realized something funny. I also stopped right at the 3-week mark.</p>
+
+<p>The beginning went smoothly. Cleaning up sentences felt satisfying, and the progress was visible. I thought, "This is going pretty well." The speed was good too.</p>
+
+<p>But the moment I crossed the 3-week line, suddenly nothing was left except endless repetition. The interest vanished. My motivation and energy drained at the same time. I even started disliking myself for sitting at the desk.</p>
+
+<p>That is when I realized:</p>
+
+<blockquote>
+  <p>"Ah… this must have been exactly what he felt every time he stopped at 3 weeks."</p>
+</blockquote>
+
+<p>Honestly, I had quietly wondered, "Why can he never finish it?" But once I experienced the same block, I had no right to judge him.</p>
+
+<p>To be even more honest, he was better than me. At least he had the courage to apologize and come back after a few months. I was just annoyed at myself.</p>
+
+<h2 id="to-keep-going-i-started-stacking-reasons">To keep going, I started stacking reasons</h2>
+
+<p>Even so, this time I could not run away. This was the final course. If I dropped it, no one else would pick it up.</p>
+
+<p>So I started collecting reasons to pull myself back to the desk.</p>
+
+<h3 id="1-finishing-this-opens-the-automation-pipeline">1) Finishing this opens the automation pipeline</h3>
+<p>It is annoying now, but finishing this task will reduce future annoyance hundreds of times over.</p>
+
+<h3 id="2-i-cannot-enjoy-fun-projects-if-this-is-left-unfinished">2) I cannot enjoy fun projects if this is left unfinished</h3>
+<p>New lectures, system development, interesting experiments… I want to do all of them, but this unfinished task keeps weighing on my mind.</p>
+
+<h3 id="3-and-coincidentally-i-was-sick-for-a-few-days">3) And coincidentally, I was sick for a few days</h3>
+<p>Strangely, mentally intensive work becomes impossible when I feel unwell, but simple repetitive work actually becomes easier. On the day my condition was the worst, this task progressed the fastest.</p>
+
+<p>Holding onto these reasons, I decided to switch into machine mode again.</p>
+
+<h2 id="in-the-end-i-became-a-machine-once-more">In the end, I became a machine once more</h2>
+
+<p>People have often told me since I was young that I seem like a machine. I could never tell whether it was a compliment or an insult. But working on this again reminded me why they say that.</p>
+
+<p>I am someone who suppresses emotions well, and once I decide to do something boring and repetitive, I push through it until the end. Emotions can be processed later.</p>
+
+<p>So I finished the rest in just 5 days.</p>
+
+<p>Truly like a machine.</p>
+
+<h2 id="if-i-feel-less-pain-doing-something-others-find-painful-maybe-that-is-my-job">"If I feel less pain doing something others find painful, maybe that is my job"</h2>
+
+<p>After saving the final file, I remembered something from the book Atomic Habits. I am paraphrasing, but the idea was this:</p>
+
+<blockquote>
+  <p>What matters is not whether you like the work, but whether you feel the pain less than others do. If you can endure something that others struggle with, that might be the work you are meant to do.</p>
+</blockquote>
+
+<p>That was exactly the case with this transcript-cleaning task.</p>
+
+<p>For many people, this kind of work is unbearably boring and painful. But I am, unfortunately, someone who feels that pain a little less. So I was the one who ended up finishing this long project.</p>
+
+<p>It is not something to brag about. It is simply how I am wired. You could call it persistence, or stubbornness, or if we are being very honest… just being a bit rigid.</p>
+
+<p>Still, someone had to finish this work, and it happened to be me.</p>
+
+<p>And now, finally, I can move on to the fun things with a lighter heart.</p>]]></content><author><name>Pope Kim</name></author><category term="personal" /><category term="dev-diary" /><category term="dev" /><category term="pocu" /><category term="simplicity" /><category term="time-management" /><category term="life-advice" /><category term="wisdom" /><category term="book" /><summary type="html"><![CDATA[POCU video lectures come with transcripts that someone already cleaned up once. The content is mostly accurate, but the line breaks and punctuation are all over the place. To use them in an automated pipeline, they need to be reorganized. One student had been helping me with that work for several years on a part-time basis. He worked on multiple courses, and strangely, the pattern was always the same.]]></summary></entry><entry><title type="html">Old New Music: How Can I Make You Leave Her?</title><link href="https://blog.popekim.com/en/2025/11/03/new-old-music-leave-her.html" rel="alternate" type="text/html" title="Old New Music: How Can I Make You Leave Her?" /><published>2025-11-03T00:00:00+00:00</published><updated>2025-11-03T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/11/03/new-old-music-leave-her</id><content type="html" xml:base="https://blog.popekim.com/en/2025/11/03/new-old-music-leave-her.html"><![CDATA[<p>I realized I never shared this song on my blog. It's a track I released on April Fool's Day back in 2015.</p>
+
+<p>The title is "How Can I Make You Leave Her?"</p>
+
+<!--more-->
+
+<p>People who heard it were split into two very different groups: Some said it sounded hopeful, while others said it felt depressing.</p>
+
+<p>So what was I trying to convey?</p>]]></content><author><name>Pope Kim</name></author><category term="music" /><category term="music" /><category term="my-work" /><category term="youtube" /><summary type="html"><![CDATA[I realized I never shared this song on my blog. It's a track I released on April Fool's Day back in 2015. The title is "How Can I Make You Leave Her?"]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://img.youtube.com/vi/92GCdByc9Zk/maxresdefault.jpg" /><media:content medium="image" url="https://img.youtube.com/vi/92GCdByc9Zk/maxresdefault.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Stripe, KRW Local Payments, and the Never-Ending DCC Problem</title><link href="https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc.html" rel="alternate" type="text/html" title="Stripe, KRW Local Payments, and the Never-Ending DCC Problem" /><published>2025-11-02T00:00:00+00:00</published><updated>2025-11-02T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc</id><content type="html" xml:base="https://blog.popekim.com/en/2025/11/02/stripe-krw-local-payment-dcc.html"><![CDATA[<p>Every time you pay on an overseas website, you've probably seen that little popup asking if you'd like to pay in KRW or USD. That's DCC — Dynamic Currency Conversion. It sounds convenient, but in reality it almost always costs you more. The merchant or payment processor uses its own exchange rate and adds a markup on top. So, in most cases, it's much cheaper to just pay in the local currency (USD, EUR, etc.). Paying in KRW on a foreign site basically means paying extra for nothing.</p>
+
+<p>Stripe once planned to enter the Korean market — they even started hiring — but eventually went quiet. Maybe it's because of Korea's complex financial regulations or the already-saturated PG market, but things have moved slower than expected. Still, starting in late 2024, Stripe's documentation finally began mentioning support for Korean local payments. According to their docs, Checkout and Elements now support Korean credit and debit cards, as well as popular local wallets like Naver Pay, Kakao Pay, Samsung Pay, and Payco. Sounds like good news, right? But once you actually try it, it's clear that “it's not as simple as it sounds.” Many of those options require your Stripe account to be registered under a Korean entity or a U.S.-based legal entity. So technically it's “available,” but in practice, not fully open yet.</p>
+
+<p>From <a href="https://pocu.academy/en">POCU Academy</a>'s perspective, it's kind of a funny situation. We currently sell courses in two ways: the <a href="https://pocu.academy/en/Courses">regular semester (full courses) are sold directly through our own website</a> operated by a Canadian corporation, and the <a href="https://pocu-en.teachable.com/l/products">on-demand video lectures are sold through the U.S. platform Teachable</a>. Both use Stripe for payments. And both still have DCC attached. At first, I hoped that since Stripe started supporting Korean payments, maybe DCC would finally disappear — but nope, it's still there. For <a href="https://pocu.academy/en">POCU Academy</a>, which runs under a Canadian entity, that's understandable. But for a U.S.-based company like Teachable, it was surprising. When I looked more closely at the receipt, I found that Teachable's Stripe account is registered under a Netherlands entity. So it's using an EU-based Stripe setup, meaning it doesn't yet utilize the U.S. Stripe infrastructure that supports Korean local payments. I think Teachable's parent company might actually be based in the Netherlands? If that's true, it probably simplifies handling payments across EU countries, even if it complicates things for Korea.</p>
+
+<p>Stripe usually rolls out new features in this order: U.S. → Europe → Canada. So maybe Teachable will get the DCC-free benefit first, and then POCU Academy will follow. The reason European and Canadian entities don't yet have access is that each country's banking and card networks have to be interconnected. For instance, when a Korean customer pays in KRW, Stripe has to accept that payment through a Korean acquiring bank, then later settle it in the merchant's home currency (say, CAD). The bank that processes the payment and the one that handles settlement may be in completely different countries. Because of this, foreign exchange regulations and anti-money-laundering laws prevent Stripe from directly converting and remitting funds — it must route them through local partner banks. To fully open local payments in Korea, Stripe can't just flip a switch; it has to partner with Korean banks and card networks while ensuring its overseas settlement rails align. And since the Korean won isn't a fully free-floating international currency, those connections take extra time and red tape. In short, for Stripe to truly make “local currency in, foreign currency out” seamless, both domestic and international banking infrastructures have to work together.</p>
+
+<p>We've known about the DCC issue for a long time, so we've already priced our KRW courses lower than their USD or CAD equivalents to offset it. Still, it's a little awkward when the price you see on-screen and the final charged amount don't perfectly match. To make things more confusing, whether DCC is applied depends on the card issuer — some cards add it, others don't. Since it varies by card network and policy, customers can't really predict what will happen until they see the charge.</p>
+
+<p>So for now, it's a waiting game. We've waited this long, so waiting a little more isn't a big deal.</p>
+
+<p>There's even an ironic twist. Some people have managed to beat DCC losses by stacking overseas-payment point-back promotions — for example, when Naver Pay offered cash-back on international transactions. In a few cases, the rewards outweighed the DCC markup, turning what should've been a loss into a profit. It's not a structural fix, just a lucky promotion timing, but still amusing. Koreans are good at finding these little loopholes.</p>
+
+<p>To sum up, Stripe has officially started supporting Korean local payments, and on paper everything's ready. But to actually feel it in practice, Stripe still needs to complete its settlement infrastructure with Korean partner banks. Without local banks backing the KRW side, the flow from a KRW payment to an overseas settlement currency can't be fully automated. Once Stripe secures enough local partners and streamlines cross-border settlements, that's when true DCC-free local payments will finally become reality.</p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="stripe" /><category term="payment" /><category term="pocu" /><category term="fintech" /><category term="dev" /><category term="korea" /><summary type="html"><![CDATA[Every time you pay on an overseas website, you've probably seen that little popup asking if you'd like to pay in KRW or USD. That's DCC — Dynamic Currency Conversion. It sounds convenient, but in reality it almost always costs you more. The merchant or payment processor uses its own exchange rate and adds a markup on top. So, in most cases, it's much cheaper to just pay in the local currency (USD, EUR, etc.). Paying in KRW on a foreign site basically means paying extra for nothing.]]></summary></entry><entry><title type="html">AWS Went Down? Multi-Cloud Isn&apos;t the Answer</title><link href="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html" rel="alternate" type="text/html" title="AWS Went Down? Multi-Cloud Isn&apos;t the Answer" /><published>2025-10-23T00:00:00+00:00</published><updated>2025-10-23T00:00:00+00:00</updated><id>https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud</id><content type="html" xml:base="https://blog.popekim.com/en/2025/10/23/aws-outage-multi-cloud.html"><![CDATA[<p>Over the past few days, many people have lost their illusion of "safety."</p>
+
+<p>On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage.</p>
+
+<p>Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs).<br />
+Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.</p>
+
+<!--more-->
+
+<p>The very next day, a service our company uses on Azure started slowing down, flooding our office with alerts. (For reference: whenever we have a server outage, a disco ball spins and we have an impromptu dance party. Red, blue, dance-dance~) Come to think of it, there was also a large-scale Azure Front Door issue earlier this month (October 9), which even affected the management portal. Microsoft's own status page said they mitigated it by rerouting traffic and purging caches.<br />
+Clearly, this isn't just a "single-vendor" problem.</p>
+
+<p>And of course, today's news articles, blogs, and think-pieces are full of the same claim:</p>
+
+<p><strong>"Multi-cloud is safer."</strong></p>
+
+<p>It sounds convincing—but in reality, multi-vendor setups can't fix fundamental control-plane (CP) issues or upstream dependencies like global DNS, identity systems, or routing. Even Wall Street touts multi-cloud as the answer, yet that doesn't change the fact that <strong>AWS itself was shaking across the board on that very same day.</strong></p>
+
+<p>My point is simple: <strong>"Cloud means safer" is a myth.</strong><br />
+Let's break it down again—something I've said countless times on my YouTube lives.</p>
+
+<h2 id="1-multiply-the-slas-and-youll-see-reality">1) Multiply the SLAs and you'll see reality</h2>
+
+<p>Let's say you run one web server and one database.<br />
+(That's the bare minimum architecture, right?)</p>
+
+<ul>
+  <li>SLA 99.9% × 99.9% = 99.8001%<br />
+→ <strong>About 17.5 hours of downtime per year</strong> (0.1999% × 8760h)</li>
+  <li>SLA 99.9% × 99.9% × 99.9% = 99.7003%<br />
+→ <strong>About 26.3 hours of downtime per year</strong></li>
+</ul>
+
+<p>"Serverless means I'm fine," you say?</p>
+
+<p><strong>Serverless still has servers.</strong><br />
+The name is just marketing. In the end, it all depends on the reliability of physical and virtual resources, control planes, and rollout mechanisms. Unless you believe in "chicken-free chicken," you can't escape the <strong>multiplication of failure probabilities.</strong></p>
+
+<h2 id="2-the-real-risk-isnt-hardware--its-software-changes">2) The real risk isn't hardware — it's software changes</h2>
+
+<p>Cloud providers love to talk about high availability stories like<br />
+"Even if one AZ goes down, we'll stay up." That's about <strong>hardware and facilities.</strong></p>
+
+<p>But the truth is, <strong>most major outages start from software or control-plane changes.</strong> If a release goes wrong, healthy hardware can receive <strong>bad configuration at scale</strong>, and multiple regions or services can collapse at once. The latest AWS incident? It started with <strong>a shared dependency</strong> between data paths and DNS resolution—classic domino effect.</p>
+
+<h2 id="3-the-vendor-doesnt-deploy-on-my-timeline">3) "The vendor doesn't deploy on my timeline"</h2>
+
+<p>The fundamental risk of the cloud is the <strong>loss of change control.</strong></p>
+
+<p>Vendors push rolling updates <strong>on their schedule</strong>, and you have almost no authority to verify release quality. If your relatively simple service breaks because of a cloud update, it means something broke at the <strong>baseline feature level</strong>—<strong>(which means the vendor didn't test it well enough).</strong>  And guess who pays for it? Your service.</p>
+
+<h2 id="4-the-forgotten-advantages-of-on-prem--colocation">4) The forgotten advantages of on-prem / colocation</h2>
+
+<ul>
+  <li><strong>You control when to update.</strong><br />
+No surprise 3 AM deployments behind your back.</li>
+  <li>If something breaks mid-deploy, <strong>you can roll back or hot-fix immediately.</strong></li>
+  <li><strong>A human (with skills) is right there</strong> to respond in real time.</li>
+</ul>
+
+<p>It's like performing surgery <strong>without blood reserves ready.</strong> No matter how great the hospital (cloud) infrastructure is, if your team has no control over the contingency plan, you're in danger.</p>
+
+<h2 id="5-multi-cloud-is-the-answer--that-sounded-cool-back-when-we-were-newbies">5) "Multi-cloud is the answer"? — That sounded cool back when we were newbies.</h2>
+
+<p>Multi-cloud overlooks two big realities:</p>
+
+<ol>
+  <li><strong>Data Gravity</strong><br />
+Keeping transactional data consistently replicated and fail-over-ready across clouds is a nightmare of latency, consistency, and locking strategies.</li>
+  <li><strong>Shared dependencies</strong><br />
+Global DNS, identity, SaaS CI/CD, logging, alerts, CDNs, version control—different vendors, yes, but <strong>shared upper-layer dependencies</strong> mean they can all fall together.</li>
+</ol>
+
+<p>Sure, for certain workloads—read-only caches, content delivery, or non-critical back-office tasks— multi-vendor setups can reduce risk.<br />
+But for <strong>core transactional paths</strong>, multi-cloud often <strong>increases complexity, cost, and the blast radius</strong> of outages.</p>
+
+<h3 id="so-how-can-we-be-safer">So how can we be "safer"?</h3>
+
+<p>This isn't a "ditch the cloud" rant. Cloud is fantastic for <strong>initial launches and experiments.</strong> But once your product hits a stable phase, consider the following:</p>
+
+<ol>
+  <li><strong>Escape single-region, minimize single control plane</strong><br />
+Even within the same vendor, use <strong>region/account separation</strong> to reduce blast radius. Split control and data planes (e.g., separate management/audit accounts).</li>
+  <li><strong>The courage to use "boring" tech</strong><br />
+Simplify core systems with proven components instead of shiny new managed ones. Migrate in controlled, incremental phases.</li>
+  <li><strong>Strict change management</strong><br />
+Canary releases, circuit breakers, feature flags, graceful degradation—non-negotiable. Align your own release calendar with vendor change windows and avoid peak-time changes.</li>
+  <li><strong>Off-cloud backstops</strong><br />
+Provide read-only static or cached fail-safes (e.g., critical notice pages, cached order history) accessible through alternate paths.</li>
+  <li><strong>Real-world game days</strong><br />
+Your team should physically rehearse failure scenarios—DNS down, identity down, storage down, message broker down—<br />
+and internalize the runbook, RTO, and RPO.</li>
+  <li><strong>Mature-phase strategy: Hybrid / On-prem relocation</strong><br />
+Bring <strong>core transactional and stateful tiers</strong> on-prem or to colocation. Keep <strong>edge, burst, and analytics</strong> in the cloud.<br />
+The cloud should become <strong>a tool you use when needed</strong>, not the place you live in.</li>
+</ol>
+
+<h2 id="in-summary-assuming-people-never-make-mistakes-is-the-real-danger">In summary: assuming "people never make mistakes" is the real danger</h2>
+
+<p>The cloud is a great tool. I still happily use it for <strong>early-stage products.</strong></p>
+
+<p>But once a service stabilizes, we should <strong>reduce cloud dependency</strong> and take back control of our core systems. That's what creates <strong>real safety.</strong></p>
+
+<p>It's not <strong>"Cloud = Safe."</strong><br />
+It's <strong>"Controlled change + Verifiable design = Safe."</strong></p>]]></content><author><name>Pope Kim</name></author><category term="dev" /><category term="cloud" /><category term="defensive-programming" /><category term="server" /><category term="dev" /><category term="rants" /><summary type="html"><![CDATA[Over the past few days, many people have lost their illusion of "safety." On October 20 (local time), AWS's US-EAST-1 region suffered a massive outage. Countless apps and services went down one after another. The cause was traced to DNS resolution failures and issues that originated in internal subsystems and data layers (such as EC2 and DynamoDB APIs). Social media, gaming, productivity tools—even parts of government and education systems—were shaken. It took nearly an entire day to recover, and the ripple effects lingered.]]></summary></entry></feed>

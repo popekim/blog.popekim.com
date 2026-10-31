@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>포프머신 | 김포프의 블로그</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1793419637201149832" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/index.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-0"><ul class="post-list list-unstyled"><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/29/visual-studio-community-forced-update-automation-failure.html">
+                        <section>
+                            <h3>
+                                Visual Studio 자동화가 갑자기 실패한다면? 범인은 강제 업데이트 팝업
+                            </h3>
+                            <p>나는 업무든 일상생활이든 반복적인 작업을 자동화하는 것을 좋아한다. 처음 자동화를 만드는 데 시간이 좀 걸리더라도 일단 만들어 놓으면 이후에는 거의 신경 쓸 필요가 없기 때문이다. 물론 자동화가 잘 돌아간다는 전제하에서 말이다.
+
+여기서 말하는 자동화는 요즘 유행하는 AI 기반 자동화와는 조금 다르다. AI를 이용한 자동화는 기본적으로 비결정적(Non-deterministic)이다. 같은 입력을 주더라도 매번 같은 결과가 나온다는 보장이 없다. 반면 내가 주로 사용하는 것은 정해진 절차에 따라 동작하는 결정적(Deterministic) 자동화다. 동일한 환경과 입력이라면 항상 동일한 결과가 나오는 것을 목표로 한다.
+
+그런데 최근에 오랫동안 잘 돌아가던 자동화 하나가 갑자기 실패하기 시작했다. 원인을 찾아보니 코드의 문제가 아니라 Visual Studio의 강제 업데이트 팝업 때문이었다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-29
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/visual-studio/">비주얼스튜디오</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/automation/">자동화</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/csharp/">C#</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/debugging/">디버깅</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html">
+                        <section>
+                            <h3>
+                                PS5 탈옥 소식을 듣고 콘솔 개발자가 든 생각
+                            </h3>
+                            <p>나는 오랫동안 콘솔 게임 개발을 해왔다. 콘솔 게임을 개발하는 데는 PC 게임과 비교해 몇 가지 장점이 있는데, 전통적으로 가장 중요하다고 생각하는 것은 두 가지다.
+
+첫째, 하드웨어 사양이 정해져 있다는 것이다. PC에서는 CPU, GPU, 메모리 등 온갖 하드웨어 조합을 고려해야 하지만 콘솔에서는 그럴 필요가 없다. 모든 사용자가 기본적으로 동일한 하드웨어를 사용하므로 성능을 예측하기 쉽고, 특정 하드웨어의 특성을 최대한 활용해 최적화할 수도 있다. 하드웨어를 극한까지 활용하는 것을 좋아하는 개발자에게는 꽤 매력적인 환경이다.
+
+둘째, 보안이 강력하다는 것이다. PC에서는 게임을 출시하면 불법 복제를 걱정해야 하지만, 콘솔에서는 플랫폼 제조사가 상당 부분을 책임져 준다. 개발자는 복제 방지 기술을 직접 구현하거나 해커와 싸우는 데 시간을 쓰는 대신 게임을 잘 만드는 데 집중할 수 있다.
+
+물론 콘솔도 완벽하게 안전했던 것은 아니다. 예전부터 탈옥이나 불법 복제가 존재했다. 하지만 일반 사용자가 쉽게 접근하기 어려웠고, 하드웨어를 개조해야 하는 경우도 있었다. 적어도 개발자 입장에서는 PC와 비교해 훨씬 마음 편하게 게임을 개발할 수 있는 환경이었다.
+
+그런데 최근 트위터를 보다가 PS5 탈옥에 관한 이야기가 눈에 들어왔다.
+
+PS5 Relapse? 이게 뭔 소리야?
+
+궁금해서 조금 살펴봤다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-26
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/ps5/">플스5</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/playstation/">플레이스테이션</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/console/">콘솔</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/jailbreak/">탈옥</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/security/">보안</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/game-dev/">게임개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/25/developer-presbyopia-experience.html">
+                        <section>
+                            <h3>
+                                개발자의 노안 적응기
+                            </h3>
+                            <p>개발자로 오래 일하려면 몸 관리도 꽤 중요하다. 아무리 머리로 하는 일이라고 해도 결국 몸이 버텨줘야 일을 할 수 있으니까. 그래서 나름 몸 관리는 꾸준히 해온 편이다. 그렇다고 매일 헬스장에 가서 죽어라 운동하는 것은 아니고, 잘 먹고 잘 자고 몸에 무리가 가지 않도록 생활하는 것이 기본이다.
+
+몸에 문제가 생기면 그때는 좀 더 적극적으로 대응한다. 예전에 어깨가 아팠을 때는 텐키리스 키보드로 바꿨다. 숫자 키패드가 없어지면 마우스를 몸 가까이 놓을 수 있기 때문이다. 그러다가 나중에는 일반 마우스를 아예 없애고 롤러 마우스까지 사용하게 됐다.
+
+허리가 안 좋아졌을 때는 단기간 집중적으로 운동해서 근력을 키웠다. 거기에 스탠딩 데스크도 들여놓고, 의자도 허먼 밀러(Herman Miller) 제품으로 바꿨다. 이런 식으로 문제가 생기면 원인을 찾아서 운동이든 장비든 생활 습관이든 바꿔왔다.
+
+그런데 이렇게 관리한다고 모든 문제를 피할 수 있는 것은 아니다. 나이가 들면 결국 찾아오는 것이 있으니, 바로 노안이다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-25
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/aging/">노화</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/presbyopia/">노안</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/glasses/">안경</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/health/">건강</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/22/dont-let-your-mood-become-your-attitude-book-review.html">
+                        <section>
+                            <h3>
+                                기분이 태도가 되지 말자: 좋은 말은 많지만 (책 리뷰)
+                            </h3>
+                            <p>도서관에서 책장을 둘러보다가 우연히 발견해서 빌려온 책이다. 김수현 작가의 『기분이 태도가 되지 말자』라는 책인데, 딱히 무슨 고민이 있어서 고른 건 아니고, 제목이 눈에 들어와서 한번 읽어봤다.
+
+책의 내용은 대체로 괜찮다. 살다 보면 누구나 감정이 상하거나, 누군가 때문에 속상하거나, 괜히 자기 자신이 초라하게 느껴지는 순간이 있지 않은가. 그럴 때 이 책을 펼쳐보면 적어도 한두 챕터 정도는 "그래, 꼭 내가 잘못한 건 아니지"라며 위로받을 만한 이야기가 나온다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-22
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/review/">후기</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/20/dotnet-maui-nuget-update-build-failure.html">
+                        <section>
+                            <h3>
+                                윈도우 + 비주얼 스튜디오에서 .NET MAUI 업데이트 후 빌드가 깨진다면?
+                            </h3>
+                            <p>Windows에서 Visual Studio로 .NET MAUI 프로젝트를 개발하다 보면 NuGet 패키지 관리자에 업데이트가 잔뜩 표시되는 경우가 있다. 평소처럼 업데이트 버튼을 눌렀는데 갑자기 빌드가 깨진다면? 특히 Microsoft.Maui.Controls 같은 MAUI 관련 패키지를 업데이트한 직후라면 이 글을 읽어보자.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-20
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dotnet/">닷넷</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/maui/">MAUI</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/nuget/">nuget</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/visual-studio/">비주얼스튜디오</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/vcs/">버전관리</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/10/19/azure-devops-agent-missing-capabilities.html">
+                        <section>
+                            <h3>
+                                Azure DevOps 빌드 에이전트의 Capabilities가 사라진다면? 범인은 Windows 압축
+                            </h3>
+                            <p>회사에서 여러 대의 Windows 머신을 이용해 자체 호스팅(Self-hosted) 빌드팜을 운영하고 있다. Azure DevOps의 빌드 에이전트를 설치해서 사용하는 방식인데, 올해 4월쯤부터 이상한 문제가 발생하기 시작했다.
+
+빌드 머신을 재부팅하면 Azure DevOps 에이전트의 System Capabilities가 제대로 등록되지 않는 것이다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-10-19
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/windows/">윈도우</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dotnet/">닷넷</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/debugging/">디버깅</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/build/">빌드</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2026/02/18/monorepo-architecture.html">
+                        <section>
+                            <h3>
+                                우리가 모노리포를 유지하는 방식, 그리고 왜 DLL 경계가 더 중요한가
+                            </h3>
+                            <p>제가 운영하는 회사는 기본적으로 Monorepo를 지향합니다. 그래서 폴더 구조 역시 "코드를 예쁘게 정리하자"가 아니라, 의존성 관리와 재사용을 어떻게 할 것인가를 기준으로 설계되어 있습니다.
+
+많은 분들이 "기능 단위냐, 도메인 단위냐"를 고민하시는데, 저는 조금 다른 관점에서 접근합니다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2026-02-18
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/git/">git</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/best-practice/">베스트프랙티스</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/simplicity/">단순함의 미학</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2025/11/30/about-minimal-korean-history-book.html">
+                        <section>
+                            <h3>
+                                도서: 5천 년 역사가 단숨에 이해되는 최소한의 한국사
+                            </h3>
+                            <p>솔직히 고백하자면… 나는 역사 약골이었다. 약골 정도가 아니라 시험지만 보면 자동으로 멘탈이 무너질 정도였다. 그나마 한국사는 어떤 전후관계라도 있어서 억지로 따라갔지만, 세계사는 정말 쥐약. 한국사도 잘한 건 아니고, 그냥 덜 싫어했을 뿐이다.
+
+그런데 나이가 들다 보니 한국 사람들끼리 얘기하다 보면
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2025-11-30
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2025/11/21/repeating-3week-pattern.html">
+                        <section>
+                            <h3>
+                                반복되는 &#39;3주 패턴&#39;: 마지막 과목을 내가 직접 끝내며 깨달은 것
+                            </h3>
+                            <p>POCU 동영상 강의에는 이미 사람이 한 번 정리해둔 자막 원고(transcript)가 있다. 내용은 대체로 정확한데, 줄바꿈과 문장부호가 제멋대로여서 자동화 파이프라인에서 활용하려면 다시 손을 봐야 했다. 그 작업을 몇 년 동안 한 수강생이 알바 형태로 꾸준히 도와주고 있었다.
+
+그 친구는 여러 과목을 작업해줬는데, 이상하게도 패턴이 늘 똑같았다.
+
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2025-11-21
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev-diary/">개발일지</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/pocu/">POCU</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/simplicity/">단순함의 미학</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/time-management/">시간관리</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/life-advice/">인생조언</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/wisdom/">명언제조중</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/popetv/">포프TV</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/포프tv-597화/">포프TV 597화</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li><li class="row mb-2">
+            <div class="col-lg-8 offset-lg-2 py-3 px-md-5">
+                <article>
+                    <a class="article-link-box" href="/ko/2025/11/14/shader-book-15-ebook.html">
+                        <section>
+                            <h3>
+                                &#39;셰이더 프로그래밍 입문 1.5판&#39; 전자책 출간 안내
+                            </h3>
+                            <img class="center-crop" src="https://play.google.com/books/publisher/content/images/frontcover/R2yPEQAAQBAJ?fife=w480-h690"/>
+                            
+                            <p>『셰이더 프로그래밍 입문』 1판이 절판된 뒤로, 여러 대학교에서 여전히 교재로 사용하고 있음에도 정작 학생분들이 책을 구하지 못하는 상황이 오래 지속되었습니다. 중고 거래가 10만 원을 넘기는 사례까지 생기는 것을 보며, 더 이상 이렇게 둘 수는 없겠다는 생각이 들었습니다. 많은 분들께서 "전자책이라도 다시 내주시면 좋겠다"는 요청을 보내주셨고, 저 역시 어느 정도 책임감을 가지고 해결해야 한다고 느꼈습니다.
+</p><footer class=""><img width="40" src="/ko/assets/img/authors/pope.gif" class="rounded-circle" /><small class="border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-2 align-middle font-weight-bold pl-2">김포프</small><small class=" pl-1 pl-lg-2 align-middle">
+                                    <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                                    2025-11-14
+                                </small>
+                            </footer>
+                        </section>
+                    </a>
+                    
+                    <footer class="pt-1 pb-4 border border-right-0 border-top-0 border-left-0">
+                        <ul class="list-inline list-unstyled">
+                            <li class="list-inline-item align-middle opacity-75">
+                                <small><i class="fas fa-tags"></i></small>
+                            </li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/book/">도서</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader-book/">셰이더강좌</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/shader/">셰이더</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/graphics/">그래픽</a></small>
+                            </li></ul>
+                    </footer></article>
+            </div>
+        </li>
+        
+<nav class="py-2">
+    <ul class="pagination justify-content-center">
+        <li
+            class="page-item disabled">
+            <a class="page-link"
+                href="/ko">이전</a>
+        </li><li class="page-item disabled"><a class="page-link"
+                href="/ko/">1</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/ko/page/2/">2</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/ko/page/3/">3</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/ko/page/4/">4</a>
+        </li><li class="page-item"><a class="page-link"
+                href="/ko/page/5/">5</a>
+        </li><li class="page-item"><a class="page-link" href="/ko/page/6">...</a></li><li class="page-item">
+            <a class="page-link"
+                href="/ko/page/2/">다음</a>
+        </li>
+    </ul>
+</nav>
+        
+    </ul></div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

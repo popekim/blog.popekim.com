@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>PS5 탈옥 소식을 듣고 콘솔 개발자가 든 생각 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1793419637201149832" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">PS5 탈옥 소식을 듣고 콘솔 개발자가 든 생각</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2026-10-26
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/ps5/">플스5</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/playstation/">플레이스테이션</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/console/">콘솔</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/jailbreak/">탈옥</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/security/">보안</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/game-dev/">게임개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>나는 오랫동안 콘솔 게임 개발을 해왔다. 콘솔 게임을 개발하는 데는 PC 게임과 비교해 몇 가지 장점이 있는데, 전통적으로 가장 중요하다고 생각하는 것은 두 가지다.</p>
+
+<p>첫째, 하드웨어 사양이 정해져 있다는 것이다. PC에서는 CPU, GPU, 메모리 등 온갖 하드웨어 조합을 고려해야 하지만 콘솔에서는 그럴 필요가 없다. 모든 사용자가 기본적으로 동일한 하드웨어를 사용하므로 성능을 예측하기 쉽고, 특정 하드웨어의 특성을 최대한 활용해 최적화할 수도 있다. 하드웨어를 극한까지 활용하는 것을 좋아하는 개발자에게는 꽤 매력적인 환경이다.</p>
+
+<p>둘째, 보안이 강력하다는 것이다. PC에서는 게임을 출시하면 불법 복제를 걱정해야 하지만, 콘솔에서는 플랫폼 제조사가 상당 부분을 책임져 준다. 개발자는 복제 방지 기술을 직접 구현하거나 해커와 싸우는 데 시간을 쓰는 대신 게임을 잘 만드는 데 집중할 수 있다.</p>
+
+<p>물론 콘솔도 완벽하게 안전했던 것은 아니다. 예전부터 탈옥이나 불법 복제가 존재했다. 하지만 일반 사용자가 쉽게 접근하기 어려웠고, 하드웨어를 개조해야 하는 경우도 있었다. 적어도 개발자 입장에서는 PC와 비교해 훨씬 마음 편하게 게임을 개발할 수 있는 환경이었다.</p>
+
+<p>그런데 최근 트위터를 보다가 PS5 탈옥에 관한 이야기가 눈에 들어왔다.</p>
+
+<p><strong>PS5 Relapse? 이게 뭔 소리야?</strong></p>
+
+<p>궁금해서 조금 살펴봤다.</p>
+
+<!--more-->
+
+<h2 id="ps5-탈옥이-이렇게-쉽다고">PS5 탈옥이 이렇게 쉽다고?</h2>
+
+<p>Relapse는 PS5의 보안 취약점을 이용해 소니가 허용하지 않은 프로그램을 실행할 수 있게 해주는 탈옥 도구다.</p>
+
+<p>그런데 사용 방법을 살펴보니 생각보다 너무 간단했다. 지원되는 펌웨어를 사용하는 PS5에서 특정 웹페이지를 열고, 탈옥 기능을 실행하면 된다. 이후 필요한 프로그램을 불러와 실행할 수도 있다.</p>
+
+<p>아니, 요즘 콘솔 탈옥은 이렇게 쉽다고?</p>
+
+<p>더 재미있는 점은 영구적으로 탈옥되는 방식이 아니라는 것이다. 콘솔을 완전히 재부팅하면 메모리에 적용됐던 변경 사항이 사라져 다시 탈옥해야 한다. 반면 대기 모드에서는 메모리 상태가 유지되므로 탈옥 상태도 유지할 수 있다.</p>
+
+<p>2026년 10월 현재 공개된 Relapse는 PS5 펌웨어 7.00부터 13.60까지 지원한다. 이후 펌웨어에서는 관련 취약점이 수정되었으므로 모든 PS5에서 가능한 것은 아니다.</p>
+
+<p>그렇다 해도 웹페이지 몇 번 클릭하는 것으로 콘솔의 보안을 우회할 수 있다는 사실이 꽤 충격적이었다.</p>
+
+<h2 id="예전에는-하드웨어를-개조하지-않았나">예전에는 하드웨어를 개조하지 않았나?</h2>
+
+<p>과거 콘솔의 불법 복제를 떠올리면 먼저 생각나는 것이 모드칩(Modchip)이다.</p>
+
+<p>콘솔 기판을 열어서 칩을 추가하고, 필요한 신호선에 직접 납땜하는 방식이다. 콘솔의 부팅 과정이나 보안 검사를 우회해서 승인되지 않은 프로그램이나 복제 게임을 실행할 수 있도록 만드는 것이다.</p>
+
+<p>물론 과거에도 소프트웨어만을 이용한 탈옥이 있었다. 모든 콘솔이 하드웨어 개조를 요구했던 것은 아니다. 하지만 적어도 초기의 많은 복제 방지 우회 방법은 하드웨어 개조와 밀접한 관계가 있었다.</p>
+
+<p>그런데 이번 Relapse는 하드웨어를 전혀 건드리지 않는다.</p>
+
+<p>그냥 소프트웨어다. 그것도 콘솔에 이미 들어 있는 웹 브라우저 기능을 이용한다.</p>
+
+<p>웹페이지를 여는 것만으로 게임기의 보안 체계를 우회할 수 있다는 것이다.</p>
+
+<p>그래서 도대체 어떤 원리로 동작하는지 조금 더 살펴봤다.</p>
+
+<h2 id="웹-브라우저로-어떻게-콘솔을-탈옥할까">웹 브라우저로 어떻게 콘솔을 탈옥할까?</h2>
+
+<p>Relapse는 크게 두 단계의 취약점을 연결해서 동작한다.</p>
+
+<p>첫 번째는 웹 브라우저의 취약점을 이용하는 단계이고, 두 번째는 운영체제 커널의 취약점을 이용하는 단계다.</p>
+
+<h3 id="1-웹-브라우저의-보안-제한을-벗어난다">1. 웹 브라우저의 보안 제한을 벗어난다</h3>
+
+<p>PS5에는 WebKit 기반의 웹 브라우저 기능이 들어 있다. 일반적인 PC 브라우저처럼 사용자가 자유롭게 실행할 수 있는 형태는 아니지만, 사용자 가이드나 웹 콘텐츠를 표시하는 등의 목적으로 웹 기술을 사용한다.</p>
+
+<p>WebKit은 Safari를 비롯한 여러 브라우저에서 사용되는 웹 엔진이다. JavaScript를 실행하기 위한 JavaScriptCore라는 엔진도 포함하고 있다.</p>
+
+<p>문제는 웹 브라우저가 외부에서 가져온 코드를 실행하는 프로그램이라는 점이다.</p>
+
+<p>우리가 웹페이지를 열면 브라우저는 그 페이지의 HTML과 JavaScript를 해석해서 실행한다. 그렇다고 JavaScript가 컴퓨터에서 마음대로 모든 작업을 할 수 있는 것은 아니다. 웹 브라우저는 샌드박스(Sandbox)라는 제한된 환경에서 코드를 실행하도록 설계되어 있다.</p>
+
+<p>웹페이지의 JavaScript가 마음대로 운영체제의 메모리를 읽거나 임의의 프로그램을 실행할 수 있다면 인터넷을 사용하는 것 자체가 위험해질 테니까.</p>
+
+<p>그런데 브라우저 엔진 자체에 취약점이 있다면 이야기가 달라진다.</p>
+
+<p>Relapse는 JavaScriptCore에서 발생하는 정보 유출과 메모리 객체 처리 문제를 이용한다. 구체적으로는 특정 객체를 복제하는 과정에서 내부 객체 풀의 상태가 일치하지 않는 문제를 이용해 TypedArray의 내부 상태를 손상시키는 방식이다.</p>
+
+<p>TypedArray는 JavaScript에서 바이너리 데이터를 다룰 때 사용하는 객체다. 정상적인 상황에서는 JavaScript 엔진이 메모리 접근 범위를 관리한다. 그런데 엔진의 버그를 이용해 TypedArray가 참조하는 메모리 정보를 손상시킬 수 있다면, 원래 허용되지 않은 메모리 영역에 접근할 가능성이 생긴다.</p>
+
+<p>이런 취약점을 이용하면 공격자는 단순히 웹페이지의 JavaScript를 실행하는 수준을 넘어 브라우저 프로세스 내부에서 원래 허용되지 않은 작업을 수행할 수 있다.</p>
+
+<p>하지만 여기까지 성공했다고 콘솔 전체를 장악한 것은 아니다.</p>
+
+<p>브라우저 역시 운영체제 위에서 동작하는 프로그램이기 때문이다.</p>
+
+<h3 id="2-이번에는-커널을-공격한다">2. 이번에는 커널을 공격한다</h3>
+
+<p>운영체제는 일반 프로그램이 시스템의 중요한 자원에 직접 접근하지 못하도록 제한한다.</p>
+
+<p>게임이든 브라우저든 일반적인 애플리케이션은 운영체제가 허용한 범위 안에서만 동작한다. 반면 커널(Kernel)은 프로세스 관리, 메모리 관리, 장치 제어 등을 담당하는 운영체제의 핵심 부분이다.</p>
+
+<p>일반 프로그램이 커널 메모리를 마음대로 읽거나 수정할 수 있다면 운영체제의 보안 체계 자체가 무너질 수 있다.</p>
+
+<p>Relapse는 이 지점을 노린다.</p>
+
+<p>브라우저의 취약점을 통해 확보한 실행 능력을 발판으로, 운영체제 커널에 존재하는 별도의 취약점을 공격한다.</p>
+
+<p>여기서 이용하는 것이 <code>aio_multi_wait</code>와 관련된 Use-After-Free(UAF) 취약점이다.</p>
+
+<p>UAF는 이미 해제한 메모리를 다시 사용하는 버그를 의미한다. 어떤 객체가 메모리에서 해제되었는데도 다른 코드가 그 객체를 계속 참조하는 상황을 생각하면 된다.</p>
+
+<p>정상적인 프로그램이라면 이런 버그 때문에 크래시가 발생할 수 있다. 하지만 메모리가 해제되고 다시 사용되는 시점과 그 내용을 정교하게 제어할 수 있다면, 이를 이용해 프로그램의 실행 흐름을 바꿀 가능성이 생긴다.</p>
+
+<p>Relapse는 이런 레이스 컨디션과 주소 정보 유출을 결합해 커널 메모리에 대한 읽기 및 쓰기 권한을 확보한다.</p>
+
+<p>여기서 중요한 것은 단순히 커널에 있는 함수를 호출한다는 뜻이 아니라는 점이다.</p>
+
+<p><strong>커널이 관리하는 메모리를 읽고 수정할 수 있는 능력을 얻는다는 것이 핵심이다.</strong></p>
+
+<p>운영체제의 중요한 자료구조를 수정할 수 있고, 원래는 허용되지 않았던 작업을 수행하도록 시스템 상태를 바꿀 수도 있다.</p>
+
+<p>물론 이 단계까지 성공했다고 모든 보안 장벽이 사라지는 것은 아니다. PS5에는 커널 외에도 하이퍼바이저(Hypervisor) 등 추가적인 보안 계층이 존재한다. 커널 권한을 확보하는 것과 콘솔의 모든 보안을 완전히 무력화하는 것은 다른 이야기다.</p>
+
+<p>하지만 일반 사용자가 실행할 수 없는 프로그램을 실행하기 위한 중요한 기반을 확보한 것은 분명하다.</p>
+
+<h3 id="3-이제-커스텀-프로그램을-실행한다">3. 이제 커스텀 프로그램을 실행한다</h3>
+
+<p>여기까지 왔으면 다음 단계는 비교적 이해하기 쉽다.</p>
+
+<p>원래 PS5에서는 소니가 승인하고 서명한 프로그램만 정상적인 경로로 실행할 수 있다. 개발자가 마음대로 만든 실행 파일을 USB에 넣고 실행하는 식으로 사용할 수는 없다.</p>
+
+<p>그런데 취약점을 이용해 충분한 권한을 확보하면 이런 제한을 우회하는 프로그램을 실행할 수 있다.</p>
+
+<p>Relapse에는 ELF 로더(Loader)를 실행하는 기능이 포함되어 있다.</p>
+
+<p>ELF는 Executable and Linkable Format의 약자로, 실행 파일과 라이브러리 등을 표현하기 위한 바이너리 형식이다. 리눅스나 여러 유닉스 계열 시스템을 다뤄본 개발자라면 익숙할 것이다.</p>
+
+<p>ELF 로더는 말 그대로 ELF 형식의 프로그램을 메모리에 적재하고 실행할 수 있도록 도와준다.</p>
+
+<p>일반적으로 실행 파일을 로드하려면 코드와 데이터 영역을 적절한 메모리에 배치하고, 필요한 주소를 연결한 다음 실행을 시작해야 한다. 운영체제의 일반적인 프로그램 실행 과정에서도 비슷한 일이 일어난다.</p>
+
+<p>그런데 이미 보안 취약점을 통해 실행 권한을 확보했다면, 공식적으로 허용되지 않은 ELF 프로그램을 로드하는 경로도 만들 수 있다.</p>
+
+<p>윈도우 개발자에게 조금 익숙한 개념으로 비유하자면 DLL 인젝션이나 API 후킹을 떠올려 볼 수 있다.</p>
+
+<p>DLL 인젝션은 원래 프로그램이 의도하지 않았던 코드를 특정 프로세스 안에서 실행시키는 기술이다. API 후킹은 함수 호출의 흐름을 가로채거나 다른 코드로 연결해 프로그램의 동작을 변경하는 기술이다.</p>
+
+<p>물론 Relapse의 구조가 DLL 인젝션과 완전히 같다는 이야기는 아니다. 실제로는 브라우저와 커널의 취약점을 연결하고, 메모리 및 실행 권한을 확보하는 과정이 먼저 필요하다.</p>
+
+<p>다만 개발자가 이해해야 할 핵심은 비슷하다.</p>
+
+<p><strong>원래 시스템이 허용하지 않았던 코드를 실행할 수 있도록 만들고, 필요하다면 기존 프로그램이나 운영체제의 동작에도 개입한다는 것이다.</strong></p>
+
+<p>한번 이런 실행 환경을 만들어 놓으면 그다음부터는 다양한 커스텀 프로그램을 올릴 수 있다.</p>
+
+<p>여기까지 조사하고 나니 처음에 보았던 탈옥 화면이 다르게 느껴졌다.</p>
+
+<p>사용자는 웹페이지에서 버튼 몇 번 누르면 끝이지만, 그 뒤에서는 브라우저의 메모리 관리 버그와 커널의 레이스 컨디션을 연결하는 상당히 복잡한 작업이 일어나고 있었던 것이다.</p>
+
+<p>탈옥을 가능하게 만든 기술 자체는 결코 간단하지 않다. 다만 그 복잡한 과정을 다른 개발자들이 자동화해 놓았기 때문에 최종 사용자는 놀라울 정도로 쉽게 이용할 수 있게 된 것이다.</p>
+
+<h2 id="그래서-탈옥하면-무엇을-할-수-있을까">그래서 탈옥하면 무엇을 할 수 있을까?</h2>
+
+<p>가장 직접적인 변화는 소니가 승인하지 않은 프로그램을 실행할 수 있다는 것이다.</p>
+
+<p>예를 들어 홈브루(Homebrew)라고 부르는 비공식 프로그램을 실행할 수 있다. 게임의 내부 데이터를 분석하거나 수정하는 도구, 디버깅 도구, 파일 관리 프로그램, 에뮬레이터 등이 여기에 해당한다.</p>
+
+<p>게임 개발자 입장에서 보면 디버깅 도구를 마음대로 실행할 수 있다는 사실도 흥미롭다.</p>
+
+<p>정식 콘솔 개발 환경에서는 플랫폼 제조사가 제공하는 개발 키트와 디버깅 도구를 사용해야 한다. 일반 소비자용 콘솔에서는 이런 기능이 크게 제한되어 있다.</p>
+
+<p>탈옥을 통해 그 제한 일부를 우회할 수 있다면 일반 소비자용 기기에서도 다양한 실험을 할 수 있게 되는 것이다.</p>
+
+<p>문제는 그런 권한이 꼭 좋은 목적으로만 사용되는 것은 아니라는 점이다.</p>
+
+<p>보안 검사 우회, 게임 데이터 변조, 치트 프로그램 실행, 게임 파일 추출 등에도 이용할 수 있다. 추가적인 보안 우회 도구와 결합하면 불법 복제 게임 실행으로 이어질 수도 있다.</p>
+
+<p>물론 커널 접근 권한을 얻었다고 해서 곧바로 모든 게임을 복제해서 실행할 수 있는 것은 아니다. 게임의 암호화, 서명 검사, 하이퍼바이저 등 다른 보호 장치도 고려해야 한다.</p>
+
+<p>하지만 콘솔의 보안 체계를 우회할 수 있는 중요한 수단이 생긴 것은 사실이다.</p>
+
+<p>내가 콘솔 개발을 좋아했던 이유 중 하나가 바로 이런 것을 별로 신경 쓰지 않아도 됐다는 점이었다.</p>
+
+<p>PC에서는 실행 파일을 분석하거나 수정하기가 상대적으로 쉽다. 게임에 어떤 보호 기술을 적용할지, 불법 복제나 치트를 어떻게 막을지 등을 고민해야 하는 상황이 생긴다.</p>
+
+<p>반면 콘솔에서는 플랫폼 제조사가 강력한 보안 체계를 제공한다. 개발자는 그 위에서 게임 자체를 만드는 데 집중할 수 있었다.</p>
+
+<p>물론 콘솔 게임에서도 치트나 보안 문제를 전혀 고려하지 않는 것은 아니다. 특히 온라인 게임이라면 서버 검증이나 부정행위 방지가 중요하다. 하지만 적어도 플랫폼 자체의 복제 방지 체계를 개발자가 처음부터 책임질 필요는 없었다.</p>
+
+<p>그런 점이 정말 좋았는데 말이다.</p>
+
+<h2 id="콘솔은-왜-이렇게-되었을까">콘솔은 왜 이렇게 되었을까?</h2>
+
+<p>이번 Relapse를 살펴보면서 기술적인 내용보다 더 많은 생각이 들었던 부분이다.</p>
+
+<p>예전의 게임 콘솔과 요즘 게임 콘솔은 제품의 지향점부터 꽤 달라졌다는 생각이 든다.</p>
+
+<h3 id="과거-콘솔은-정말-강력한-게임-전용-머신이었다">과거 콘솔은 정말 강력한 게임 전용 머신이었다</h3>
+
+<p>PS3와 Xbox 360이 출시되던 시절을 생각해 보자.</p>
+
+<p>당시 콘솔은 단순히 저렴한 게임용 PC가 아니었다. 출시 당시 최고급 PC와 경쟁할 수 있는 하드웨어를 상대적으로 저렴한 가격에 제공하는 기기였다.</p>
+
+<p>2005년에 출시된 Xbox 360은 3개의 코어를 가진 IBM의 PowerPC 기반 CPU를 사용했다. GPU에는 ATI의 Xenos가 들어갔는데, 당시 PC 그래픽카드에는 일반화되지 않았던 통합 셰이더(Unified Shader) 구조를 채택했다.</p>
+
+<p>버텍스 셰이더와 픽셀 셰이더를 별도의 고정된 하드웨어 자원으로 나누는 대신 공통된 처리 자원을 활용하는 구조였다. 이후 PC 그래픽카드에서도 이런 방향이 주류가 되었다.</p>
+
+<p>Xbox 360의 초기 가격은 미국 기준 299달러 또는 399달러였다. 당시로서는 상당히 강력한 그래픽 하드웨어가 들어간 시스템을 그 가격에 구입할 수 있었던 것이다.</p>
+
+<p>이듬해 출시된 PS3는 한술 더 떴다.</p>
+
+<p>PS3의 Cell 프로세서는 범용 PC와는 상당히 다른 방향으로 설계되었다. PowerPC 계열의 PPE와 여러 SPE를 조합해 대량의 데이터를 병렬로 처리하는 구조였다.</p>
+
+<p>개발하기 쉬운 하드웨어는 절대 아니었다. 오히려 처음 접하면 골치 아픈 부분이 많았다.</p>
+
+<p>하지만 제대로 활용하면 당시로서는 대단한 연산 성능을 끌어낼 수 있었다. 게임 개발자가 하드웨어의 특성을 이해하고 코드를 잘 작성해야 하는 이유가 분명했던 것이다.</p>
+
+<p>PS3와 Xbox 360은 서로 다른 아키텍처를 사용했지만 공통점이 있었다.</p>
+
+<p><strong>출시 당시 최고 수준의 기술을 게임기에 적극적으로 도입하고, 개발자가 그 하드웨어의 성능을 최대한 활용하도록 만드는 제품이었다는 점이다.</strong></p>
+
+<p>개발이 어렵더라도 하드웨어를 잘 활용하면 그만큼의 보상이 있었다.</p>
+
+<h3 id="ps4부터는-방향이-바뀌었다">PS4부터는 방향이 바뀌었다</h3>
+
+<p>그런데 PS4와 Xbox One 세대부터 상황이 달라졌다.</p>
+
+<p>두 콘솔 모두 AMD의 x86-64 기반 Jaguar CPU와 Radeon 계열 GPU를 채택했다.</p>
+
+<p>PC와 아키텍처가 비슷해졌다는 점은 개발자에게 분명 좋은 일이었다. 이전처럼 완전히 다른 CPU 구조를 공부하거나 각 콘솔에 특화된 코드를 대량으로 작성할 필요가 줄어들었다.</p>
+
+<p>하지만 하드웨어 성능 측면에서는 다른 변화도 있었다.</p>
+
+<p>PS4가 출시된 2013년에는 이미 더 강력한 CPU와 GPU를 장착한 PC를 구입할 수 있었다. PS4의 하드웨어는 최첨단 PC를 압도하는 새로운 기술이라기보다는 가격과 소비전력, 생산 비용 등을 고려한 균형 잡힌 구성이었다.</p>
+
+<p>이전 세대에도 콘솔의 모든 부품이 최고급 PC보다 강력했던 것은 아니다. PS3 역시 출시 당시의 고성능 PC보다 모든 작업에서 빨랐던 것은 아니다.</p>
+
+<p>하지만 전반적인 설계 방향은 분명히 달라졌다고 느꼈다.</p>
+
+<p>과거에는 게임을 위해 독특하고 공격적인 하드웨어를 설계했다면, 이제는 이미 널리 사용되는 범용 기술을 조합해 합리적인 가격의 콘솔을 만드는 방향으로 움직인 것이다.</p>
+
+<p>물론 여기에도 장점이 많다.</p>
+
+<p>개발이 쉬워지고, PC와 콘솔 사이의 게임 이식도 수월해진다. 하드웨어 개발 비용과 위험도 줄일 수 있다. 동일한 가격에서 소비자가 얻는 실제 게임 경험이 반드시 나빠지는 것도 아니다.</p>
+
+<p>콘솔 입장에서는 충분히 합리적인 선택이다.</p>
+
+<p>하지만 하드웨어를 극한까지 활용하는 것을 좋아하는 개발자에게는 예전과 다른 느낌일 수밖에 없다.</p>
+
+<h3 id="게임-전용-머신에서-거실의-엔터테인먼트-기기로">게임 전용 머신에서 거실의 엔터테인먼트 기기로</h3>
+
+<p>또 하나 눈에 띄는 변화는 콘솔의 역할이다.</p>
+
+<p>물론 예전 콘솔도 게임만 실행한 것은 아니다. PS2는 DVD 플레이어 역할을 했고, PS3는 블루레이 플레이어로도 인기를 끌었다. Xbox 360에서도 온라인 서비스와 다양한 미디어 기능을 사용할 수 있었다.</p>
+
+<p>따라서 미디어 기능이 PS4에서 갑자기 등장했다는 이야기는 아니다.</p>
+
+<p>다만 세대가 바뀌면서 콘솔이 단순한 게임기보다는 거실에서 사용하는 종합 엔터테인먼트 기기로 자리 잡으려는 움직임이 더 뚜렷해졌다.</p>
+
+<p>동영상 스트리밍, 음악, 웹 콘텐츠, 각종 온라인 서비스 등 게임 외의 기능이 점점 중요해졌다.</p>
+
+<p>소비자에게는 좋은 일이다. 어차피 거실에 놓을 기기라면 게임도 하고 영화도 보고 여러 서비스를 이용할 수 있는 편이 편리하다.</p>
+
+<p>그런데 보안이라는 관점에서 보면 이야기가 조금 달라진다.</p>
+
+<p>기능이 늘어날수록 시스템에 포함해야 하는 소프트웨어도 많아진다. 외부에서 가져온 데이터를 처리하는 코드도 늘어나고, 여러 라이브러리와 서비스를 유지보수해야 한다.</p>
+
+<p>보안에서는 이를 공격 표면(Attack Surface)이라고 부른다.</p>
+
+<p>공격자가 취약점을 찾아낼 수 있는 접점이 많아진다는 의미다.</p>
+
+<p>브라우저가 대표적이다.</p>
+
+<p>웹 브라우저는 매우 복잡한 소프트웨어다. HTML, CSS, JavaScript, 이미지, 동영상 등 다양한 형식의 외부 데이터를 처리한다. 성능을 높이기 위해 JIT 컴파일러나 복잡한 메모리 관리 기술도 사용한다.</p>
+
+<p>이처럼 복잡한 프로그램에는 언제든 버그가 존재할 수 있다.</p>
+
+<p>물론 웹 브라우저가 있다고 반드시 탈옥이 가능한 것은 아니다. Relapse 역시 브라우저 취약점 하나만으로 모든 보안을 우회한 것이 아니라 별도의 커널 취약점까지 연결해야 했다.</p>
+
+<p>범용 하드웨어를 사용한다는 사실 자체가 보안을 약하게 만드는 것도 아니다.</p>
+
+<p>하지만 게임 전용 시스템에 범용 소프트웨어와 다양한 기능을 계속 추가하면, 공격자가 파고들 수 있는 지점이 늘어나는 것은 피하기 어렵다.</p>
+
+<p>그리고 이번 Relapse가 바로 웹 브라우저를 진입점으로 사용한다는 사실이 내게는 꽤 상징적으로 느껴졌다.</p>
+
+<p>게임을 실행하기 위해 만든 기계를 웹페이지 하나로 탈옥하는 시대라니.</p>
+
+<h2 id="게임만-잘-만들면-되던-시절이-좋았는데">게임만 잘 만들면 되던 시절이 좋았는데</h2>
+
+<p>물론 이번 사건 하나만 보고 PS5의 보안이 형편없다고 결론 내릴 생각은 없다.</p>
+
+<p>애초에 Relapse는 누구나 쉽게 발견할 만한 버그를 이용한 것이 아니다. 복잡한 브라우저 메모리 취약점과 커널 취약점을 찾아내고 연결한 결과다.</p>
+
+<p>그리고 최신 펌웨어에서는 관련 취약점이 수정되었다. 지원되는 구형 펌웨어에서만 가능하다는 제약도 있다. 탈옥한 콘솔에서 모든 게임을 마음대로 실행할 수 있다는 뜻도 아니다.</p>
+
+<p>그런 점에서 소니가 보안에 신경 쓰지 않았다고 말하는 것도 공정하지 않을 것이다.</p>
+
+<p>다만 개발자 입장에서 이번 소식을 보며 느낀 것은 조금 다르다.</p>
+
+<p>예전 콘솔 개발의 매력은 정해진 하드웨어를 대상으로 성능을 극한까지 끌어내고, 플랫폼의 보안은 제조사에 맡긴 채 게임 자체에 집중할 수 있다는 것이었다.</p>
+
+<p>물론 요즘 콘솔에서도 그 장점은 여전히 존재한다. PS5 역시 PC보다 하드웨어 구성이 훨씬 일정하고, 보안 체계도 일반적인 개방형 PC와는 다르다.</p>
+
+<p>하지만 과거처럼 독자적인 최첨단 하드웨어를 앞세우는 시대는 지나갔다. 범용 컴퓨터와 하드웨어 구조가 비슷해졌고, 운영체제와 소프트웨어 역시 점점 복잡해졌다.</p>
+
+<p>이런 변화가 반드시 나쁜 것은 아니다. 오히려 개발 비용과 생산 비용을 생각하면 합리적인 방향일 수 있다.</p>
+
+<p>그런데 개인적으로는 조금 아쉽다.</p>
+
+<p>당시에는 PC에서 쉽게 할 수 없었던 일을 콘솔 하드웨어에서 해내는 재미가 있었다. 하드웨어를 얼마나 잘 이해하고 활용하느냐에 따라 성능 차이가 크게 벌어지기도 했다.</p>
+
+<p>그러면서도 불법 복제 방지 같은 문제는 플랫폼 제조사의 강력한 보안에 상당 부분 의존할 수 있었다.</p>
+
+<p>개발자 입장에서는 꽤 좋은 조합이었다.</p>
+
+<p>요즘도 콘솔 게임 개발을 완전히 떠난 것은 아니다. 다만 과거와 비교하면 콘솔이 가진 독특한 매력은 많이 달라졌다는 생각이 든다.</p>
+
+<p>그리고 PS5 탈옥이 웹페이지 몇 번 클릭으로 가능하다는 소식을 접하니 그런 변화가 새삼 실감났다.</p>
+
+<p>뭐, 게임 업계의 기술이 계속 변하는 건 당연한 일이겠지만 말이다.</p>
+
+<hr />
+
+<h2 id="부록-ps5를-탈옥하면-ps3-게임도-돌릴-수-있다고">부록. PS5를 탈옥하면 PS3 게임도 돌릴 수 있다고?</h2>
+
+<p>Relapse 관련 이야기를 살펴보다 보니 누군가 PS5를 탈옥하면 PS3 게임도 실행할 수 있다는 이야기를 했다.</p>
+
+<p>그 말을 듣고 또 다른 생각이 들었다.</p>
+
+<p>PS5에서 과거 플레이스테이션 게임을 에뮬레이션한다면 PS2, PS3, PS4 중 어떤 것이 가장 어려울까?</p>
+
+<p>단순히 오래된 콘솔일수록 에뮬레이션이 쉬울 것이라고 생각할 수도 있다. 하지만 실제로는 그렇지 않다.</p>
+
+<p>에뮬레이션에서는 원래 하드웨어의 성능뿐 아니라 아키텍처가 얼마나 다른지도 중요하다.</p>
+
+<h3 id="ps2는-이제-성능으로-밀어붙일-수-있다">PS2는 이제 성능으로 밀어붙일 수 있다</h3>
+
+<p>PS2는 2000년에 출시된 콘솔이다.</p>
+
+<p>당시에는 Emotion Engine이라는 독특한 프로세서와 Graphics Synthesizer라는 그래픽 하드웨어를 사용했다.</p>
+
+<p>CPU의 기본 구조는 MIPS 계열이고, 여러 벡터 연산 장치를 통해 게임에 필요한 작업을 처리했다.</p>
+
+<p>당시에는 상당히 인상적인 하드웨어였지만 지금 기준으로 보면 절대적인 연산 성능이 매우 낮다.</p>
+
+<p>물론 PS2의 하드웨어 동작을 정확히 재현하는 것은 지금도 쉬운 일이 아니다. 독특한 메모리 구조와 벡터 연산 장치, 그래픽스 파이프라인 등을 고려해야 한다.</p>
+
+<p>하지만 현대의 CPU와 GPU는 PS2보다 훨씬 높은 성능을 제공한다.</p>
+
+<p>따라서 에뮬레이션 과정에서 발생하는 상당한 오버헤드를 감수하더라도 충분히 실행할 여력이 있다.</p>
+
+<p>실제로 PC에서는 오래전부터 PCSX2 같은 에뮬레이터로 PS2 게임을 실행해 왔다.</p>
+
+<p>최근에는 탈옥한 PS5에서 실행하는 PS5SX2 같은 프로젝트도 등장했다.</p>
+
+<p>PS2는 하드웨어 구조가 독특하지만, 이제는 그 차이를 극복할 수 있을 만큼 현대 하드웨어의 성능이 높아진 것이다.</p>
+
+<h3 id="ps4는-아키텍처가-거의-같다">PS4는 아키텍처가 거의 같다</h3>
+
+<p>PS4는 이야기가 다르다.</p>
+
+<p>PS4와 PS5 모두 AMD의 x86-64 기반 CPU를 사용한다. GPU 역시 AMD Radeon 계열이다.</p>
+
+<p>따라서 CPU 명령어를 전혀 다른 아키텍처로 변환해야 하는 상황은 아니다.</p>
+
+<p>물론 PS4 게임을 PS5에서 실행하는 것이 단순히 실행 파일을 복사하는 것만큼 쉽다는 뜻은 아니다.</p>
+
+<p>게임이 사용하는 운영체제 API, 메모리 관리 방식, GPU 명령, 파일 시스템, 시스템 서비스 등을 제대로 처리해야 한다.</p>
+
+<p>PS4와 PS5의 GPU도 완전히 동일하지 않다.</p>
+
+<p>하지만 CPU 명령어 아키텍처가 같다는 것만으로도 상당히 유리하다. 모든 CPU 명령어를 소프트웨어로 해석하거나 다른 아키텍처의 명령어로 변환할 필요가 없기 때문이다.</p>
+
+<p>애초에 PS5는 공식적으로 대부분의 PS4 게임에 대한 하위 호환성을 제공한다. 이것이 가능한 데는 두 기기의 하드웨어 구조가 유사하다는 점도 중요한 역할을 한다.</p>
+
+<p>비공식적인 실행 환경을 구현하는 일은 별개의 문제지만, 최소한 CPU 아키텍처가 크게 다르지 않다는 장점은 분명하다.</p>
+
+<h3 id="그런데-ps3는-골치-아프다">그런데 PS3는 골치 아프다</h3>
+
+<p>PS3는 전혀 다른 이야기다.</p>
+
+<p>PS3의 Cell 프로세서는 PowerPC 기반의 PPE와 여러 SPE를 조합한 구조다.</p>
+
+<p>PPE는 일반적인 프로그램 실행과 작업 관리를 담당하고, SPE는 대량의 데이터를 병렬로 처리하는 역할을 한다.</p>
+
+<p>특히 SPE 내부의 SPU는 일반적인 CPU 코어와는 상당히 다른 방식으로 동작한다.</p>
+
+<p>SPU에는 별도의 로컬 메모리가 있고, 데이터를 주고받는 방식도 일반적인 공유 메모리 기반 CPU와 다르다. 프로그램이 데이터를 명시적으로 이동시키고 연산하도록 작성하는 경우가 많다.</p>
+
+<p>PS3 게임 중에는 이런 구조를 적극적으로 활용한 것들이 있다.</p>
+
+<p>문제는 현대의 x86-64 CPU에서 이런 동작을 그대로 재현하기가 쉽지 않다는 것이다.</p>
+
+<p>단순히 명령어를 다른 명령어로 바꿔 실행하는 것으로 끝나지 않는다. 메모리 이동, 병렬 처리, 동기화, 타이밍 등 여러 요소를 제대로 재현해야 한다.</p>
+
+<p>게다가 PS3의 SPU는 특정 종류의 벡터 연산에서 상당히 강력했다.</p>
+
+<p>물론 현대의 CPU가 PS3보다 전반적으로 훨씬 뛰어난 것은 맞다. 하지만 에뮬레이터에서는 원래 하드웨어의 명령어를 직접 실행하는 것이 아니라 그 동작을 다른 구조의 하드웨어에서 재현해야 한다.</p>
+
+<p>이 과정에서 상당한 성능 손실이 발생할 수 있다.</p>
+
+<p>실제로 2026년에는 PS5에서 리눅스를 실행하고 RPCS3 에뮬레이터로 PS3 게임을 구동하는 실험도 있었다.</p>
+
+<p>결과가 흥미로웠다.</p>
+
+<p>SPU 사용량이 많지 않은 게임은 비교적 잘 실행되었지만, SPU를 적극적으로 활용하는 게임에서는 PS5의 CPU 성능이 부족해 원래 PS3보다 느리게 실행되는 경우도 있었다.</p>
+
+<p>PS5가 PS3보다 훨씬 최신 기기라고 해서 모든 면에서 PS3를 손쉽게 에뮬레이션할 수 있는 것은 아닌 것이다.</p>
+
+<p>결국 에뮬레이션의 난이도는 원래 콘솔의 연식이나 단순한 연산 성능만으로 결정되지 않는다.</p>
+
+<p><strong>서로 다른 하드웨어 아키텍처 사이의 간극을 얼마나 효율적으로 메울 수 있느냐가 매우 중요하다.</strong></p>
+
+<p>생각해 보면 이 또한 과거 콘솔 개발의 재미와 연결되는 이야기다.</p>
+
+<p>PS3처럼 독특한 구조를 가진 하드웨어는 개발자를 고생시켰지만, 그 하드웨어를 제대로 이해하고 활용하는 과정에서 얻는 재미도 상당했다.</p>
+
+<p>그리고 시간이 한참 지난 지금, 그 독특한 구조가 에뮬레이터 개발자들을 다시 고생시키고 있는 셈이다.</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses/COMP2200" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a000">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/COMP2200.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        컴퓨터 동작원리의 이해 | C 언어 강의 | 어셈블리어도 쫌 알랴줆
+                                    </h2>
+                                    <p class="description m-0">10차 산업혁명까지 책임질 컴퓨터 하드웨어 지식! POCU 아카데미에서 C 언어를 마스터하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2011/12/16/shipping-mindset.html">게임 출시전 개발자가 갖춰야할 마음가짐</a></li>
+                        
+                        <li><a href="/ko/2026/10/29/visual-studio-community-forced-update-automation-failure.html">Visual Studio 자동화가 갑자기 실패한다면? 범인은 강제 업데이트 팝업</a></li>
+                        
+                        <li><a href="/ko/2026/10/25/developer-presbyopia-experience.html">개발자의 노안 적응기</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

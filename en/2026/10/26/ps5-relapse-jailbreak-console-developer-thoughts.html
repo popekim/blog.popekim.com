@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>A Console Developer's Thoughts on the PS5 Jailbreak | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1793419632937169448" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">A Console Developer's Thoughts on the PS5 Jailbreak</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Oct 26, 2026
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ps5/">ps5</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/playstation/">playstation</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/console/">console</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/jailbreak/">jailbreak</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/security/">security</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/game-dev/">game dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>I've been developing console games for a long time. Compared to PC game development, console development has several advantages. Traditionally, I've considered two of them particularly important.</p>
+
+<p>First, the hardware specifications are fixed. On PC, developers have to account for all sorts of combinations of CPUs, GPUs, memory, and other hardware. On consoles, that isn't necessary. Since every user has essentially the same hardware, performance is much more predictable, and developers can optimize specifically for that hardware. For developers who enjoy squeezing every last bit of performance out of a machine, it's a pretty attractive environment.</p>
+
+<p>Second, security is strong. When you release a game on PC, piracy is something you have to worry about. On consoles, the platform manufacturer takes care of much of that. Instead of spending time implementing copy protection or fighting hackers, developers can concentrate on making better games.</p>
+
+<p>Of course, consoles have never been completely secure. Jailbreaks and piracy have existed for a long time. But they weren't particularly accessible to ordinary users, and some methods required hardware modifications. At least from a developer's perspective, consoles provided a much more comfortable environment than PCs.</p>
+
+<p>Then, recently, I came across some discussion about a PS5 jailbreak on Twitter.</p>
+
+<p><strong>PS5 Relapse? What's that supposed to mean?</strong></p>
+
+<p>I got curious and decided to look into it.</p>
+
+<!--more-->
+
+<h2 id="jailbreaking-a-ps5-is-this-easy">Jailbreaking a PS5 Is This Easy?</h2>
+
+<p>Relapse is a jailbreak tool that exploits security vulnerabilities in the PS5 to execute programs that Sony hasn't authorized.</p>
+
+<p>What surprised me was how simple the process looked. On a PS5 running a supported firmware version, you open a particular webpage and launch the jailbreak. After that, you can load and run additional programs.</p>
+
+<p>Wait, jailbreaking a console is this easy now?</p>
+
+<p>What's even more interesting is that the jailbreak isn't permanent. If you fully reboot the console, the changes made in memory disappear, and you have to run the jailbreak again. However, if you leave the console in standby mode, its memory state is preserved, allowing the jailbreak to remain active.</p>
+
+<p>As of October 2026, the publicly available Relapse supports PS5 firmware versions 7.00 through 13.60. The relevant vulnerabilities have been patched in later firmware versions, so this doesn't work on every PS5.</p>
+
+<p>Still, the fact that you can bypass a console's security by clicking a few things on a webpage was pretty shocking.</p>
+
+<h2 id="didnt-we-used-to-modify-the-hardware">Didn't We Used to Modify the Hardware?</h2>
+
+<p>When I think about console piracy in the past, the first thing that comes to mind is the modchip.</p>
+
+<p>You would open up the console, install an additional chip, and solder wires directly to the appropriate points on the circuit board. The goal was to bypass the console's boot process or security checks so that unauthorized programs or copied games could run.</p>
+
+<p>Of course, software-only jailbreaks existed in the past as well. Not every console required hardware modifications. But many of the earlier methods of circumventing copy protection were closely tied to hardware modifications.</p>
+
+<p>Relapse, however, doesn't require touching the hardware at all.</p>
+
+<p>It's entirely software-based. And it uses the web browser functionality already built into the console.</p>
+
+<p>Simply opening a webpage can become the starting point for bypassing the console's security system.</p>
+
+<p>So I decided to dig a little deeper into how it actually works.</p>
+
+<h2 id="how-can-a-web-browser-jailbreak-a-console">How Can a Web Browser Jailbreak a Console?</h2>
+
+<p>Relapse works by chaining together two major stages of exploitation.</p>
+
+<p>The first stage exploits a vulnerability in the web browser. The second exploits a vulnerability in the operating system kernel.</p>
+
+<h3 id="1-escaping-the-web-browsers-security-restrictions">1. Escaping the Web Browser's Security Restrictions</h3>
+
+<p>The PS5 includes web browsing functionality based on WebKit. Unlike a typical PC browser, it isn't something users can freely launch and browse with, but the system uses web technologies for things like displaying user guides and other web content.</p>
+
+<p>WebKit is the browser engine used by Safari and several other browsers. It also includes JavaScriptCore, the engine responsible for executing JavaScript.</p>
+
+<p>The problem is that a web browser is a program that executes code obtained from external sources.</p>
+
+<p>When we open a webpage, the browser interprets its HTML and JavaScript and executes the appropriate code. However, that doesn't mean JavaScript can do whatever it wants on the computer. Browsers are designed to execute code within a restricted environment called a sandbox.</p>
+
+<p>Imagine if JavaScript on any random webpage could freely read operating system memory or launch arbitrary programs. Simply browsing the internet would be incredibly dangerous.</p>
+
+<p>But things change when the browser engine itself contains a security vulnerability.</p>
+
+<p>Relapse takes advantage of information disclosure and memory object handling issues in JavaScriptCore. More specifically, it exploits an inconsistency in the state of an internal object pool during object cloning, allowing it to corrupt the internal state of a TypedArray.</p>
+
+<p>A TypedArray is a JavaScript object used to work with binary data. Under normal circumstances, the JavaScript engine controls which memory regions the object can access. However, if a bug in the engine allows the memory information referenced by a TypedArray to be corrupted, it may become possible to access memory outside the normally permitted range.</p>
+
+<p>By exploiting vulnerabilities like these, an attacker can go beyond simply running JavaScript on a webpage and perform operations that wouldn't normally be permitted inside the browser process.</p>
+
+<p>But successfully reaching this point doesn't mean the entire console has been compromised.</p>
+
+<p>After all, the browser is still just another program running on top of the operating system.</p>
+
+<h3 id="2-now-attack-the-kernel">2. Now Attack the Kernel</h3>
+
+<p>Operating systems prevent ordinary programs from directly accessing critical system resources.</p>
+
+<p>Whether it's a game or a browser, a normal application can only operate within the boundaries permitted by the operating system. The kernel, on the other hand, is the core component responsible for things like process management, memory management, and device control.</p>
+
+<p>If an ordinary application could freely read or modify kernel memory, the operating system's security model could be severely compromised.</p>
+
+<p>That's exactly what Relapse targets next.</p>
+
+<p>Using the execution capabilities obtained through the browser vulnerability, it attacks a separate vulnerability in the operating system kernel.</p>
+
+<p>The vulnerability involved is a Use-After-Free (UAF) issue related to <code>aio_multi_wait</code>.</p>
+
+<p>A UAF is a bug where memory continues to be used after it has already been freed. Imagine an object being deallocated while some other code still holds a reference to it.</p>
+
+<p>In a normal program, this kind of bug might simply cause a crash. But if an attacker can precisely control when the memory is freed, when it gets reused, and what gets written into it, the bug may be exploitable to alter the program's execution flow.</p>
+
+<p>Relapse combines this race condition with address information leaks to obtain the ability to read and write kernel memory.</p>
+
+<p>The important point here is that this isn't merely about calling a function that happens to exist in the kernel.</p>
+
+<p><strong>The key is gaining the ability to read and modify memory managed by the kernel itself.</strong></p>
+
+<p>This can allow an attacker to modify important operating system data structures and change the system state to permit operations that would normally be prohibited.</p>
+
+<p>Of course, reaching this stage doesn't mean every security barrier has disappeared. The PS5 has additional layers of protection beyond the kernel, including a hypervisor. Obtaining kernel-level access and completely defeating every security mechanism in the console are two different things.</p>
+
+<p>Nevertheless, this provides an important foundation for executing programs that ordinary users aren't supposed to run.</p>
+
+<h3 id="3-running-custom-programs">3. Running Custom Programs</h3>
+
+<p>Once you've reached this point, the next step is relatively easy to understand.</p>
+
+<p>Normally, the PS5 only allows programs authorized and signed by Sony to execute through its official mechanisms. You can't simply create your own executable, copy it to a USB drive, and run it.</p>
+
+<p>But once you've obtained sufficient privileges through security exploits, it becomes possible to build a way around those restrictions.</p>
+
+<p>Relapse includes functionality for launching an ELF loader.</p>
+
+<p>ELF stands for Executable and Linkable Format. It's a binary file format used for executables, libraries, and related files. Developers familiar with Linux or other Unix-like systems have probably encountered it before.</p>
+
+<p>An ELF loader does exactly what its name suggests: it loads an ELF executable into memory and prepares it for execution.</p>
+
+<p>Normally, loading an executable involves placing its code and data into the appropriate memory regions, resolving necessary addresses, and transferring control to the program. Similar operations happen during the normal executable loading process in an operating system.</p>
+
+<p>However, once you've obtained execution privileges through security vulnerabilities, you can also create a way to load ELF programs that the platform would not officially allow.</p>
+
+<p>For Windows developers, DLL injection or API hooking might be useful analogies.</p>
+
+<p>DLL injection is a technique for executing code inside a process that wasn't originally intended to run that code. API hooking intercepts function calls or redirects them to different code, changing how a program behaves.</p>
+
+<p>Of course, Relapse doesn't work in exactly the same way as DLL injection. It first needs to chain browser and kernel vulnerabilities together to obtain the necessary memory access and execution privileges.</p>
+
+<p>But the underlying idea should feel familiar to developers.</p>
+
+<p><strong>You create a way to execute code that the system wouldn't normally allow, and potentially interfere with the behavior of existing programs or the operating system itself.</strong></p>
+
+<p>Once this kind of execution environment is established, various custom programs can be loaded.</p>
+
+<p>After looking into all this, I started seeing that simple jailbreak webpage in a different light.</p>
+
+<p>From the user's perspective, it's just a matter of clicking a few buttons on a webpage. Behind the scenes, however, a fairly sophisticated exploit chain combines a browser memory management bug with a kernel race condition.</p>
+
+<p>The technology required to make the jailbreak possible is anything but simple. It's just that other developers have automated all that complexity, making the end result surprisingly easy for ordinary users.</p>
+
+<h2 id="so-what-can-you-actually-do-with-a-jailbroken-ps5">So What Can You Actually Do with a Jailbroken PS5?</h2>
+
+<p>The most immediate change is the ability to run programs that Sony hasn't authorized.</p>
+
+<p>For example, you can run unofficial software commonly referred to as homebrew. This includes tools for examining or modifying internal game data, debugging utilities, file managers, and emulators.</p>
+
+<p>From a game developer's perspective, the ability to run arbitrary debugging tools is interesting in itself.</p>
+
+<p>In an official console development environment, developers use development kits and debugging tools provided by the platform manufacturer. These capabilities are heavily restricted on ordinary retail consoles.</p>
+
+<p>If jailbreaking allows some of those restrictions to be bypassed, it becomes possible to experiment with various tools on consumer hardware.</p>
+
+<p>The problem is that these capabilities aren't necessarily used for good purposes.</p>
+
+<p>They can also be used to bypass security checks, modify game data, run cheat programs, or extract game files. Combined with additional security bypass tools, they may also enable pirated games to run.</p>
+
+<p>Of course, obtaining kernel access doesn't automatically mean every game can be copied and executed. Other protection mechanisms, including game encryption, signature verification, and the hypervisor, still matter.</p>
+
+<p>But it certainly provides an important tool for bypassing parts of the console's security system.</p>
+
+<p>One of the reasons I enjoyed console development was that I didn't have to worry nearly as much about this kind of thing.</p>
+
+<p>On PC, it's relatively easy to examine or modify executable files. Developers may have to consider what protection mechanisms to implement and how to deal with piracy or cheating.</p>
+
+<p>On consoles, however, the platform manufacturer provides a strong security system. Developers can concentrate on building the game on top of that foundation.</p>
+
+<p>Of course, this doesn't mean console game developers can completely ignore cheating or security. Server-side validation and anti-cheat measures are particularly important in online games. But at least developers don't have to take responsibility for building the platform's copy protection system from scratch.</p>
+
+<p>I really liked that part of console development.</p>
+
+<h2 id="how-did-consoles-end-up-like-this">How Did Consoles End Up Like This?</h2>
+
+<p>This is the part that got me thinking even more than the technical details of Relapse.</p>
+
+<p>I feel that the fundamental direction of game consoles has changed quite a bit over the years.</p>
+
+<h3 id="consoles-used-to-be-seriously-powerful-gaming-machines">Consoles Used to Be Seriously Powerful Gaming Machines</h3>
+
+<p>Think back to the days when the PS3 and Xbox 360 were released.</p>
+
+<p>Back then, a console wasn't simply a cheap gaming PC. It was a machine that could compete with high-end PCs of its time while offering that level of hardware at a relatively affordable price.</p>
+
+<p>The Xbox 360, released in 2005, used an IBM PowerPC-based CPU with three cores. Its GPU, ATI's Xenos, adopted a unified shader architecture that hadn't yet become common in PC graphics cards.</p>
+
+<p>Instead of dividing hardware resources into separate, fixed vertex shader and pixel shader units, the unified shader architecture allowed those resources to be shared. This eventually became the mainstream approach in PC graphics hardware as well.</p>
+
+<p>The Xbox 360 launched in the United States at $299 or $399, depending on the model. That was a remarkably affordable way to get a system equipped with such powerful graphics hardware at the time.</p>
+
+<p>The PS3, released the following year, took things even further.</p>
+
+<p>Its Cell processor was designed in a radically different direction from conventional PC processors. It combined a PowerPC-based PPE with multiple SPEs to process large amounts of data in parallel.</p>
+
+<p>It certainly wasn't easy hardware to develop for. In fact, it could be a real headache when you first started working with it.</p>
+
+<p>But if you knew how to use it properly, you could extract tremendous computational performance for its time. There was a very clear reason for game developers to understand the hardware and write code specifically for it.</p>
+
+<p>The PS3 and Xbox 360 had very different architectures, but they shared something important.</p>
+
+<p><strong>They aggressively introduced cutting-edge technologies into game consoles and encouraged developers to squeeze as much performance as possible out of the hardware.</strong></p>
+
+<p>Development could be difficult, but there was a real payoff for understanding and using the hardware well.</p>
+
+<h3 id="things-changed-with-the-ps4">Things Changed with the PS4</h3>
+
+<p>With the PS4 and Xbox One generation, however, things started moving in a different direction.</p>
+
+<p>Both consoles adopted AMD Jaguar CPUs based on x86-64, along with Radeon-based GPUs.</p>
+
+<p>Using architectures similar to those found in PCs was certainly good news for developers. There was less need to learn completely different CPU architectures or write large amounts of console-specific code.</p>
+
+<p>But there was another change in terms of hardware performance.</p>
+
+<p>By the time the PS4 launched in 2013, you could already buy PCs equipped with more powerful CPUs and GPUs. Rather than introducing cutting-edge hardware that outperformed high-end PCs, the PS4 offered a balanced design that considered price, power consumption, and manufacturing costs.</p>
+
+<p>Of course, even earlier consoles weren't necessarily superior to high-end PCs in every component or every workload. The PS3 wasn't faster than contemporary high-performance PCs at everything either.</p>
+
+<p>Nevertheless, I felt that the overall design philosophy had clearly changed.</p>
+
+<p>In the past, manufacturers had designed unusual and aggressive hardware specifically for gaming. Now they were moving toward combining widely available, general-purpose technologies to build reasonably priced consoles.</p>
+
+<p>There are plenty of advantages to this approach.</p>
+
+<p>Development becomes easier, and porting games between PCs and consoles becomes more straightforward. Hardware development costs and risks are also reduced. And the actual gaming experience consumers get at a given price doesn't necessarily become worse.</p>
+
+<p>From the console manufacturers' perspective, it's an entirely reasonable decision.</p>
+
+<p>But for developers who enjoy pushing hardware to its limits, it inevitably feels different from the old days.</p>
+
+<h3 id="from-dedicated-gaming-machines-to-living-room-entertainment-devices">From Dedicated Gaming Machines to Living Room Entertainment Devices</h3>
+
+<p>Another noticeable change is the role consoles are expected to play.</p>
+
+<p>Of course, older consoles weren't exclusively for games either. The PS2 served as a DVD player, and the PS3 became popular as a Blu-ray player. The Xbox 360 also offered online services and various media features.</p>
+
+<p>So it's not as though media functionality suddenly appeared with the PS4.</p>
+
+<p>However, as console generations progressed, the effort to position consoles as comprehensive living room entertainment devices rather than just gaming machines became more apparent.</p>
+
+<p>Video streaming, music, web content, and various online services became increasingly important alongside games.</p>
+
+<p>For consumers, that's a good thing. If you're going to have a device in your living room anyway, it's convenient to use it for games, movies, and other services.</p>
+
+<p>But from a security perspective, things look a little different.</p>
+
+<p>As more features are added, more software needs to be included in the system. There's more code processing data obtained from external sources, and more libraries and services that need to be maintained.</p>
+
+<p>In security terminology, this is referred to as the attack surface.</p>
+
+<p>It represents the potential entry points where an attacker might discover and exploit vulnerabilities.</p>
+
+<p>Web browsers are a perfect example.</p>
+
+<p>A web browser is an extremely complex piece of software. It processes many different types of external data, including HTML, CSS, JavaScript, images, and video. It also uses sophisticated techniques such as JIT compilation and complex memory management to improve performance.</p>
+
+<p>With software this complicated, bugs are practically inevitable.</p>
+
+<p>Of course, simply having a web browser doesn't mean a console can necessarily be jailbroken. Relapse didn't bypass the PS5's security through a browser vulnerability alone. It also needed to exploit a separate kernel vulnerability.</p>
+
+<p>And using general-purpose hardware doesn't inherently make a system less secure either.</p>
+
+<p>However, as you continue adding general-purpose software and functionality to a dedicated gaming system, it's difficult to avoid increasing the number of places an attacker might investigate.</p>
+
+<p>The fact that Relapse uses the web browser as its entry point felt rather symbolic to me.</p>
+
+<p>We've reached a point where a machine built to run games can be jailbroken through a webpage.</p>
+
+<h2 id="i-miss-the-days-when-we-could-just-focus-on-making-games">I Miss the Days When We Could Just Focus on Making Games</h2>
+
+<p>Of course, I wouldn't conclude that the PS5 has terrible security based on this incident alone.</p>
+
+<p>Relapse doesn't rely on bugs that just anyone could easily discover. It's the result of finding and chaining together complicated browser memory vulnerabilities and kernel vulnerabilities.</p>
+
+<p>And the relevant vulnerabilities have been patched in newer firmware versions. The exploit only works on supported older firmware, and jailbreaking a console doesn't mean you can suddenly run every game you want.</p>
+
+<p>It wouldn't be fair to say that Sony hasn't taken security seriously.</p>
+
+<p>But what struck me as a developer was something a little different.</p>
+
+<p>One of the great things about console development in the past was that you could push fixed hardware to its limits while leaving much of the platform security to the manufacturer. That allowed you to focus on making the game itself.</p>
+
+<p>Of course, those advantages still exist on modern consoles. The PS5 still has a far more consistent hardware configuration than PCs, and its security architecture is very different from that of a typical open PC platform.</p>
+
+<p>But the days when consoles introduced radically different, cutting-edge hardware are largely behind us. Their hardware architectures have become more similar to general-purpose computers, while their operating systems and software have grown increasingly complex.</p>
+
+<p>That isn't necessarily a bad thing. In fact, considering development and manufacturing costs, it's probably a sensible direction.</p>
+
+<p>Still, I personally find it a little disappointing.</p>
+
+<p>Back then, there was something exciting about accomplishing things on console hardware that weren't easy to achieve on PCs. How well you understood and utilized the hardware could make an enormous difference in performance.</p>
+
+<p>At the same time, you could rely heavily on the platform manufacturer's security system for things like copy protection.</p>
+
+<p>From a developer's perspective, that was a pretty nice combination.</p>
+
+<p>I haven't completely left console game development behind. But compared to the past, I feel that much of what made consoles uniquely interesting has changed.</p>
+
+<p>And hearing that a PS5 can now be jailbroken with a few clicks on a webpage really brought that change home.</p>
+
+<p>Well, I suppose technology in the game industry was always going to keep changing.</p>
+
+<hr />
+
+<h2 id="appendix-can-you-run-ps3-games-on-a-jailbroken-ps5">Appendix: Can You Run PS3 Games on a Jailbroken PS5?</h2>
+
+<p>While looking into Relapse, I came across someone saying that jailbreaking a PS5 would also let you run PS3 games.</p>
+
+<p>That got me thinking about something else.</p>
+
+<p>If you wanted to emulate older PlayStation games on a PS5, which would be the most difficult: PS2, PS3, or PS4?</p>
+
+<p>You might assume that the older the console, the easier it would be to emulate. But that isn't necessarily true.</p>
+
+<p>When it comes to emulation, the original hardware's performance matters, but so does how different its architecture is from the host system.</p>
+
+<h3 id="ps2-modern-hardware-can-brute-force-its-way-through">PS2: Modern Hardware Can Brute-Force Its Way Through</h3>
+
+<p>The PS2 was released in 2000.</p>
+
+<p>It used a distinctive processor called the Emotion Engine and a graphics processor called the Graphics Synthesizer.</p>
+
+<p>The CPU was based on the MIPS architecture and used multiple vector processing units to perform the calculations needed by games.</p>
+
+<p>It was impressive hardware at the time, but its absolute processing power is extremely low by modern standards.</p>
+
+<p>Of course, accurately reproducing the PS2's hardware behavior still isn't an easy task. Its unusual memory architecture, vector processing units, and graphics pipeline all need to be considered.</p>
+
+<p>But modern CPUs and GPUs provide vastly more computational power than the PS2.</p>
+
+<p>That means they have enough performance headroom to absorb the substantial overhead introduced by emulation.</p>
+
+<p>In fact, we've been running PS2 games on PCs through emulators like PCSX2 for many years.</p>
+
+<p>More recently, projects like PS5SX2 have appeared, allowing PS2 emulation on jailbroken PS5 consoles.</p>
+
+<p>The PS2 has a distinctive hardware architecture, but modern hardware has become powerful enough to overcome much of that difference.</p>
+
+<h3 id="ps4-the-architecture-is-almost-the-same">PS4: The Architecture Is Almost the Same</h3>
+
+<p>The PS4 is a different story.</p>
+
+<p>Both the PS4 and PS5 use AMD CPUs based on x86-64. Their GPUs also belong to AMD's Radeon family.</p>
+
+<p>This means there's no need to translate CPU instructions from one completely different architecture to another.</p>
+
+<p>Of course, that doesn't mean running PS4 games on a PS5 is as simple as copying an executable file.</p>
+
+<p>You still need to handle the operating system APIs, memory management behavior, GPU commands, file system, and system services that the game expects.</p>
+
+<p>The GPUs in the PS4 and PS5 aren't identical either.</p>
+
+<p>But sharing the same CPU instruction set architecture is already a significant advantage. You don't need to interpret every CPU instruction in software or translate it into instructions for a completely different processor architecture.</p>
+
+<p>After all, the PS5 officially provides backward compatibility with most PS4 games. The similarity between the two systems' hardware architectures plays an important role in making this possible.</p>
+
+<p>Implementing an unofficial execution environment is a separate challenge, but having similar CPU architectures is certainly a major advantage.</p>
+
+<h3 id="ps3-now-thats-a-headache">PS3: Now That's a Headache</h3>
+
+<p>The PS3 is an entirely different story.</p>
+
+<p>Its Cell processor combined a PowerPC-based PPE with multiple SPEs.</p>
+
+<p>The PPE handled general program execution and task management, while the SPEs were designed to process large amounts of data in parallel.</p>
+
+<p>The SPU inside each SPE, in particular, operated very differently from a conventional CPU core.</p>
+
+<p>Each SPU had its own local memory, and data transfers worked differently from those in a typical shared-memory CPU architecture. Programs often had to explicitly move data around before performing calculations.</p>
+
+<p>Some PS3 games made extensive use of this architecture.</p>
+
+<p>The problem is that reproducing this behavior on a modern x86-64 CPU isn't easy.</p>
+
+<p>It isn't simply a matter of translating one instruction into another. You also need to reproduce memory transfers, parallel execution, synchronization, timing, and various other behaviors.</p>
+
+<p>On top of that, the PS3's SPUs were remarkably powerful at certain kinds of vector computations.</p>
+
+<p>Of course, modern CPUs are vastly more capable than the PS3's processor overall. But in an emulator, you aren't executing the original hardware's instructions directly. You're reproducing their behavior on hardware with a different architecture.</p>
+
+<p>That process can introduce substantial performance overhead.</p>
+
+<p>In fact, there were experiments in 2026 involving running Linux on a PS5 and using the RPCS3 emulator to execute PS3 games.</p>
+
+<p>The results were interesting.</p>
+
+<p>Games that didn't make heavy use of the SPUs ran relatively well. But in games that relied heavily on SPU processing, the PS5's CPU sometimes struggled enough that the games ran more slowly than they did on the original PS3.</p>
+
+<p>Just because the PS5 is a much newer console doesn't mean it can effortlessly emulate every aspect of the PS3.</p>
+
+<p>Ultimately, the difficulty of emulation isn't determined solely by how old the original console is or how much raw processing power it had.</p>
+
+<p><strong>What really matters is how efficiently you can bridge the gap between two different hardware architectures.</strong></p>
+
+<p>Come to think of it, this also relates to what made console development so interesting in the past.</p>
+
+<p>Unusual hardware like the PS3 made developers' lives difficult, but there was also a lot of satisfaction in understanding that hardware and learning how to use it properly.</p>
+
+<p>And now, all these years later, that same unusual architecture is giving emulator developers headaches all over again.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2026/10/29/visual-studio-community-forced-update-automation-failure.html">Visual Studio Automation Suddenly Failing? A Forced Update Popup Was the Culprit</a></li>
+                        
+                        <li><a href="/en/2026/10/25/developer-presbyopia-experience.html">A Developer's Guide to Living with Presbyopia</a></li>
+                        
+                        <li><a href="/en/2026/10/20/dotnet-maui-nuget-update-build-failure.html">What to Do When a .NET MAUI Update Breaks Your Build on Windows + Visual Studio</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>
