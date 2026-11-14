@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>The Evolution of Development Environments: Back to Restricting Permissions | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1794616274129670312" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2026/11/12/evolution-of-development-environments.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/11/12/evolution-of-development-environments.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/11/12/evolution-of-development-environments.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">The Evolution of Development Environments: Back to Restricting Permissions</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Nov 12, 2026
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/security/">security</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/windows/">windows</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ai-agent/">ai agent</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/byod/">byod</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/virtualization/">virtualization</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>In my <a href="/en/2026/11/05/ai-coding-agent-hyper-v-development-environment.html">previous post</a>, I talked about setting up a dedicated development PC for my AI coding agent. I created a Hyper-V virtual machine, separated administrator and standard user accounts, and restricted file sharing and network access.</p>
+
+<p>While setting all this up, I suddenly found myself thinking about the development environments I've worked with over the years.</p>
+
+<p>Looking back, development environments haven't evolved in a single direction. At one point, companies strictly limited developers' permissions. At another, they gave developers complete control over their machines. Eventually, even the boundary between personal and work computers began to disappear. Now, with the arrival of AI agents, I'm back to separating permissions and isolating development environments.</p>
+
+<p>It's pretty funny when you think about it.</p>
+
+<!--more-->
+
+<h2 id="1-the-days-of-developing-without-administrator-privileges">1. The Days of Developing Without Administrator Privileges</h2>
+
+<p>There was a time when quite a few companies gave developers Windows accounts without administrator privileges.</p>
+
+<p>Even though it was your development computer, you couldn't install software freely. If you needed a new development tool or wanted to change a system setting, you had to submit a request to IT. Sometimes, installing a single application required going through an approval process.</p>
+
+<p>As a developer, this was incredibly annoying. You'd want to try a new library or tool, only to discover that you didn't have permission to install it. Or you'd run into a problem that required changing a system setting, but couldn't do that either.</p>
+
+<p>Of course, the policy made sense from the company's perspective. IT could control what software was installed on company computers and reduce the risk of malware or accidental system damage.</p>
+
+<p>The working environment was also quite different back then. Laptops weren't nearly as common as they are today, and most people commuted to the office and worked on company-provided desktops. Cloud-based productivity tools like Google Docs and Microsoft 365 didn't exist yet. If you wanted to access work files or internal systems, you generally had to be at the office.</p>
+
+<p>Your work computer was where you did your work, and the company controlled that environment.</p>
+
+<p>This approach had advantages in security and administration, but from a developer's productivity standpoint, I wasn't a big fan.</p>
+
+<h2 id="2-the-days-of-giving-developers-administrator-privileges">2. The Days of Giving Developers Administrator Privileges</h2>
+
+<p>Not every company restricted developers' permissions, though.</p>
+
+<p>Even back then, some companies gave developers administrator privileges. In particular, I encountered this approach at high-tech companies with lots of highly skilled engineers. The thinking was that developers were capable of managing their own computers.</p>
+
+<p>Personally, this was always my favorite environment.</p>
+
+<p>Need a new development tool? Just install it. Want to change a system setting or experiment with a new technology? Go ahead. If something breaks, you can fix it yourself instead of filing a ticket with IT.</p>
+
+<p>The underlying assumption was simple: developers know their way around computers and can take responsibility for their own development environments.</p>
+
+<p>Of course, there were downsides. A user with administrator privileges could accidentally damage the entire system. Running malicious software could also cause more serious problems. And if a developer failed to maintain their machine properly, the company would have to deal with the consequences.</p>
+
+<p>But if you trusted your developers' abilities, giving them freedom was often worth the risk because it improved productivity.</p>
+
+<p>Even today, I generally prefer this approach for human developers. If someone knows how to manage their own tools and environment, I don't see much value in imposing unnecessary restrictions.</p>
+
+<h2 id="3-when-personal-and-work-computers-started-to-merge">3. When Personal and Work Computers Started to Merge</h2>
+
+<p>Over time, the working environment itself began to change.</p>
+
+<p>Laptops became widespread, and internet connections got faster. Cloud productivity tools like Google Docs and Microsoft 365 made it possible to work without being physically present at the office. Services like GitHub also meant source code no longer had to live exclusively on a company computer.</p>
+
+<p>Along with these changes came the growing popularity of BYOD (Bring Your Own Device), where employees use their personal computers or mobile devices for work.</p>
+
+<p>The boundary between personal and work computers gradually began to disappear.</p>
+
+<p>It became perfectly normal to check personal email, open company documents, and work on both personal and company projects from the same computer. Conversely, people also started using company-issued laptops for personal activities.</p>
+
+<p>From a security perspective, however, this introduced some significant risks.</p>
+
+<p>A suspicious application installed on a personal computer could potentially leak confidential company information. Conversely, company software or device management policies could expose personal information. Even the question of how much access corporate security tools should have to personally owned devices became an issue.</p>
+
+<p>Of course, advances in security technology helped make these changes possible.</p>
+
+<p>Operating systems became more secure, and automatic updates became commonplace. Windows began including built-in antivirus protection through Microsoft Defender, while browsers gained stronger security features. Companies also adopted technologies such as MDM (Mobile Device Management), EDR (Endpoint Detection and Response), and SSO (Single Sign-On) to manage devices, identities, and data access.</p>
+
+<p>In other words, companies weren't simply abandoning security in favor of convenience. The way they managed security was changing.</p>
+
+<p>Still, when employees used personal computers for work, much of the responsibility continued to fall on the users themselves.</p>
+
+<p>Developers, in particular, often had administrator privileges on their machines. They could install whatever development tools they needed, configure multiple development environments, and use personal and company accounts within the same operating system.</p>
+
+<p>For a long time, I considered this a reasonable tradeoff. After all, the developer was still the one deciding which applications to run and which files to open.</p>
+
+<p>Then AI agents came along.</p>
+
+<h2 id="4-ai-agents-arrive-wait-are-we-supposed-to-trust-them-too">4. AI Agents Arrive. Wait, Are We Supposed to Trust Them Too?</h2>
+
+<p>Traditional development tools generally operated under the developer's direct control.</p>
+
+<p>Of course, running buggy or malicious software could still cause problems. But at least the developer typically chose the tools, entered the commands, and examined the results.</p>
+
+<p>AI coding agents are a little different.</p>
+
+<p>Give an agent a task, and it can read files, modify code, and execute commands on its own. If it thinks another file needs to be examined or an additional tool needs to be installed, it might attempt that too. It can perform a whole sequence of actions without the developer explicitly requesting each one.</p>
+
+<p>And where are people running these agents?</p>
+
+<p>Possibly on the same computer that contains their personal information, company source code, and credentials for various services. And what if the account they're logged into also has administrator privileges?</p>
+
+<p>Sure, AI agents have sandboxing features. But depending on their configuration, they may still be able to read a wide range of files and execute various commands with the user's permission.</p>
+
+<p>Essentially, the privileges we once granted to developers because we trusted them can now be exercised by AI agents as well.</p>
+
+<p><strong>But trusting a developer and trusting an AI agent are two completely different things, aren't they?</strong></p>
+
+<p>A human developer has gone through the company's hiring process. If something goes wrong, you can ask why they made a particular decision and hold them accountable. At the very least, they're someone the organization can manage through its established processes.</p>
+
+<p>An AI agent, on the other hand, isn't an employee I personally hired. It sometimes behaves in unexpected ways and can't always clearly explain why it made a particular decision. Even when it provides an explanation, there's no guarantee that explanation accurately reflects how it arrived at the result.</p>
+
+<p>And if something goes wrong, you can't exactly hold the AI agent accountable. Ultimately, the responsibility falls on the person using it.</p>
+
+<p>I'm not saying AI agents are inherently dangerous. I use them regularly myself, and I think they're excellent productivity tools.</p>
+
+<p>But trusting a tool to help me write code and giving it access to everything stored on my computer are two very different things.</p>
+
+<h2 id="5-and-here-we-are-back-to-separating-permissions">5. And Here We Are, Back to Separating Permissions</h2>
+
+<p>So I created a dedicated Hyper-V virtual machine for my AI agent.</p>
+
+<p>I separated administrator and standard user accounts, and the AI agent runs only with standard user privileges. I disabled file and clipboard sharing between the host and VM and restricted network access.</p>
+
+<p>But while setting everything up, I couldn't help noticing the irony.</p>
+
+<p>Years ago, I complained about companies refusing to give developers administrator privileges. Now I'm personally taking administrator privileges away from my AI agent. And apparently that's not enough, because I've also locked it inside a separate virtual machine.</p>
+
+<p>I used to believe that giving developers freedom was the better approach, and I still largely believe that. I've simply decided that extending the same freedom to AI agents is a different matter.</p>
+
+<p>In a way, I've come full circle to the old security policies. Of course, the situation isn't exactly the same. Back then, companies restricted my privileges because they didn't fully trust me. This time, I'm restricting an AI agent's privileges because I don't fully trust it.</p>
+
+<p>Technology really is funny sometimes.</p>
+
+<p>First, companies tightly controlled development computers. Then they began giving developers more freedom. Eventually, even the distinction between personal and work computers started to disappear. But now that AI agents have arrived, we're separating user accounts, isolating file systems, and restricting network access all over again.</p>
+
+<p>Rather than progressing steadily in one direction, development environments seem to keep searching for a new balance between freedom and control whenever new technology comes along.</p>
+
+<p>Ultimately, I don't think the real question is whether to grant administrator privileges. <strong>It's who should receive which permissions, for what purpose, and to what extent.</strong></p>
+
+<p>And the answer keeps changing with the times and the technology we use.</p>
+
+<p>I used to hate it when companies restricted my permissions. Now I'm the one restricting my AI agent's permissions.</p>
+
+<p>Funny how things come full circle.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2026/11/05/ai-coding-agent-hyper-v-development-environment.html">I Gave My AI Coding Agent Its Own Development PC</a></li>
+                        
+                        <li><a href="/en/2026/10/19/azure-devops-agent-missing-capabilities.html">Azure DevOps Agent Capabilities Disappearing? Windows Compression Might Be the Culprit</a></li>
+                        
+                        <li><a href="/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html">A Console Developer's Thoughts on the PS5 Jailbreak</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

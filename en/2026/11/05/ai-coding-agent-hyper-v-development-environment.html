@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>I Gave My AI Coding Agent Its Own Development PC | PPMC</title>
+    
+    
+    
+    <link rel="stylesheet" href="/en/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/en/assets/css/site.css?1794616274129670312" />
+    <link rel="stylesheet" href="/en/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/en/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/en/2026/11/05/ai-coding-agent-hyper-v-development-environment.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed.xml" title="PPMC | All" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/dev.xml" title="PPMC | Dev" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/music.xml" title="PPMC | Music" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/en/feed/personal.xml" title="PPMC | Personal" />
+
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/11/05/ai-coding-agent-hyper-v-development-environment.html" hreflang="en" />
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/11/05/ai-coding-agent-hyper-v-development-environment.html" hreflang="ko" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/en/">
+            <img class="mt-2 mb-2" src="/en/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/about.html">about</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/en/archives/">archives</a>
+    </li>
+    
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/dev">cat:dev</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/music">cat:music</a>
+        </li>
+    
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/en/categories/personal">cat:personal</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">I Gave My AI Coding Agent Its Own Development PC</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/en/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            Pope Kim</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            Nov 5, 2026
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ai/">ai</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/ai-agent/">ai agent</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/codex/">codex</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/hyper-v/">hyper v</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/security/">security</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/en/tags/dev/">dev</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p>I mentioned on my YouTube channel, Pope TV, that I primarily use GitHub Copilot when writing production code. That hasn't changed much. I still prefer writing code myself with AI assistance.</p>
+
+<p>That doesn't mean I don't use AI coding agents. I do delegate tasks to agents when appropriate. However, I don't just take their output and push it straight to production. I treat an agent's work like the first draft submitted by a junior developer. I run it, review it, and make whatever changes are necessary. My rule is that I personally verify all important code before it goes into production.</p>
+
+<p>Lately, though, I've been a little surprised by people who run multiple AI agents simultaneously and give them considerable freedom to work independently. I understand the productivity benefits, but I can't help wondering: Is the environment they're running in actually safe?</p>
+
+<!--more-->
+
+<h2 id="are-we-trusting-ai-agents-too-much">Are We Trusting AI Agents Too Much?</h2>
+
+<p>These days, the line between personal and work computers has become increasingly blurred. It's common to have personal files, company source code, Git credentials, SSH keys, API tokens, and various other authentication details stored on the same machine.</p>
+
+<p>On top of that, many Windows users do their everyday work while logged in with an account that has administrator privileges. Some don't even realize their account belongs to the Administrators group. Of course, being logged in as an administrator doesn't mean every application automatically runs with elevated privileges, thanks to User Account Control (UAC). Still, it's a very different environment from one where the user has only standard privileges.</p>
+
+<p>Is it really a good idea to give an AI agent permission to execute commands on such a computer?</p>
+
+<p>Modern AI coding agents do provide sandboxing features. They can restrict file modifications, command execution, and network access. But preventing an agent from writing to a file doesn't necessarily prevent it from reading that file. The actual restrictions depend on the sandbox implementation and configuration.</p>
+
+<p>Authentication credentials are particularly concerning. Even if an agent cannot modify sensitive files, being able to read them could potentially lead to information leaks through prompt injection or other unintended behavior.</p>
+
+<p>Running agents only on a company computer doesn't necessarily make things safer, either. That machine might actually contain more credentials for accessing internal company systems.</p>
+
+<p>I didn't want to rely solely on the agent's built-in security mechanisms.</p>
+
+<h2 id="ways-to-isolate-ai-agents">Ways to Isolate AI Agents</h2>
+
+<p>There are several ways to isolate an AI agent's execution environment.</p>
+
+<ul>
+  <li><strong>Separate user account:</strong> Simple to set up, but it doesn't fully isolate network access or shared resources.</li>
+  <li><strong>Containers such as Docker:</strong> Lightweight and convenient, but they have limitations when working with Windows GUI development tools.</li>
+  <li><strong>Windows Sandbox:</strong> Easy to use, but its disposable nature makes it inconvenient for maintaining a long-term development environment.</li>
+  <li><strong>Virtual machine (VM):</strong> Provides a separate operating system and file system, with options for network isolation.</li>
+  <li><strong>Separate physical computer:</strong> Offers strong separation, but adds hardware and maintenance costs.</li>
+</ul>
+
+<p>None of these approaches guarantees perfect security. The important thing is choosing one that fits your development environment and requirements.</p>
+
+<p>I decided to use a Hyper-V virtual machine.</p>
+
+<h2 id="why-i-chose-hyper-v">Why I Chose Hyper-V</h2>
+
+<p>The biggest reason I chose Hyper-V was that it lets me run a <strong>full Windows GUI development environment with good performance</strong>.</p>
+
+<p>I don't want to limit my AI agent to working in a terminal. I also want the option to open projects in Visual Studio, build them, and debug them when necessary. Essentially, I wanted the equivalent of having a second development PC.</p>
+
+<p>Another major factor was startup speed and convenience.</p>
+
+<p>My main development computer is almost always running. If I had a separate physical computer, I'd have to power it on or wake it from sleep whenever I wanted to use it. With Hyper-V, I can simply resume a saved VM. There's no need to boot Windows from scratch, making the process much faster and more convenient.</p>
+
+<p>I also liked Hyper-V's <strong>checkpoint feature</strong>.</p>
+
+<p>Setting up a development environment from scratch can be tedious. There's Windows, development tools, SDKs, and all sorts of configuration to deal with. With checkpoints, I can restore the VM to a known working state if an agent messes up the environment. That saves me from having to repeat the entire setup process.</p>
+
+<p>Checkpoints aren't a replacement for backups, of course, but they're extremely useful for this purpose.</p>
+
+<h2 id="how-i-configured-the-vm">How I Configured the VM</h2>
+
+<p>I installed Windows in the VM and created two separate accounts: an administrator account and a standard user account dedicated to the AI agent.</p>
+
+<p>The administrator account is used only for installing development tools and maintaining the operating system. The AI agent runs under the standard user account, making it harder for the agent to modify system-wide settings.</p>
+
+<p><strong>I also disabled clipboard sharing and file sharing between the host and the VM.</strong> These features are convenient, but I saw no reason to provide a potential path for an agent to access passwords copied to the host's clipboard or sensitive files in shared folders.</p>
+
+<p>I configured the VM with essentially the same development environment as my main computer. This means installing Git, SDKs, build tools, and everything else in two places.</p>
+
+<p>Fortunately, my company uses a monorepo, so this wasn't particularly difficult. Multiple projects share a single repository and common build environment, making it relatively straightforward to reproduce the existing setup. Once everything is configured, I can create a checkpoint to make future maintenance easier.</p>
+
+<h2 id="network-isolation-matters-too">Network Isolation Matters Too</h2>
+
+<p>Using a VM doesn't automatically isolate its network access.</p>
+
+<p>Depending on the network configuration, a VM with internet access might also be able to reach the host computer or other devices and services on the company intranet. Separating file systems doesn't help much if the agent can still access internal resources over the network.</p>
+
+<p>That's why <strong>I restricted the VM's access to the intranet at the host level</strong>.</p>
+
+<p>If the restrictions exist only in the VM's firewall, there's a possibility that the agent could modify those settings. Enforcing restrictions through the host's virtual network and firewall makes them much harder for an agent running inside the VM to change. Of course, the actual protection depends on the network configuration, so the available network paths need to be tested.</p>
+
+<p>I kept internet access enabled. The agent still needs to access Git repositories, download packages, and communicate with AI services. However, internet access also means data can potentially be sent outside the VM, so I keep the credentials stored inside it to a minimum.</p>
+
+<p>The goal is simple: <strong>a separate development environment that can access the internet but cannot access my main computer or the company intranet</strong>.</p>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+
+<p>When using AI agents, I think the important question isn't how much we trust them. It's how much damage they could cause if something goes wrong.</p>
+
+<p>We already follow the principle of least privilege for human developers and separate development environments from production systems. There's no reason to treat AI agents differently. If anything, we should be even more careful, considering how quickly they can execute commands and modify files.</p>
+
+<p>Not everyone needs Hyper-V. A separate user account or Docker container might be sufficient for some workflows.</p>
+
+<p>In my case, I wanted to keep a full Windows GUI development environment while isolating it from my host computer. Add the convenience of quickly resuming a VM and restoring checkpoints, and Hyper-V turned out to be the best fit.</p>
+
+<p>Rather than focusing only on <strong>what tasks to give AI agents</strong>, I think it's worth considering <strong>where they should run and how much access they should have</strong>.</p>
+
+<p>For now, I've decided to give my AI coding agent a development PC of its own.</p>
+
+
+                    </section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">Related Posts</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/en/2026/11/12/evolution-of-development-environments.html">The Evolution of Development Environments: Back to Restricting Permissions</a></li>
+                        
+                        <li><a href="/en/2025/08/25/7700k-windows11-upgrade.html">The End of Windows 10 Support and the Unfair Fate of an Intel i7</a></li>
+                        
+                        <li><a href="/en/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html">A Console Developer's Thoughts on the PS5 Jailbreak</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-en"
+    data-repo-id="R_kgDOONEmWA"
+    data-category="Comments"
+    data-category-id="DIC_kwDOONEmWM4CoXIN"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2008 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/ko">한국어</a>
+                <span class="h5 opacity-75"><a href="/en/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/channel/UCTkPfbt3vgJUwJUMWsBe0yw" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrenderer" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/en/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/en/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/en/assets/lib/prism/js/prism.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/en/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/en/assets/js/prism/prism-masm.min.js"></script>
+<script src="/en/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>

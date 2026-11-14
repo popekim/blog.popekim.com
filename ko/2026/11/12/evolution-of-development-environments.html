@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+
+<head>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NHD74QDQ');</script>
+    <!-- End Google Tag Manager -->
+
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+
+    <title>개발 환경의 변천사, 결국 다시 권한 분리로 돌아왔다 | 포프머신</title>
+    
+    
+    
+    <link rel="stylesheet" href="/ko/assets/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ko/assets/css/site.css?1794616278777529457" />
+    <link rel="stylesheet" href="/ko/assets/css/prism-pocu.min.css" />
+
+    <link rel="shortcut icon" href="/ko/assets/favicon.ico" />
+
+    <link rel="canonical" href="https://blog.popekim.com/ko/2026/11/12/evolution-of-development-environments.html" />
+
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed.xml" title="포프머신 | 모든글" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/dev.xml" title="포프머신 | 개발" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/music.xml" title="포프머신 | 음악" />
+<link type="application/atom+xml" rel="alternate" href="https://blog.popekim.com/ko/feed/personal.xml" title="포프머신 | 개인" />
+
+    <link rel="alternate" href="https://blog.popekim.com/ko/2026/11/12/evolution-of-development-environments.html" hreflang="ko" />
+    <link rel="alternate" href="https://blog.popekim.com/en/2026/11/12/evolution-of-development-environments.html" hreflang="en" />
+
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1575918182992085" crossorigin="anonymous"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&subset=korean&display=block" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NHD74QDQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+<nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm px-3 px-sm-0 py-lg-3 bg-white">
+    <div class="container">
+        <a class="navbar-brand" href="/ko/">
+            <img class="mt-2 mb-2" src="/ko/assets/img/navbar_logo.png" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+<ul class="navbar-nav ml-auto mr-lg-3">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/about.html">소개</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold " href="/ko/books.html">저서목록</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold" href="/ko/archives/">모든글</a>
+    </li>
+    
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/dev">cat:개발</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/music">cat:음악</a>
+        </li>
+    
+        
+        
+        
+        <li class="nav-item">
+            <a class="nav-link font-weight-bold" href="/ko/categories/personal">cat:개인</a>
+        </li>
+    
+</ul>
+
+        </div>
+    </div>
+</nav>
+
+    <div class="container doc">
+        <div class="pt-4 pb-4">
+    <div class="row no-gutters">
+        <div class="col-lg-10 offset-lg-1">
+            <article class="shadow--md px-md-5 py-md-5 border--md rounded">
+                <header>
+                    <h1 class="card-title text-center mb-4 font-weight-bold">개발 환경의 변천사, 결국 다시 권한 분리로 돌아왔다</h1>
+                    <div class="h6 text-muted text-center mb-4 mb-md-5"><img width="70" src="/ko/assets/img/authors/pope.gif" class="rounded-circle mx-auto d-block mb-3" />
+                        <span
+                            class="h6 border border-dark border-left-0 border-top-0 border-bottom-0 pr-2 pr-lg-3 align-middle">
+                            김포프</span>
+                        
+
+                        <span class="h6 text-muted align-middle pl-1 pl-lg-2">
+                            <i class="far fa-calendar-alt mr-2 opacity-75"></i>
+                            2026-11-12
+                        </span><ul class="list-inline list-unstyled mt-2">
+                            <li class="list-inline-item align-middle opacity-75"><small><i
+                                        class="fas fa-tags"></i></small></li>
+                        
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/dev/">개발</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/security/">보안</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/windows/">윈도우</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/ai-agent/">AI에이전트</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/byod/">byod</a></small>
+                            </li>
+                            
+                             
+                            
+                            <li class="list-inline-item align-middle">
+                                <small><a class="tag-link" href="/ko/tags/virtualization/">virtualization</a></small>
+                            </li></ul></div>
+                </header>
+                <section class="pt-4 pb-4 pb-md-5 border border-top-0 border-right-0 border-left-0">
+                    
+                    
+                    <p><a href="/ko/2026/11/05/ai-coding-agent-hyper-v-development-environment.html">지난 글</a>에서는 AI 코딩 에이전트에게 전용 개발 컴퓨터를 만들어준 이야기를 했다. Hyper-V 가상 머신을 만들고, 관리자 계정과 일반 사용자 계정을 분리하고, 파일 공유와 네트워크 접근까지 제한했다.</p>
+
+<p>그런데 이렇게 개발 환경을 구성하다 보니 문득 옛날 생각이 났다. 내가 개발자로 일하면서 겪었던 개발 환경들이 떠오른 것이다.</p>
+
+<p>돌이켜 보면 개발 환경은 한 방향으로 꾸준히 발전하지 않았다. 어떤 시절에는 회사가 개발자의 권한을 철저하게 제한했고, 또 어떤 시절에는 개발자에게 모든 권한을 주기도 했다. 그러다 개인용 컴퓨터와 업무용 컴퓨터의 경계까지 허물어졌는데, 이제 AI 에이전트가 등장하자 다시 권한을 분리하고 격리하는 환경을 만들고 있다.</p>
+
+<p>생각해 보면 꽤 웃기는 일이다.</p>
+
+<!--more-->
+
+<h2 id="1-관리자-권한-없이-개발하던-시절">1. 관리자 권한 없이 개발하던 시절</h2>
+
+<p>예전에는 회사에서 개발자에게 관리자 권한이 없는 Windows 계정을 지급하는 경우가 꽤 있었다.</p>
+
+<p>개발자가 사용하는 컴퓨터라도 마음대로 프로그램을 설치할 수 없었다. 새로운 개발 도구를 설치하거나 시스템 설정을 변경하려면 IT 부서에 요청해야 했다. 심지어 업무에 필요한 프로그램 하나 설치하는 데도 승인 절차를 거쳐야 하는 경우가 있었다.</p>
+
+<p>개발자 입장에서는 상당히 귀찮았다. 새로운 라이브러리나 도구를 시험해 보고 싶은데 관리자 권한이 없어서 막힌다. 개발하다 문제가 생겨서 시스템 설정을 바꿔야 하는데 그것도 마음대로 할 수 없다.</p>
+
+<p>물론 회사 입장에서는 이해할 만한 정책이었다. 개발자들이 사용하는 컴퓨터에 어떤 프로그램이 설치되는지 관리할 수 있고, 악성 프로그램이나 실수로 인해 시스템이 망가질 가능성도 줄일 수 있었다.</p>
+
+<p>당시에는 지금과 업무 환경도 많이 달랐다. 노트북이 지금처럼 흔하지 않았고, 대부분 회사에 출근해서 회사가 지급한 데스크톱으로 일했다. Google Docs나 Microsoft 365 같은 클라우드 기반 생산성 도구도 없었다. 업무용 파일이나 내부 시스템에 접근하려면 회사에 있는 것이 당연했다.</p>
+
+<p>회사 컴퓨터는 회사 일을 하는 장소였고, 회사가 그 환경을 통제했다.</p>
+
+<p>보안과 관리 측면에서는 장점이 있었지만, 개발자의 생산성까지 생각하면 그리 마음에 드는 환경은 아니었다.</p>
+
+<h2 id="2-개발자에게-관리자-권한을-주던-시절">2. 개발자에게 관리자 권한을 주던 시절</h2>
+
+<p>그렇다고 당시 모든 회사가 개발자의 권한을 제한했던 것은 아니다.</p>
+
+<p>같은 시절에도 개발자에게 관리자 권한을 주는 회사들이 있었다. 특히 기술력이 뛰어난 개발자들이 많은 하이테크 기업에서는 개발자가 자기 컴퓨터 정도는 알아서 관리할 수 있다고 믿는 경우가 있었다.</p>
+
+<p>나는 개인적으로 이런 환경을 가장 좋아했다.</p>
+
+<p>새로운 개발 도구가 필요하면 직접 설치하면 됐다. 시스템 설정을 변경하거나 새로운 기술을 시험해 보는 것도 자유로웠다. 문제가 발생해도 IT 부서에 요청하기보다 직접 해결할 수 있었다.</p>
+
+<p>개발자는 컴퓨터를 잘 다루는 사람이고, 자기가 사용하는 개발 환경에 대해서도 책임질 수 있다는 생각이었다.</p>
+
+<p>물론 단점도 있다. 관리자 권한을 가진 사용자가 실수하면 시스템 전체에 영향을 줄 수 있다. 악성 프로그램을 실행하면 피해가 더 커질 수도 있다. 개발자가 자기 컴퓨터를 잘 관리하지 못하면 회사 입장에서도 골치 아픈 일이 생긴다.</p>
+
+<p>하지만 개발자의 실력을 신뢰할 수 있다면 그 정도 위험은 감수하고 자유를 주는 편이 생산성에 더 유리하다는 판단이었다.</p>
+
+<p>나는 지금도 인간 개발자에게는 이런 접근 방식을 선호하는 편이다. 개발자가 자기 도구를 제대로 관리할 줄 안다면 불필요한 제약을 두지 않는 것이 좋다고 생각한다.</p>
+
+<h2 id="3-개인-컴퓨터와-회사-컴퓨터의-경계가-사라지다">3. 개인 컴퓨터와 회사 컴퓨터의 경계가 사라지다</h2>
+
+<p>시간이 흐르면서 업무 환경 자체가 달라지기 시작했다.</p>
+
+<p>노트북이 널리 보급되고 인터넷도 빨라졌다. Google Docs, Microsoft 365 같은 클라우드 생산성 도구가 등장하면서 회사에 있지 않아도 업무를 처리할 수 있게 되었다. GitHub 같은 서비스 덕분에 소스 코드 역시 특정 회사 컴퓨터에 묶여 있을 필요가 없어졌다.</p>
+
+<p>이런 변화와 함께 BYOD(Bring Your Own Device)라는 개념도 확산되었다. 개인이 소유한 컴퓨터나 모바일 기기를 업무에 사용하는 것이다.</p>
+
+<p>이제 개인용 컴퓨터와 업무용 컴퓨터의 경계가 조금씩 사라지기 시작했다.</p>
+
+<p>하나의 컴퓨터에서 개인 이메일을 확인하고, 회사 문서도 열고, 개인 프로젝트와 회사 프로젝트를 함께 진행하는 일이 자연스러워졌다. 반대로 회사에서 지급한 노트북으로 개인적인 일을 처리하는 사람들도 있었다.</p>
+
+<p>그런데 보안 측면에서 보면 상당히 위험할 수도 있는 변화였다.</p>
+
+<p>개인 컴퓨터에 설치한 이상한 프로그램 때문에 회사의 중요한 정보가 유출될 수도 있다. 반대로 회사에서 사용하는 프로그램이나 관리 정책 때문에 개인 정보가 노출될 가능성도 생긴다. 심지어 회사의 보안 관리 프로그램이 개인 소유 기기에 어디까지 접근할 수 있는지도 문제가 되었다.</p>
+
+<p>물론 이런 변화가 가능했던 데는 보안 기술의 발전도 있었다.</p>
+
+<p>운영체제의 보안 기능이 강화되고 자동 업데이트가 보편화되었다. Windows에는 Microsoft Defender 같은 백신이 기본으로 포함되기 시작했고, 브라우저의 보안 기능도 발전했다. 기업들은 MDM(Mobile Device Management), EDR(Endpoint Detection and Response), SSO(Single Sign-On) 같은 기술을 도입해 기기와 계정, 데이터 접근을 관리하기 시작했다.</p>
+
+<p>즉, 단순히 보안을 포기하고 편의성을 선택한 것은 아니었다. 보안을 유지하는 방법 자체가 달라진 것이다.</p>
+
+<p>다만 개인 컴퓨터에서 업무를 수행하는 환경에서는 여전히 사용자 본인의 판단과 관리 능력에 의존하는 부분이 많았다.</p>
+
+<p>특히 개발자는 자신의 컴퓨터에 관리자 권한을 가지고 있는 경우가 많았다. 필요한 도구를 직접 설치하고, 여러 개발 환경을 구성하고, 개인 계정과 회사 계정을 같은 운영체제에서 사용하는 것도 드문 일이 아니었다.</p>
+
+<p>그동안은 어느 정도 받아들일 만한 위험이었다고 생각한다. 적어도 컴퓨터에서 어떤 프로그램을 실행하고 어떤 파일을 열지는 기본적으로 개발자 자신이 판단했기 때문이다.</p>
+
+<p>그런데 여기에 AI 에이전트가 등장했다.</p>
+
+<h2 id="4-ai-에이전트의-등장-그런데-얘도-믿어야-하나">4. AI 에이전트의 등장, 그런데 얘도 믿어야 하나?</h2>
+
+<p>기존의 개발 도구는 기본적으로 개발자의 지시에 따라 동작했다.</p>
+
+<p>물론 버그가 있거나 악성 코드가 포함된 프로그램을 실행하면 문제가 발생할 수 있었다. 하지만 적어도 개발자가 직접 도구를 선택하고, 명령어를 입력하고, 실행 결과를 확인하는 것이 일반적이었다.</p>
+
+<p>AI 코딩 에이전트는 조금 다르다.</p>
+
+<p>작업 하나를 맡기면 스스로 파일을 읽고, 코드를 수정하고, 명령어를 실행한다. 필요하다고 판단하면 다른 파일을 찾아보거나 새로운 도구를 설치하려고 할 수도 있다. 개발자가 직접 지시하지 않은 작업까지 연속해서 수행하는 것이다.</p>
+
+<p>그런데 이런 에이전트를 어디에서 실행하고 있을까?</p>
+
+<p>개인 정보와 회사 소스 코드, 여러 서비스의 인증 정보가 모두 들어 있는 컴퓨터일 수도 있다. 게다가 그 컴퓨터에 로그인한 사용자에게 관리자 권한까지 있다면?</p>
+
+<p>물론 AI 에이전트에도 샌드박스 기능이 있다. 하지만 설정에 따라 상당히 넓은 범위의 파일을 읽을 수 있고, 사용자의 승인이나 권한 설정에 따라 다양한 명령어를 실행할 수도 있다.</p>
+
+<p>결국 과거에는 개발자를 믿고 부여했던 권한을 이제 AI 에이전트도 사용할 수 있게 된 셈이다.</p>
+
+<p><strong>그런데 개발자를 믿는 것과 AI 에이전트를 믿는 것은 전혀 다른 이야기 아닌가?</strong></p>
+
+<p>인간 개발자는 회사에서 채용 과정을 거친 사람이다. 문제가 생기면 왜 그런 결정을 했는지 물어볼 수도 있고, 그에 대한 책임도 물을 수 있다. 적어도 조직 내에서 관리하고 통제할 수 있는 대상이다.</p>
+
+<p>반면 AI 에이전트는 내가 직접 채용한 직원도 아니다. 가끔 예상하지 못한 행동을 하고, 왜 그런 판단을 했는지 명확하게 설명하지 못할 때도 있다. 에이전트가 설명을 내놓더라도 그것이 실제 판단 과정을 정확히 반영한다는 보장은 없다.</p>
+
+<p>그렇다고 문제가 생겼을 때 AI 에이전트에게 책임을 물을 수도 없다. 결국 책임은 그 에이전트를 사용한 사람에게 돌아온다.</p>
+
+<p>물론 AI 에이전트가 무조건 위험하다는 뜻은 아니다. 나도 적극적으로 사용하고 있고, 생산성을 높여주는 훌륭한 도구라고 생각한다.</p>
+
+<p>하지만 그 도구를 신뢰하는 것과 내 컴퓨터에 저장된 모든 정보에 접근하도록 허용하는 것은 다른 문제다.</p>
+
+<h2 id="5-결국-다시-권한-분리로-돌아왔다">5. 결국 다시 권한 분리로 돌아왔다</h2>
+
+<p>그래서 나는 AI 에이전트 전용 Hyper-V 가상 머신을 만들었다.</p>
+
+<p>관리자 계정과 일반 사용자 계정을 분리하고, AI 에이전트는 일반 사용자 권한으로만 실행한다. 호스트와 VM 사이의 파일 공유와 클립보드 공유를 차단하고, 네트워크 접근도 제한했다.</p>
+
+<p>그런데 이 환경을 만들다 보니 묘한 기분이 들었다.</p>
+
+<p>예전에는 회사에서 관리자 권한을 안 줘서 그렇게 불평했는데, 이제는 내가 직접 AI 에이전트의 관리자 권한을 빼앗고 있다. 그것도 부족해서 별도의 가상 머신에 가둬 놓았다.</p>
+
+<p>옛날에는 개발자에게 자유를 주는 환경이 좋다고 생각했고, 지금도 그 생각은 크게 달라지지 않았다. 다만 그 자유를 AI 에이전트에게까지 그대로 넘겨주는 것은 다른 문제라고 판단한 것이다.</p>
+
+<p>어찌 보면 과거의 보안 정책으로 다시 돌아온 셈이다. 물론 완전히 똑같지는 않다. 예전에는 회사가 나를 믿지 못해서 권한을 제한했다면, 이번에는 내가 AI 에이전트를 완전히 믿지 못해서 권한을 제한하는 것이다.</p>
+
+<p>생각해 보면 기술의 발전이라는 것이 참 재미있다.</p>
+
+<p>처음에는 회사가 컴퓨터를 통제했다. 그러다 개발자에게 자유를 주기 시작했고, 결국 개인 컴퓨터와 회사 컴퓨터의 경계까지 허물어졌다. 그런데 AI 에이전트라는 새로운 기술이 등장하자 다시 계정을 분리하고, 파일 시스템과 네트워크를 격리하고 있다.</p>
+
+<p>한 방향으로 꾸준히 발전하는 것이 아니라, 새로운 기술이 등장할 때마다 자유와 통제 사이에서 적절한 균형점을 다시 찾는 것이다.</p>
+
+<p>결국 중요한 것은 관리자 권한을 주느냐 마느냐가 아닌 것 같다. <strong>누구에게, 어떤 작업을 위해, 어느 정도의 권한을 줄 것인가</strong>가 핵심이다.</p>
+
+<p>그리고 그 답은 시대에 따라, 사용하는 기술에 따라 계속 달라진다.</p>
+
+<p>예전에는 회사가 내 권한을 제한하는 것이 싫었는데, 지금은 내가 AI 에이전트의 권한을 제한하고 있다니.</p>
+
+<p>세상 참 재미있다.</p>
+
+
+                    
+                    
+                    
+                    
+                    <section class="pt-5 pb-3 text-center welcome-to-pocu">
+                        <a href="https://pocu.academy/ko/Courses" class="d-inline-block border text-decoration-none text-left rounded to-pocu" id="a009">
+                            <div class="d-flex flex-row align-content-center">
+                                <div class="d-none d-md-block border border-top-0 border-bottom-0 border-left-0">
+                                    <img src="https://blog.pocu.academy/ko/assets/img/logos/PocuLogoShield_400.png" alt="img" />
+                                </div>
+                                <div class="d-flex flex-column justify-content-center px-4 py-3">
+                                    <h2 class="headlines font-weight-bold">
+                                        TOP 개발자에게 배우는 컴공수업 | 수업료는 최저시급, 난 최고연봉 | 프로그래밍 공부순서
+                                    </h2>
+                                    <p class="description m-0">야근 없이 오직 실력으로 대우받는 프로그래머가 되고 싶다고요? POCU 아카데미에서 시작하세요!</p>
+                                </div>
+                            </div>
+                        </a>
+                    </section></section>
+                
+                <footer class="pt-4 pt-md-5">
+                    <h2 class="h4">관련 글</h2>
+                    <ul class="list-unstyled">
+                        
+                        <li><a href="/ko/2026/11/05/ai-coding-agent-hyper-v-development-environment.html">AI 코딩 에이전트에게 전용 개발 컴퓨터를 만들어줬다</a></li>
+                        
+                        <li><a href="/ko/2026/10/19/azure-devops-agent-missing-capabilities.html">Azure DevOps 빌드 에이전트의 Capabilities가 사라진다면? 범인은 Windows 압축</a></li>
+                        
+                        <li><a href="/ko/2026/10/26/ps5-relapse-jailbreak-console-developer-thoughts.html">PS5 탈옥 소식을 듣고 콘솔 개발자가 든 생각</a></li>
+                        
+                    </ul>
+                </footer>
+                
+                <footer>
+                    
+<script src="https://giscus.app/client.js"
+    data-repo="popekim/blog.popekim.com-comments-ko"
+    data-repo-id="R_kgDOOND35A"
+    data-category="Comments"
+    data-category-id="DIC_kwDOOND35M4CoXGy"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="ko"
+    crossorigin="anonymous"
+    async>
+</script>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+    </div>
+    
+    <footer class="site-footer position-absolute border-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-5 pl-sm-0 pl-lg-6">
+                <div>
+                    <span class="ml-1">Copyright © 2010 - 2026. Pope Kim</span>
+                </div>
+            </div>
+            <div class="col col-md-5 m-0 p-sm-0 text-md-right">
+                <a class="mr-sm-3 mr-0 text-secondary text-nowrap font-weight-bold" href="/en">English</a>
+                <span class="h5 opacity-75"><a href="/ko/feed.xml" class="badge badge-dark"><i class="fas fa-rss"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.youtube.com/c/PopeTV/" class="badge badge-dark" target="_blank"><i class="fab fa-youtube"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://x.com/blindrendererkr" class="badge badge-dark" target="_blank"><i class="fab fa-twitter"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.linkedin.com/in/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-linkedin-in"></i></a></span>
+                <span class="h5 opacity-75"><a href="https://www.github.com/popekim/" class="badge badge-dark" target="_blank"><i class="fab fa-github"></i></a></span>
+            </div>
+        </div>
+    </div>
+</footer>
+    
+<script src="/ko/assets/lib/jquery/jquery-3.7.1.slim.min.js"></script>
+<script src="/ko/assets/lib/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/ko/assets/lib/prism/js/prism.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-asm6502.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-c.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-cpp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-csharp.min.js"></script>
+<script src="/ko/assets/lib/prism/js/prism-java.min.js"></script>
+<script src="/ko/assets/js/prism/prism-masm.min.js"></script>
+<script src="/ko/assets/js/saveLangToCookie.js" type="text/javascript"></script>
+
+</body>
+
+</html>
